@@ -1,0 +1,175 @@
+.proj_filter .main_mile .milestone1,
+.proj_filter .main_mile .milestone2,
+.proj_filter .main_mile .milestone3
+{
+    display: none;
+}
+.proj_filter .main_mile .milestone1.active,
+.proj_filter .main_mile .milestone2.active,
+.proj_filter .main_mile .milestone3.active
+{
+    display: block;
+}
+.proj_filter .main_mile .milestone1 .fixedMile,
+.proj_filter .main_mile .milestone2,
+.proj_filter .main_mile .milestone3
+{
+    background: #fcf4ff 0% 0% no-repeat padding-box !important;
+    margin: 10px 0 15px 0;
+    padding-left: 15px;
+    width: 100%;
+}
+.proj_filter .main_mile .milestone1 .divmile1,
+.proj_filter .main_mile .milestone1 .divmile2,
+.proj_filter .main_mile .milestone1 .divmile3,
+.proj_filter .main_mile .milestone1 .divmile4,
+.proj_filter .main_mile .milestone1 .divmile5,
+.proj_filter .main_mile .milestone1 .divmile6,
+.proj_filter .main_mile .milestone1 .divmile7,
+.proj_filter .main_mile .milestone2 .divmile1,
+.proj_filter .main_mile .milestone2 .divmile2,
+.proj_filter .main_mile .milestone2 .divmile3,
+.proj_filter .main_mile .milestone2 .divmile4,
+.proj_filter .main_mile .milestone2 .divmile5,
+.proj_filter .main_mile .milestone2 .divmile6,
+.proj_filter .main_mile .milestone2 .divmile7
+{
+    display: inline-flex;
+}
+.proj_filter .main_mile .milestone1 .fixedMile p,
+.proj_filter .main_mile .milestone2 p,
+.proj_filter .main_mile .milestone3 p
+{
+    font-size: 12px;
+}
+.proj_filter .main_mile .milestone2 .fixedMile
+{
+    padding-left: 8px;
+}
+.proj_filter .main_mile .milestone3 .fixedMile
+{
+    padding-left: 6px;
+}
+.proj_filter .main_mile .milestone1 .table_top p
+{
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 400;
+}
+.proj_filter .main_mile .milestone1 .divmile1 p,
+.proj_filter .main_mile .milestone2 .divmile1 p {
+    font-size: 12px;
+    color: #1E2022;
+    opacity: 0.9;
+}
+.proj_filter .main_mile .milestone1 .divmile2 img,
+.proj_filter .main_mile .milestone2 .divmile2 img
+{
+    cursor: pointer;
+}
+.proj_filter .main_mile .fixedMile .divmile2>span
+{
+    margin-right: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.proj_filter .main_mile .milestone1 .divmile3 div, 
+.proj_filter .main_mile .milestone2 .divmile3 div 
+{
+    width: 22px;
+    height: 22px;
+    border-radius: 30px;
+    margin-right: 0.32rem;
+}
+.proj_filter .main_mile .milestone1 .divmile3 div img, 
+.proj_filter .main_mile .milestone2 .divmile3 div img 
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    object-fit: cover;
+}
+.proj_filter .main_mile .milestone1 .divmile3 span, 
+.proj_filter .main_mile .milestone2 .divmile3 span 
+{
+    /* border: 2px dotted #2D62ED; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    width: 22px;
+    height: 22px;
+}
+.proj_filter .main_mile .milestone1 .divmile4 div, 
+.proj_filter .main_mile .milestone2 .divmile4 div 
+{
+    width: 100px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #ffffff;
+    background: #F6BE75 0% 0% no-repeat padding-box;
+}
+.proj_filter .main_mile .milestone1 .divmile5, 
+.proj_filter .main_mile .milestone2 .divmile5 
+{
+    font-size: 14px;
+    color: #1E2022;
+    font-weight: 600;
+}
+.proj_filter .main_mile .milestone1 .divmile6, 
+.proj_filter .main_mile .milestone2 .divmile6 
+{
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1C1F3B;
+    border-radius: 15px;
+    color: #fff;
+}
+.proj_filter .main_mile .milestone1 .divmile6 p,
+.proj_filter .main_mile .milestone2 .divmile6 p
+{
+    font-size: 13px;
+}
+
+@media(max-width:849px)
+{
+    .proj_filter .main_mile .milestone1 .fixedMile,
+    .proj_filter .main_mile .milestone2,
+    .proj_filter .main_mile .milestone3
+    {
+        background: #fcf4ff 0% 0% no-repeat padding-box !important;
+        padding-left: 0px;
+    }
+    .proj_filter .main_mile .milestone1 .fixedMile,
+    .proj_filter .main_mile .milestone2 .fixedMile
+    {
+        background-color: #fcf4ff;
+    }
+    .proj_filter .main_mile
+    {
+        overflow: hidden;
+        margin: 8px 0 8px 0.2rem;
+    }
+    .proj_filter .main_mile .overflow_control
+    {
+       overflow-x: scroll;
+    }
+    .proj_filter .main_mile .overflow_control .overflow_width
+    {
+        width: 369%;
+    }
+    .proj_filter .main_mile .milestone3
+    {
+        padding-left: 0px !important;
+        width: 100% !important; 
+    }
+    .proj_filter .main_mile tbody
+    {
+        background-color: #fcf4ff;
+    }
+}

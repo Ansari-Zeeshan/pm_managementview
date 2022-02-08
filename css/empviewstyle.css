@@ -1,0 +1,40 @@
+
+.proj_filter .divfilter2 .project1 .projectcon1 {
+    padding: 15px 12px;
+    overflow: visible;
+}
+.proj_filter .divfilter2 .project1 .projectcon1 .head1
+{
+display: flex;
+margin-top: 0.1rem;
+margin-left: 0.7rem;
+}
+.proj_filter .divfilter2 .project1 .border-bottom
+{
+border-bottom: 3px solid #e7fafd !important;
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+background-color: #fff;
+position: relative;
+margin: 0;
+}
+.proj_filter .divfilter2 .project1 .border-bottom .last_div
+{
+flex: 0 0 6.5%;
+max-width: 6.5%;
+cursor: pointer;
+}
+.proj_filter .divfilter2 .project1 .projmaincon .divcon1
+{
+font-size: 12px;
+color: #000000;
+font-family: var(--heebo);
+font-weight: 400;
+display: flex;
+}
+
+
+.proj_filter .divfilter2 .project1 .projectcon1 .child-border > .row {
+    width: 100%;
+}

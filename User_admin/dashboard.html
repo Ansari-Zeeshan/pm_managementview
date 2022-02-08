@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- goole icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- fontawesom -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- bs-5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.1/css/bootstrap.min.css"
+        integrity="sha512-6KY5s6UI5J7SVYuZB4S/CZMyPylqyyNZco376NM2Z8Sb8OxEdp02e1jkKk/wZxIEmjQ6DRCEBhni+gpr9c4tvA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<!-- chartjs -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
+        <!-- UIkit CSS -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/css/uikit.min.css" />
+     -->
+        <!-- custom css -->
+    <link rel="stylesheet" href="css/style.css">
+
+
+
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <section class="manage_view">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="div1">
+                    <h3><img src="icons/logo.svg" alt="logo"></h3>
+                    <ul>
+                        <li>
+                            
+                            <span class="tooltiptext">Dashboard</span>
+                            <a href="#" class="button1">
+                                <img src="icons/dashboard.svg" alt="Image one" width="38" class="button__img1">
+                                <img src="icons/dashboardwhite.svg" alt="Image two" class="button__img1">
+                            </a>
+                            
+                        </li>
+                        
+                      
+                        <li>
+                            
+                            <span class="tooltiptext">Notifications</span>
+                            <a href="#" class="button1">
+                                <img src="icons/Notification-Blue.svg" alt="Image one" width="38" class="button__img1">
+                                <img src="icons/notfiwhite.svg" alt="Image two" class="button__img1">
+                            </a>
+                        </li>
+                        <li class="active">
+                            
+                            <span class="tooltiptext">Request</span>
+                            <a href="#" class="button1">
+                                <img src="icons/Request-Blue.svg" alt="Image one" width="38" class="button__img1">
+                                <img src="icons/request-white.svg" alt="Image two" class="button__img1" >
+                            </a>
+                        </li>
+                        <li>
+                            
+                            <span class="tooltiptext">Project</span>
+                            <a href="#" class="button1">
+                                <img src="icons/project.svg" alt="Image one" width="38" class="button__img1">
+                                <img src="icons/project-white.svg" alt="Image two" class="button__img1">
+                            </a>
+                        </li>
+                        <li>
+                            
+                            <span class="tooltiptext">View Progress</span>
+                            <a href="#" class="button1">
+                                <img src="icons/Viewprogress-Blue.svg" alt="Image one" width="38" class="button__img1">
+                                <img src="icons/Progresslist-white.svg" alt="Image two" class="button__img1" style="width: 1.3vw;">
+                            </a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            
+                            <span class="tooltiptext">Reports</span>
+                            <a href="#" class="button1">
+                                <img src="icons/Reports.svg" alt="Image one" width="38" class="button__img1">
+                                <img src="icons/reportwhite.svg" alt="Image two" class="button__img1">
+                            </a>
+                        </li>
+                        <li>
+                          
+                            <span class="tooltiptext">Search</span>
+                            <a href="#" class="button1">
+                                <img src="icons/search.svg" alt="Image one" width="38" class="button__img1">
+                                <img src="icons/searchwhite.svg" alt="Image two" class="button__img1">
+                            </a>
+                        </li>
+                        <li>
+                           
+                            <span class="tooltiptext">Help & Support</span>
+                            <a href="#" class="button1">
+                                <img src="icons/help.svg" alt="Image one" width="38" class="button__img1">
+                                <img src="icons/helpwhite.svg" alt="Image two" class="button__img1">
+                            </a>
+                        </li>
+                        <li class="tooltip1">
+                            <p class="tooltiptext1">
+                            <span class="">S</span>
+                            <p class="tooltiptext tooltiptext1">
+                              <span class="">  My Profile</span>
+                                    <br>
+                                    <br>
+                              <a href="signIn.html"> <span> Log Out   </span>   </a> 
+                             
+                            </p>
+                        </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="div-dashboard">
+                    <div class="div-title">
+                        <h4>Over View</h4>
+                        <h1 >Dashboard</h1>
+
+                    </div>
+                    <style>
+                        .div-title{
+                            padding-top: 2.4vw;    
+                        }
+                        .div-title h4{
+                            font-size: 1.2vw;
+                            color: #000000;
+                            opacity: 70%;
+                        }
+
+                        .div-title h1{
+                            font-size: 2vw;
+                            padding-top: 0.4vw;
+                            color: #171E48;
+                            opacity: 100%;
+                        }
+                        .div-card .card{
+                            width: 18vw;
+                            border-radius: 0.7vw;
+                            padding: 2vw;
+                        }
+
+                        .img-total img{
+                            width: 7.5vw;
+                            right: -2vw;
+                            position: absolute;
+                            top: -1.5vw;
+                        }
+                        .card-text h1{
+                            font-size: 2.5vw;
+                            font-weight: 700;
+                            color: #171E48;
+                        }
+
+                        .card-text p{
+                            font-size: 1.4vw;
+                            color: #171E48;
+                        }
+                    </style>
+
+                    <div class="div-card pt-5 pb-5">
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="card border-0">
+                                    <div class="card-text">
+                                        <h1 class="fw-bold">128</h1>
+                                        <p>Total Projects</p>
+                                    </div>
+                                    
+
+                                    <div class="img-total">
+                                        <img src="icons/total-project.svg" class="img-fluid" alt="">
+                                         
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md">
+                                <div class="card border-0">
+                                    <div class="card-text">
+                                        <h1 class="fw-bold">25</h1>
+                                        <p>Current Projects</p>
+                                    </div>
+                                    
+
+                                    <div class="img-total">
+                                        <img src="icons/current-project.svg" class="img-fluid" alt="">
+                                         
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md">
+                                <div class="card border-0">
+                                    <div class="card-text">
+                                        <h1 class="fw-bold">48</h1>
+                                        <p>Completed Projects</p>
+                                    </div>
+                                    
+
+                                    <div class="img-total">
+                                        <img src="icons/completed-project.svg" class="img-fluid" alt="">
+                                         
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md">
+                                <div class="card border-0">
+                                    <div class="card-text">
+                                        <h1 class="fw-bold">9</h1>
+                                        <p>Approval Pending</p>
+                                    </div>
+                                    
+
+                                    <div class="img-total">
+                                        <img src="icons/aproval.svg" class="img-fluid" alt="">
+                                         
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            
+
+                        </div>
+
+                        <div class="row pt-5">
+                            <div class="col-md-4">
+                                <div class="container">
+                                    <canvas id="myChart" width="400" height="400"></canvas>
+                                  </div>
+                            </div>
+                            <div class="col-md-6">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+            <!--row closed-->
+        </div>
+        <!--container closed-->
+    </section>
+    <!--section closed-->
+
+
+    <script src="js/scriptzee.js"></script>
+
+<!-- chartjs -->
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script  src="js/chart.js"></script>
+
+
+    <!-- UIkit JS -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/js/uikit-icons.min.js"></script> -->
+    <!-- bs-5 js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- google icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--fontawesm  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- bs-5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.1/css/bootstrap.min.css"
+        integrity="sha512-6KY5s6UI5J7SVYuZB4S/CZMyPylqyyNZco376NM2Z8Sb8OxEdp02e1jkKk/wZxIEmjQ6DRCEBhni+gpr9c4tvA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/projapp_preview.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/projpreresponsive.css">
+    <title>Project Approval Change</title>
+</head>
+
+<body>
+    <section class="manage_view mview_req">
+        <div class="container-fluid">
+            <div class="row">
+            <div class="myoverlay"></div>
+                <nav>
+                    <div class="div1">
+                        <h3><img class="d-none d-md-block" src="icons/logo.svg" alt="logo">
+                            <img class="d-block d-md-none" src="icons/HamburgerON.svg" width="38px" alt="">
+                        </h3>
+                        <ul>
+                            <li>
+                                <span class="tooltiptext">Dashboard</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/dashboard.svg" alt="Image one" width="38" class="button__img1">
+                                    <img src="icons/dashboardwhite.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li>
+                                <span class="tooltiptext">Notifications</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/Notification-Blue1.svg" alt="Image one" width="38"
+                                        class="button__img1">
+                                    <img src="icons/notfiwhite.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li class="active">
+                                <span class="tooltiptext">Request</span>
+                                <a href="mview-request.html" class="button1">
+                                    <img src="icons/Request-Blue1.svg" alt="Image one" width="38" class="button__img1">
+                                    <img src="icons/request-white.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li>
+                                <span class="tooltiptext">Project</span>
+                                <a href="management-view-project-list.html" class="button1">
+                                    <img src="icons/project.svg" alt="Image one" width="38" class="button__img1">
+                                    <img src="icons/project-white.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li>
+                                <span class="tooltiptext">View Progress</span>
+                                <a href="usertask.html" class="button1">
+                                    <img src="icons/Viewprogress-Blue.svg" alt="Image one" width="38"
+                                        class="button__img1">
+                                    <img src="icons/Progresslist-white.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <span class="tooltiptext">Reports</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/Reports.svg" alt="Image one" width="38" class="button__img1">
+                                    <img src="icons/reportwhite.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li>
+                                <span class="tooltiptext">Search</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/search.svg" alt="Image one" width="38" class="button__img1">
+                                    <img src="icons/searchwhite.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li>
+                                <span class="tooltiptext">Help & Support</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/help.svg" alt="Image one" width="38" class="button__img1">
+                                    <img src="icons/helpwhite.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li class="tooltip1">
+                                <p class="tooltiptext1">
+                                    <span class="">S</span>
+                                    <p class="tooltiptext tooltiptext1">
+                                        <span class=""> My Profile</span>
+                                        <br>
+                                        <a href="signIn.html" class=""> <span> Log Out </span> </a>
+                                    </p>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!--mobile header  -->
+                <div class="mobile-menuhead">
+                    <div class="hamberger-menu">
+                        <span><img src="icons/Hamburger.svg" alt=""></span>
+                    </div>
+                    <div class="logo_div">
+                        <h1>Emaar</h1>
+                    </div>
+                    <div></div>
+                </div>
+                <div class="proj_approval">
+                    <div class="row">
+                        <div class="proj_form">
+                            <div class="row">
+                                <div class="grid_top">
+                                    <div class="grid1">
+                                        <h2><img src="icons/emaar.svg" alt=""></h2>
+                                    </div>
+                                    <div class="grid2">
+                                        <h1>Technology approval_request form</h1>
+                                    </div>
+                                    <div class="grid3">
+                                        <p>Emaar properties PISC
+                                            P.O.Box 9440, Dubai
+                                            United Arab Emirates <br>
+                                            T &nbsp;+971 4373333 <br>
+                                            F &nbsp;+971 4367301 <br>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="sep_div">
+                                    <div class="col-md-6 m-12">
+                                        <h4>Reference Number: ITPR/June/2021-737</h4>
+                                    </div>
+                                    <div class="col-md-3 m-12">
+                                        <h4>Date: June/24/2021 - 06:43 PM</h4>
+                                    </div>
+                                </div>
+                                <div class="main_form">
+                                    <div class="mainform_head">
+                                        <h1>Project information</h1>
+                                    </div>
+                                    <div class="con_pad">
+                                        <div class="row mt-4">
+                                            <div class="col-md-3 m-6 nomar_mob">
+                                                <p>Project Name :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6 nomar_mob">
+                                                <p>Dubai Hills Mall</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Request Creator :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>Nikesh Sharma</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Business Unit :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>Brick House</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Business Project Manager :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>Muhammed Momin</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-12">
+                                                <p>Project Description :</p>
+                                            </div>
+                                            <div class="col-md-7 m-12 mobile_top">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                                                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                                    aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                                    pariatur.</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Business Project Sponsor :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>Sanooja Abdhul Latheef</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>IT Business Partner</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>Abishek KR</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Project Created Date</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>June/24/2021</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mainform_head mt-5">
+                                        <h1>Project scope</h1>
+                                    </div>
+                                    <div class="con_pad">
+                                        <div class="row mt-4">
+                                            <div class="col-md-3 m-12 nomar_mob">
+                                                <p>Lorem ipsum dolor :</p>
+                                            </div>
+                                            <div class="col-md-7 m-12 mobile_top">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                                                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                                    aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                                    pariatur.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mainform_head mt-5">
+                                        <h1>Financial Information</h1>
+                                    </div>
+                                    <div class="con_pad">
+                                        <div class="row mt-4">
+                                            <div class="col-md-3 m-6 nomar_mob">
+                                                <p>Estimated Cost :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6 nomar_mob">
+                                                <p>XXX</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Actual cost :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>XXXX</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Changed approved budget :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>XXX</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mainform_head mt-5">
+                                        <h1>Cost Details</h1>
+                                    </div>
+                                    <div class="con_pad">
+                                        <div class="row mt-4">
+                                            <div class="col-md-3 m-12 nomar_mob">
+                                                <p>Item Description</p>
+                                            </div>
+                                            <div class="col-md-7 m-12 mobile_top">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Cost Type :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>Capex</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Year 1 ( AED) :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>XXX</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Year 2 ( AED) :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>XXXX</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Year 3 ( AED) :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>XXXX</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Year 4 ( AED) :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>XXX</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Upload :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <span><img src="icons/pdf.svg" alt=""> <a href="#"
+                                                        class="text-decoration-none text-dark ps-1"
+                                                        target="_blank">File_Name.PDF</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mainform_head mt-5">
+                                        <h1>Business Case / Justification</h1>
+                                    </div>
+                                    <div class="con_pad">
+                                        <div class="row mt-4">
+                                            <div class="col-md-3 m-6 nomar_mob">
+                                                <p>Expected Timeline :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6 nomar_mob">
+                                                <p>2 Month</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Comments
+                                                     :</p>
+                                            </di m-6v>
+                                            <div class="col-md-7">
+                                                <p>———</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Possible Start Date</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>April/24/2021</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Expected Completion Date :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>June/30/2021</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Expected Man Days :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>65 Days</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Business Benefits :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>———</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Business Priority :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>———</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 m-6">
+                                                <p>Business Impact :</p>
+                                            </div>
+                                            <div class="col-md-7 m-6">
+                                                <p>———</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="mainform_head mt-5 nobottom_mar">
+                                        <h1>Approvers</h1>
+                                    </div>
+                                    <div class="overflow_control">
+                                        <div class="con_pad">
+                                            <div class="row approver_name">
+                                                <div class="divcol1 title_div">
+                                                    <h5>Name and Title</h5>
+                                                </div>
+                                                <div class="divcol2 status_div">
+                                                    <h5>Status </h5>
+                                                </div>
+                                                <div class="divcol3 remark_div">
+                                                    <h5>Remarks</h5>
+                                                </div>
+                                            </div>
+                                            <div class="row approver_name">
+                                                <div class="divcol1 title_div">
+                                                    <div class="grid">
+                                                        <div class="grid1">
+                                                            <div><img src="img/client1.jpg" alt=""></div>
+                                                        </div>
+                                                        <div class="grid2">
+                                                            <p>Muhammad Marwan</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="divcol2 status_div">
+                                                    <button class="btn">Approved</button>
+                                                </div>
+                                                <div class="divcol3 remark_div">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                                                        ad minim.</p>
+                                                </div>
+                                            </div>
+                                            <div class="row approver_name">
+                                                <div class="divcol1 title_div">
+                                                    <div class="grid">
+                                                        <div class="grid1">
+                                                            <div><img src="img/client2.jpg" alt=""></div>
+                                                        </div>
+                                                        <div class="grid2">
+                                                            <p>Ashish Nehara</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="divcol2 status_div">
+                                                    <button class="btn">Approved</button>
+                                                </div>
+                                                <div class="divcol3 remark_div">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                                </div>
+                                            </div>
+                                            <div class="row approver_name">
+                                                <div class="divcol1 title_div">
+                                                    <div class="grid">
+                                                        <div class="grid1">
+                                                            <div><img src="img/client3.jpg" alt=""></div>
+                                                        </div>
+                                                        <div class="grid2">
+                                                            <p>Martin Angel</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="divcol2 status_div">
+                                                    <button class="btn pending">Pending</button>
+                                                </div>
+                                                <div class="divcol3 remark_div">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                                </div>
+                                            </div>
+                                            <div class="row approver_name">
+                                                <div class="divcol1 title_div">
+                                                    <div class="grid">
+                                                        <div class="grid1">
+                                                            <div><img src="img/client4.jpg" alt=""></div>
+                                                        </div>
+                                                        <div class="grid2">
+                                                            <p>Akbar Ali Khan</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="divcol2 status_div">
+                                                    <button class="btn pending">Pending</button>
+                                                </div>
+                                                <div class="divcol3 remark_div">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="con_pad active">
+                                        <textarea type="textarea" name=""  id="" cols="30" rows="10" placeholder="Comments.."></textarea>
+                                        <!-- <input type="textarea" value="" placeholder="Comments.."> -->
+                                        <div class="btn_div">
+                                            <button class="btn req">Request Information</button>
+                                            <button class="btn deli">Deligates</button>
+                                            <div class="same_line">
+                                                <button class="btn rej">Reject</button>
+                                                <button class="btn appr">Approve</button>
+                                            </div>
+                                            <div class="reqinfo_popup">
+                                                <div class="sticky bg-white border-bottom">
+                                                    <h5 class="pt-4 pb-3 mb-0">Contact Lists</h5>
+                                                </div>
+                                                <div class="search_div">
+                                                    <input type="text" placeholder="Search Name">
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1">
+                                                            <div>
+                                                                J
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>John Smith</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1">
+                                                            <div>
+                                                                <img src="img/client1.jpg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>Ashish</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1">
+                                                            <div>
+                                                                <img src="img/client1.jpg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>Ashish</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1">
+                                                            <div>
+                                                                <img src="img/client1.jpg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>Ashish</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1">
+                                                            <div>
+                                                                <img src="img/client1.jpg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>Ashish</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1 green">
+                                                            <div>
+                                                                J
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>James</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1">
+                                                            <div>
+                                                                <img src="img/client2.jpg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>David</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1">
+                                                            <div>
+                                                                <img src="img/client3.jpg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>Sander</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- reqinfo popup closed -->
+                                            <div class="deleg_popup">
+                                                <div class="sticky bg-white border-bottom">
+                                                    <h5 class="pt-4 pb-3 mb-0">Contact Lists</h5>
+                                                </div>
+                                                <div class="search_div">
+                                                    <input type="text" placeholder="Search Name">
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1">
+                                                            <div>
+                                                                J
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>John Smith</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1">
+                                                            <div>
+                                                                <img src="img/client1.jpg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>Ashish</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1">
+                                                            <div>
+                                                                <img src="img/client1.jpg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>Ashish</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1">
+                                                            <div>
+                                                                <img src="img/client1.jpg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>Ashish</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1 green">
+                                                            <div>
+                                                                J
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>James</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pop">
+                                                    <div class="pop_grid">
+                                                        <div class="pop_grid1">
+                                                            <div>
+                                                                <img src="img/client2.jpg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_grid2">
+                                                            <p>David</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- deleg_popup closed -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- main-form closed -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--row closed-->
+        </div>
+        <!--container closed-->
+    </section>
+    <!--section closed-->
+    <script src="js/projappchg.js"></script>
+    <script src="js/menuscript.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- goole icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- fontawesom -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- bs-5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.1/css/bootstrap.min.css"
+        integrity="sha512-6KY5s6UI5J7SVYuZB4S/CZMyPylqyyNZco376NM2Z8Sb8OxEdp02e1jkKk/wZxIEmjQ6DRCEBhni+gpr9c4tvA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <!-- UIkit CSS -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/css/uikit.min.css" />
+     -->
+        <!-- custom css -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <title>Management View Change Request Info</title>
+</head>
+
+<body>
+    <section class="manage_view m_bg">
+        <div class="myoverlay"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <nav>
+                    <div class="div1">
+                        <h3><img class="d-none d-md-block" src="icons/logo.svg" alt="logo">
+                             <img
+                                class="d-block d-md-none" src="icons/HamburgerON.svg" width="38px" alt=""></h3>
+                        
+                                <ul>
+                            <li>
+                                <span class="tooltiptext">Dashboard</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/dashboard.svg" alt="Image one" width="38" class="button__img1">
+                                    <img src="icons/dashboardwhite.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li>
+                                <span class="tooltiptext">Notifications</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/Notification-Blue.svg" alt="Image one" width="38"
+                                        class="button__img1">
+                                    <img src="icons/notfiwhite.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li class="active">
+                                <span class="tooltiptext">Request</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/Request-Blue.svg" alt="Image one" width="38" class="button__img1">
+                                    <img src="icons/request-white.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li>
+                                <span class="tooltiptext">Project</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/project.svg" alt="Image one" width="38" class="button__img1">
+                                    <img src="icons/project-white.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li>
+                                <span class="tooltiptext">View Progress</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/Viewprogress-Blue.svg" alt="Image one" width="38"
+                                        class="button__img1">
+                                    <img src="icons/Progresslist-white.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <span class="tooltiptext">Reports</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/Reports.svg" alt="Image one" width="38" class="button__img1">
+                                    <img src="icons/reportwhite.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li>
+                                <span class="tooltiptext">Search</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/search.svg" alt="Image one" width="38" class="button__img1">
+                                    <img src="icons/searchwhite.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li>
+                                <span class="tooltiptext">Help & Support</span>
+                                <a href="#" class="button1">
+                                    <img src="icons/help.svg" alt="Image one" width="38" class="button__img1">
+                                    <img src="icons/helpwhite.svg" alt="Image two" class="button__img1">
+                                </a>
+                            </li>
+                            <li class="tooltip1">
+                                <p class="tooltiptext1">
+                                    <span class="">S</span>
+                                <p class="tooltiptext tooltiptext1">
+                                    <span class=""> My Profile</span>
+                                    <br>
+                                    <br>
+                                    <a href="signIn.html"> <span> Log Out </span> </a>
+                                </p>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>  
+                 <!--mobile header  -->
+                 <div class="mobile-menuhead">
+                    <div class="hamberger-menu">
+                        <span><img src="icons/Hamburger.svg" alt=""></span>
+                    </div>
+                    <div class="logo_div">
+                        <h1>Emaar</h1>
+                    </div>
+                    <div></div>
+                </div>
+                <div class="div2">
+                    <div class="center_div">
+                        <ul>
+                            <li class="active">
+                                <div><span>1</span></div>
+                                <div class="mob_con">Information</div>
+                            </li>
+                            <li>
+                                <div><span>2</span></div>
+                                <div class="mob_con">Attachments</div>
+                            </li>
+                            <li>
+                                <div><span>3</span></div>
+                                <div class="mob_con">Approvers</div>
+                            </li>
+                        </ul>   
+                    </div>
+                </div>
+                <div class="div3">
+                    <div class="step_wise">
+                        <div class="border_step"></div>
+                        <button class="btn" id="goback">Back</button>
+                        <div class="center_step">
+                            <h5 class="active">Step</h5><span class="active">1</span><span class="pie">/</span>
+                            <h5>Step 3</h5>
+                        </div>
+                        <button class="btn active">Next</button>
+                    </div>
+                    <div class="form_div">
+                        <form action="">
+                            <div class="con1 step_forward active">
+                                <h2>Information</h2>
+                                <p>Provide the Information</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Date of Request <span>*</span></p>
+                                        <input type="text" placeholder="Date">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Priority <span>*</span></p>
+                                        <div class="custom-select position-relative">
+                                            <div class="box11">
+                                                <p class="m-0">Select The Priority</p>
+                                                <img src="icons/arrowdown.svg" alt="">
+                                            </div>
+                                            <div class="option-container">
+                                                <div class="option">
+                                                    <p>Select the priority 1</p>
+                                                </div>
+                                                <div class="option">
+                                                   <p>Select the priority 2</p>
+                                               </div>
+                                               <div class="option">
+                                                   <p>Select the priority 3 </p>
+                                               </div>
+                                               <div class="option">
+                                                   <p>Select the priority 4</p>
+                                               </div>
+                                              
+                                            </div>
+                                       
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Project Name</p>
+                                        <div class="custom-select position-relative">
+                                            <div class="box11">
+                                                <p class="m-0">Select</p>
+                                                <img src="icons/arrowdown.svg" alt="">
+                                            </div>
+                                            <div class="option-container">
+                                                <div class="option">
+                                                    <p>Select the priority 1</p>
+                                                </div>
+                                                <div class="option">
+                                                   <p>Select the priority 2</p>
+                                               </div>
+                                               <div class="option">
+                                                   <p>Select the priority 3 </p>
+                                               </div>
+                                               <div class="option">
+                                                   <p>Select the priority 4</p>
+                                               </div>
+                                              
+                                            </div>
+                                       
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 check_div">
+                                        <p>Change Type</p>
+                                        <input type="Checkbox" name="changetype" placeholder="Date" id="typechange1">
+                                        <label for="typechange1">Scope</label>
+                                        <input type="Checkbox" name="changetype" placeholder="Date" id="typechange2">
+                                        <label for="typechange2">Time</label>
+                                        <input type="Checkbox" name="changetype" placeholder="Date" id="typechange3">
+                                        <label for="typechange3">Cost</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Baselined End Date</p>
+                                        <input type="text" placeholder="Date">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Revised End Date</p>
+                                        <input type="text" placeholder="Date">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Baseline Budget <span>*</span></p>
+                                        <input type="text" placeholder="Search">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Revised Budget</p>
+                                        <input type="text" placeholder="Search">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <p>Change Summary</p>
+                                    <textarea type="textarea" class="text-decoration-none" name="" id="" cols="30" rows="7" placeholder="Summary"></textarea>
+                                   
+                                </div>
+                                <div class="col-md-12">
+                                    <p>Change Impact</p>
+                                    <textarea type="textarea" class="text-decoration-none" name="" id="" cols="30" rows="7" placeholder="Summary"></textarea>
+                                   
+                                </div>
+                                <div class="col-md-12">
+                                    <p>Plan of Action</p>
+                                    <textarea type="textarea" class="text-decoration-none" name="" id="" cols="30" rows="7" placeholder="Summary"></textarea>
+                                   
+                                </div>
+                            </div>
+                            <!--con1 closed-->
+
+
+                            <div class="con2 step_forward">
+                                <h2>Attachments</h2>
+                                <p>Provide the information</p>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h5 class="up_head">Upload</h5>
+                                    </div>
+                                    <div class="col-md-8 support_div">
+                                        <p>(Supports pdf, doc, docx, xlsx, xls, jpg, png, tiff, bmp, txt, ppt, pptx, msg
+                                            files size should not exceed 30 MB.)</p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <i class="material-icons">cloud_upload</i>
+                                            <p>Drag a file here or <span>Browse </span> for a file to upload.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--con2 closed-->
+
+                            <div class="con3 step_forward">
+                                <h2>Approvers</h2>
+                                <p>Provide the Approvers information</p>
+                                <div class="col-md-6">
+                                    <input type="text" placeholder="Add Assignees" id="getdata">
+                                    <div class="highlight_div">
+
+                                    </div>
+                                    <div class="sep_div">
+                                        <div>
+                                            <p>Members</p>
+                                        </div>
+                                        <div>
+                                            <p><span></span> Members</p>
+                                        </div>
+                                    </div>
+                                    <div class="user-list">
+                                        <div class="hover_div">
+                                            <div class="row">
+                                                <div class="img-div">
+                                                    <img src="img/client1.jpg" alt="">
+                                                </div>
+                                                <div class="info-div">
+                                                    <div>
+                                                        <h6>Claire Bure</h6>
+                                                        <p>Clair@emaar.com</p>
+                                                    </div>
+                                                    <button class="btn">Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="hover_div">
+                                            <div class="row">
+                                                <div class="img-div">
+                                                    <img src="img/client2.jpg" alt="">
+                                                </div>
+                                                <div class="info-div">
+                                                    <div>
+                                                        <h6>Ajmal Khan</h6>
+                                                        <p>Ajmal@emaar.com</p>
+                                                    </div>
+                                                    <button class="btn">Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="hover_div">
+                                            <div class="row">
+                                                <div class="img-div">
+                                                    <img src="img/client3.jpg" alt="">
+                                                </div>
+                                                <div class="info-div">
+                                                    <div>
+                                                        <h6>Muhammad Ali</h6>
+                                                        <p>Ali@emaar.com</p>
+                                                    </div>
+                                                    <button class="btn">Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="hover_div">
+                                            <div class="row">
+                                                <div class="img-div">
+                                                    <img src="img/client4.jpg" alt="">
+                                                </div>
+                                                <div class="info-div">
+                                                    <div>
+                                                        <h6>Asif Khan</h6>
+                                                        <p>Asif@emaar.com</p>
+                                                    </div>
+                                                    <button class="btn">Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="hover_div">
+                                            <div class="row">
+                                                <div class="img-div">
+                                                    <img src="img/client5.jpg" alt="">
+                                                </div>
+                                                <div class="info-div">
+                                                    <div>
+                                                        <h6>John Smith</h6>
+                                                        <p>John@emaar.com</p>
+                                                    </div>
+                                                    <button class="btn">Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--con3 closed-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--row closed-->
+        </div>
+        <!--container closed-->
+    </section>
+    <!--section closed-->
+    <script>
+        const boxTrigger = document.querySelectorAll('.box11');
+        const boxContent = document.querySelectorAll('.box11 p');
+        const options = document.querySelectorAll('.option-container .option');
+        const optionsCon = document.querySelectorAll('.option-container p');
+    
+        boxTrigger.forEach((box,ind)=>
+        {
+            box.addEventListener('click',(e)=>
+            {
+                pindex = ind;
+                if(!e.target.closest('.custom-select').querySelector('.option-container').classList.contains('active'))
+                {
+                    e.target.closest('.custom-select').querySelector('.option-container').classList.add('active');
+                }
+                else
+                {
+                    e.target.closest('.custom-select').querySelector('.option-container').classList.remove('active');
+                }
+            })
+        })
+        options.forEach((option)=>
+        {
+            option.addEventListener('click',(e)=>
+            {
+                e.stopPropagation();
+                let containerClose = e.target.closest('.option-container');
+                boxContent[pindex].style.color="#000";
+                boxContent[pindex].innerText=e.target.querySelector('p').innerText; 
+                containerClose.classList.remove('active');
+            })
+        })
+        optionsCon.forEach((option)=>
+        {
+            option.addEventListener('click',(e)=>
+            {
+                e.stopPropagation();
+                let containerClose = e.target.closest('.option-container');
+                boxContent[pindex].style.color="#000";
+                boxContent[pindex].innerText=e.target.innerText; 
+                containerClose.classList.remove('active');
+            })
+        })
+    </script>
+
+    <script src="js/scriptzee.js"></script>
+
+
+    <!-- UIkit JS -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/js/uikit-icons.min.js"></script> -->
+    <!-- bs-5 js -->
+    <script src="js/menuscript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
