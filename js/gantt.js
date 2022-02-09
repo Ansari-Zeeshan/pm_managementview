@@ -237,7 +237,9 @@ function calculateDays()
                             compareIndex10 = 9;
                             compareIndex11 = 10;
                             compareIndex12 = 11;
+                            daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
                             showAlternateGantt(daysCount,endTimeline,i,j);
+                            daysCount = endDate-startDate;
                         }
                         else if(month1==='February 2021' || month1==='February 2022')
                         {
@@ -252,9 +254,12 @@ function calculateDays()
                             compareIndex9 = 9;
                             compareIndex10 = 10;
                             compareIndex11 = 11;
+                            daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
                             showAlternateGantt(daysCount,endTimeline,i,j);
                             let hideExtraIndex = 1;
+                            hideExtraIndex = getHideExtraIndex(hideExtraIndex);
                             hideExtraTimeline(hideExtraIndex);
+                            daysCount = endDate-startDate;
                         }
                         else if(month1==='March 2021' || month1==='March 2022')
                         {
@@ -268,9 +273,12 @@ function calculateDays()
                             compareIndex8 = 9;
                             compareIndex9 = 10;
                             compareIndex10 = 11;
+                            daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
                             showAlternateGantt(daysCount,endTimeline,i,j);
                             let hideExtraIndex = 2;
+                            hideExtraIndex = getHideExtraIndex(hideExtraIndex);
                             hideExtraTimeline(hideExtraIndex);
+                            daysCount = endDate-startDate;
                         }
                         else if(month1==='April 2021' || month1==='April 2022')
                         {
@@ -283,9 +291,12 @@ function calculateDays()
                             compareIndex7 = 9;
                             compareIndex8 = 10;
                             compareIndex9 = 11;
+                            daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
                             showAlternateGantt(daysCount,endTimeline,i,j);
                             let hideExtraIndex = 3;
+                            hideExtraIndex = getHideExtraIndex(hideExtraIndex);
                             hideExtraTimeline(hideExtraIndex);
+                            daysCount = endDate-startDate;
                         }
                         else if(month1==='May 2021' || month1==='May 2022')
                         {
@@ -297,9 +308,12 @@ function calculateDays()
                             compareIndex6 = 9;
                             compareIndex7 = 10;
                             compareIndex8 = 11;
+                            daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
                             showAlternateGantt(daysCount,endTimeline,i,j);
                             let hideExtraIndex = 4;
+                            hideExtraIndex = getHideExtraIndex(hideExtraIndex);
                             hideExtraTimeline(hideExtraIndex);
+                            daysCount = endDate-startDate;
                         }
                         else if(month1==='June 2021' || month1==='June 2022')
                         {
@@ -310,9 +324,12 @@ function calculateDays()
                             compareIndex5 = 9;
                             compareIndex6 = 10;
                             compareIndex7 = 11;
+                            daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
                             showAlternateGantt(daysCount,endTimeline,i,j);
                             let hideExtraIndex = 5;
+                            hideExtraIndex = getHideExtraIndex(hideExtraIndex);
                             hideExtraTimeline(hideExtraIndex);
+                            daysCount = endDate-startDate;
                         }
                         else if(month1==='July 2021' || month1==='July 2022')
                         {
@@ -322,9 +339,12 @@ function calculateDays()
                             compareIndex4 = 9;
                             compareIndex5 = 10;
                             compareIndex6 = 11;
+                            daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
                             showAlternateGantt(daysCount,endTimeline,i,j);
                             let hideExtraIndex = 6;
+                            hideExtraIndex = getHideExtraIndex(hideExtraIndex);
                             hideExtraTimeline(hideExtraIndex);
+                            daysCount = endDate-startDate;
                         }
                         else if(month1==='August 2021' || month1==='August 2022')
                         {
@@ -333,9 +353,12 @@ function calculateDays()
                             compareIndex3 = 9;
                             compareIndex4 = 10;
                             compareIndex5 = 11;
+                            daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
                             showAlternateGantt(daysCount,endTimeline,i,j);
                             let hideExtraIndex = 7;
+                            hideExtraIndex = getHideExtraIndex(hideExtraIndex);
                             hideExtraTimeline(hideExtraIndex);
+                            daysCount = endDate-startDate;
                         }
                         else if(month1==='September 2021' || month1==='September 2022')
                         {
@@ -343,34 +366,46 @@ function calculateDays()
                             compareIndex2 = 9;
                             compareIndex3 = 10;
                             compareIndex4 = 11;
+                            daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
                             showAlternateGantt(daysCount,endTimeline,i,j);
                             let hideExtraIndex = 8;
+                            hideExtraIndex = getHideExtraIndex(hideExtraIndex);
                             hideExtraTimeline(hideExtraIndex);
+                            daysCount = endDate-startDate;
                         }
                         else if(month1==='October 2021' || month1==='October 2022')
                         {
                             compareIndex1 = 9;
                             compareIndex2 = 10;
                             compareIndex3 = 11;
+                            daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
                             showAlternateGantt(daysCount,endTimeline,i,j);
                             let hideExtraIndex = 9;
+                            hideExtraIndex = getHideExtraIndex(hideExtraIndex);
                             hideExtraTimeline(hideExtraIndex);
+                            daysCount = endDate-startDate;
                         }
                         else if(month1==='November 2021' || month1==='November 2022')
                         {
                             compareIndex1 = 10;
                             compareIndex2 = 11;
+                            daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
                             showAlternateGantt(daysCount,endTimeline,i,j);
                             let hideExtraIndex = 10;
+                            hideExtraIndex = getHideExtraIndex(hideExtraIndex);
                             hideExtraTimeline(hideExtraIndex);
+                            daysCount = endDate-startDate;
                         }
                         else if(month1==='December 2021' || month1==='December 2022')
                         {
-                            compareIndex3 = 11;
                             compareIndex1 = 11;
+                            daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
+                            console.log(daysCount);
                             showAlternateGantt(daysCount,endTimeline,i,j);
                             let hideExtraIndex = 11;
+                            hideExtraIndex = getHideExtraIndex(hideExtraIndex);
                             hideExtraTimeline(hideExtraIndex);
+                            daysCount = endDate-startDate;
                         }
                     }
                 }
@@ -829,6 +864,44 @@ function getNumericMonth(startDate)
         'Nov',
         'Dec'].indexOf(startDate) + 1).padStart(2, '0'))
 }
+
+function checkTargetDate(date1,date2,loopingYear,daysCount)
+{
+    let TargetDate = new Date(`${loopingYear}/12/31`);
+    if(date2.getTime()>TargetDate.getTime())
+    {
+        let d1 = Math.floor(TargetDate.getTime()/(3600*24*1000));
+        let d2 = Math.floor(date1.getTime()/(3600*24*1000));
+        return daysCount = d1 - d2;
+    }
+}
+function getHideExtraIndex(hideExtraIndex)
+{
+    switch(true)
+    {
+        case (k>0):
+        {
+            hideExtraIndex = hideExtraIndex + 12;
+            break;
+        }
+        case (k>1):
+        {
+            hideExtraIndex = hideExtraIndex + 24;
+            break;
+        }
+        case (k>2):
+        {
+            hideExtraIndex = hideExtraIndex + 36;
+            break;
+        }
+        case (k>3):
+        {
+            hideExtraIndex = hideExtraIndex + 48;
+            break;
+        }
+    }
+    return hideExtraIndex;
+}
 function getMonthName(name, year)
 {
     let d = new Date(`${name}`);
@@ -893,18 +966,16 @@ function hidingGant()
 function hideExtraTimeline(index)
 {
     index2=index;
-    console.log(index2);
     for(let i=0;i<index2;i++)
     {
         index--;
         let timeline = ganttSlider[index].querySelectorAll('.timeline');
-        console.log(timeline);
         timeline.forEach((timeline)=>
         {
             let text = timeline.innerText.substr(0,4).toLowerCase();
             if(text.includes('feb') || text.includes('mar') || text.includes('apr') || text.includes('may')
             || text.includes('jun') || text.includes('jul') || text.includes('aug') || text.includes('sep')
-            || text.includes('oct'))
+            || text.includes('oct') || text.includes('nov'))
             {
                 timeline.closest('.first1').style.visibility="hidden";
             }

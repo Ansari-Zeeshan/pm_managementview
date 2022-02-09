@@ -433,7 +433,7 @@
     font-size: 14px;
     margin-left: 16%;
     margin-top: -24px;
-    width: 0%;
+    /* display: none; */
     text-align: center;
   }
   .first .card{
