@@ -419,6 +419,7 @@
   }
   .first1 {
     margin: 17px 0 15px;
+    visibility: hidden;
   }
   .benerow{
     border-bottom: 1px solid #0000000D;
