@@ -16,7 +16,7 @@ overflow-y: visible;
 width: 66vw;
 z-index: 50;
 background: #fff;
-padding: 25px 60px 25px 25px;
+padding: 25px 7px 25px 25px;
 transform: translateX(100%);
 animation: slideprojRight 0.5s ease-in-out;
 box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -191,8 +191,8 @@ top: 0;
     padding-left: 42px;
     margin-top: 10px;
     margin-bottom: 7rem;
-    max-height: 75vh;
-    overflow-y: auto;
+    /* max-height: 75vh;
+    overflow-y: auto; */
     overflow-x: hidden;
 }
 .manage_view .proj_edit .proj_content .d-flex >h1,
@@ -522,6 +522,33 @@ top: 0;
     display: none;
     margin-top: 2rem;
 }
+
+ .proj_content .tabproj_con{
+  height: calc(100vh - 230px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-bottom: 5rem;
+
+}
+
+.tabproj_conList{
+    height: calc(100vh - 120px) !important;
+    overflow-y: scroll;
+  overflow-x: hidden;
+  padding-bottom: 1rem !important;
+
+}
+
+.proj_content .active_log.tabproj_con{
+    height: calc(100vh - 170px) !important;
+    overflow-y: scroll;
+  overflow-x: hidden;
+  padding-bottom: 1rem !important;
+
+}
+
+
+
 .manage_view .proj_edit .proj_content .tabproj_con.active
 {
     display: block;
@@ -1368,7 +1395,7 @@ overflow: hidden;
 width: 66vw;
 z-index: 50;
 background: #fff;
-padding: 25px;
+padding: 25px 7px 25px 25px;
 transform: translateX(100%);
 animation: slideprojRight 0.5s ease-in-out;
 box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -1406,7 +1433,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 .proj_filter .proj_add .main_add
 {
-    padding: 4rem 23px 4rem 4.5rem;
+    padding: 1rem 10px 4rem 4.5rem;
     overflow-y: scroll;
     max-height: 82vh;
 }
@@ -1500,7 +1527,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     position: absolute;
     bottom: 0;
     right: 0;
-    height: 105px;
+    height: 85px;
     width: 100%;
     padding: 0 38px;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.18);

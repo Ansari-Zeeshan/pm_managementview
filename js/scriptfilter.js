@@ -44,7 +44,7 @@ const tabproj_btn2 = document.querySelectorAll('.manage_view .proj_edit .proj_co
 const showFavorite = document.querySelector('.manage_view .proj_edit .proj_content .tab-btn #showFav');
 const favDiv = document.querySelector('.manage_view .proj_edit .proj_content .tab-btn .favDiv');
 let projdetail_btn = document.querySelectorAll('.proj_filter .divfilter2 .project1 .projmaincon .divcon1 span');
-const projDet_close = document.querySelector('.manage_view .proj_edit .col-md-3 span');
+const projDet_close = document.querySelector('.manage_view .proj_edit .col-md-12 span');
 const update_Talk = document.querySelector('.manage_view .proj_edit .attach_div .divfile2 button');
 const update_append = document.querySelector('.manage_view .proj_edit .update');
 const emoji_Btn = document.querySelector('.manage_view .proj_edit .attach_div .divfile1 .emoji_div:nth-child(2) p');
@@ -99,6 +99,8 @@ const checkSelectBox = document.querySelector('.proj_filter .proj_edit .proj_con
 const triggerWorkspace = document.querySelector('.manage_view .workarrow_div img');
 const showWorkspace = document.querySelector('.manage_view .workspace_div');
 const showWorkspaceCon = document.querySelector('.manage_view .workspace_div .workspace_content');
+const allProjList = document.querySelectorAll('.manage_view .list .select_border');
+const allProjList2 = document.querySelectorAll('.manage_view .list .select_border2');
 let statusColor, statusText, textVal, value, pageYedit, h5con, adjacentNode, fixedValue1 = 121, replyCount=0,
     fixedValue2 = 121,
     fixedValue3 = 121;
@@ -212,15 +214,84 @@ const ImageDisable = [{
     }
 ];
 
+allProjList.forEach((all)=>
+{
+    all.addEventListener('click',function(e)
+    {
+        e.stopPropagation();
+        let divcon1 = e.target.closest('.border-bottom').querySelector('.divcon1');
+        let nearBorderactive = e.target.closest('.list').querySelectorAll('.border-bottom');
+        let nearDivcon1 = e.target.closest('.list').querySelectorAll('.border-bottom .divcon1');
+        nearBorderactive.forEach((near)=>
+        {
+            if(near.classList.contains('active'))
+            {
+                near.classList.remove('active');
+            }
+        })
+        nearDivcon1.forEach((near)=>
+        {
+            if(near.classList.contains('active'))
+            {
+                near.classList.remove('active');
+            }
+        })
+        if(!this.classList.contains('active'))
+        {
+            this.classList.add('active');
+            divcon1.classList.add('active');
+        }
+        else
+        {
+            this.classList.remove('active');
+            divcon1.classList.remove('active');
+        }
+    })
+})
+allProjList2.forEach((all)=>
+{
+    all.addEventListener('click',function(e)
+    {
+        e.stopPropagation();
+        let nearBorderactive = e.target.closest('.list').querySelectorAll('.border-bottom');
+        let nearDivcon1 = e.target.closest('.list').querySelectorAll('.border-bottom .divcon1');
+        nearBorderactive.forEach((near)=>
+        {
+            if(near.classList.contains('active'))
+            {
+                near.classList.remove('active');
+            }
+        })
+        nearDivcon1.forEach((near)=>
+        {
+            if(near.classList.contains('active'))
+            {
+                near.classList.remove('active');
+            }
+        })
+        if(!this.classList.contains('active'))
+        {
+            this.classList.add('active');
+        }
+        else
+        {
+            this.classList.remove('active');
+        }
+    })
+})
 // proj_edit Hide/Show
 projdetail_btn.forEach((detailProj) => {
-    detailProj.addEventListener('click', () => {
-        showProjdetail();
+    detailProj.addEventListener('click', (e) => {
+        showProjdetail(e);
     }, true)
 })
 
-function showProjdetail() {
+function showProjdetail(e) {
     if (!proj_edit.classList.contains('active')) {
+        chgbgColor = e.target.closest('.border-bottom');
+        chgColorcon1 = e.target.closest('.border-bottom').querySelector('.divcon1');
+        chgbgColor.classList.add('active');
+        chgColorcon1.classList.add('active');
         proj_edit.classList.add('active');
         proj_overlay.classList.add('active');
     }
@@ -613,6 +684,8 @@ showprojAdd.forEach((projAdd) => {
         if (!projadd_div.classList.contains('active')) {
             projadd_div.classList.add('active');
             proj_overlay.classList.add('active');
+            chgbgColor = e.target.closest('.border-bottom');
+            chgColorcon1 = e.target.closest('.expand').querySelector('.divcon1');
             closestExpand = e.target.closest('.expand');
             h5con = e.target.closest('.child-border').querySelector('.head1 h5').innerText;
             disableInput.placeholder = `${h5con}`
@@ -673,6 +746,8 @@ function hideProjdetail() {
         subs_Div.classList.remove('active');
         searchDiv.classList.remove('active');
         subs_overlay.classList.remove('active');
+        chgbgColor.classList.remove('active');
+        chgColorcon1.classList.remove('active');
         openOption.forEach((open) => {
             open.classList.remove('active');
         })
@@ -1232,7 +1307,7 @@ function performAction(e)
         {
             showWorkspace.classList.remove('active');
             showWorkspaceCon.classList.remove('active');
-            imgDiv.style.left="5.5%";
+            imgDiv.style.left="6%";
             img.style.transform="rotate(180deg)";
             if(e.clientX<300)
             {

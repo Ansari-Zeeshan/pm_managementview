@@ -356,6 +356,11 @@
   }
   .tablecal1 table tr th{
     border-top: 1px solid #0000000D !important;
+    color: #fff;
+  }
+  .tablecal1 table tr th.dateVirtual
+  {
+    color: #000;
   }
   #benefits , #benefitsdrop , #benefits2{
     position: relative;
@@ -419,7 +424,11 @@
   }
   .first1 {
     margin: 17px 0 15px;
-    visibility: hidden;
+    display: none;
+  }
+  .first1.active
+  {
+    display: block;
   }
   .benerow{
     border-bottom: 1px solid #0000000D;
@@ -437,6 +446,18 @@
     /* display: none; */
     text-align: center;
   }
+
+  .gantprTask2{
+    padding: 6px 0px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 14px;
+    margin-left: 34%;
+    margin-top: -24px;
+    /* display: none; */
+    text-align: center;
+  }
+
   .first .card{
   text-align: center;
   border: none;
@@ -591,69 +612,86 @@
   .vl {
     position: absolute;
     border-left: 2px solid #8a8888d2;
-    height: 101px;
-    left: 48%;
+    height: 45px;
+    left: 12%;
   }
-  .v2 {
+
+  .vl2 {
     position: absolute;
     border-left: 2px solid #8a8888d2;
-    width: 15.1vw;
+    height: 57px;
+    top: 45px;
+    left: 12%;
+  }
+
+  .v2{
+    position: absolute;
+    border-left: 2px solid #8a8888d2;
+    height: 58px;
+    left: 12%;
+    top: -16px;
+  }
+
+  /* .v2 {
+    position: absolute;
+    border-left: 2px solid #8a8888d2;
+    width: 1vw;
     height: 2px;
     top: 41px;
     transform: translate(0px, 0px);
     background: #8a8888d2;
-    left: 48%;
-  }
+    left: 12%;
+  } */
   .v3 {
     position: absolute;
     border-left: 2px solid #8a8888d2;
-    width: 10.3vw;
+    width: 3.5vw;
     height: 2px;
-    top: 101px;
+    top: 42px;
     transform: translate(0px, 0px);
     background: #8a8888d2;
-    left: 48%;
+    left: 12%;
   }
   .v4 {
     position: absolute;
     border-left: 2px solid #8a8888d2;
     width: 2px;
-    height: 62px;
-    top: 101px;
+    height: 58px;
+    top: 44px;
     transform: translate(0px, 0px);
     background: #8a8888d2;
-    left: 54%;
+    left: 12%;
   }
   .v5 {
     position: absolute;
     border-left: 2px solid #8a8888d2;
-    width: 9.7vw;
+    width: 19.5vw;
     height: 2px;
-    top: 161px;
+    top: 101px;
     transform: translate(0px, 0px);
     background: #8a8888d2;
-    left: 54%;
+    left: 12%;
   }
   .v6 {
     position: absolute;
     border-left: 2px solid #8a8888d2;
     width: 2px;
-    height: 44px;
-    top: 118px;
+    height: 60px;
+    top: 101px;
     transform: translate(0px, 0px);
     background: #8a8888d2;
-    left: 62%;
+    left: 12%;
   }
-  .v7 {
+  /* .v7 {
     position: absolute;
     border-left: 2px solid #8a8888d2;
     width: 2px;
-    height: 162px;
-    top: 58px;
+    height: 62px;
+    top: 100px;
     z-index: 1;
     transform: translate(0px, 0px);
     background: #8a8888d2;
-    left: 75%;
+    left: 12%;
   }
   .v8 {
     position: absolute;
@@ -663,20 +701,20 @@
     top: 177px;
     transform: translate(0px, 0px);
     background: #8a8888d2;
-    left: 78%;
+    left: 12%;
   }
   .v9 {
     position: absolute;
     border-left: 2px solid #8a8888d2;
-    width: 5.4vw;
+    width: 12.3vw;
     height: 2px;
-    top: 219px;
+    top: 161px;
     transform: translate(0px, 0px);
     background: #8a8888d2;
-    left: 75%;
-  }
+    left: 12%;
+  } */
   .v9::after {
-    content: '\27A4';
+    /* content: '\27A4'; */
     position: absolute;
     /* border-left: 2px solid #8a8888d2; */
     /* width: 5.4vw; */
@@ -685,11 +723,11 @@
     color: grey;
     transform: translate(0px, 0px);
     /* background: #8a8888d2; */
-    left: 85%;
+    left: 12%;
   }
   
   .v5::after {
-    content: '\27A4';
+    /* content: '\27A4'; */
     position: absolute;
     /* border-left: 2px solid #8a8888d2; */
     /* width: 5.4vw; */
@@ -698,36 +736,38 @@
     color: grey;
     transform: translate(0px, 0px);
     /* background: #8a8888d2; */
-    left: 92%;
+    left: 12%;
   }
   .card-body-bg{
     background: none;
   }
   
   .milestonediv1 {
-    width: 81%;
+    width: 76%;
   }
   
   .milestonediv1 .milestonediv11{
-    width: 20%;
+    width: 54.5%;
   }
   .milestonediv2{
-    width: 70%;
+    width: 100%;
   }
   .milestonediv2 .milestonediv22{
-    width: 15%;
+    width: 11%;
   }
   .milestonediv3{
     width: 81%;
   }
   .milestonediv3 .milestonediv33{
-    width: 20%;
+    margin-left: 15%;
+    width: 51%;
   }
   .milestonediv4{
     width: 89%;
   }
   .milestonediv4 .milestonediv44{
-    width: 9%;
+    margin-left: 29%;
+    width: 13%;
   }
   
   /* .first1 .collapsed .hide2 {
