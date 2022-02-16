@@ -13,6 +13,7 @@ const backTrigger =document.querySelectorAll('.col-md-12 > .backArrow');
 const logochange =document.querySelector('.div1 h3 img:nth-child(2)');
 const hamberChange =document.querySelector('.div1 h3 img:nth-child(3)');
 const linavActive = document.querySelectorAll('nav ul li');
+const body = document.querySelector('body');
 
 linavActive.forEach((liActive,ind)=>
 {
@@ -23,14 +24,16 @@ linavActive.forEach((liActive,ind)=>
         e.target.closest('li').querySelector('img:last-child').classList.add('deactive');
     })
 })
-mobileTrigger.addEventListener('click', () => {
+mobileTrigger.addEventListener('click', (e) => {
     if (!mobileMenu.classList.contains('active')) {
+        body.style.overflow="hidden";
         mobileMenu.classList.add('active');
         menu_overlay.classList.add('active');
     }
 })
-hamberChange.addEventListener('click', () => {
+hamberChange.addEventListener('click', (e) => {
     if (mobileMenu.classList.contains('active')) {
+        body.style.overflow="auto";
         mobileMenu.classList.remove('active');
         menu_overlay.classList.remove('active');
     }
@@ -40,6 +43,7 @@ window.addEventListener('click', hideFilterdiv);
 
 function hideFilterdiv(e) {
     if (e.type === "click" && e.target == menu_overlay) {
+        body.style.overflow="auto";
         mobileMenu.classList.remove('active');
         menu_overlay.classList.remove('active');
     }
