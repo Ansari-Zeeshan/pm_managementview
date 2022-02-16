@@ -89,7 +89,7 @@ const month = ['January','February','March','April','May','June','July','August'
 (function clone()
 {
    let refcloneNode = document.querySelector('.gantt #benefits2');
-   for(let i=1; i<24; i++)
+   for(let i=1; i<72; i++)
    {
        let getClone = refcloneNode.cloneNode(true);
        ganttAppend.insertBefore(getClone,ganttAppend.childNodes[i]);
@@ -105,7 +105,7 @@ const month = ['January','February','March','April','May','June','July','August'
 (function changingMonthName()
 {
     let currYear=2021;
-     for(let i=0;i<2;i++)
+     for(let i=0;i<6;i++)
      {
         for(j=0; j<12; j++)
         {
@@ -142,7 +142,7 @@ function getMonthLength()
 getMonthLength();
 function assignDate()
 {
-   for(k=0; k<2;k++)
+   for(k=0; k<6;k++)
    {
         for(let j=0;j<12;j++)
         {
@@ -183,7 +183,7 @@ function calculateDays(e)
 {
     let mobileWidth = e.target.querySelector('body').getBoundingClientRect().width;
     loopingYear = 2021;
-    for(k=0; k<2; k++)
+    for(k=0; k<6; k++)
     {
         for(let j=0;j<12;j++)
         {
@@ -202,14 +202,15 @@ function calculateDays(e)
                 endTimeline = +endTimeline;
                 let monthstartDate = projectData[i].startMonth;
                 let startYear = projectData[i].startMonth.substr(0,4);
-                getMonthName(monthstartDate, startYear, k);
+                getMonthName(getMonthIndex, startYear, i);
                 compareYear = +startYear;
                 prevYear = checkPrevYear(loopingYear,i,k);
                 if(date1.getTime()<=compareDate.getTime())
                 {
                     if(loopingYear>=compareYear && prevYear)
                     {
-                        if(month1==='January 2021' || month1==='January 2022')
+                        if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
+                        || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
                         {
                             compareIndex1 = 0;
                             compareIndex2 = 1;
@@ -223,139 +224,7 @@ function calculateDays(e)
                             compareIndex10 = 9;
                             compareIndex11 = 10;
                             compareIndex12 = 11;
-                            // daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
-                            showGantt(daysCount,endTimeline,j,mobileWidth);
-                            daysCount = endDate-startDate;
-                        }
-                        else if(month1==='February 2021' || month1==='February 2022')
-                        {
-                            compareIndex1 = 1;
-                            compareIndex2 = 2;
-                            compareIndex3 = 3;
-                            compareIndex4 = 4;
-                            compareIndex5 = 5;
-                            compareIndex6 = 6;
-                            compareIndex7 = 7;
-                            compareIndex8 = 8;
-                            compareIndex9 = 9;
-                            compareIndex10 = 10;
-                            compareIndex11 = 11;
-                            // daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
-                            showGantt(daysCount,endTimeline,j,mobileWidth);
-                            daysCount = endDate-startDate;
-                        }
-                        else if(month1==='March 2021' || month1==='March 2022')
-                        {
-                            compareIndex1 = 2;
-                            compareIndex2 = 3;
-                            compareIndex3 = 4;
-                            compareIndex4 = 5;
-                            compareIndex5 = 6;
-                            compareIndex6 = 7;
-                            compareIndex7 = 8;
-                            compareIndex8 = 9;
-                            compareIndex9 = 10;
-                            compareIndex10 = 11;
-                            // daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
-                            showGantt(daysCount,endTimeline,j,mobileWidth);
-                            daysCount = endDate-startDate;
-                        }
-                        else if(month1==='April 2021' || month1==='April 2022')
-                        {
-                            compareIndex1 = 3;
-                            compareIndex2 = 4;
-                            compareIndex3 = 5;
-                            compareIndex4 = 6;
-                            compareIndex5 = 7;
-                            compareIndex6 = 8;
-                            compareIndex7 = 9;
-                            compareIndex8 = 10;
-                            compareIndex9 = 11;
-                            // daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
-                            showGantt(daysCount,endTimeline,j,mobileWidth);
-                            daysCount = endDate-startDate;
-                        }
-                        else if(month1==='May 2021' || month1==='May 2022')
-                        {
-                            compareIndex1 = 4;
-                            compareIndex2 = 5;
-                            compareIndex3 = 6;
-                            compareIndex4 = 7;
-                            compareIndex5 = 8;
-                            compareIndex6 = 9;
-                            compareIndex7 = 10;
-                            compareIndex8 = 11;
-                            // daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
-                            showGantt(daysCount,endTimeline,j,mobileWidth);
-                            daysCount = endDate-startDate;
-                        }
-                        else if(month1==='June 2021' || month1==='June 2022')
-                        {
-                            compareIndex1 = 5;
-                            compareIndex2 = 6;
-                            compareIndex3 = 7;
-                            compareIndex4 = 8;
-                            compareIndex5 = 9;
-                            compareIndex6 = 10;
-                            compareIndex7 = 11;
-                            // daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
-                            showGantt(daysCount,endTimeline,j,mobileWidth);
-                            daysCount = endDate-startDate;
-                        }
-                        else if(month1==='July 2021' || month1==='July 2022')
-                        {
-                            compareIndex1 = 6;
-                            compareIndex2 = 7;
-                            compareIndex3 = 8;
-                            compareIndex4 = 9;
-                            compareIndex5 = 10;
-                            compareIndex6 = 11;
-                            // daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
-                            showGantt(daysCount,endTimeline,j,mobileWidth);
-                            daysCount = endDate-startDate;
-                        }
-                        else if(month1==='August 2021' || month1==='August 2022')
-                        {
-                            compareIndex1 = 7;
-                            compareIndex2 = 8;
-                            compareIndex3 = 9;
-                            compareIndex4 = 10;
-                            compareIndex5 = 11;
-                            // daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
-                            showGantt(daysCount,endTimeline,j,mobileWidth);
-                            daysCount = endDate-startDate;
-                        }
-                        else if(month1==='September 2021' || month1==='September 2022')
-                        {
-                            compareIndex1 = 8;
-                            compareIndex2 = 9;
-                            compareIndex3 = 10;
-                            compareIndex4 = 11;
-                            // daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
-                            showGantt(daysCount,endTimeline,j,mobileWidth);
-                            daysCount = endDate-startDate;
-                        }
-                        else if(month1==='October 2021' || month1==='October 2022')
-                        {
-                            compareIndex1 = 9;
-                            compareIndex2 = 10;
-                            compareIndex3 = 11;
-                            // daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
-                            showGantt(daysCount,endTimeline,j,mobileWidth);
-                            daysCount = endDate-startDate;
-                        }
-                        else if(month1==='November 2021' || month1==='November 2022')
-                        {
-                            compareIndex1 = 10;
-                            compareIndex2 = 11;
-                            // daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
-                            showGantt(daysCount,endTimeline,j,mobileWidth);
-                            daysCount = endDate-startDate;
-                        }
-                        else if(month1==='December 2021' || month1==='December 2022')
-                        {
-                            compareIndex1 = 11;
-                            // daysCount = checkTargetDate(date1,date2,loopingYear,daysCount);
+                            daysCount = checkTargetDate2(date2,i,loopingYear,daysCount);
                             showGantt(daysCount,endTimeline,j,mobileWidth);
                             daysCount = endDate-startDate;
                         }
@@ -365,7 +234,8 @@ function calculateDays(e)
                 {
                     if(loopingYear>=compareYear && prevYear)
                     {
-                        if(month1==='January 2021' || month1==='January 2022')
+                        if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
+                        || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
                         {
                             compareIndex1 = 0;
                             compareIndex2 = 1;
@@ -383,7 +253,8 @@ function calculateDays(e)
                             showAlternateGantt(daysCount,endTimeline,i,j,mobileWidth);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='February 2021' || month1==='February 2022')
+                        else if(month1==='February 2021' || month1==='February 2022' || month1==='February 2023'
+                        || month1==='February 2024' || month1==='February 2025' || month1==='February 2026')
                         {
                             compareIndex1 = 1;
                             compareIndex2 = 2;
@@ -404,7 +275,8 @@ function calculateDays(e)
                             showAlternateGantt(daysCount,endTimeline,i,j,mobileWidth);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='March 2021' || month1==='March 2022')
+                        else if(month1==='March 2021' || month1==='March 2022' || month1==='March 2023'
+                        || month1==='March 2024' || month1==='March 2025' || month1==='March 2026')
                         {
                             compareIndex1 = 2;
                             compareIndex2 = 3;
@@ -424,7 +296,8 @@ function calculateDays(e)
                             showAlternateGantt(daysCount,endTimeline,i,j,mobileWidth);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='April 2021' || month1==='April 2022')
+                        else if(month1==='April 2021' || month1==='April 2022' || month1==='April 2023'
+                        || month1==='April 2024' || month1==='April 2025' || month1==='April 2026')
                         {
                             compareIndex1 = 3;
                             compareIndex2 = 4;
@@ -443,7 +316,8 @@ function calculateDays(e)
                             showAlternateGantt(daysCount,endTimeline,i,j,mobileWidth);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='May 2021' || month1==='May 2022')
+                        else if(month1==='May 2021' || month1==='May 2022' || month1==='May 2023'
+                        || month1==='May 2024' || month1==='May 2025' || month1==='May 2026')
                         {
                             compareIndex1 = 4;
                             compareIndex2 = 5;
@@ -461,7 +335,8 @@ function calculateDays(e)
                             showAlternateGantt(daysCount,endTimeline,i,j,mobileWidth);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='June 2021' || month1==='June 2022')
+                        else if(month1==='June 2021' || month1==='June 2022' || month1==='June 2023'
+                        || month1==='June 2024' || month1==='June 2025' || month1==='June 2026')
                         {
                             compareIndex1 = 5;
                             compareIndex2 = 6;
@@ -478,7 +353,8 @@ function calculateDays(e)
                             showAlternateGantt(daysCount,endTimeline,i,j,mobileWidth);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='July 2021' || month1==='July 2022')
+                        else if(month1==='July 2021' || month1==='July 2022' || month1==='July 2023'
+                        || month1==='July 2024' || month1==='July 2025' || month1==='July 2026')
                         {
                             compareIndex1 = 6;
                             compareIndex2 = 7;
@@ -494,7 +370,8 @@ function calculateDays(e)
                             showAlternateGantt(daysCount,endTimeline,i,j,mobileWidth);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='August 2021' || month1==='August 2022')
+                        else if(month1==='August 2021' || month1==='August 2022' || month1==='August 2023'
+                        || month1==='August 2024' || month1==='August 2025' || month1==='August 2026')
                         {
                             compareIndex1 = 7;
                             compareIndex2 = 8;
@@ -509,7 +386,8 @@ function calculateDays(e)
                             showAlternateGantt(daysCount,endTimeline,i,j,mobileWidth);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='September 2021' || month1==='September 2022')
+                        else if(month1==='September 2021' || month1==='September 2022' || month1==='September 2023'
+                        || month1==='September 2024' || month1==='September 2025' || month1==='September 2026')
                         {
                             compareIndex1 = 8;
                             compareIndex2 = 9;
@@ -523,7 +401,8 @@ function calculateDays(e)
                             showAlternateGantt(daysCount,endTimeline,i,j,mobileWidth);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='October 2021' || month1==='October 2022')
+                        else if(month1==='October 2021' || month1==='October 2022' || month1==='October 2023'
+                        || month1==='October 2024' || month1==='October 2025' || month1==='October 2026')
                         {
                             compareIndex1 = 9;
                             compareIndex2 = 10;
@@ -536,7 +415,8 @@ function calculateDays(e)
                             showAlternateGantt(daysCount,endTimeline,i,j,mobileWidth);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='November 2021' || month1==='November 2022')
+                        else if(month1==='November 2021' || month1==='November 2022' || month1==='November 2023'
+                        || month1==='November 2024' || month1==='November 2025' || month1==='November 2026')
                         {
                             compareIndex1 = 10;
                             compareIndex2 = 11;
@@ -548,7 +428,8 @@ function calculateDays(e)
                             showAlternateGantt(daysCount,endTimeline,i,j,mobileWidth);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='December 2021' || month1==='December 2022')
+                        else if(month1==='December 2021' || month1==='December 2022' || month1==='December 2023'
+                        || month1==='December 2024' || month1==='December 2025' || month1==='December 2026')
                         {
                             compareIndex1 = 11;
                             let hideExtraIndex = 11;
@@ -825,7 +706,7 @@ function showAlternateGantt(daysCount,endTimeline,i,j,mobileWidth)
     {
         case (daysCount<30):
         {
-            ganttTimeline[timelineIndex].style.cssText=`margin-left:${(startTime*2.81)+11.3}%; width:${(daysCount*2.92)}%`;
+            ganttTimeline[timelineIndex].style.cssText=`margin-left:${(startTime*2.81)+11.3}%; width:${(daysCount*2.517)}vw`;
             ganttTimeline[timelineIndex].closest('.first1').style.display="block";
             let nearCollapse = ganttTimeline[timelineIndex].closest('.first1').querySelector('.collapse');
             nearCollapse.style.marginLeft=`${(startTime*2.81)}%`;
@@ -1208,16 +1089,15 @@ function getNumericMonth(startDate)
         'Sep',
         'Oct',
         'Nov',
-        'Dec'].indexOf(startDate) + 1).padStart(2, '0'))
+        'Dec'].indexOf(startDate)).padStart(2, '0'))
 }
 function getTimeline(endTimeline,i,jIndex)
 {
-    let year1 = projectData[i].pstartdate.substr(0,4);
+    let year1 = projectData[i].penddate.substr(0,4);
     let month = monthText[jIndex].innerText.split(' ');
     let year2 = +month[1];
-    if(year2>year1)
+    if(year2<year1)
     {
-        console.log('hello');
         return endTimeline = 31;
     }
     else
@@ -1237,6 +1117,22 @@ function showinMobile4(multiplyTerm)
 {
     ganttTimeline[timelineIndex].style.cssText=`margin-left:23.2%; width:${multiplyTerm *9.8}%`;
 }
+function checkTargetDate2(date2,i,loopingYear,daysCount)
+{
+    let year1 = projectData[i].pstartdate.substr(0,4);
+    let year2 = projectData[i].penddate.substr(0,4);
+    if(year2>year1)
+    {
+        let currentDate= new Date(`${loopingYear}/01/01`);
+        let a = Math.floor(date2.getTime()/(3600*24*1000));
+        let b = Math.floor(currentDate.getTime()/(3600*24*1000));
+        return daysCount = a - b;
+    }
+    else
+    {
+        return daysCount;
+    }
+}
 function checkTargetDate(date1,date2,loopingYear,daysCount)
 {
     date2 = new Date(date2);
@@ -1255,21 +1151,43 @@ function checkTargetDate(date1,date2,loopingYear,daysCount)
 function getHideExtraIndex(hideExtraIndex,k)
 {
     let newhideExtraIndex = hideExtraIndex;
-    if(k>0)
+    switch(true)
     {
-        newhideExtraIndex = hideExtraIndex + 12;
-    }
-    else if(k>1)
-    {
-        newhideExtraIndex = hideExtraIndex + 24;
-    }
-    else if(k>2)
-    {
-        newhideExtraIndex = hideExtraIndex + 36;
-    }
-    else if(k>3)
-    {
-        newhideExtraIndex = hideExtraIndex + 48;
+        case (k>0 && k<2):
+        {
+            newhideExtraIndex = hideExtraIndex + 12;
+            break;
+        }
+        case (k>1 && k<3):
+        {
+            newhideExtraIndex = hideExtraIndex + 24;
+            break;
+        }
+        case (k>2 && k<4):
+        {
+            newhideExtraIndex = hideExtraIndex + 36;
+            break;
+        }
+        case (k>3 && k<5):
+        {
+            newhideExtraIndex = hideExtraIndex + 48;
+            break;
+        }
+        case (k>4 && k<6):
+        {
+            newhideExtraIndex = hideExtraIndex + 60;
+            break;
+        }
+        case (k>5 && k<7):
+        {
+            newhideExtraIndex = hideExtraIndex + 72;
+            break;
+        }
+        case (k>6 && k<8):
+        {
+            newhideExtraIndex = hideExtraIndex + 84;
+            break;
+        }
     }
     return newhideExtraIndex;
 }
@@ -1299,154 +1217,178 @@ function checkPrevYear(loopingYear,i,k)
             booleanYear = false;
             break;
         }
+        case (k>4 && loopingYear>prevYear2):
+        {
+            booleanYear = false;
+            break;
+        }
+        case (k>5 && loopingYear>prevYear2):
+        {
+            booleanYear = false;
+            break;
+        }
+        case (k>6 && loopingYear>prevYear2):
+        {
+            booleanYear = false;
+            break;
+        }
     }
     return booleanYear;
 }
-function getMonthName(name, year,k)
+function getMonthName(monthIndex, year, i)
 {
-    let d = new Date(`${name}`);
-    let dt = new Date(d.setMonth(d.getMonth() +0));
-    month1 = dt.toLocaleString('en-us', { month: 'long' });
-    month1 = `${month1} ${year.toString()}`;
-    month1 = getMonth1(d,year,k, month1);
-
-    let dt2 = new Date(d.setMonth(d.getMonth() +1));
-    month2 = dt2.toLocaleString('en-us', { month: 'long' });
-    month2 = `${month2} ${year.toString()}`;
-    month2 = getMonth1(d,year,k, month2);
-
-    let dt3 = new Date(d.setMonth(d.getMonth() +1));
-    month3 = dt3.toLocaleString('en-us', { month: 'long' });
-    month3 = `${month3} ${year.toString()}`;
-
-    let dt4 = new Date(d.setMonth(d.getMonth() +1));
-    month4 = dt4.toLocaleString('en-us', { month: 'long' });
-    month4 = `${month4} ${year.toString()}`;
-
-    let dt5 = new Date(d.setMonth(d.getMonth() +1));
-    month5 = dt5.toLocaleString('en-us', { month: 'long' });
-    month5 = `${month5} ${year.toString()}`;
-
-    let dt6 = new Date(d.setMonth(d.getMonth() +1));
-    month6 = dt6.toLocaleString('en-us', { month: 'long' });
-    month6 = `${month6} ${year.toString()}`;
-
-    let dt7 = new Date(d.setMonth(d.getMonth() +1));
-    month7 = dt7.toLocaleString('en-us', { month: 'long' });
-    month7 = `${month7} ${year.toString()}`;
-
-    let dt8 = new Date(d.setMonth(d.getMonth() +1));
-    month8 = dt8.toLocaleString('en-us', { month: 'long' });
-    month8 = `${month8} ${year.toString()}`;
-
-    let dt9 = new Date(d.setMonth(d.getMonth() +1));
-    month9 = dt9.toLocaleString('en-us', { month: 'long' });
-    month9 = `${month9} ${year.toString()}`;
-
-    let dt10 = new Date(d.setMonth(d.getMonth() +1));
-    month10 = dt10.toLocaleString('en-us', { month: 'long' });
-    month10 = `${month10} ${year.toString()}`;
-
-    let dt11 = new Date(d.setMonth(d.getMonth() +1));
-    month11 = dt11.toLocaleString('en-us', { month: 'long' });
-    month11 = `${month11} ${year.toString()}`;
-
-    let dt12 = new Date(d.setMonth(d.getMonth() +1));
-    month12 = dt12.toLocaleString('en-us', { month: 'long' });
-    month12 = `${month12} ${year.toString()}`;
-}
-function getMonth1(d, year,k, month1)
-{
-    if(k>0 && year < 2022)
+    let year1 = projectData[i].pstartdate.substr(0,4);
+    let monthAppear = monthText[jIndex].innerText.split(' ');
+    let year2 = +monthAppear[1];
+    if(year2>year1)
     {
-        switch(true)
-        {
-            case month1.includes('January 2021'):
-            {
-                let dt = new Date(d.setMonth(d.getMonth() +12));
-                month1 = getChildMonth(month1, dt, year);
-                break;
-            }
-            case month1.includes('February 2021'):
-            {
-                let dt = new Date(d.setMonth(d.getMonth() +11));
-                month1 = getChildMonth(month1, dt, year);
-                break;
-            }
-            case month1.includes('March 2021'):
-            {
-                let dt = new Date(d.setMonth(d.getMonth() +10));
-                month1 = getChildMonth(month1, dt, year);
-                break;
-            }
-            case month1.includes('April 2021'):
-            {
-                let dt = new Date(d.setMonth(d.getMonth() +9));
-                month1 =  getChildMonth(month1, dt, year);
-                break;
-            }
-            case month1.includes('May 2021'):
-            {
-                let dt = new Date(d.setMonth(d.getMonth() +8));
-                month1 = getChildMonth(month1, dt, year);
-                break;
-            }
-            case month1.includes('June 2021'):
-            {
-                let dt = new Date(d.setMonth(d.getMonth() +7));
-                month1 = getChildMonth(month1, dt, year);
-                break;
-            }
-            case month1.includes('July 2021'):
-            {
-                let dt = new Date(d.setMonth(d.getMonth() +6));
-                month1 = getChildMonth(month1, dt, year);
-                break;
-            }
-            case month1.includes('August 2021'):
-            {
-                let dt = new Date(d.setMonth(d.getMonth() +5));
-                month1 = getChildMonth(month1, dt, year);
-                break;
-            }
-            case month1.includes('September 2021'):
-            {
-                let dt = new Date(d.setMonth(d.getMonth() +4));
-                month1 = getChildMonth(month1, dt, year);
-                break;
-            }
-            case month1.includes('October 2021'):
-            {
-                let dt = new Date(d.setMonth(d.getMonth() +3));
-                month1 = getChildMonth(month1, dt, year);
-                break;
-            }
-            case month1.includes('November 2021'):
-            {
-                let dt = new Date(d.setMonth(d.getMonth() +2));
-                month1 = getChildMonth(month1, dt, year);
-                break;
-            }
-            case month1.includes('December 2021'):
-            {
-                let dt = new Date(d.setMonth(d.getMonth() +1));
-                month1 = getChildMonth(month1, dt, year);
-                break;
-            }
-        }
-        return month1;
+        monthIndex = 0; year++;
+        let monthName1 = month[monthIndex];
+        month1 = `${monthName1} ${year}`;
+
+        monthIndex++;        
+        let monthName2 = month[monthIndex];
+        month2 = `${monthName2} ${year}`;
+        
+        monthIndex++;
+        let monthName3 = month[monthIndex];
+        month3 = `${monthName3} ${year}`;
+        
+        monthIndex++;
+        let monthName4 = month[monthIndex];
+        month4 = `${monthName4} ${year}`;
+        
+        monthIndex++;
+        let monthName5 = month[monthIndex];
+        month5 = `${monthName5} ${year}`;
+        
+        monthIndex++;
+        let monthName6 = month[monthIndex];
+        month6 = `${monthName6} ${year}`;
+        
+        monthIndex++;
+        let monthName7 = month[monthIndex];
+        month7 = `${monthName7} ${year}`;
+        
+        monthIndex++;
+        let monthName8 = month[monthIndex];
+        month8 = `${monthName8} ${year}`;
+        
+        monthIndex++;
+        let monthName9 = month[monthIndex];
+        month9 = `${monthName9} ${year}`;
+        
+        monthIndex++;
+        let monthName10 = month[monthIndex];
+        month10 = `${monthName10} ${year}`;
+        
+        monthIndex++;
+        let monthName11 = month[monthIndex];
+        month11 = `${monthName11} ${year}`;
+        
+        monthIndex++;
+        let monthName12 = month[monthIndex];
+        month12 = `${monthName12} ${year}`;
     }
     else
     {
-        return month1;
+        monthIndex = checkMonthIndex(monthIndex);
+        let monthName1 = month[monthIndex];
+        month1 = `${monthName1} ${year}`;
+    
+        monthIndex++;
+        year = updateYear(monthIndex, year);
+        monthIndex = checkMonthIndex(monthIndex);
+        let monthName2 = month[monthIndex];
+        month2 = `${monthName2} ${year}`;
+    
+        monthIndex++;
+        year = updateYear(monthIndex, year);
+        monthIndex = checkMonthIndex(monthIndex);
+        let monthName3 = month[monthIndex];
+        month3 = `${monthName3} ${year}`;
+    
+        monthIndex++;
+        year = updateYear(monthIndex, year);
+        monthIndex = checkMonthIndex(monthIndex);
+        let monthName4 = month[monthIndex];
+        month4 = `${monthName4} ${year}`;
+    
+        monthIndex++;
+        year = updateYear(monthIndex, year);
+        monthIndex = checkMonthIndex(monthIndex);
+        let monthName5 = month[monthIndex];
+        month5 = `${monthName5} ${year}`;
+    
+        monthIndex++;
+        year = updateYear(monthIndex, year);
+        monthIndex = checkMonthIndex(monthIndex);
+        let monthName6 = month[monthIndex];
+        month6 = `${monthName6} ${year}`;
+    
+        monthIndex++;
+        year = updateYear(monthIndex, year);
+        monthIndex = checkMonthIndex(monthIndex);
+        let monthName7 = month[monthIndex];
+        month7 = `${monthName7} ${year}`;
+    
+        monthIndex++;
+        year = updateYear(monthIndex, year);
+        monthIndex = checkMonthIndex(monthIndex);
+        let monthName8 = month[monthIndex];
+        month8 = `${monthName8} ${year}`;
+    
+        monthIndex++;
+        year = updateYear(monthIndex, year);
+        monthIndex = checkMonthIndex(monthIndex);
+        let monthName9 = month[monthIndex];
+        month9 = `${monthName9} ${year}`;
+    
+        monthIndex++;
+        year = updateYear(monthIndex, year);
+        monthIndex = checkMonthIndex(monthIndex);
+        let monthName10 = month[monthIndex];
+        month10 = `${monthName10} ${year}`;
+    
+        monthIndex++;
+        year = updateYear(monthIndex, year);
+        monthIndex = checkMonthIndex(monthIndex);
+        let monthName11 = month[monthIndex];
+        month11 = `${monthName11} ${year}`;
+    
+        monthIndex++;
+        year = updateYear(monthIndex, year);
+        monthIndex = checkMonthIndex(monthIndex);
+        let monthName12 = month[monthIndex];
+        month12 = `${monthName12} ${year}`;
     }
 }
-function getChildMonth(childMonth, dt, year)
+function updateYear(monthIndex, year)
 {
-    childMonth = dt.toLocaleString('en-us', { month: 'long' });
-    year++;
-    return childMonth = `${childMonth} ${year.toString()}`;
+    if(monthIndex > 11)
+    {
+        let newyear = +year;
+        year = newyear + 1;
+        return year;
+    }
+    else
+    {
+        return year;
+    }
 }
+function checkMonthIndex(monthIndex)
+{
+    if(monthIndex>11)
+    {
+        return monthIndex = 0;
+    }
+    else
+    {
+        return +monthIndex;
+    }
+}
+
+
 function remainDaysCount(endTimeline, mobileWidth)
 {
     ganttTimeline[timelineIndex].closest('.first1').style.display="block";
@@ -1545,36 +1487,88 @@ for(let i=0;i<ganttAppear7.length;i++)
         ganttAppear7[i].addEventListener(e,showTimelineTip);
     })
 }
+for(let i=0;i<ganttAppear8.length;i++)
+{
+    ['mouseover','mouseout'].forEach((e)=>
+    {
+        ganttAppear8[i].index=i;
+        ganttAppear8[i].addEventListener(e,showTimelineTip);
+    })
+}
+for(let i=0;i<ganttAppear9.length;i++)
+{
+    ['mouseover','mouseout'].forEach((e)=>
+    {
+        ganttAppear9[i].index=i;
+        ganttAppear9[i].addEventListener(e,showTimelineTip);
+    })
+}
+for(let i=0;i<ganttAppear10.length;i++)
+{
+    ['mouseover','mouseout'].forEach((e)=>
+    {
+        ganttAppear10[i].index=i;
+        ganttAppear10[i].addEventListener(e,showTimelineTip);
+    })
+}
+for(let i=0;i<ganttAppear11.length;i++)
+{
+    ['mouseover','mouseout'].forEach((e)=>
+    {
+        ganttAppear11[i].index=i;
+        ganttAppear11[i].addEventListener(e,showTimelineTip);
+    })
+}
+for(let i=0;i<ganttAppear12.length;i++)
+{
+    ['mouseover','mouseout'].forEach((e)=>
+    {
+        ganttAppear12[i].index=i;
+        ganttAppear12[i].addEventListener(e,showTimelineTip);
+    })
+}
 function showTimelineTip(e)
 {
     if(e.type==="mouseover")
     {
        let projdataInd=this.index;
+       let num = projectData.length;
+       let num1 = projectData.length - 1;
        switch(true)
        {
-           case (projdataInd>6 && projdataInd<14):
+           case (projdataInd>num1 && projdataInd<((num *2))):
            {
-               projdataInd= projdataInd - 7;
+               projdataInd= projdataInd - num;
                 break;
            }
-           case (projdataInd>13 && projdataInd<21):
+           case (projdataInd>((num1*2)+1) && projdataInd<(num*3)):
            {
-               projdataInd= projdataInd - 14;
+               projdataInd= projdataInd - (num*2);
                break;
            }
-           case (projdataInd>20 && projdataInd<28):
+           case (projdataInd>((num1*3)+2) && projdataInd<(num*4)):
            {
-               projdataInd= projdataInd - 21;
+               projdataInd= projdataInd - (num*3);
                break;
            }
-           case (projdataInd>27 && projdataInd<35):
+           case (projdataInd>((num1*4)+3) && projdataInd<(num*5)):
            {
-               projdataInd= projdataInd - 28;
+               projdataInd= projdataInd - (num*4);
                break;
            }
-           case (projdataInd>34 && projdataInd<42):
+           case (projdataInd>((num1*5)+4) && projdataInd<(num*6)):
            {
-               projdataInd= projdataInd - 35;
+               projdataInd= projdataInd - (num*5);
+               break;
+           }
+           case (projdataInd>((num1*6)+5) && projdataInd<(num*7)):
+           {
+               projdataInd= projdataInd - (num*6);
+               break;
+           }
+           case (projdataInd>((num1*7)+6) && projdataInd<(num*8)):
+           {
+               projdataInd= projdataInd - (num*7);
                break;
            }
        }

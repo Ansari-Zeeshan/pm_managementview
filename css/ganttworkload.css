@@ -358,6 +358,10 @@
     border-top: 1px solid #0000000D !important;
     color: #fff;
   }
+  .tablecal1 table tr th.fixedWidth
+  {
+    width: 2.517vw;
+  }
   .tablecal1 table tr th.dateVirtual
   {
     color: #000;
@@ -517,9 +521,9 @@
     color: #535353;
   }
   /*ramyaresponsiveworkload*/
-  @media (max-width:1095px){
+  @media (max-width:1300px){
     .tableprogian{
-      top: 110px;
+      top: 111px;
      
     }
     .firstext{
