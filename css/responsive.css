@@ -276,11 +276,12 @@ z-index: 3;
 padding-bottom: 14px;
 }
 .proj_filter .divfilter2 .project1 {
-display: flex;
-flex-wrap: nowrap;
-align-items: center;
-width: 94%;
-overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    margin-left: -1.1rem;
 }
 .proj_filter .divfilter2 .project1 .projectcon1 {
 /* width: max-content;
@@ -290,8 +291,8 @@ border-bottom-right-radius: 14px;
 padding: 15px 0;
 }
 .child-border{
-    overflow: scroll;
-    border-left:12px solid transparent;
+    border-left: 0px solid transparent !important;
+    border-right: 0px solid transparent !important;
 }
 .proj_filter .divfilter2 .research table tbody tr td.head_conversation,
 .proj_filter .divfilter2 .wireframe table tbody tr td.head_conversation, 
@@ -509,6 +510,7 @@ background-color: antiquewhite;
 }
 .proj_filter .divfilter2 .project1 .border-bottom .projmaincon {
 padding: 12px 0px;
+border-left: 0px solid #5ed9f0;
 }
 .proj_filter .divfilter2 .project1 .projmaincon .addedit .row {
 flex-wrap: wrap;
@@ -524,7 +526,7 @@ display: inline-block;
 z-index: 2;
 }
 .proj_filter .divfilter2 .project1 .projectcon1 .head1 {
-    border: 18px solid #e7fafd;
+    /* border: 18px solid #e7fafd; */
     border-left: 2px solid transparent;
     left: -1px;
     width: 120%;
@@ -533,11 +535,11 @@ z-index: 2;
  left : -1px;
 }
 .proj_filter .divfilter2 .project1:nth-child(2) .projectcon1 .head1 {
-    border: 18px solid #f1e7fa;
+    /* border: 18px solid #f1e7fa; */
     border-left: 2px solid #f1e7fa;
 }
 .proj_filter .divfilter2 .project1:nth-child(3) .projectcon1 .head1 {
-    border: 18px solid #fdf8e7;
+    /* border: 18px solid #fdf8e7; */
     border-left: 2px solid #fdf8e7;
 }
 .proj_filter .divfilter2 .project1 .border-bottom .last_div p {
