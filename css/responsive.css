@@ -178,24 +178,6 @@ z-index: 14;
 width: 100%;
 padding: 0 18px;
 }
-/* .mobile-menuhead .hamberger-menu span
-{
-width: 20px;
-height: 2px;
-background-color: #fff;
-display: block;
-position: relative;
-cursor: pointer;
-}
-.mobile-menuhead .hamberger-menu span::before,
-.mobile-menuhead .hamberger-menu span::after
-{
-position: absolute;
-content: '';
-width: inherit;
-height: inherit;
-background-color: inherit;
-} */
 .mobile-menuhead .hamberger-menu span::before
 {
 top: -5px;
@@ -322,6 +304,10 @@ padding: 15px 0;
 .proj_filter .divfilter2 .kanban
 {
 margin-top: 21.5rem;
+}
+.proj_filter .divfilter2 .list
+{
+    margin-top: 23rem;
 }
 .proj_filter .divfilter2 .project1 .row
 {
