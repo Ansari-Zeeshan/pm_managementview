@@ -1292,24 +1292,25 @@ function performAction(e)
     {
         let imgDiv= e.target.closest('.row').querySelector('.workarrow_div');
         let img= e.target.closest('.row').querySelector('.workarrow_div img');
+        let mobileWidth = e.target.closest('body').getBoundingClientRect().width;
         if(!showWorkspace.classList.contains('active') && !showWorkspaceCon.classList.contains('active'))
         {
            showWorkspace.classList.add('active');
            showWorkspaceCon.classList.add('active');
            imgDiv.style.left="26.1%";
            img.style.transform="rotate(0deg)";
-           if(e.clientX<70)
-           {
-             imgDiv.style.left="70.1%";
-           }
+           if(mobileWidth<700)
+            {
+                imgDiv.style.left="70.1%";
+            }
         }
         else
         {
             showWorkspace.classList.remove('active');
             showWorkspaceCon.classList.remove('active');
-            imgDiv.style.left="6%";
+            imgDiv.style.left="5.5%";
             img.style.transform="rotate(180deg)";
-            if(e.clientX<300)
+            if(mobileWidth<700)
             {
                 imgDiv.style.left="0.8%";
             }

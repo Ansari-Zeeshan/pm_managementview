@@ -99,6 +99,7 @@ const month = ['January','February','March','April','May','June','July','August'
    monthText = document.querySelectorAll('.gantt .tablecal1 .thspace p');
    projNameText = document.querySelectorAll('#benefits2 .first1 .firstext');
    ganttTimeline = document.querySelectorAll('.gantt #benefits2 .tableprogian .timeline');
+   hoverProject2 = document.querySelectorAll('.gantt #benefits2 .tableprogian .firstext');
    ganttSlider[12].classList.add('active');
 })();
 
@@ -1430,6 +1431,25 @@ function givebackground(i,daysCount)
     ganttTimeline[timelineIndex].innerText=`${projectData[i].planned} ${daysCount +1} days`;
     timelineIndex++;
 }
+
+// showing project name on hover
+(function makingTooltip()
+{
+    hoverProject2.forEach((hover)=>
+    {
+        let p = hover.innerHTML;
+        if(p.length>25)
+        {
+            hover.setAttribute('data-bs-toggle','tooltip');
+            hover.setAttribute('data-bs-placement','bottom');
+            hover.setAttribute('title',`${p}`);
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        }
+    })
+}());
 
 for(let i=0;i<ganttAppear1.length;i++)
 {

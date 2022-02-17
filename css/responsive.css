@@ -18,7 +18,7 @@ background: #F2F5F8;
     max-width: 75%;
     padding: 2.5vw 5.3vw;
     width: 300px;
-    height: 90vh;
+    height: 95vh;
     text-align: left;
     align-items: flex-start;
     background: #fff;
@@ -53,12 +53,14 @@ background: #F2F5F8;
     align-items: center;
     position: absolute;
     padding-top: 1rem;
+    margin-top: 2rem;
 }
 .manage_view .div1 .tooltip1 .tooltiptext1:nth-child(2)
 {
     background-color: transparent;
     display: flex;
     align-items: center;
+    margin-top: 2.2rem;
 }
 .manage_view .div1 .tooltip1 .tooltiptext1:nth-child(2) a:nth-child(3)
 {

@@ -202,7 +202,7 @@ const projectData=
     actual: "Dec 28 - Dec 31",
     astartdate: "2021-12-27T20:00:00.000Z",
     aenddate: "2021-12-30T20:00:00.000Z",
-    projectname: "Project 1",
+    projectname: "Project 1 Project 1 Project 1 Project 1 Project 1",
     projectdesc: "demo",
     budgetedamount: "989.00",
     actualbudget: "1920.00",
