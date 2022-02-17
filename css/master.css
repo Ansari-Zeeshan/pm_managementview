@@ -3699,49 +3699,6 @@ ul.dropdown-menu {
   .select-selected {
     font-size: 2rem !important;
   }
-
-  /* kanban */
-  .kanban-body .col-kanban {
-    margin-right: 11px;
-    width: 85% !important;
-  }
-
-  .kanban-body {
-    margin-left: 0rem !important;
-    overflow-x: scroll;
-  }
-
-  .kanban-body::-webkit-scrollbar {
-    width: 10px;
-    height: 7px !important;
-  }
-  .kanban-body ::-webkit-scrollbar-track {
-    border: 1px solid #fff;
-    padding: 2px 0;
-    background-color: #fff;
-  }
-
-  
-
-  .kanban-body ::-webkit-scrollbar-thumb {
-    border-radius: 15px;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-    background-color: #e8e9ed;
-    border: 1px solid #fff;
-  }
-
-  .setting-header {
-    margin-top: 9rem;
-    background: #F2F5F8 !important;
-  }
-
-  /* .adminsetting-header{
-
-  } */
-
-  .kanban-body .d-flex1 {
-    margin-top: 12rem;
-  }
 }
 
 @media (min-width:769px) {
