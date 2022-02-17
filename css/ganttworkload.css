@@ -532,7 +532,7 @@
      
     }
     .firstext{
-      margin-left: 1%;
+      margin-left: 1.5%;
     }
     
   }
@@ -640,17 +640,6 @@
     left: 12%;
     top: -16px;
   }
-
-  /* .v2 {
-    position: absolute;
-    border-left: 2px solid #8a8888d2;
-    width: 1vw;
-    height: 2px;
-    top: 41px;
-    transform: translate(0px, 0px);
-    background: #8a8888d2;
-    left: 12%;
-  } */
   .v3 {
     position: absolute;
     border-left: 2px solid #8a8888d2;
@@ -691,60 +680,19 @@
     background: #8a8888d2;
     left: 12%;
   }
-  /* .v7 {
-    position: absolute;
-    border-left: 2px solid #8a8888d2;
-    width: 2px;
-    height: 62px;
-    top: 100px;
-    z-index: 1;
-    transform: translate(0px, 0px);
-    background: #8a8888d2;
-    left: 12%;
-  }
-  .v8 {
-    position: absolute;
-    border-left: 2px solid #8a8888d2;
-    width: 2px;
-    height: 44px;
-    top: 177px;
-    transform: translate(0px, 0px);
-    background: #8a8888d2;
-    left: 12%;
-  }
-  .v9 {
-    position: absolute;
-    border-left: 2px solid #8a8888d2;
-    width: 12.3vw;
-    height: 2px;
-    top: 161px;
-    transform: translate(0px, 0px);
-    background: #8a8888d2;
-    left: 12%;
-  } */
   .v9::after {
-    /* content: '\27A4'; */
     position: absolute;
-    /* border-left: 2px solid #8a8888d2; */
-    /* width: 5.4vw; */
-    /* height: 2px; */
     top: -11px;
     color: grey;
     transform: translate(0px, 0px);
-    /* background: #8a8888d2; */
     left: 12%;
   }
   
   .v5::after {
-    /* content: '\27A4'; */
     position: absolute;
-    /* border-left: 2px solid #8a8888d2; */
-    /* width: 5.4vw; */
-    /* height: 2px; */
     top: -11px;
     color: grey;
     transform: translate(0px, 0px);
-    /* background: #8a8888d2; */
     left: 12%;
   }
   .card-body-bg{
@@ -778,15 +726,6 @@
     margin-left: 29%;
     width: 13%;
   }
-  
-  /* .first1 .collapsed .hide2 {
-  display: none;
-  color: #616264;
-  font-size: 13px;
-  font-weight: bold;
-  } */
-  
-  
   
   .hide2{
     display: none;
@@ -851,8 +790,13 @@
   .hide2 {
     width: 48%;
   }
-  
-  
+  .gantt #benefits2 {
+    background-color: #fff;
   }
+  .firstext {
+    width: 19.5%;
+    height: 19px;
+  }
+}
   
   /* gantt workdload css start end*/
