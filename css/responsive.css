@@ -246,6 +246,7 @@ width: 153%;
 }
 .proj_filter .divfilter2 .top_up, .proj_filter .divfilter2 .top_up2 {
 padding: 26px 0.4rem 0px;
+border-bottom: 1px solid #e3e3e3;
 }
 .proj_filter .divfilter2 .top_up ul li {
 padding-bottom: 17px;
