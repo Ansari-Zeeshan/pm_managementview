@@ -1106,18 +1106,6 @@ function getTimeline(endTimeline,i,jIndex)
         return endTimeline;
     }
 }
-function showinMobile1(multiplyTerm)
-{
-    ganttTimeline[timelineIndex].style.cssText=`margin-left:23.2%; width:${multiplyTerm *9.8}%`;
-}
-function showinMobile2(startTime, multiplyTerm)
-{
-    ganttTimeline[timelineIndex].style.cssText=`margin-left:${(startTime*9.8)+23.2}%; width:${multiplyTerm *9.8}%`;
-}
-function showinMobile4(multiplyTerm)
-{
-    ganttTimeline[timelineIndex].style.cssText=`margin-left:23.2%; width:${multiplyTerm *9.8}%`;
-}
 function checkTargetDate2(date2,i,loopingYear,daysCount)
 {
     let year1 = projectData[i].pstartdate.substr(0,4);
@@ -1389,7 +1377,6 @@ function checkMonthIndex(monthIndex)
     }
 }
 
-
 function remainDaysCount(endTimeline, mobileWidth)
 {
     ganttTimeline[timelineIndex].closest('.first1').style.display="block";
@@ -1399,9 +1386,21 @@ function remainDaysCount(endTimeline, mobileWidth)
         showinMobile3(endTimeline);
     }
 }
+function showinMobile1(multiplyTerm)
+{
+    ganttTimeline[timelineIndex].style.cssText=`margin-left:23.2%; width:${multiplyTerm *9.67}%`;
+}
+function showinMobile2(startTime, multiplyTerm)
+{
+    ganttTimeline[timelineIndex].style.cssText=`margin-left:${(startTime*9.8)+23.2}%; width:${multiplyTerm *9.67}%`;
+}
 function showinMobile3(endTimeline)
 {
-    ganttTimeline[timelineIndex].style.cssText=`margin-left:23.2%; width:${endTimeline * 9.8}%`;
+    ganttTimeline[timelineIndex].style.cssText=`margin-left:23.2%; width:${endTimeline * 9.67}%`;
+}
+function showinMobile4(multiplyTerm)
+{
+    ganttTimeline[timelineIndex].style.cssText=`margin-left:23.2%; width:${multiplyTerm *9.67}%`;
 }
 function hidingGant()
 {
