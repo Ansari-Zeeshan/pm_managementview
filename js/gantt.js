@@ -164,7 +164,6 @@ function assignDate()
         monthNumber2=0;
         getMonthLength();
    }
-   
 }
 assignDate();
 function assignProjectName()
@@ -1392,7 +1391,6 @@ function showinMobile1(multiplyTerm)
 }
 function showinMobile2(startTime, multiplyTerm)
 {
-    console.log(startTime);
     ganttTimeline[timelineIndex].style.cssText=`margin-left:${(startTime*9.67)+23.2}%; width:${multiplyTerm *9.67}%`;
 }
 function showinMobile3(endTimeline)

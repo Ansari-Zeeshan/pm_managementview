@@ -435,7 +435,6 @@ table .thspace {
 }
 
 .gantt #benefits2 {
-  display: none;
   transition: all 0.3s ease-in;
 }
 
