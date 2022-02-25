@@ -191,7 +191,7 @@ prevGantt.addEventListener('click',()=>
 })
 function calTimelineBar()
 {
-    let mobileWidth = body;    
+    let mobileWidth = body.clientWidth;    
     let projTimeline = document.querySelectorAll('.gantt #benefits2 .tableprogian .timeline');
         for(let i=0;i<projectData.length;i++)
         {
@@ -326,7 +326,7 @@ function calTimelineBar()
 calTimelineBar();
 function calMilestoneBar()
 {
-    let mobileWidth = body;    
+    let mobileWidth = body.clientWidth;       
     for(let j=0;j<milestoneData.length;j++)
     {
         let milestone = ganttTimeline[j].closest('.first1').querySelectorAll('.collapse .milestonediv1 .milestonediv11');
@@ -465,7 +465,7 @@ calMilestoneBar();
 
 function calTaskBar()
 {
-    let mobileWidth = body;    
+    let mobileWidth = body.clientWidth;       
     for(k=0;k<projectData.length;k++)
     {
         let milestone = milesPDiv[k].querySelectorAll('.card .Milestone');
@@ -619,7 +619,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile1(daysCount,ganttTimeline);
+                        showinMobile1(i,daysCount,ganttTimeline);
                     }
             }
             else
@@ -636,7 +636,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2)
@@ -657,7 +657,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.first1').style.display="block"; 
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month3)
@@ -678,7 +678,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month4)
@@ -700,7 +700,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month5)
@@ -722,7 +722,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month6)
@@ -744,7 +744,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month7)
@@ -767,7 +767,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month8)
@@ -790,7 +790,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month9)
@@ -813,7 +813,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month10)
@@ -837,7 +837,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month11)
@@ -861,7 +861,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month12)
@@ -888,7 +888,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,daysCount,ganttTimeline);               
+                        showinMobile2(i,startTime,daysCount,ganttTimeline);               
                     }
             }        
             else
@@ -906,7 +906,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2)
@@ -928,7 +928,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }  
             }
             else if(monthText.innerText===month2)
@@ -937,7 +937,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth);
+                        showinMobile4(i,totWidth);
                     }
             }
             else if(monthText.innerText===month3)
@@ -959,7 +959,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3)
@@ -968,7 +968,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth);
+                        showinMobile4(i,totWidth);
                     }
             }
             else if(monthText.innerText===month4)
@@ -990,7 +990,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4)
@@ -999,7 +999,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth);
+                        showinMobile4(i,totWidth);
                     }
             }
             else if(monthText.innerText===month5)
@@ -1021,7 +1021,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1031,7 +1031,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month6)
@@ -1053,7 +1053,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1063,7 +1063,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month7)
@@ -1085,7 +1085,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1095,7 +1095,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month8)
@@ -1117,7 +1117,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1128,7 +1128,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month9)
@@ -1150,7 +1150,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1161,7 +1161,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month10)
@@ -1183,7 +1183,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1194,7 +1194,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month11)
@@ -1216,7 +1216,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1228,7 +1228,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 ganttTimeline[i].closest('.first1').style.display="block";
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month12)
@@ -1254,7 +1254,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth<700)
                     {
-                        showinMobile1(daysCount,ganttTimeline);
+                        showinMobile1(i,daysCount,ganttTimeline);
                     }
             }
             else
@@ -1272,7 +1272,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2)
@@ -1294,7 +1294,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month3)
@@ -1316,7 +1316,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month4)
@@ -1339,7 +1339,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month5)
@@ -1362,7 +1362,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month6)
@@ -1385,7 +1385,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month7)
@@ -1409,7 +1409,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month8)
@@ -1433,7 +1433,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month9)
@@ -1457,7 +1457,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month10)
@@ -1482,7 +1482,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month11)
@@ -1507,7 +1507,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month12)
@@ -1535,7 +1535,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,daysCount,ganttTimeline);               
+                        showinMobile2(i,startTime,daysCount,ganttTimeline);               
                     }
             }        
             else
@@ -1554,7 +1554,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2)
@@ -1578,7 +1578,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }  
             }
             else if(monthText.innerText===month2)
@@ -1588,7 +1588,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth);
+                        showinMobile4(i,totWidth);
                     }
             }
             else if(monthText.innerText===month3)
@@ -1612,7 +1612,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3)
@@ -1622,7 +1622,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth);
+                        showinMobile4(i,totWidth);
                     }
             }
             else if(monthText.innerText===month4)
@@ -1646,7 +1646,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4)
@@ -1656,7 +1656,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth);
+                        showinMobile4(i,totWidth);
                     }
             }
             else if(monthText.innerText===month5)
@@ -1680,7 +1680,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1691,7 +1691,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month6)
@@ -1715,7 +1715,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1726,7 +1726,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month7)
@@ -1750,7 +1750,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1761,7 +1761,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month8)
@@ -1785,7 +1785,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1797,7 +1797,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month9)
@@ -1821,7 +1821,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1833,7 +1833,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month10)
@@ -1857,7 +1857,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1869,7 +1869,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month11)
@@ -1893,7 +1893,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -1906,7 +1906,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month12)
@@ -1932,7 +1932,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 // ganttTimeline[i].closest('.task').querySelector('.milestonediv22').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth<700)
                     {
-                        showinMobile1(daysCount,ganttTimeline);
+                        showinMobile1(i,daysCount,ganttTimeline);
                     }
             }
             else
@@ -1950,7 +1950,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 // ganttTimeline[i].closest('.task').querySelector('.milestonediv22').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2)
@@ -1972,7 +1972,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 // ganttTimeline[i].closest('.task').querySelector('.milestonediv22').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month3)
@@ -1994,7 +1994,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 // ganttTimeline[i].closest('.task').querySelector('.milestonediv22').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month4)
@@ -2017,7 +2017,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 // ganttTimeline[i].closest('.task').querySelector('.milestonediv22').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month5)
@@ -2040,7 +2040,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 // ganttTimeline[i].closest('.task').querySelector('.milestonediv22').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month6)
@@ -2063,7 +2063,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 // ganttTimeline[i].closest('.task').querySelector('.milestonediv22').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month7)
@@ -2087,7 +2087,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 // ganttTimeline[i].closest('.task').querySelector('.milestonediv22').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month8)
@@ -2111,7 +2111,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 // ganttTimeline[i].closest('.task').querySelector('.milestonediv22').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month9)
@@ -2135,7 +2135,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 // ganttTimeline[i].closest('.task').querySelector('.milestonediv22').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month10)
@@ -2160,7 +2160,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 // ganttTimeline[i].closest('.task').querySelector('.milestonediv22').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month11)
@@ -2185,7 +2185,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 // ganttTimeline[i].closest('.task').querySelector('.milestonediv22').style.cssText=`margin-left:11.3%;`;
                     if(mobileWidth < 700)
                     {
-                        showinMobile1(totWidth,ganttTimeline);
+                        showinMobile1(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month12)
@@ -2213,7 +2213,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,daysCount,ganttTimeline);               
+                        showinMobile2(i,startTime,daysCount,ganttTimeline);               
                     }
             }        
             else
@@ -2232,7 +2232,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2)
@@ -2256,7 +2256,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }  
             }
             else if(monthText.innerText===month2)
@@ -2266,7 +2266,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth);
+                        showinMobile4(i,totWidth);
                     }
             }
             else if(monthText.innerText===month3)
@@ -2290,7 +2290,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3)
@@ -2300,7 +2300,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth);
+                        showinMobile4(i,totWidth);
                     }
             }
             else if(monthText.innerText===month4)
@@ -2324,7 +2324,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4)
@@ -2334,7 +2334,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth);
+                        showinMobile4(i,totWidth);
                     }
             }
             else if(monthText.innerText===month5)
@@ -2358,7 +2358,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -2369,7 +2369,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month6)
@@ -2393,7 +2393,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -2404,7 +2404,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month7)
@@ -2428,7 +2428,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -2439,7 +2439,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month8)
@@ -2463,7 +2463,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -2475,7 +2475,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month9)
@@ -2499,7 +2499,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -2511,7 +2511,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month10)
@@ -2535,7 +2535,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -2547,7 +2547,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month11)
@@ -2571,7 +2571,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.92)+11.3}%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile2(startTime,localdaysCount,ganttTimeline);
+                        showinMobile2(i,startTime,localdaysCount,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month2 || monthText.innerText===month3 || monthText.innerText===month4
@@ -2584,7 +2584,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:11.3%`;
                     if(mobileWidth<700)
                     {
-                        showinMobile4(totWidth,ganttTimeline);
+                        showinMobile4(i,totWidth,ganttTimeline);
                     }
             }
             else if(monthText.innerText===month12)
@@ -2957,24 +2957,24 @@ function remainDaysCount(endTimeline,ganttTimeline,mobileWidth, i)
     ganttTimeline[i].style.cssText=`margin-left:11.3%; width:${endTimeline * 2.83}%`;
     if(mobileWidth<700)
     {
-        showinMobile3(endTimeline,ganttTimeline);
+        showinMobile3(i,endTimeline,ganttTimeline);
     }
 }
-function showinMobile1(multiplyTerm,ganttTimeline)
+function showinMobile1(i,multiplyTerm,ganttTimeline)
 {
-    ganttTimeline[i].style.cssText=`margin-left:23.2%; width:${multiplyTerm *9.67}%`;
+    ganttTimeline[i].style.cssText=`margin-left:23%; width:${multiplyTerm *9.59}%`;
 }
-function showinMobile2(startTime, multiplyTerm,ganttTimeline)
+function showinMobile2(i,startTime, multiplyTerm,ganttTimeline)
 {
-    ganttTimeline[i].style.cssText=`margin-left:${(startTime*9.67)+23.2}%; width:${multiplyTerm *9.67}%`;
+    ganttTimeline[i].style.cssText=`margin-left:${(startTime*9.59)+23}%; width:${multiplyTerm *9.59}%`;
 }
-function showinMobile3(endTimeline,ganttTimeline)
+function showinMobile3(i,endTimeline,ganttTimeline)
 {
-    ganttTimeline[i].style.cssText=`margin-left:23.2%; width:${endTimeline * 9.67}%`;
+    ganttTimeline[i].style.cssText=`margin-left:23%; width:${endTimeline * 9.59}%`;
 }
-function showinMobile4(multiplyTerm,ganttTimeline)
+function showinMobile4(i,multiplyTerm,ganttTimeline)
 {
-    ganttTimeline[i].style.cssText=`margin-left:23.2%; width:${multiplyTerm *9.67}%`;
+    ganttTimeline[i].style.cssText=`margin-left:23%; width:${multiplyTerm *9.59}%`;
 }
 
 function givebackground(i,daysCount,ganttTimeline)

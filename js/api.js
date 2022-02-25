@@ -226,43 +226,43 @@ const projectData=
     businessprojectmanagerid: "Abul",
     projectphase: "401"
   },
-  // {
-  //   projectrequestid: "177",
-  //   projectrefid: "PR-615D",
-  //   planned: "Jul 25 - Sep 25",
-  //   startExactDay: '25 Jul 2026',
-  //   startMonth: '2026/07/01',
-  //   duration: '100 days',
-  //   percentage: '85%',
-  //   pstartdate: "2026/07/25T20:00:00.000Z",
-  //   penddate: "2026/09/25T20:00:00.000Z",
-  //   actual: "Dec 28 - Dec 31",
-  //   astartdate: "2021-12-27T20:00:00.000Z",
-  //   aenddate: "2021-12-30T20:00:00.000Z",
-  //   projectname: "Project 1 Project 1 Project 1 Project 1 Project 1",
-  //   projectdesc: "demo",
-  //   budgetedamount: "989.00",
-  //   actualbudget: "1920.00",
-  //   statusid: 500,
-  //   statustext: "Approved",
-  //   statusclass: "#1FC875",
-  //   projectlead: "Tariq Eqbal",
-  //   projectleadimage: "",
-  //   domainlead: "Atiq Ur Rehman",
-  //   technicallead: null,
-  //   programmanager:null,
-  //   domainleadimage: "",
-  //   milestone_count: "30",
-  //   creater_id: "93",
-  //   businessunitid: 7,
-  //   changedenddate: "2022-01-16T20:00:00.000Z",
-  //   planningefforts: "0",
-  //   changedapprovedbudget: "10.00",
-  //   priority: "High",
-  //   scrummasterid: null,
-  //   businessprojectmanagerid: "Abul",
-  //   projectphase: "401"
-  // }
+  {
+    projectrequestid: "177",
+    projectrefid: "PR-615D",
+    planned: "Jul 25 - Sep 25",
+    startExactDay: '25 Jul 2022',
+    startMonth: '2022/07/01',
+    duration: '100 days',
+    percentage: '85%',
+    pstartdate: "2022/07/25T20:00:00.000Z",
+    penddate: "2022/09/25T20:00:00.000Z",
+    actual: "Dec 28 - Dec 31",
+    astartdate: "2021-12-27T20:00:00.000Z",
+    aenddate: "2021-12-30T20:00:00.000Z",
+    projectname: "Project 2",
+    projectdesc: "demo",
+    budgetedamount: "989.00",
+    actualbudget: "1920.00",
+    statusid: 500,
+    statustext: "Approved",
+    statusclass: "#1FC875",
+    projectlead: "Tariq Eqbal",
+    projectleadimage: "",
+    domainlead: "Atiq Ur Rehman",
+    technicallead: null,
+    programmanager:null,
+    domainleadimage: "",
+    milestone_count: "30",
+    creater_id: "93",
+    businessunitid: 7,
+    changedenddate: "2022-01-16T20:00:00.000Z",
+    planningefforts: "0",
+    changedapprovedbudget: "10.00",
+    priority: "High",
+    scrummasterid: null,
+    businessprojectmanagerid: "Abul",
+    projectphase: "401"
+  }
 ]
 
 const milestoneData =
@@ -341,57 +341,57 @@ const milestoneData =
       }
     ]
   },
-  // {
-  //   "project":
-  //   [
-  //     {
-  //       'milestoneid': "112",
-  //       'projectid': "178",
-  //       'milestonename': "Milestone 1",
-  //       'milestonedesc': "asdasdasd",
-  //       'startExactDay': '28 Jul 2026',
-  //       'startMonth': '2026/07/01',
-  //       'duration' : '30 days',
-  //       'percentage': '75%',
-  //       'ownerid': "10",
-  //       'ownername': "Ashar Ahmed Syed",
-  //       'ownerimage': "",
-  //       'statusid': 205,
-  //       'statustext': "At Risk",
-  //       'statusclass': "#E2445B",
-  //       'planned': "Jan 22 - Feb 20",
-  //       'actual': " - ",
-  //       'mstartdate': "2026-07-28T20:00:00.000Z",
-  //       'menddate': "2026-08-15T20:00:00.000Z",
-  //       'tasks_count': "2",
-  //       'tasks_done' : "2",
-  //       'createdby': "25",
-  //     },
-  //     {
-  //       'milestoneid': "112",
-  //       'projectid': "178",
-  //       'milestonename': "Milestone 2",
-  //       'milestonedesc': "asdasdasd",
-  //       'startExactDay': '17 Aug 2026',
-  //       'startMonth': '2026/08/01',
-  //       'duration' : '43 days',
-  //       'percentage': '33%',
-  //       'ownerid': "10",
-  //       'ownername': "Ashar Ahmed Syed",
-  //       'ownerimage': "",
-  //       'statusid': 205,
-  //       'statustext': "Medium",
-  //       'statusclass': "#9D73FA",
-  //       'planned': "Mar 04 - Apr 15",
-  //       'actual': " - ",
-  //       'mstartdate': "2026-08-17T20:00:00.000Z",
-  //       'menddate': "2026-09-15T20:00:00.000Z",
-  //       'tasks_count': "2",
-  //       'tasks_done' : "1",
-  //       'createdby': "25"
-  //     }
-  //   ]
-  // }
+  {
+    "project":
+    [
+      {
+        'milestoneid': "112",
+        'projectid': "178",
+        'milestonename': "Milestone 1",
+        'milestonedesc': "asdasdasd",
+        'startExactDay': '28 Jul 2022',
+        'startMonth': '2022/07/01',
+        'duration' : '30 days',
+        'percentage': '75%',
+        'ownerid': "10",
+        'ownername': "Ashar Ahmed Syed",
+        'ownerimage': "",
+        'statusid': 205,
+        'statustext': "At Risk",
+        'statusclass': "#E2445B",
+        'planned': "Jul 28 - Aug 15",
+        'actual': " - ",
+        'mstartdate': "2022-07-28T20:00:00.000Z",
+        'menddate': "2022-08-15T20:00:00.000Z",
+        'tasks_count': "2",
+        'tasks_done' : "2",
+        'createdby': "25",
+      },
+      {
+        'milestoneid': "112",
+        'projectid': "178",
+        'milestonename': "Milestone 2",
+        'milestonedesc': "asdasdasd",
+        'startExactDay': '17 Aug 2022',
+        'startMonth': '2022/08/01',
+        'duration' : '43 days',
+        'percentage': '33%',
+        'ownerid': "10",
+        'ownername': "Ashar Ahmed Syed",
+        'ownerimage': "",
+        'statusid': 205,
+        'statustext': "Medium",
+        'statusclass': "#9D73FA",
+        'planned': "Aug 17 - Sep 15",
+        'actual': " - ",
+        'mstartdate': "2022-08-17T20:00:00.000Z",
+        'menddate': "2022-09-15T20:00:00.000Z",
+        'tasks_count': "2",
+        'tasks_done' : "1",
+        'createdby': "25"
+      }
+    ]
+  }
 ];
 
 const taskData =
@@ -671,6 +671,102 @@ const taskData =
             'actual': " - ",
             'tstartdate': "2021-07-14T20:00:00.000Z",
             'tenddate': "2021-07-18T20:00:00.000Z",
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "milestone":
+    [
+      {
+        "task":
+        [
+          {
+            'taskid': "112",
+            'projectid': "178",
+            'taskname': "Task 1",
+            'taskdesc': "asdasdasd",
+            'startExactDay': '29 Jul 2022',
+            'startMonth': '2022/07/01',
+            'duration' : '5 days',
+            'percentage': '50%',
+            'ownerid': "10",
+            'ownername': "Ashar Ahmed Syed",
+            'ownerimage': "",
+            'statusid': 205,
+            'statustext': "At Risk",
+            'statusclass': "#E2445B",
+            'planned': "Jul 29 - Aug 05",
+            'actual': " - ",
+            'tstartdate': "2022-07-29T20:00:00.000Z",
+            'tenddate': "2022-08-05T20:00:00.000Z",
+          },
+          {
+            'taskid': "112",
+            'projectid': "178",
+            'taskname': "Task 2",
+            'taskdesc': "asdasdasd",
+            'startExactDay': '07 Aug 2022',
+            'startMonth': '2022/08/01',
+            'duration' : '5 days',
+            'percentage': '33%',
+            'ownerid': "10",
+            'ownername': "Ashar Ahmed Syed",
+            'ownerimage': "",
+            'statusid': 205,
+            'statustext': "Medium",
+            'statusclass': "#9D73FA",
+            'planned': "Aug 07 - Aug 13",
+            'actual': " - ",
+            'tstartdate': "2022-08-07T20:00:00.000Z",
+            'tenddate': "2022-08-13T20:00:00.000Z",
+          }
+        ]
+      },
+      {
+        "task":
+        [
+          {
+            'taskid': "112",
+            'projectid': "178",
+            'taskname': "Task 1",
+            'taskdesc': "asdasdasd",
+            'startExactDay': '19 Aug 2022',
+            'startMonth': '2022/08/01',
+            'duration' : '7 days',
+            'percentage': '75%',
+            'ownerid': "10",
+            'ownername': "Ashar Ahmed Syed",
+            'ownerimage': "",
+            'statusid': 205,
+            'statustext': "At Risk",
+            'statusclass': "#E2445B",
+            'planned': "Aug 19 - Aug 28",
+            'actual': " - ",
+            'tstartdate': "2022-08-19T20:00:00.000Z",
+            'tenddate': "2022-08-28T20:00:00.000Z",
+          },
+          {
+            'taskid': "112",
+            'projectid': "178",
+            'taskname': "Task 2",
+            'taskdesc': "asdasdasd",
+            'startExactDay': '01 Sep 2022',
+            'startMonth': '2022/09/01',
+            'duration' : '9 days',
+            'percentage': '33%',
+            'ownerid': "10",
+            'ownername': "Ashar Ahmed Syed",
+            'ownerimage': "",
+            'statusid': 205,
+            'statustext': "Medium",
+            'statusclass': "#9D73FA",
+            'planned': "Sep 01 - Sep 11",
+            'actual': " - ",
+            'tstartdate': "2022-09-01T20:00:00.000Z",
+            'tenddate': "2022-09-11T20:00:00.000Z",
           }
         ]
       }
