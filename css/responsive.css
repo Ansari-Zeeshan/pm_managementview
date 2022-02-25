@@ -274,6 +274,7 @@ overflow-x: scroll; */
 border-top-right-radius: 14px;
 border-bottom-right-radius: 14px;
 padding: 15px 0;
+padding: 20px 8px 12px;
 }
 .child-border{
     border-left: 0px solid transparent !important;
@@ -520,7 +521,6 @@ z-index: 2;
 }
 .proj_filter .divfilter2 .project1 .projmaincon .divcon1 {
  left : -1px;
- background: #f5f6f9;
 }
 .proj_filter .divfilter2 .project1:nth-child(2) .projectcon1 .head1 {
     border-left: 2px solid #f1e7fa;
