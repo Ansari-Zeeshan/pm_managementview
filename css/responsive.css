@@ -498,7 +498,6 @@ overflow-x: hidden;
 background-color: antiquewhite;
 }
 .proj_filter .divfilter2 .project1 .border-bottom .projmaincon {
-padding: 12px 0px;
 border-left: 0px solid #5ed9f0;
 }
 .proj_filter .divfilter2 .project1 .projmaincon .addedit .row {
@@ -515,16 +514,15 @@ display: inline-block;
 z-index: 2;
 }
 .proj_filter .divfilter2 .project1 .projectcon1 .head1 {
-    /* border: 18px solid #e7fafd; */
     border-left: 2px solid transparent;
     left: -1px;
     width: 120%;
 }
 .proj_filter .divfilter2 .project1 .projmaincon .divcon1 {
  left : -1px;
+ background: #f5f6f9;
 }
 .proj_filter .divfilter2 .project1:nth-child(2) .projectcon1 .head1 {
-    /* border: 18px solid #f1e7fa; */
     border-left: 2px solid #f1e7fa;
 }
 .proj_filter .divfilter2 .project1:nth-child(3) .projectcon1 .head1 {

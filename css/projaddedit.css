@@ -6,6 +6,10 @@
 .proj_filter #editText{
     cursor: pointer;
 }
+.manage_view .proj_edit > .row >.d-flex span
+{
+    cursor: pointer;
+}
 .manage_view .proj_edit
 {
 position: fixed;
