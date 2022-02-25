@@ -1,13 +1,13 @@
 @media(max-width: 849px)
 {
-    /* :root {
+    :root {
         --heebo: 'heebo', sans-serif;
         --marcel: 'heebo', sans-serif;
         --open: 'heebo', sans-serif;
         --roboto: 'heebo', sans-serif;
         --lato: 'heebo', sans-serif;
         --rot: 0deg;
-    } */
+    }
 .manage_view
 {
 background: #F2F5F8;

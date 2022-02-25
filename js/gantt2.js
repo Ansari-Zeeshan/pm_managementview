@@ -197,7 +197,7 @@ function calTimelineBar()
         {
             let date1 = new Date(projectData[i].pstartdate.substr(0,10).toString());
             let date2 = new Date(projectData[i].penddate.substr(0,10).toString());
-            let projStartMonth = projectData[i].planned.substr(0,3).toString();
+            let projStartMonth = projectData[i].startExactDay.substr(3,3).toString();
             let getMonthIndex = getNumericMonth(projStartMonth);
             let startYear = projectData[i].startMonth.substr(0,4);
             compareYear = +startYear;
@@ -334,7 +334,7 @@ function calMilestoneBar()
         {
             let date1 = new Date(milestoneData[j].project[i].mstartdate.substr(0,10).toString());
             let date2 = new Date(milestoneData[j].project[i].menddate.substr(0,10).toString());
-            let projStartDate = milestoneData[j].project[i].planned.substr(0,3).toString();
+            let projStartDate = milestoneData[j].project[i].startExactDay.substr(3,3).toString();
             let getMonthIndex = getNumericMonth(projStartDate);
             let startYear = milestoneData[j].project[i].startMonth.substr(0,4);
             compareYear = +startYear;
@@ -476,7 +476,7 @@ function calTaskBar()
             {
                 let date1 = new Date(taskData[k].milestone[j].task[i].tstartdate.substr(0,10).toString());
                 let date2 = new Date(taskData[k].milestone[j].task[i].tenddate.substr(0,10).toString());
-                let projStartDate = taskData[k].milestone[j].task[i].planned.substr(0,3).toString();
+                let projStartDate = taskData[k].milestone[j].task[i].startExactDay.substr(3,3).toString();
                 let getMonthIndex = getNumericMonth(projStartDate);
                 let startYear = taskData[k].milestone[j].task[i].startMonth.substr(0,4);
                 compareYear = +startYear;
@@ -3092,3 +3092,4 @@ milesPDiv.forEach((parent,ind)=>
         }
     })
 })
+
