@@ -568,7 +568,9 @@ table .thspace {
   transform: rotate(180deg);
 }
 
-.gantt .timelinetooltip {
+.gantt .timelinetooltip, 
+.gantt .milestonetooltip 
+{
   position: absolute;
   background-color: #fff;
   padding: 15px;
@@ -578,12 +580,18 @@ table .thspace {
   display: none;
 }
 
-.gantt .timelinetooltip h4 {
-  font-size: 13px;
-  margin-bottom: 0.2rem;
+.gantt .timelinetooltip h4, 
+.gantt .milestonetooltip h4 
+{
+  font-size: 14px;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: #3d3d3d;
 }
 
-.gantt .timelinetooltip p {
+.gantt .timelinetooltip p, 
+.gantt .milestonetooltip p 
+{
   font-size: 13px;
   margin-top: 0.9rem;
   color: #535353;
@@ -699,8 +707,9 @@ table .thspace {
 .vl {
   position: absolute;
   border-left: 2px solid #8a8888d2;
-  height: 45px;
-  left: 12%;
+  height: 33px;
+  top: -2px;
+  z-index: -1;
 }
 
 .vl2 {
@@ -784,7 +793,7 @@ table .thspace {
 }
 
 .milestonediv1 {
-  width: 76%;
+  width: 100%;
 }
 
 .milestonediv1 .milestonediv11 {

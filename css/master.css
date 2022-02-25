@@ -3444,7 +3444,10 @@ h6 {
 .proj_filter .divfilter2 .project1 .yellow-table .border-bottom {
   border-bottom: 3px solid #F5F6F9 !important;
 }
-
+/* .proj_filter .divfilter2 .project1 .projmaincon .divcon1 {
+  padding: 18px 0px;
+  border-left: 6px solid #5ED9F0;
+} */
 .button1 {
   padding: 0;
   margin: 0;
