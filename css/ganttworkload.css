@@ -437,7 +437,11 @@ table .thspace {
 .gantt #benefits2 {
   transition: all 0.3s ease-in;
 }
-
+.gantt #benefits2 .first1 .mycollapse
+{
+  height: 0px;
+  transition: height 0.3s ease-out;
+}
 .gantt #benefits2.active {
   display: block;
   animation: slideRight 0.3s ease-in-out;
