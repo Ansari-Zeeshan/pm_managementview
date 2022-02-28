@@ -927,6 +927,9 @@ table .thspace {
   {
     margin-top: 12px;
   }
+  .tableprogian {
+    width: 95.5%;
+  }
 }
 
 /* gantt workdload css start end*/
