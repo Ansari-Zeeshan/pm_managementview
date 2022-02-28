@@ -656,7 +656,7 @@ table .thspace {
   .workloadrow,
   .tablecal {
     margin: 13.5rem 10px 10px -10px;
-    width: 98%;
+    width: 99%;
   }
 
   .progress3 {
@@ -921,7 +921,7 @@ table .thspace {
     margin-top: 9px;
     background: #fff;
     margin-left: -0.9rem;
-    width: 99.27%;
+    max-width: 100%;
   }
   .form-group.form-group1
   {
