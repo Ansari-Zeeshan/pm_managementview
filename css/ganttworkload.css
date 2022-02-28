@@ -437,6 +437,10 @@ table .thspace {
 .gantt #benefits2 {
   transition: all 0.3s ease-in;
 }
+.gantt #benefits2 .fixedvw
+{
+  width: 10.125vw;
+}
 .gantt #benefits2 .first1 .mycollapse
 {
   height: 0px;
@@ -482,7 +486,7 @@ table .thspace {
 .firstext {
   font-size: 13px;
   color: #1E2022;
-  font-weight: 400;
+  font-weight: 600;
   overflow: hidden;
   width: 9%;
   height: 20px;
