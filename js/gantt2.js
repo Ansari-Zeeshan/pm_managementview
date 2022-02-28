@@ -3056,7 +3056,7 @@ milesPDiv.forEach((parent,ind)=>
         mileAppear = e.target.closest('.first1').querySelectorAll('.card .milestonediv11');
         for(let i=0;i<mileAppear.length;i++)
         {
-            ['mouseover','mouseout'].forEach((e)=>
+            ['mouseover','mouseout','click'].forEach((e)=>
             {
                 mileAppear[i].index=i;
                 mileAppear[i].addEventListener(e,showMilestoneTip);
@@ -3066,7 +3066,7 @@ milesPDiv.forEach((parent,ind)=>
         {
             if(e.type==="mouseover")
             {
-            let miledataInd=this.index;
+            miledataInd=this.index;
             let tip = e.target.closest('.gantt').querySelector('.milestonetooltip');
             let top=e.clientY;
             let left=e.clientX;
@@ -3088,6 +3088,42 @@ milesPDiv.forEach((parent,ind)=>
             {
                 let tip = e.target.closest('.gantt').querySelector('.milestonetooltip');
                 tip.style.display="none";
+            }
+            else if(e.type==="click")
+            {
+                let tip = e.target.closest('.Milestone').querySelectorAll('.task');
+                for(let j=0; j<tip.length; j++)
+                {
+                    ['mouseover','mouseout'].forEach((e)=>
+                    {
+                        tip[j].tipind = j;
+                        tip[j].addEventListener(e,taskTooltip);
+                    })
+                }
+                function taskTooltip(e)
+                {
+                    if(e.type==='mouseover')
+                    {
+                        let taskDataInd = this.tipind;
+                        let tip = e.target.closest('.gantt').querySelector('.tasktooltip');
+                        let top=e.clientY;
+                        let left=e.clientX;
+                        tip.style.cssText=`top:${top}px; left:${left}px; display:block;`;
+                        let h4 = tip.querySelector('h4');
+                        let p1 = tip.querySelector('p:nth-child(2)');
+                        let p2 = tip.querySelector('p:nth-child(3)');
+                        let p3 = tip.querySelector('p:nth-child(4)');
+                        h4.innerText=`${taskData[ind].milestone[miledataInd].task[taskDataInd].taskname} ${taskData[ind].milestone[miledataInd].task[taskDataInd].startExactDay}`;
+                        p1.innerText=`Duration: ${taskData[ind].milestone[miledataInd].task[taskDataInd].duration}`;
+                        p2.innerText=`Percentage Done: ${taskData[ind].milestone[miledataInd].task[taskDataInd].percentage}`;
+                        p3.innerText=`Status: ${taskData[ind].milestone[miledataInd].task[taskDataInd].statustext}`;
+                    }
+                    else if(e.type==='mouseout')
+                    {
+                        let tip = e.target.closest('.gantt').querySelector('.tasktooltip');
+                        tip.style.display="none";
+                    }
+                }
             }
         }
     })

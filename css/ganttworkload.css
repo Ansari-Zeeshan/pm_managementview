@@ -569,7 +569,8 @@ table .thspace {
 }
 
 .gantt .timelinetooltip, 
-.gantt .milestonetooltip 
+.gantt .milestonetooltip, 
+.gantt .tasktooltip 
 {
   position: absolute;
   background-color: #fff;
@@ -581,7 +582,8 @@ table .thspace {
 }
 
 .gantt .timelinetooltip h4, 
-.gantt .milestonetooltip h4 
+.gantt .milestonetooltip h4, 
+.gantt .tasktooltip h4 
 {
   font-size: 14px;
   margin-bottom: 0.3rem;
@@ -590,7 +592,8 @@ table .thspace {
 }
 
 .gantt .timelinetooltip p, 
-.gantt .milestonetooltip p 
+.gantt .milestonetooltip p, 
+.gantt .tasktooltip p 
 {
   font-size: 13px;
   margin-top: 0.9rem;
