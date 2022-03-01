@@ -2951,19 +2951,19 @@ function remainDaysCount(endTimeline,ganttTimeline,mobileWidth, i)
 }
 function showinMobile1(i,multiplyTerm,ganttTimeline)
 {
-    ganttTimeline[i].style.cssText=`margin-left:23%; width:${multiplyTerm *9.59}%`;
+    ganttTimeline[i].style.cssText=`margin-left:19.69vw; width:${multiplyTerm *8}vw`;
 }
 function showinMobile2(i,startTime, multiplyTerm,ganttTimeline)
 {
-    ganttTimeline[i].style.cssText=`margin-left:${(startTime*9.59)+23}%; width:${multiplyTerm *9.59}%`;
+    ganttTimeline[i].style.cssText=`margin-left:${(startTime*8)+19.69}vw; width:${multiplyTerm *8}vw`;
 }
 function showinMobile3(i,endTimeline,ganttTimeline)
 {
-    ganttTimeline[i].style.cssText=`margin-left:23%; width:${endTimeline * 9.59}%`;
+    ganttTimeline[i].style.cssText=`margin-left:19.69vw; width:${endTimeline * 8}vw`;
 }
 function showinMobile4(i,multiplyTerm,ganttTimeline)
 {
-    ganttTimeline[i].style.cssText=`margin-left:23%; width:${multiplyTerm *9.59}%`;
+    ganttTimeline[i].style.cssText=`margin-left:19.69vw; width:${multiplyTerm *8}vw`;
 }
 
 function givebackground(i,daysCount,ganttTimeline)
