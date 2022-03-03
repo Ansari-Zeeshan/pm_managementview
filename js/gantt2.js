@@ -3,7 +3,9 @@ const prevGantt = document.querySelector('.gantt .slide_bottom .img1');
 const nextGantt = document.querySelector('.gantt .slide_bottom .img2');
 const ganttAppend = document.querySelector('.gantt .workloadrow1 > .col-md-12');
 const tableprogAppend = document.querySelector('.gantt .workloadrow1 .tableprogian');
-let gantIndex=0, monthNumber = 1, monthNumber2 = 0,year = 2021, projNameIndex=0, monthCount = 0;
+const selectData = document.querySelector('.gantt .thspace select');
+let gantIndex=0, monthNumber = 1, monthNumber2 = 0,year = 2021, projNameIndex=0, monthCount = 0, 
+selectInput = 'Days', nextMonInd = 0, monthYear = 2021;
 const month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 (function createmulFirstDiv()
@@ -34,10 +36,18 @@ const month = ['January','February','March','April','May','June','July','August'
        tableprogAppend.appendChild(div1);
     }
 
+    let projInd = 0;
     card = selectGantt.querySelectorAll('.tableprogian .card');
     for(let i=0;i<projectData.length;i++)
     {
-        for(let m=0;m<milestoneData[i].project.length;m++)
+        let milestone = milestoneData[i].project.length;
+        if(milestone === 0)
+        {
+            let diff = i - projInd;
+            projInd = i - diff;
+            continue;
+        }
+        for(let m=0;m<milestoneData[projInd].project.length;m++)
         {
             let div = document.createElement('div');
             div.setAttribute('class','Milestone');
@@ -47,12 +57,13 @@ const month = ['January','February','March','April','May','June','July','August'
             </div>
             <div class="milestonediv1">
             <div
-                class="gantpr22 progress-bar rounded-1 milestonediv11  gantpr fs-4 onhover" startDay="${milestoneData[i].project[m].startExactDay}" data-bs-toggle="collapse" href="#milestoneExample${m+j}" role="button" aria-expanded="false" aria-controls="collapseExample3">
+                class="gantpr22 progress-bar rounded-1 milestonediv11  gantpr fs-4 onhover" startDay="${milestoneData[projInd].project[m].startExactDay}" data-bs-toggle="collapse" href="#milestoneExample${m+j}" role="button" aria-expanded="false" aria-controls="collapseExample3">
                 <span>Milestone-2</span>
             </div>
             </div>`
-            card[i].appendChild(div);
+            card[projInd].appendChild(div);
         }
+        projInd++;
     }
 
     milesPDiv = document.querySelectorAll('.gantt #benefits2 .first1');
@@ -84,6 +95,74 @@ const month = ['January','February','March','April','May','June','July','August'
     hoverProject2 = document.querySelectorAll('.gantt #benefits2 .tableprogian .firstext');
 }());
 
+selectData.addEventListener('change',()=>
+{
+    selectInput = selectData.options[selectData.selectedIndex].value;
+    let thfirst = selectGantt.querySelectorAll('#benefits2 .fixedvw');
+    switch(selectInput)
+    {
+        case 'Days':
+            {
+                let alltr = selectGantt.querySelectorAll('.tablegantt tr');
+                for(let i=1; i<alltr.length; i++)
+                {
+                    let alltd = alltr[i].children;
+                    for(let j = 1; j<alltd.length; j++)
+                    {
+                        if(j > 0 && j<5)
+                        {
+                            alltd[j].classList.remove('VDate');
+                            alltd[j].style.width="2.517vw";
+                            if(alltd[j].classList.contains('deactive'))
+                            {
+                                alltd[j].classList.remove('deactive');
+                            }
+                            continue;
+                        }
+                        alltd[j].classList.remove('deactive');
+                    }
+                }
+                thfirst.forEach((thfirst)=>
+                {
+                    thfirst.style.width="10.125vw";
+                })
+                assignDate();
+                calTimelineBar();
+                calMilestoneBar();
+                calTaskBar();
+                break;
+            }
+        case 'Month':
+            {
+                let alltr = selectGantt.querySelectorAll('.tablegantt tr');
+                for(let i=1; i<alltr.length; i++)
+                {
+                    let alltd = alltr[i].children;
+                    for(let j = 1; j<alltd.length; j++)
+                    {
+                        if(j>0 && j<5)
+                        {
+                            if(i==1)
+                            {
+                                alltd[j].classList.add('VDate');
+                            }
+                            alltd[j].style.width="9.9vw";
+                            continue;
+                        }
+                        alltd[j].classList.add('deactive');
+                    }
+                }
+                thfirst.forEach((thfirst)=>
+                {
+                    thfirst.style.width="5vw";
+                })
+                assignMonth();
+                calTimelineBar();
+                break;
+            } 
+    }
+})
+
 function getMonthLength()
 {
     MonthLength = new Date(year, monthNumber, 0).getDate();
@@ -104,7 +183,87 @@ function assignDate()
     }
 }
 assignDate();
-
+function assignMonth()
+{
+    let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
+    let textSplit = monthText.innerText.split(' ');
+    let appearMon = textSplit[0];
+    let appearYear = textSplit[1];
+    monthYear = appearYear;
+    switch(appearMon)
+    {
+        case 'January':
+            {
+                nextMonInd = 0;
+                loopMonthName(Mname, nextMonInd);
+                break;
+            }
+        case 'February':
+            {
+                nextMonInd = 4;
+                loopMonthName(Mname, nextMonInd);
+                break;
+            }
+        case 'March':
+            {
+                nextMonInd = 8;
+                loopMonthName(Mname, nextMonInd);
+                break;
+            }
+        case 'April':
+            {
+                appearYear = +appearYear + 1;
+                nextMonInd = 0;
+                loopMonthName(Mname, nextMonInd);
+                break;
+            }
+        case 'May':
+            {
+                appearYear = +appearYear + 1;
+                nextMonInd = 4;
+                loopMonthName(Mname, nextMonInd);
+                break;
+            }
+        case 'June':
+            {
+                appearYear = +appearYear + 1;
+                nextMonInd = 8;
+                loopMonthName(Mname, nextMonInd);
+                break;
+            }            
+    }
+}
+function assignMonth2(Mname, Mnametext, monthIndex)
+{
+    switch(Mnametext)
+    {
+        case 'JANUARY':
+            {
+                loopMonthName(Mname, monthIndex);
+                break;
+            }
+        case 'MAY':
+            {
+                loopMonthName(Mname, monthIndex);
+                break;
+            }
+        case 'SEPTEMBER':
+            {
+                loopMonthName(Mname, monthIndex);
+                break;
+            }      
+    }
+}
+function loopMonthName(Mname, monthIndex)
+{
+    let localMonInd = monthIndex;
+    monthText.innerText=`${monthYear}`;
+    for(let i=0;i<Mname.length; i++)
+    {
+        Mname[i].innerHTML = `<p>${month[localMonInd]}</p>`;
+        localMonInd++;
+    }
+}
 function assignProjectName()
 {
     for(let i=0; i<projectData.length; i++)
@@ -148,43 +307,89 @@ assignTaskName()
 
 nextGantt.addEventListener('click',()=>
 {
-    monthCount++;
-    monthNumber++;
-    monthNumber2++;
-    if(monthCount>11)
+    switch(selectInput)
     {
-        monthCount=0;
-        year++;
-        monthNumber=1;
-        monthNumber2=0;
+        case 'Days':
+            {
+                monthCount++;
+                monthNumber++;
+                monthNumber2++;
+                if(monthCount>11)
+                {
+                    monthCount=0;
+                    year++;
+                    monthNumber=1;
+                    monthNumber2=0;
+                }
+                getMonthLength();
+                assignDate();
+                break;
+            }
+        case 'Month':
+            {
+                nextMonInd = nextMonInd + 4;
+                if(nextMonInd >=12)
+                {
+                    monthYear++;
+                    nextMonInd=0;
+                }
+                let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
+                let Mnametext = Mname[0].innerText;
+                assignMonth2(Mname, Mnametext, nextMonInd);
+                break;
+            }    
     }
-    getMonthLength();
-    assignDate();
     calTimelineBar();
     calMilestoneBar();
     calTaskBar();
 })
 prevGantt.addEventListener('click',()=>
 {
-    monthCount--;
-    monthNumber--;
-    monthNumber2--;
-    if(monthCount<0 && year>2021)
+    switch(selectInput)
     {
-        monthCount=11;
-        year--;
-        monthNumber=12;
-        monthNumber2=11;
+        case 'Days':
+            {
+                monthCount--;
+                monthNumber--;
+                monthNumber2--;
+                if(monthCount<0 && year>2021)
+                {
+                    monthCount=11;
+                    year--;
+                    monthNumber=12;
+                    monthNumber2=11;
+                }
+                else if(monthCount<0 && year == 2021)
+                {
+                    monthCount=0;
+                    monthNumber=1;
+                    monthNumber2=0;
+                    return false;
+                }
+                getMonthLength();
+                assignDate();
+                break;
+            }
+        case 'Month':
+            {
+                nextMonInd = nextMonInd - 4;
+                if(nextMonInd<0 && monthYear>2021)
+                {
+
+                    monthYear--;
+                    nextMonInd=8;
+                }
+                else if(nextMonInd<0 && year==2021)
+                {
+                    nextMonInd=0;
+                    return false;
+                }
+                let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
+                let Mnametext = Mname[0].innerText;
+                assignMonth2(Mname, Mnametext, nextMonInd);
+                break;
+            }    
     }
-    else if(monthCount<0 && year == 2021)
-    {
-        monthCount=0;
-        monthNumber=1;
-        monthNumber2=0;
-        return false;
-    }
-    getMonthLength();
-    assignDate();
     calTimelineBar();
     calMilestoneBar();
     calTaskBar();
@@ -327,16 +532,23 @@ calTimelineBar();
 function calMilestoneBar()
 {
     let mobileWidth = body.clientWidth;       
+    let projInd = 0;
     for(let j=0;j<milestoneData.length;j++)
     {
         let milestone = ganttTimeline[j].closest('.first1').querySelectorAll('.collapse .milestonediv1 .milestonediv11');
+        if(milestone==null)
+        {
+            let diff = j - projInd;
+            projInd = j - diff;
+            continue;
+        }
         for(let i=0; i<milestone.length; i++)
         {
-            let date1 = new Date(milestoneData[j].project[i].mstartdate.substr(0,10).toString());
-            let date2 = new Date(milestoneData[j].project[i].menddate.substr(0,10).toString());
-            let projStartDate = milestoneData[j].project[i].startExactDay.substr(3,3).toString();
+            let date1 = new Date(milestoneData[projInd].project[i].mstartdate.substr(0,10).toString());
+            let date2 = new Date(milestoneData[projInd].project[i].menddate.substr(0,10).toString());
+            let projStartDate = milestoneData[projInd].project[i].startExactDay.substr(3,3).toString();
             let getMonthIndex = getNumericMonth(projStartDate);
-            let startYear = milestoneData[j].project[i].startMonth.substr(0,4);
+            let startYear = milestoneData[projInd].project[i].startMonth.substr(0,4);
             compareYear = +startYear;
             let startDate = Math.floor(date1.getTime()/(3600*24*1000));
             let endDate = Math.floor(date2.getTime()/(3600*24*1000));
@@ -344,16 +556,16 @@ function calMilestoneBar()
             let monthAppear = monthText.innerText.split(' ');
             let appearYear = +monthAppear[1];
             let compareDate = new Date(`${appearYear}/01/01`);
-            let endTimeline = milestoneData[j].project[i].menddate.substr(8,2);
-            let mileEndYear = milestoneData[j].project[i].menddate.substr(0,4);
+            let endTimeline = milestoneData[projInd].project[i].menddate.substr(8,2);
+            let mileEndYear = milestoneData[projInd].project[i].menddate.substr(0,4);
             endTimeline = getTimeline(endTimeline, appearYear, mileEndYear);
             endTimeline = +endTimeline;
-            let mileStartYear = milestoneData[j].project[i].mstartdate.substr(0,4);
+            let mileStartYear = milestoneData[projInd].project[i].mstartdate.substr(0,4);
             getMonthName(getMonthIndex, appearYear, mileStartYear);
             prevYear = checkPrevYear(appearYear,mileEndYear);
-            let mileStartDate = milestoneData[j].project[i].mstartdate.substr(8,2);
-            let startMText = milestoneData[j].project[i].startExactDay.substr(3,4);
-            let minusVal = milestoneData[j].project[i].startExactDay.substr(0,2);
+            let mileStartDate = milestoneData[projInd].project[i].mstartdate.substr(8,2);
+            let startMText = milestoneData[projInd].project[i].startExactDay.substr(3,4);
+            let minusVal = milestoneData[projInd].project[i].startExactDay.substr(0,2);
             if(date1.getTime()<=compareDate.getTime())
             {
                 if(appearYear>=compareYear && prevYear)
@@ -459,26 +671,41 @@ function calMilestoneBar()
             }
             giveMilestonebG(i,j,daysCount,milestone);
         }
+        projInd++;
     }
 }
 calMilestoneBar();
 
 function calTaskBar()
 {
-    let mobileWidth = body.clientWidth;       
+    let mobileWidth = body.clientWidth;
+    let projInd = 0;       
     for(k=0;k<projectData.length;k++)
     {
         let milestone = milesPDiv[k].querySelectorAll('.card .Milestone');
+        if(milestone===null)
+        {
+            let diff = k - projInd;
+            projInd = k - diff;
+            continue;
+        }
+        let mileInd = 0;       
         for(let j=0;j<milestone.length;j++)
         {
             let Task = milestone[j].querySelectorAll('.milestonediv22');
+            if(Task===null)
+            {
+                let taskdiff = j - mileInd;
+                mileInd = j - taskdiff;
+                continue;
+            }
             for(let i=0; i<Task.length; i++)
             {
-                let date1 = new Date(taskData[k].milestone[j].task[i].tstartdate.substr(0,10).toString());
-                let date2 = new Date(taskData[k].milestone[j].task[i].tenddate.substr(0,10).toString());
-                let projStartDate = taskData[k].milestone[j].task[i].startExactDay.substr(3,3).toString();
+                let date1 = new Date(taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(0,10).toString());
+                let date2 = new Date(taskData[projInd].milestone[mileInd].task[i].tenddate.substr(0,10).toString());
+                let projStartDate = taskData[projInd].milestone[mileInd].task[i].startExactDay.substr(3,3).toString();
                 let getMonthIndex = getNumericMonth(projStartDate);
-                let startYear = taskData[k].milestone[j].task[i].startMonth.substr(0,4);
+                let startYear = taskData[projInd].milestone[mileInd].task[i].startMonth.substr(0,4);
                 compareYear = +startYear;
                 let startDate = Math.floor(date1.getTime()/(3600*24*1000));
                 let endDate = Math.floor(date2.getTime()/(3600*24*1000));
@@ -486,16 +713,16 @@ function calTaskBar()
                 let monthAppear = monthText.innerText.split(' ');
                 let appearYear = +monthAppear[1];
                 let compareDate = new Date(`${appearYear}/01/01`);
-                let endTimeline = taskData[k].milestone[j].task[i].tenddate.substr(8,2);
-                let taskEndYear = taskData[k].milestone[j].task[i].tenddate.substr(0,4);
+                let endTimeline = taskData[projInd].milestone[mileInd].task[i].tenddate.substr(8,2);
+                let taskEndYear = taskData[projInd].milestone[mileInd].task[i].tenddate.substr(0,4);
                 endTimeline = getTimeline(endTimeline, appearYear, taskEndYear);
                 endTimeline = +endTimeline;
-                let taskStartYear = taskData[k].milestone[j].task[i].tstartdate.substr(0,4);
+                let taskStartYear = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(0,4);
                 getMonthName(getMonthIndex, appearYear, taskStartYear);
                 prevYear = checkPrevYear(appearYear,taskEndYear);
-                let taskStartDate = taskData[k].milestone[j].task[i].tstartdate.substr(8,2);
-                let startMText = taskData[k].milestone[j].task[i].startExactDay.substr(3,4);
-                let minusVal = taskData[k].milestone[j].task[i].startExactDay.substr(0,2);
+                let taskStartDate = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
+                let startMText = taskData[projInd].milestone[mileInd].task[i].startExactDay.substr(3,4);
+                let minusVal = taskData[projInd].milestone[mileInd].task[i].startExactDay.substr(0,2);
                 if(date1.getTime()<=compareDate.getTime())
                 {
                     if(appearYear>=compareYear && prevYear)
@@ -601,7 +828,9 @@ function calTaskBar()
                 }
                 // giveTaskbG(i,j,daysCount,milestone);
             }
+            mileInd++;
         }
+        projInd++;
     }
 }
 calTaskBar();
@@ -610,266 +839,348 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
 {
     let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
-    switch(true){
-        case (daysCount<=30):
-        {
-            if(monthText.innerText===month1)
+    switch(selectInput)
+    {
+        case 'Days':
             {
-                ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${daysCount * 2.517}vw`;
-                ganttTimeline[i].closest('.first1').style.display="block";
-                    if(mobileWidth<700)
+                switch(true){
+                    case (daysCount<=30):
                     {
-                        showinMobile1(i,daysCount,ganttTimeline);
-                    }
-            }
-            else
-            {
-                ganttTimeline[i].closest('.first1').style.display="none";
-            }
-            break;
-        }      
-        case (daysCount>30 && daysCount<=58):
-        {
-            if(monthText.innerText===month1)
-            {
-                ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
-                ganttTimeline[i].closest('.first1').style.display="block";
-                    if(mobileWidth < 700)
+                        if(monthText.innerText===month1)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${daysCount * 2.517}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth<700)
+                                {
+                                    showinMobile1(i,daysCount,ganttTimeline);
+                                }
+                        }
+                        else
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;
+                    }      
+                    case (daysCount>30 && daysCount<=58):
                     {
-                        showinMobile1(i,totWidth,ganttTimeline);
+                        if(monthText.innerText===month1)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText.innerText===month2)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i); 
+                        }
+                        else
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;  
                     }
-            }
-            else if(monthText.innerText===month2)
-            {
-                remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i); 
-            }
-            else
-            {
-                ganttTimeline[i].closest('.first1').style.display="none";
-            }
-            break;  
-        }
-        case (daysCount>58 && daysCount<=89):
-        {
-            if(monthText.innerText===month1 || monthText.innerText===month2)
-            {
-                ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
-                ganttTimeline[i].closest('.first1').style.display="block"; 
-                    if(mobileWidth < 700)
+                    case (daysCount>58 && daysCount<=89):
                     {
-                        showinMobile1(i,totWidth,ganttTimeline);
+                        if(monthText.innerText===month1 || monthText.innerText===month2)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block"; 
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText.innerText===month3)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);
+                        }
+                        else
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;  
                     }
-            }
-            else if(monthText.innerText===month3)
-            {
-                remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);
-            }
-            else
-            {
-                ganttTimeline[i].closest('.first1').style.display="none";
-            }
-            break;  
-        }
-        case (daysCount>89 && daysCount<=119):
-        {
-            if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3)
-            {
-                ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
-                ganttTimeline[i].closest('.first1').style.display="block";
-                    if(mobileWidth < 700)
+                    case (daysCount>89 && daysCount<=119):
                     {
-                        showinMobile1(i,totWidth,ganttTimeline);
+                        if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText.innerText===month4)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
+                        }
+                        else
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;  
                     }
-            }
-            else if(monthText.innerText===month4)
-            {
-                remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
-            }
-            else
-            {
-                ganttTimeline[i].closest('.first1').style.display="none";
-            }
-            break;  
-        }
-        case (daysCount>119 && daysCount<=150):
-        {
-            if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
-                || monthText.innerText===month4)
-            {
-                ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
-                ganttTimeline[i].closest('.first1').style.display="block";
-                    if(mobileWidth < 700)
+                    case (daysCount>119 && daysCount<=150):
                     {
-                        showinMobile1(i,totWidth,ganttTimeline);
+                        if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
+                            || monthText.innerText===month4)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText.innerText===month5)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
+                        }
+                        else
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;  
                     }
-            }
-            else if(monthText.innerText===month5)
-            {
-                remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
-            }
-            else
-            {
-                ganttTimeline[i].closest('.first1').style.display="none";
-            }
-            break;  
-        }
-        case (daysCount>150 && daysCount<=180):
-        {
-            if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
-                || monthText.innerText===month4 || monthText.innerText===month5)
-            {
-                ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
-                ganttTimeline[i].closest('.first1').style.display="block";
-                    if(mobileWidth < 700)
+                    case (daysCount>150 && daysCount<=180):
                     {
-                        showinMobile1(i,totWidth,ganttTimeline);
+                        if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
+                            || monthText.innerText===month4 || monthText.innerText===month5)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText.innerText===month6)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
+                        }
+                        else
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;  
                     }
-            }
-            else if(monthText.innerText===month6)
-            {
-                remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
-            }
-            else
-            {
-                ganttTimeline[i].closest('.first1').style.display="none";
-            }
-            break;  
-        }
-        case (daysCount>180 && daysCount<=211):
-        {
-            if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
-                || monthText.innerText===month4 || monthText.innerText===month5 || monthText.innerText===month6)
-            {
-                ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
-                ganttTimeline[i].closest('.first1').style.display="block";
-                    if(mobileWidth < 700)
+                    case (daysCount>180 && daysCount<=211):
                     {
-                        showinMobile1(i,totWidth,ganttTimeline);
+                        if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
+                            || monthText.innerText===month4 || monthText.innerText===month5 || monthText.innerText===month6)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText.innerText===month7)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
+                        }
+                        else 
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;  
                     }
-            }
-            else if(monthText.innerText===month7)
-            {
-                remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
-            }
-            else 
-            {
-                ganttTimeline[i].closest('.first1').style.display="none";
-            }
-            break;  
-        }
-        case (daysCount>211 && daysCount<=242):
-        {
-            if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
-                || monthText.innerText===month4 || monthText.innerText===month5 || monthText.innerText===month6
-                || monthText.innerText===month7)
-            {
-                ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
-                ganttTimeline[i].closest('.first1').style.display="block";
-                    if(mobileWidth < 700)
+                    case (daysCount>211 && daysCount<=242):
                     {
-                        showinMobile1(i,totWidth,ganttTimeline);
+                        if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
+                            || monthText.innerText===month4 || monthText.innerText===month5 || monthText.innerText===month6
+                            || monthText.innerText===month7)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText.innerText===month8)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
+                        }
+                        else 
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;  
                     }
-            }
-            else if(monthText.innerText===month8)
-            {
-                remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
-            }
-            else 
-            {
-                ganttTimeline[i].closest('.first1').style.display="none";
-            }
-            break;  
-        }
-        case (daysCount>242 && daysCount<=272):
-        {
-            if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
-                || monthText.innerText===month4 || monthText.innerText===month5 || monthText.innerText===month6
-                || monthText.innerText===month7 || monthText.innerText===month8)
-            {
-                ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
-                ganttTimeline[i].closest('.first1').style.display="block";
-                    if(mobileWidth < 700)
+                    case (daysCount>242 && daysCount<=272):
                     {
-                        showinMobile1(i,totWidth,ganttTimeline);
+                        if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
+                            || monthText.innerText===month4 || monthText.innerText===month5 || monthText.innerText===month6
+                            || monthText.innerText===month7 || monthText.innerText===month8)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText.innerText===month9)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
+                        }
+                        else 
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;  
                     }
-            }
-            else if(monthText.innerText===month9)
-            {
-                remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
-            }
-            else 
-            {
-                ganttTimeline[i].closest('.first1').style.display="none";
-            }
-            break;  
-        }
-        case (daysCount>272 && daysCount<=303):
-        {
-            if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
-                || monthText.innerText===month4 || monthText.innerText===month5 || monthText.innerText===month6
-                || monthText.innerText===month7 || monthText.innerText===month8 || monthText.innerText===month9)
-            {
-                ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
-                ganttTimeline[i].closest('.first1').style.display="block";
-                    if(mobileWidth < 700)
+                    case (daysCount>272 && daysCount<=303):
                     {
-                        showinMobile1(i,totWidth,ganttTimeline);
+                        if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
+                            || monthText.innerText===month4 || monthText.innerText===month5 || monthText.innerText===month6
+                            || monthText.innerText===month7 || monthText.innerText===month8 || monthText.innerText===month9)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText.innerText===month10)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
+                        }
+                        else 
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;  
                     }
-            }
-            else if(monthText.innerText===month10)
-            {
-                remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
-            }
-            else 
-            {
-                ganttTimeline[i].closest('.first1').style.display="none";
-            }
-            break;  
-        }
-        case (daysCount>303 && daysCount<=333):
-        {
-            if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
-                || monthText.innerText===month4 || monthText.innerText===month5 || monthText.innerText===month6
-                || monthText.innerText===month7 || monthText.innerText===month8 || monthText.innerText===month9
-                || monthText.innerText===month10)
-            {
-                ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
-                ganttTimeline[i].closest('.first1').style.display="block";
-                    if(mobileWidth < 700)
+                    case (daysCount>303 && daysCount<=333):
                     {
-                        showinMobile1(i,totWidth,ganttTimeline);
+                        if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
+                            || monthText.innerText===month4 || monthText.innerText===month5 || monthText.innerText===month6
+                            || monthText.innerText===month7 || monthText.innerText===month8 || monthText.innerText===month9
+                            || monthText.innerText===month10)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText.innerText===month11)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
+                        }
+                        else 
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;  
                     }
-            }
-            else if(monthText.innerText===month11)
-            {
-                remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
-            }
-            else 
-            {
-                ganttTimeline[i].closest('.first1').style.display="none";
-            }
-            break;  
-        }
-        case (daysCount>333 && daysCount<=365):
-        {
-            if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
-                || monthText.innerText===month4 || monthText.innerText===month5 || monthText.innerText===month6
-                || monthText.innerText===month7 || monthText.innerText===month8 || monthText.innerText===month9
-                || monthText.innerText===month10 || monthText.innerText===month11)
-            {
-                ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
-                ganttTimeline[i].closest('.first1').style.display="block";
-                    if(mobileWidth < 700)
+                    case (daysCount>333 && daysCount<=365):
                     {
-                        showinMobile1(i,totWidth,ganttTimeline);
-                    }
+                        if(monthText.innerText===month1 || monthText.innerText===month2 || monthText.innerText===month3
+                            || monthText.innerText===month4 || monthText.innerText===month5 || monthText.innerText===month6
+                            || monthText.innerText===month7 || monthText.innerText===month8 || monthText.innerText===month9
+                            || monthText.innerText===month10 || monthText.innerText===month11)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText.innerText===month12)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
+                        }
+                        break;  
+                    }    
+                }
+                break;
             }
-            else if(monthText.innerText===month12)
+            case 'Month':
             {
-                remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);      
+                let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
+                let monthText1 = `${Mname[0].innerText} ${monthYear}`.toLowerCase();
+                let monthText2 = `${Mname[1].innerText} ${monthYear}`.toLowerCase();
+                let monthText3 = `${Mname[2].innerText} ${monthYear}`.toLowerCase();
+                let monthText4 = `${Mname[3].innerText} ${monthYear}`.toLowerCase();
+                month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
+                month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
+                month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
+                month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
+                switch(true){
+                    case (daysCount<=120):
+                    {
+                        if(monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${daysCount * 0.6575}vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth<700)
+                                {
+                                    showinMobile1(i,daysCount,ganttTimeline);
+                                }
+                        }
+                        else
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;
+                    }      
+                    case (daysCount>120 && daysCount<=243):
+                    {
+                        if(monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4)
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block";
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText1===month5 && monthText2===month6 && monthText3===month7 && monthText4===month8)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i); 
+                        }
+                        else
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;  
+                    }
+                    case (daysCount>243 && daysCount<=365):
+                    {
+                        if((monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4) 
+                        || (monthText1===month5 && monthText2===month6 && monthText3===month7 && monthText4===month8))
+                        {
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
+                            ganttTimeline[i].closest('.first1').style.display="block"; 
+                                if(mobileWidth < 700)
+                                {
+                                    showinMobile1(i,totWidth,ganttTimeline);
+                                }
+                        }
+                        else if(monthText1===month9 && monthText2===month10 && monthText3===month11 && monthText4===month12)
+                        {
+                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i);
+                        }
+                        else
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
+                        }
+                        break;  
+                    }
+                }
+                break;
             }
-            break;  
-        }    
     }
 }
 function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,startMText,minusVal,mobileWidth)

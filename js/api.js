@@ -262,6 +262,43 @@ const projectData=
     'scrummasterid': null,
     'businessprojectmanagerid': "Abul",
     'projectphase': "401"
+  },
+  {
+    'projectrequestid': "177",
+    'projectrefid': "PR-615D",
+    'planned': "Feb 12 - May 15",
+    'startExactDay': '12 Feb 2021',
+    'startMonth': '2021/02/01',
+    'duration': '100 days',
+    'percentage': '85%',
+    'pstartdate': "2021/02/12T20:00:00.000Z",
+    'penddate': "2021/05/15T20:00:00.000Z",
+    'actual': "Feb 12 - May 15",
+    'astartdate': "2021-12-27T20:00:00.000Z",
+    'aenddate': "2021-12-30T20:00:00.000Z",
+    'projectname': "Project 2",
+    'projectdesc': "demo",
+    'budgetedamount': "989.00",
+    'actualbudget': "1920.00",
+    'statusid': 500,
+    'statustext': "Approved",
+    'statusclass': "#1FC875",
+    'projectlead': "Tariq Eqbal",
+    'projectleadimage': "",
+    'domainlead': "Atiq Ur Rehman",
+    'technicallead': null,
+    'programmanager':null,
+    'domainleadimage': "",
+    'milestone_count': "30",
+    'creater_id': "93",
+    'businessunitid': 7,
+    'changedenddate': "2022-01-16T20:00:00.000Z",
+    'planningefforts': "0",
+    'changedapprovedbudget': "10.00",
+    'priority': "High",
+    'scrummasterid': null,
+    'businessprojectmanagerid': "Abul",
+    'projectphase': "401"
   }
 ]
 
@@ -391,6 +428,10 @@ const milestoneData =
         'createdby': "25"
       }
     ]
+  },
+  {
+    "project":
+    [ ]
   }
 ];
 

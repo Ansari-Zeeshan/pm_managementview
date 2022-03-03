@@ -168,7 +168,13 @@ select:focus {
   display: inline;
   font-weight: 600;
 }
-
+.gantt .tablecal1 .thspace select
+{
+  margin-left: 1.5rem;
+  border: 1px solid #cbcbcb;
+  font-size: 14px;
+  padding: 2px 10px;
+}
 table .thspace {
   padding: 14px 0px;
 }
@@ -440,6 +446,15 @@ table .thspace {
 .gantt #benefits2 .fixedvw
 {
   width: 10.125vw;
+}
+.gantt .tablegantt tr th.VDate
+{
+  padding: 15px 0;
+}
+.gantt .tablegantt tr th.deactive,
+.gantt .tablegantt tr td.deactive
+{
+  display: none;
 }
 .gantt #benefits2 .first1 .mycollapse
 {
