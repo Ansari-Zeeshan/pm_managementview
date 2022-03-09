@@ -5,8 +5,9 @@ const ganttAppend = document.querySelector('.gantt .workloadrow1 > .col-md-12');
 const tableprogAppend = document.querySelector('.gantt .workloadrow1 .tableprogian');
 const selectData = document.querySelector('.gantt .thspace select');
 let gantIndex=0, monthNumber = 1, monthNumber2 = 0,year = 2021, projNameIndex=0, monthCount = 0, 
-selectInput = 'Days', nextMonInd = 0, monthYear = 2021;
+selectInput = 'Days', nextMonInd = 0, monthYear = 2021, nextQuaInd = 0, quarterYear = 2021;
 const month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const quarter = ['Q1','Q2','Q3','Q4'];
 
 (function createmulFirstDiv()
 {   
@@ -112,6 +113,7 @@ selectData.addEventListener('change',()=>
                         if(j > 0 && j<5)
                         {
                             alltd[j].classList.remove('VDate');
+                            alltd[j].classList.remove('VQuarter');
                             alltd[j].style.width="2.517vw";
                             if(alltd[j].classList.contains('deactive'))
                             {
@@ -140,12 +142,17 @@ selectData.addEventListener('change',()=>
                     let alltd = alltr[i].children;
                     for(let j = 1; j<alltd.length; j++)
                     {
+                        if(alltd[j].classList.contains('VQuarter'))
+                        {
+                            alltd[j].classList.remove('VQuarter');
+                        }
                         if(j>0 && j<5)
                         {
                             if(i==1)
                             {
                                 alltd[j].classList.add('VDate');
                             }
+                            alltd[j].classList.remove('deactive');
                             alltd[j].style.width="9.9vw";
                             continue;
                         }
@@ -161,7 +168,41 @@ selectData.addEventListener('change',()=>
                 calMilestoneBar();
                 calTaskBar();
                 break;
-            } 
+            }
+        case 'Quarter':
+            {
+                let alltr = selectGantt.querySelectorAll('.tablegantt tr');
+                for(let i=1; i<alltr.length; i++)
+                {
+                    let alltd = alltr[i].children;
+                    for(let j = 1; j<alltd.length; j++)
+                    {
+                        if(alltd[j].classList.contains('VDate'))
+                        {
+                            alltd[j].classList.remove('VDate');
+                        }
+                        if(j>0 && j<3)
+                        {
+                            if(i==1)
+                            {
+                                alltd[j].classList.add('VQuarter');
+                            }
+                            alltd[j].style.width="19.725vw";
+                            continue;
+                        }
+                        alltd[j].classList.add('deactive');
+                    }
+                }
+                thfirst.forEach((thfirst)=>
+                {
+                    thfirst.style.width="5vw";
+                })
+                assignQuarter();
+                calTimelineBar();
+                calMilestoneBar();
+                calTaskBar();
+                break;
+            }     
     }
 })
 
@@ -214,25 +255,67 @@ function assignMonth()
             }
         case 'April':
             {
-                appearYear = +appearYear + 1;
+                monthYear = +appearYear + 1;
                 nextMonInd = 0;
                 loopMonthName(Mname, nextMonInd);
                 break;
             }
         case 'May':
             {
-                appearYear = +appearYear + 1;
+                monthYear = +appearYear + 1;
                 nextMonInd = 4;
                 loopMonthName(Mname, nextMonInd);
                 break;
             }
         case 'June':
             {
-                appearYear = +appearYear + 1;
+                monthYear = +appearYear + 1;
                 nextMonInd = 8;
                 loopMonthName(Mname, nextMonInd);
                 break;
-            }            
+            }
+        case 'July':
+            {
+                monthYear = +appearYear + 2;
+                nextMonInd = 0;
+                loopMonthName(Mname, nextMonInd);
+                break;
+            }
+        case 'August':
+            {
+                monthYear = +appearYear + 2;
+                nextMonInd = 4;
+                loopMonthName(Mname, nextMonInd);
+                break;
+            }
+        case 'September':
+            {
+                monthYear = +appearYear + 2;
+                nextMonInd = 8;
+                loopMonthName(Mname, nextMonInd);
+                break;
+            }
+        case 'October':
+            {
+                monthYear = +appearYear + 3;
+                nextMonInd = 0;
+                loopMonthName(Mname, nextMonInd);
+                break;
+            }
+        case 'November':
+            {
+                monthYear = +appearYear + 3;
+                nextMonInd = 4;
+                loopMonthName(Mname, nextMonInd);
+                break;
+            }
+        case 'December':
+            {
+                monthYear = +appearYear + 3;
+                nextMonInd = 8;
+                loopMonthName(Mname, nextMonInd);
+                break;
+            }                    
     }
 }
 function assignMonth2(Mname, Mnametext, monthIndex)
@@ -264,6 +347,135 @@ function loopMonthName(Mname, monthIndex)
     {
         Mname[i].innerHTML = `<p>${month[localMonInd]}</p>`;
         localMonInd++;
+    }
+}
+function assignQuarter()
+{
+    let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
+    let textSplit = monthText.innerText.split(' ');
+    let appearMon = textSplit[0]; 
+    let appearYear = textSplit[1]; 
+    quarterYear = appearYear;
+    switch(appearMon)
+    {
+        case 'January':
+            {
+                nextQuaInd = 0;
+                loopQuarterName(Qname, nextQuaInd);
+                break;
+            }
+        case 'February':
+            {
+                nextQuaInd = 2;
+                loopQuarterName(Qname, nextQuaInd);
+                break;
+            }
+        case 'March':
+            {
+                appearYear = +appearYear + 1;
+                nextQuaInd = 0;
+                loopQuarterName(Qname, nextQuaInd);
+                break;
+            }
+        case 'April':
+            {
+                appearYear = +appearYear + 1;
+                nextQuaInd = 2;
+                loopQuarterName(Qname, nextQuaInd);
+                break;
+            }
+        case 'May':
+            {
+                appearYear = +appearYear + 2;
+                nextQuaInd = 0;
+                loopQuarterName(Qname, nextQuaInd);
+                break;
+            }
+        case 'June':
+            {
+                appearYear = +appearYear + 2;
+                nextQuaInd = 2;
+                loopQuarterName(Qname, nextQuaInd);
+                break;
+            }
+        case 'July':
+            {
+                appearYear = +appearYear + 3;
+                nextQuaInd = 0;
+                loopQuarterName(Qname, nextQuaInd);
+                break;
+            }
+        case 'August':
+            {
+                appearYear = +appearYear + 3;
+                nextQuaInd = 2;
+                loopQuarterName(Qname, nextQuaInd);
+                break;
+            }
+        case 'September':
+            {
+                appearYear = +appearYear + 4;
+                nextQuaInd = 0;
+                loopQuarterName(Qname, nextQuaInd);
+                break;
+            }
+        case 'October':
+            {
+                appearYear = +appearYear + 4;
+                nextQuaInd = 2;
+                loopQuarterName(Qname, nextQuaInd);
+                break;
+            }
+        case 'November':
+            {
+                appearYear = +appearYear + 5;
+                nextQuaInd = 0;
+                loopQuarterName(Qname, nextQuaInd);
+                break;
+            }
+        case 'December':
+            {
+                appearYear = +appearYear + 5;
+                nextQuaInd = 2;
+                loopQuarterName(Qname, nextQuaInd);
+                break;
+            }                    
+    }
+}
+function assignQuarter2(Qname, Qnametext, quarterIndex)
+{
+    switch(Qnametext)
+    {
+        case 'Q1':
+            {
+                loopQuarterName(Qname, quarterIndex);
+                break;
+            }
+        case 'Q2':
+            {
+                loopQuarterName(Qname, quarterIndex);
+                break;
+            }
+        case 'Q3':
+            {
+                loopQuarterName(Qname, quarterIndex);
+                break;
+            }
+        case 'Q4':
+            {
+                loopQuarterName(Qname, quarterIndex);
+                break;
+            }          
+    }
+}
+function loopQuarterName(Qname, nextQuaInd)
+{
+    let localQuaInd = nextQuaInd;
+    monthText.innerText=`${quarterYear}`;
+    for(let i=0; i<Qname.length; i++)
+    {
+        Qname[i].innerHTML=`<p>${quarter[localQuaInd]}</p>`;
+        localQuaInd++;
     }
 }
 function assignProjectName()
@@ -339,7 +551,20 @@ nextGantt.addEventListener('click',()=>
                 let Mnametext = Mname[0].innerText;
                 assignMonth2(Mname, Mnametext, nextMonInd);
                 break;
-            }    
+            }
+        case 'Quarter':
+            {
+                nextQuaInd = nextQuaInd + 2;
+                if(nextQuaInd >=4)
+                {
+                    quarterYear++;
+                    nextQuaInd=0;
+                }
+                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
+                let Qnametext = Qname[0].innerText;
+                assignQuarter2(Qname, Qnametext, nextQuaInd);
+                break;
+            }        
     }
     calTimelineBar();
     calMilestoneBar();
@@ -390,7 +615,25 @@ prevGantt.addEventListener('click',()=>
                 let Mnametext = Mname[0].innerText;
                 assignMonth2(Mname, Mnametext, nextMonInd);
                 break;
-            }    
+            }  
+        case 'Quarter':
+            {
+                nextQuaInd = nextQuaInd - 2;
+                if(nextQuaInd <0 && quarterYear>2021)
+                {
+                    quarterYear--;
+                    nextQuaInd=2;
+                }
+                else if(nextQuaInd<0 && year==2021)
+                {
+                    nextQuaInd=0;
+                    return false;
+                }
+                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
+                let Qnametext = Qname[0].innerText;
+                assignQuarter2(Qname, Qnametext, nextQuaInd);
+                break;
+            }      
     }
     calTimelineBar();
     calMilestoneBar();
@@ -1113,9 +1356,6 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
             {
                 let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
                 let monthText1 = `${Mname[0].innerText} ${monthYear}`.toLowerCase();
-                let monthText2 = `${Mname[1].innerText} ${monthYear}`.toLowerCase();
-                let monthText3 = `${Mname[2].innerText} ${monthYear}`.toLowerCase();
-                let monthText4 = `${Mname[3].innerText} ${monthYear}`.toLowerCase();
                 month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
                 month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
                 month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
@@ -1123,10 +1363,11 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                 switch(true){
                     case (daysCount<=119):
                     {
-                        if(monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4)
+                        if(monthText1===month1)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${(daysCount * 2.54516129).toFixed(5)}vw`;
+                            let ganttWidth = getCommonWidth(i);
                             ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -1140,16 +1381,16 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                     }      
                     case (daysCount>119 && daysCount<=242):
                     {
-                        if(monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4)
+                        if(monthText1===month1)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
                             ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
                                 }
                         }
-                        else if(monthText1===month5 && monthText2===month6 && monthText3===month7 && monthText4===month8)
+                        else if(monthText1===month5)
                         {
                             ganttTimeline[i].closest('.first1').style.display="block";
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex); 
@@ -1162,17 +1403,16 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth)
                     }
                     case (daysCount>242 && daysCount<=365):
                     {
-                        if((monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4) 
-                        || (monthText1===month5 && monthText2===month6 && monthText3===month7 && monthText4===month8))
+                        if(monthText1===month1 || monthText1===month5)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
                             ganttTimeline[i].closest('.first1').style.display="block"; 
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
                                 }
                         }
-                        else if(monthText1===month9 && monthText2===month10 && monthText3===month11 && monthText4===month12)
+                        else if(monthText1===month9)
                         {
                             ganttTimeline[i].closest('.first1').style.display="block";
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex);
@@ -1932,10 +2172,6 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd)
             case 'Month':
             {
                 let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
-                let monthText1 = `${Mname[0].innerText} ${monthYear}`.toLowerCase();
-                let monthText2 = `${Mname[1].innerText} ${monthYear}`.toLowerCase();
-                let monthText3 = `${Mname[2].innerText} ${monthYear}`.toLowerCase();
-                let monthText4 = `${Mname[3].innerText} ${monthYear}`.toLowerCase();
                 month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
                 month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
                 month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
@@ -1944,10 +2180,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd)
                 switch(true){
                     case (daysCount<=119):
                     {
-                        if(monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4)
+                        if(monthText1===month1)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${(daysCount * 2.54516129).toFixed(5)}vw`;
+                            let ganttWidth = getCommonWidth(i);
                             ganttTimeline[i].closest('.Milestone').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                             ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth<700)
                                 {
@@ -1962,19 +2199,19 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd)
                     }      
                     case (daysCount>119 && daysCount<=242):
                     {
-                        if(monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4)
+                        if(monthText1===month1)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
                             ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
                                 }
                         }
-                        else if(monthText1===month5 && monthText2===month6 && monthText3===month7 && monthText4===month8)
+                        else if(monthText1===month5)
                         {
-                            ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].closest('.Milestone').style.display="block";
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex); 
                         }
                         else
@@ -1985,20 +2222,19 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd)
                     }
                     case (daysCount>242 && daysCount<=365):
                     {
-                        if((monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4) 
-                        || (monthText1===month5 && monthText2===month6 && monthText3===month7 && monthText4===month8))
+                        if(monthText1===month1 || monthText1===month5)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block"; 
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
                             ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
                                 }
                         }
-                        else if(monthText1===month9 && monthText2===month10 && monthText3===month11 && monthText4===month12)
+                        else if(monthText1===month9)
                         {
-                            ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].closest('.Milestone').style.display="block";
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex);
                         }
                         else
@@ -2793,10 +3029,11 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                 switch(true){
                     case (daysCount<=119):
                     {
-                        if(monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4)
+                        if(monthText1===month1)
                         {
+                            let ganttWidth = getCommonWidth(i);
                             ganttTimeline[i].closest('.task').style.display="block";
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${(daysCount * 2.54516129).toFixed(5)}vw`;
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -2810,7 +3047,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                     }      
                     case (daysCount>119 && daysCount<=242):
                     {
-                        if(monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4)
+                        if(monthText1===month1)
                         {
                             ganttTimeline[i].closest('.task').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
@@ -2819,7 +3056,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                                     showinMobile1(i,totWidth,ganttTimeline);
                                 }
                         }
-                        else if(monthText1===month5 && monthText1===month4 && monthText1===month3 && monthText1===month2)
+                        else if(monthText1===month5)
                         {
                             ganttTimeline[i].closest('.task').style.display="block";
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex); 
@@ -2832,8 +3069,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                     }
                     case (daysCount>242 && daysCount<=365):
                     {
-                        if((monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4) 
-                        || (monthText1===month5 && monthText2===month6 && monthText3===month7 && monthText4===month8))
+                        if(monthText1===month1 || monthText1===month5)
                         {
                             ganttTimeline[i].closest('.task').style.display="block"; 
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
@@ -2842,7 +3078,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                                     showinMobile1(i,totWidth,ganttTimeline);
                                 }
                         }
-                        else if(monthText1===month9 && monthText2===month10 && monthText3===month11 && monthText4===month12)
+                        else if(monthText1===month9)
                         {
                             ganttTimeline[i].closest('.task').style.display="block";
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex);
@@ -3376,6 +3612,11 @@ function getMonthAppear()
             let monthAppear = monthText.innerText;
             return monthAppear;
         }
+        case 'Quarter' :
+        {
+            let monthAppear = monthText.innerText;
+            return monthAppear;
+        }
     }
     
 }
@@ -3798,6 +4039,75 @@ function updateValue2(text,minusVal)
                 val1 = 122 - (minusVal + 91);
                 break;
             }                                            
+    }
+}
+function getCommonWidth(i)
+{
+    let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
+    let startMonthIndex = projectData[i].pstartdate.substr(5,2);
+    let endMonthIndex = projectData[i].penddate.substr(5,2);
+    let startMonthName = month[+startMonthIndex - 1].toUpperCase();
+    let endMonthName = month[+endMonthIndex - 1].toUpperCase();
+    let endNum = +projectData[i].penddate.substr(8,2);
+
+    switch(true)
+    {
+        case (Mname[0].innerText === startMonthName):
+        {
+            if(endMonthName === Mname[0].innerText)
+            {
+                return endNum * 0.63629032258;    
+            }
+            else if(endMonthName === Mname[1].innerText)
+            {
+                return 19.725 + (endNum * 0.63629032258);      
+            }
+            else if(endMonthName === Mname[2].innerText)
+            {
+                return 39.45 + (endNum * 0.63629032258);     
+            }
+            else if(endMonthName === Mname[3].innerText)
+            {
+                return 59.175 + (endNum * 0.63629032258);       
+            }
+            break;
+        }
+        case (Mname[1].innerText === startMonthName):
+        {
+            if(endMonthName === Mname[1].innerText)
+            {
+                return endNum * 0.63629032258;     
+            }
+            else if(endMonthName === Mname[2].innerText)
+            {
+                return 19.725 + (endNum * 0.63629032258);      
+            }
+            else if(endMonthName === Mname[3].innerText)
+            {
+                return 39.45 + (endNum * 0.63629032258);      
+            }
+            break;
+        }
+        case (Mname[2].innerText === startMonthName):
+        {
+            if(endMonthName === Mname[2].innerText)
+            {
+                return endNum * 0.63629032258;     
+            }
+            else if(endMonthName === Mname[3].innerText)
+            {
+                return 19.725 + (endNum * 0.63629032258);      
+            }
+            break;
+        }
+        case (Mname[3].innerText === startMonthName):
+        {
+            if(endMonthName === Mname[3].innerText)
+            {
+                return endNum * 0.63629032258;     
+            }
+            break;
+        }
     }
 }
 function getPCoorrds(i, startTime, ganttTimeline)
