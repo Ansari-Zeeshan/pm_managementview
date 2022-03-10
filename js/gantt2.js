@@ -1946,7 +1946,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
             break;
         }  
         case 'Quarter':
-            {
+        {
                 updateValue3(startMText,minusVal);
                 let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
                 let quarter1 = `${Qname[0].innerText}`;
@@ -1954,23 +1954,34 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
                 month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
                 month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
-                let quarterText1;
+                let quarterText1,quarterText2,quarterText3,quarterText4,quarterText5,quarterText6;
                 if(quarter1==='Q1')
                 {
                     quarterText1 = `january ${quarterYear}`;
+                    quarterText2 = `february ${quarterYear}`;
+                    quarterText3 = `march ${quarterYear}`;
+                    quarterText4 = `april ${quarterYear}`;
+                    quarterText5 = `may ${quarterYear}`;
+                    quarterText6 = `june ${quarterYear}`;
                 }
                 else if(quarter1==='Q3')
                 {
                     quarterText1 = `july ${quarterYear}`;
+                    quarterText2 = `august ${quarterYear}`;
+                    quarterText3 = `september ${quarterYear}`;
+                    quarterText4 = `october ${quarterYear}`;
+                    quarterText5 = `november ${quarterYear}`;
+                    quarterText6 = `december ${quarterYear}`;
                 }
                 switch(true){
                     case (daysCount<=val1):
                     {
-                        if(quarterText1===month1)
+                        if(quarterText1===month1 || quarterText2===month1 || quarterText3===month1 || quarterText4===month1
+                            || quarterText5===month1 || quarterText6===month1)
                         {
-                            let mulNum = +projectData[i].pstartdate.substr(8,2);
-                            getPCoorrds(i, mulNum, ganttTimeline, Qname);
                             ganttTimeline[i].closest('.first1').style.display="block";
+                            let mulNum = +projectData[i].pstartdate.substr(8,2);
+                            getMCoorrds(i, mulNum, projInd, ganttTimeline, Qname);
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -1984,7 +1995,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }      
                     case (daysCount>val1 && daysCount<=val2):
                     {
-                        if(quarterText1===month1)
+                        if(quarterText1===month1 || quarterText2===month1 || quarterText3===month1 || quarterText4===month1
+                            || quarterText5===month1 || quarterText6===month1)
                         {
                             ganttTimeline[i].closest('.first1').style.display="block";
                             let startMonthIndex = projectData[i].pstartdate.substr(5,2);
@@ -1995,7 +2007,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                                     showinMobile1(i,totWidth,ganttTimeline);
                                 }
                         }
-                        else if(quarterText1===month7)
+                        else if(quarterText1===month7 || quarterText2===month6 || quarterText3===month5 || quarterText4===month4
+                            || quarterText5===month3 || quarterText6===month2)
                         {
                             ganttTimeline[i].closest('.first1').style.display="block";
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex); 
@@ -2921,7 +2934,6 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                     else if(monthText1===month9 && monthText2===month8 && monthText3===month7 && monthText4===month6)
                     {
                         ganttTimeline[i].closest('.Milestone').style.display="block";
-                        ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex);
                     }
                     else
@@ -2988,7 +3000,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             || quarterText5===month1 || quarterText6===month1)
                         {
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            let startMonthIndex = projectData[i].pstartdate.substr(5,2);
+                            let startMonthIndex = +milestoneData[projInd].project[i].mstartdate.substr(5,2);
                             let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
                             getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Qname);
                             getWireCoords(i, projInd, ganttTimeline, mulNum, Qname);
@@ -2997,8 +3009,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                                     showinMobile1(i,totWidth,ganttTimeline);
                                 }
                         }
-                        else if(quarterText1===month7 || quarterText2===month6 || quarterText3===month5 || quarterText4===month4
-                            || quarterText5===month3 || quarterText6===month2)
+                        else if(quarterText1===month7 || quarterText1===month6 || quarterText1===month5 || quarterText1===month4
+                            || quarterText1===month3 || quarterText1===month2)
                         {
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex); 
@@ -5031,7 +5043,7 @@ function setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, gantt
 function getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, VDname)
 {
     let startMonthName = month[+startMonthIndex - 1].toUpperCase();
-    let factor2 = getfactor2();
+    let factor2 = getfactor2(startMonthName);
     switch(selectInput)
     {
         case 'Month':
