@@ -1981,7 +1981,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         {
                             ganttTimeline[i].closest('.first1').style.display="block";
                             let mulNum = +projectData[i].pstartdate.substr(8,2);
-                            getMCoorrds(i, mulNum, projInd, ganttTimeline, Qname);
+                            getPCoorrds(i, mulNum, ganttTimeline, Qname);
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -2879,7 +2879,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         ganttTimeline[i].closest('.Milestone').style.display="block";
                         let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
                         getMCoorrds(i, mulNum, projInd, ganttTimeline, Mname);
-                        getWireCoords(i, projInd, ganttTimeline, mulNum, Mname);
+                        getWireCoords(i, projInd, ganttTimeline, Mname);
                             if(mobileWidth<700)
                             {
                                 showinMobile1(i,daysCount,ganttTimeline);
@@ -2899,7 +2899,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         let startMonthIndex = milestoneData[projInd].project[i].mstartdate.substr(5,2);
                         let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
                         getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Mname);
-                        getWireCoords(i, projInd, ganttTimeline, mulNum, Mname);
+                        getWireCoords(i, projInd, ganttTimeline, Mname);
                             if(mobileWidth < 700)
                             {
                                 showinMobile1(i,totWidth,ganttTimeline);
@@ -2908,6 +2908,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                     else if(monthText1===month5 || monthText1===month4 || monthText1===month3 || monthText1===month2)
                     {
                         ganttTimeline[i].closest('.Milestone').style.display="block";
+                        ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex); 
                     }
                     else
@@ -2925,7 +2926,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         let startMonthIndex = milestoneData[projInd].project[i].mstartdate.substr(5,2);
                         let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
                         getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Mname);
-                        getWireCoords(i, projInd, ganttTimeline, mulNum, Mname);
+                        getWireCoords(i, projInd, ganttTimeline, Mname);
                             if(mobileWidth < 700)
                             {
                                 showinMobile1(i,totWidth,ganttTimeline);
@@ -2934,6 +2935,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                     else if(monthText1===month9 && monthText2===month8 && monthText3===month7 && monthText4===month6)
                     {
                         ganttTimeline[i].closest('.Milestone').style.display="block";
+                        ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex);
                     }
                     else
@@ -2982,7 +2984,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                             let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
                             getMCoorrds(i,mulNum, projInd, ganttTimeline, Qname);
-                            getWireCoords(i, projInd, ganttTimeline, mulNum, Qname);
+                            getWireCoords(i, projInd, ganttTimeline, Qname);
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -3003,7 +3005,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let startMonthIndex = +milestoneData[projInd].project[i].mstartdate.substr(5,2);
                             let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
                             getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Qname);
-                            getWireCoords(i, projInd, ganttTimeline, mulNum, Qname);
+                            getWireCoords(i, projInd, ganttTimeline, Qname);
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -3013,6 +3015,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             || quarterText1===month3 || quarterText1===month2)
                         {
                             ganttTimeline[i].closest('.Milestone').style.display="block";
+                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex); 
                         }
                         else
@@ -5004,13 +5007,13 @@ function getCommonCoords(VDname, startMonthName, endMonthName, endNum, minusNum,
                     case ((VDname[1].innerText === 'Q2' && startMonthName==='MAY') ||
                     (VDname[1].innerText === 'Q4' && startMonthName==='NOVEMBER')):
                     {
-                        if(endMonthName === 'NOVEMBER')
+                        if(endMonthName === 'MAY' || endMonthName === 'NOVEMBER')
                         {
                             let fval = 0;
                             let fval2 = 52.6;
                             setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
                         }
-                        else if(endMonthName === 'DECEMBER')
+                        else if(endMonthName === 'JUNE' || endMonthName === 'DECEMBER')
                         {
                             let fval = 13.15;
                             let fval2 = 52.6;
@@ -5021,7 +5024,7 @@ function getCommonCoords(VDname, startMonthName, endMonthName, endNum, minusNum,
                     case ((VDname[1].innerText === 'Q2' && startMonthName==='JUNE') ||
                     (VDname[1].innerText === 'Q4' && startMonthName==='DECEMBER')):
                     {
-                        if(endMonthName === 'DECEMBER')
+                        if(endMonthName === 'JUNE' || endMonthName === 'DECEMBER')
                         {
                             let fval = 0;
                             let fval2 = 65.75;
@@ -5258,13 +5261,11 @@ function setAnotherRemWidth(mulNum, ganttTimeline, i, fval, fval2, fval3, factor
     remWidth = +remWidth;
     ganttTimeline[i].style.cssText=`margin-left:${(mulNum* factor2)+fval3}vw; width:${(remWidth).toFixed(5)}vw`;
 }
-function getWireCoords(i, projInd, ganttTimeline, mulNum, VDname)
+function getWireCoords(i, projInd, ganttTimeline, VDname)
 {
     let startMonthIndex = +milestoneData[projInd].project[i].mstartdate.substr(5,2);
     let startMonthName = month[+startMonthIndex - 1].toUpperCase();
-    let endMonthIndex = +milestoneData[projInd].project[i].menddate.substr(5,2);
-    let endMonthName = month[+endMonthIndex - 1].toUpperCase();
-    let factor1 = getFactor1(endMonthName);
+    let marLeft = ganttTimeline[i].closest('.Milestone').querySelector('.milestonediv11').style.marginLeft;
     switch(selectInput)
     {
         case 'Month':
@@ -5273,22 +5274,22 @@ function getWireCoords(i, projInd, ganttTimeline, mulNum, VDname)
             {
                 case (VDname[0].innerText === startMonthName):
                 {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(mulNum* factor1)+10.125}vw;`;
+                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
                     break;
                 }
                 case (VDname[1].innerText === startMonthName):
                 {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(mulNum* factor1)+29.85}vw;`;
+                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
                     break;
                 }
                 case (VDname[2].innerText === startMonthName):
                 {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(mulNum* factor1)+49.575}vw;`;
+                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
                     break;
                 }
                 case (VDname[3].innerText === startMonthName):
                 {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(mulNum* factor1)+69.3}vw;`;
+                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
                     break;
                 }
             }
@@ -5300,32 +5301,32 @@ function getWireCoords(i, projInd, ganttTimeline, mulNum, VDname)
             {
                 case (startMonthName === 'JANUARY' || startMonthName === 'JULY'):
                 {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(mulNum* factor1)+10.125}vw;`;
+                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
                     break;
                 }
                 case (startMonthName === 'FEBRUARY' || startMonthName === 'AUGUST'):
                 {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(mulNum* factor1)+23.275}vw;`;
+                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
                     break;
                 }
                 case (startMonthName === 'MARCH' || startMonthName === 'SEPTEMBER'):
                 {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(mulNum* factor1)+36.425}vw;`;
+                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
                     break;
                 }
                 case (startMonthName === 'APRIL' || startMonthName === 'OCTOBER'):
                 {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(mulNum* factor1)+49.575}vw;`;
+                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
                     break;
                 }
                 case (startMonthName === 'MAY' || startMonthName === 'NOVEMBER'):
                 {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(mulNum* factor1)+62.725}vw;`;
+                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
                     break;
                 }
                 case (startMonthName === 'JUNE' || startMonthName === 'DECEMBER'):
                 {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(mulNum* factor1)+75.875}vw;`;
+                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
                     break;
                 }
             }

@@ -588,7 +588,7 @@ const taskData =
             'statusid': 205,
             'statustext': "Medium",
             'statusclass': "#9D73FA",
-            'planned': "Feb 02 - Feb 06",
+            'planned': "May 15 - May 22",
             'actual': " - ",
             'tstartdate': "2021-05-15T20:00:00.000Z",
             'tenddate': "2021-05-22T20:00:00.000Z",
