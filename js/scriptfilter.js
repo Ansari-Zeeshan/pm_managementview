@@ -392,7 +392,7 @@ setTimeout(() => {
                         </div>
                     </div>
             </div>`;
-            update_append.insertBefore(update_con, update_append.childNodes[7]);
+            update_append.insertBefore(update_con, update_append.children[7]);
             textarea.innerText = "";
             textarea_Val = undefined;
         }

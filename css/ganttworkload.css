@@ -168,6 +168,10 @@ select:focus {
   display: inline;
   font-weight: 600;
 }
+.gantt .tablecal1 .thspace span.white
+{
+   color: #fff;
+}
 .gantt .tablecal1 .thspace select
 {
   margin-left: 1.5rem;
@@ -439,7 +443,6 @@ table .thspace {
   border-radius: 50%;
   object-fit: cover;
 }
-
 .gantt #benefits2 {
   transition: all 0.3s ease-in;
 }
