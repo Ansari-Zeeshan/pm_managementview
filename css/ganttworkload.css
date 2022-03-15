@@ -451,7 +451,8 @@ table .thspace {
   width: 10.125vw;
 }
 .gantt .tablegantt tr th.VDate,
-.gantt .tablegantt tr th.VQuarter
+.gantt .tablegantt tr th.VQuarter,
+.gantt .tablegantt tr th.VYear
 {
   padding: 15px 0;
 }

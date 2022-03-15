@@ -310,7 +310,7 @@ const milestoneData =
       {
         'milestoneid': "112",
         'projectid': "178",
-        'milestonename': "Milestone 1",
+        'milestonename': "Milestone 1 Milestone 1",
         'milestonedesc': "asdasdasd",
         'startExactDay': '21 Jan 2021',
         'startMonth': '2021/01/01',
