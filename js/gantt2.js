@@ -1805,6 +1805,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 let yearText1,yearText2,yearText3,yearText4,yearText5,yearText6,
                 yearText7,yearText8,yearText9,yearText10,yearText11,yearText12;
                 let yArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
+                console.log(yearlyYear);
                 if(year1==='JAN-JUN')
                 {
                     yearText1 = `january ${yearlyYear}`;
@@ -4079,158 +4080,6 @@ function updateValue(text,minusVal)
             }                                            
     }
 }
-function updateValue2(text,minusVal)
-{
-    minusVal=+minusVal;
-    switch(true)
-    {
-        case (text.includes('Jan')):
-            {
-                val1 = 119 - minusVal;
-                val2 = val1 + 123;
-                val3 = val2 + 122;
-                break;
-            }
-        case (text.includes('Feb')):
-            {
-                val1 = 119 - (minusVal + 31);
-                val2 = val1 + 123;
-                val3 = val2 + 122;
-                break;
-            }
-        case (text.includes('Mar')):
-            {
-                val1 = 119 - (minusVal + 59);
-                val2 = val1 + 123;
-                val3 = val2 + 122;
-                break;
-            }
-        case (text.includes('Apr')):
-            {
-                val1 = 119 - (minusVal + 90);
-                val2 = val1 + 123;
-                val3 = val2 + 122;
-                break;
-            }
-        case (text.includes('May')):
-            {
-                val1 = 123 - minusVal;
-                val2 = val1 + 122;
-                break;
-            }
-        case (text.includes('Jun')):
-            {
-                val1 = 123 - ( minusVal + 31);
-                val2 = val1 + 122;
-                break;
-            }
-        case (text.includes('Jul')):
-            {
-                val1 = 123 - (minusVal + 61);
-                val2 = val1 + 122;
-                break;
-            }
-        case (text.includes('Aug')):
-            {
-                val1 = 123 - (minusVal + 92);
-                val2 = val1 + 122;
-                break;
-            }
-        case (text.includes('Sep')):
-            {
-                val1 = 122 - minusVal;
-                break;
-            }
-        case (text.includes('Oct')):
-            {
-                val1 = 122 - (minusVal + 30);
-                break;
-            }
-        case (text.includes('Nov')):
-            {
-                val1 = 122 - (minusVal + 61);
-                break;
-            }
-        case (text.includes('Dec')):
-            {
-                val1 = 122 - (minusVal + 91);
-                break;
-            }                                            
-    }
-}
-function updateValue3(text,minusVal)
-{
-    minusVal=+minusVal;
-    switch(true)
-    {
-        case (text.includes('Jan')):
-            {
-                val1 = 181 - minusVal;
-                val2 = val1 + 184;
-                break;
-            }
-        case (text.includes('Feb')):
-            {
-                val1 = 181 - (minusVal + 31);
-                val2 = val1 + 184;
-                break;
-            }
-        case (text.includes('Mar')):
-            {
-                val1 = 181 - (minusVal + 59);
-                val2 = val1 + 184;
-                break;
-            }
-        case (text.includes('Apr')):
-            {
-                val1 = 181 - (minusVal + 90);
-                val2 = val1 + 184;
-                break;
-            }
-        case (text.includes('May')):
-            {
-                val1 = 181 - (minusVal + 120);
-                val2 = val1 + 184;
-                break;
-            }
-        case (text.includes('Jun')):
-            {
-                val1 = 181 - ( minusVal + 151);
-                val2 = val1 + 184;
-                break;
-            }
-        case (text.includes('Jul')):
-            {
-                val1 = 184 - minusVal;
-                break;
-            }
-        case (text.includes('Aug')):
-            {
-                val1 = 184 - (minusVal + 31);
-                break;
-            }
-        case (text.includes('Sep')):
-            {
-                val1 = 184 - (minusVal + 62);
-                break;
-            }
-        case (text.includes('Oct')):
-            {
-                val1 = 184 - (minusVal + 92);
-                break;
-            }
-        case (text.includes('Nov')):
-            {
-                val1 = 184 - (minusVal + 123);
-                break;
-            }
-        case (text.includes('Dec')):
-            {
-                val1 = 184 - (minusVal + 153);
-                break;
-            }                                            
-    }
-}
 function getCommonWidth(i, projEndYear, VDname)
 {
     let startMonthIndex = projectData[i].pstartdate.substr(5,2);
@@ -5399,6 +5248,8 @@ function givebackground(i,daysCount,ganttTimeline)
 {
     ganttTimeline[i].style.backgroundColor=`${projectData[i].statusclass}`;
     ganttTimeline[i].innerText=`${projectData[i].planned} ${daysCount +1} days`;
+    ganttTimeline[i].innerHTML=`<p class="d-inline mr-2">${projectData[i].planned}</p> <span class="mr-1">${daysCount +1} Days
+    </span> | <span class="ml-1">${projectData[i].percentage}</span>`;
     i++;
 }
 function giveMilestonebG(i,j,daysCount,ganttTimeline)
@@ -5472,7 +5323,13 @@ function showTimelineTip(e)
        let p4 = tip.querySelector('p:nth-child(5)');
        let p5 = tip.querySelector('p:nth-child(6)');
        let p6 = tip.querySelector('p:nth-child(7)');
-       h4.innerText=`Wireframe: ${projectData[projdataInd].startMonth}`;
+       let startDate = projectData[projdataInd].pstartdate.substr(8,2);
+       let startMonName = projectData[projdataInd].planned.substr(0,3);
+       let startYear = projectData[projdataInd].pstartdate.substr(2,2);
+       let endDate = projectData[projdataInd].penddate.substr(8,2);
+       let endMonName = projectData[projdataInd].planned.substr(9,3);
+       let endYear = projectData[projdataInd].penddate.substr(2,2);
+       h4.innerText=`Wireframe: ${startDate} ${startMonName} ${startYear} to ${endDate} ${endMonName} ${endYear}`;
        p1.innerText=`Duration: ${projectData[projdataInd].duration}`;
        p2.innerText=`Percentage Done: ${projectData[projdataInd].percentage}`;
        p3.innerText=`Status: ${projectData[projdataInd].statustext}`;
