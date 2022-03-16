@@ -826,7 +826,18 @@ table .thspace {
 .milestonediv1 {
   width: 100%;
 }
-
+.milestonediv1 .firstDesc,
+.milestonediv2 .firstDesc
+{
+  position: absolute;
+  z-index: -1;
+}
+.milestonediv1 .firstDesc p span:nth-child(2),
+.milestonediv2 .firstDesc p span:nth-child(2)
+{
+  font-size: 19px;
+  color: #a0a0a0;
+}
 .milestonediv1 .milestonediv11 {
   width: 54.5%;
 }
