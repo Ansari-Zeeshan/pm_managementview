@@ -100,6 +100,7 @@ const quarter = ['Q1','Q2','Q3','Q4'];
     hoverProject2 = document.querySelectorAll('.gantt #benefits2 .tableprogian .firstext');
     hoverProject3 = document.querySelectorAll('.gantt #benefits2 .collapse .milestonediv1 .firstext');
     hoverProject4 = document.querySelectorAll('.gantt #benefits2 .collapse .milestonediv2 .firstext');
+    firstDesc = document.querySelectorAll('.gantt .milestonediv2 .firstDesc');
 }());
 
 selectData.addEventListener('change',()=>
@@ -132,9 +133,9 @@ selectData.addEventListener('change',()=>
                         alltd[j].classList.remove('deactive');
                     }
                 }
-                thfirst.forEach((thfirst)=>
+                firstDesc.forEach((first)=>
                 {
-                    thfirst.style.width="10.125vw";
+                    first.classList.remove('translate0');
                 })
                 assignDate();
                 calTimelineBar();
@@ -168,6 +169,10 @@ selectData.addEventListener('change',()=>
                         alltd[j].classList.add('deactive');
                     }
                 }
+                firstDesc.forEach((first)=>
+                {
+                    first.classList.add('translate0');
+                })
                 assignMonth();
                 calTimelineBar();
                 calMilestoneBar();
@@ -200,6 +205,10 @@ selectData.addEventListener('change',()=>
                         alltd[j].classList.add('deactive');
                     }
                 }
+                firstDesc.forEach((first)=>
+                {
+                    first.classList.add('translate0');
+                })
                 assignQuarter();
                 calTimelineBar();
                 calMilestoneBar();
@@ -232,6 +241,10 @@ selectData.addEventListener('change',()=>
                         alltd[j].classList.add('deactive');
                     }
                 }
+                firstDesc.forEach((first)=>
+                {
+                    first.classList.add('translate0');
+                })
                 assignYear();
                 calTimelineBar();
                 calMilestoneBar();
@@ -563,8 +576,7 @@ function calTimelineBar()
             {
                 if(appearYear>=compareYear && prevYear)
                 {
-                    if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
-                    || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
+                    if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkTargetDate2(date2,i,daysCount,appearYear);
                         showGantt(daysCount,endTimeline,i,projTimeline,projStartDate,mobileWidth,appearYear,projEndYear);
@@ -576,85 +588,73 @@ function calTimelineBar()
             {
                 if(appearYear>=compareYear && prevYear)
                 {
-                    if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
-                    || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
+                    if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='February 2021' || month1==='February 2022' || month1==='February 2023'
-                    || month1==='February 2024' || month1==='February 2025' || month1==='February 2026')
+                    else if(month1===`February ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='March 2021' || month1==='March 2022' || month1==='March 2023'
-                    || month1==='March 2024' || month1==='March 2025' || month1==='March 2026')
+                    else if(month1===`March ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='April 2021' || month1==='April 2022' || month1==='April 2023'
-                    || month1==='April 2024' || month1==='April 2025' || month1==='April 2026')
+                    else if(month1===`April ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='May 2021' || month1==='May 2022' || month1==='May 2023'
-                    || month1==='May 2024' || month1==='May 2025' || month1==='May 2026')
+                    else if(month1===`May ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='June 2021' || month1==='June 2022' || month1==='June 2023'
-                    || month1==='June 2024' || month1==='June 2025' || month1==='June 2026')
+                    else if(month1===`June ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='July 2021' || month1==='July 2022' || month1==='July 2023'
-                    || month1==='July 2024' || month1==='July 2025' || month1==='July 2026')
+                    else if(month1===`July ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='August 2021' || month1==='August 2022' || month1==='August 2023'
-                    || month1==='August 2024' || month1==='August 2025' || month1==='August 2026')
+                    else if(month1===`August ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='September 2021' || month1==='September 2022' || month1==='September 2023'
-                    || month1==='September 2024' || month1==='September 2025' || month1==='September 2026')
+                    else if(month1===`September ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='October 2021' || month1==='October 2022' || month1==='October 2023'
-                    || month1==='October 2024' || month1==='October 2025' || month1==='October 2026')
+                    else if(month1===`October ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='November 2021' || month1==='November 2022' || month1==='November 2023'
-                    || month1==='November 2024' || month1==='November 2025' || month1==='November 2026')
+                    else if(month1===`November ${appearYear}`)
                     {           
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='December 2021' || month1==='December 2022' || month1==='December 2023'
-                    || month1==='December 2024' || month1==='December 2025' || month1==='December 2026')
+                    else if(month1===`December ${appearYear}`)
                     {                    
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
@@ -707,8 +707,7 @@ function calMilestoneBar()
             {
                 if(appearYear>=compareYear && prevYear)
                 {
-                    if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
-                    || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
+                    if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkTargetDate2(date2,i,daysCount,appearYear);
                         showGantt2(daysCount,endTimeline,i,milestone,mobileWidth,projInd,appearYear,mileEndYear);
@@ -720,85 +719,73 @@ function calMilestoneBar()
             {
                 if(appearYear>=compareYear && prevYear)
                 {
-                    if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
-                    || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
+                    if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='February 2021' || month1==='February 2022' || month1==='February 2023'
-                    || month1==='February 2024' || month1==='February 2025' || month1==='February 2026')
+                    else if(month1===`February ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='March 2021' || month1==='March 2022' || month1==='March 2023'
-                    || month1==='March 2024' || month1==='March 2025' || month1==='March 2026')
+                    else if(month1===`March ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='April 2021' || month1==='April 2022' || month1==='April 2023'
-                    || month1==='April 2024' || month1==='April 2025' || month1==='April 2026')
+                    else if(month1===`April ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='May 2021' || month1==='May 2022' || month1==='May 2023'
-                    || month1==='May 2024' || month1==='May 2025' || month1==='May 2026')
+                    else if(month1===`May ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='June 2021' || month1==='June 2022' || month1==='June 2023'
-                    || month1==='June 2024' || month1==='June 2025' || month1==='June 2026')
+                    else if(month1===`June ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='July 2021' || month1==='July 2022' || month1==='July 2023'
-                    || month1==='July 2024' || month1==='July 2025' || month1==='July 2026')
+                    else if(month1===`July ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='August 2021' || month1==='August 2022' || month1==='August 2023'
-                    || month1==='August 2024' || month1==='August 2025' || month1==='August 2026')
+                    else if(month1===`August ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='September 2021' || month1==='September 2022' || month1==='September 2023'
-                    || month1==='September 2024' || month1==='September 2025' || month1==='September 2026')
+                    else if(month1===`September ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='October 2021' || month1==='October 2022' || month1==='October 2023'
-                    || month1==='October 2024' || month1==='October 2025' || month1==='October 2026')
+                    else if(month1===`October ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='November 2021' || month1==='November 2022' || month1==='November 2023'
-                    || month1==='November 2024' || month1==='November 2025' || month1==='November 2026')
+                    else if(month1===`November ${appearYear}`)
                     {           
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='December 2021' || month1==='December 2022' || month1==='December 2023'
-                    || month1==='December 2024' || month1==='December 2025' || month1==='December 2026')
+                    else if(month1===`December ${appearYear}`)
                     {                    
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
@@ -864,8 +851,7 @@ function calTaskBar()
                 {
                     if(appearYear>=compareYear && prevYear)
                     {
-                        if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
-                        || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
+                        if(month1===`January ${appearYear}`)
                         {
                             daysCount = checkTargetDate2(date2,i,daysCount,appearYear);
                             showGantt3(daysCount,endTimeline,i,Task,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
@@ -877,85 +863,73 @@ function calTaskBar()
                 {
                     if(appearYear>=compareYear && prevYear)
                     {
-                        if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
-                        || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
+                        if(month1===`January ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='February 2021' || month1==='February 2022' || month1==='February 2023'
-                        || month1==='February 2024' || month1==='February 2025' || month1==='February 2026')
+                        else if(month1===`February ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='March 2021' || month1==='March 2022' || month1==='March 2023'
-                        || month1==='March 2024' || month1==='March 2025' || month1==='March 2026')
+                        else if(month1===`March ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='April 2021' || month1==='April 2022' || month1==='April 2023'
-                        || month1==='April 2024' || month1==='April 2025' || month1==='April 2026')
+                        else if(month1===`April ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='May 2021' || month1==='May 2022' || month1==='May 2023'
-                        || month1==='May 2024' || month1==='May 2025' || month1==='May 2026')
+                        else if(month1===`May ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='June 2021' || month1==='June 2022' || month1==='June 2023'
-                        || month1==='June 2024' || month1==='June 2025' || month1==='June 2026')
+                        else if(month1===`June ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='July 2021' || month1==='July 2022' || month1==='July 2023'
-                        || month1==='July 2024' || month1==='July 2025' || month1==='July 2026')
+                        else if(month1===`July ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='August 2021' || month1==='August 2022' || month1==='August 2023'
-                        || month1==='August 2024' || month1==='August 2025' || month1==='August 2026')
+                        else if(month1===`August ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='September 2021' || month1==='September 2022' || month1==='September 2023'
-                        || month1==='September 2024' || month1==='September 2025' || month1==='September 2026')
+                        else if(month1===`September ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='October 2021' || month1==='October 2022' || month1==='October 2023'
-                        || month1==='October 2024' || month1==='October 2025' || month1==='October 2026')
+                        else if(month1===`October ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='November 2021' || month1==='November 2022' || month1==='November 2023'
-                        || month1==='November 2024' || month1==='November 2025' || month1==='November 2026')
+                        else if(month1===`November ${appearYear}`)
                         {           
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='December 2021' || month1==='December 2022' || month1==='December 2023'
-                        || month1==='December 2024' || month1==='December 2025' || month1==='December 2026')
+                        else if(month1===`December ${appearYear}`)
                         {                    
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
@@ -982,7 +956,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
     let ganttSpan = ganttTimeline[i];
     let startMonName = projectData[i].planned.substr(0,3);
     let endMonName = projectData[i].planned.substr(9,3);
-    let dur = projectData[i].duration;
+    let startDate = projectData[i].pstartdate.substr(8,2);
     let per = projectData[i].percentage;
     switch(selectInput)
     {
@@ -994,8 +968,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         if(dateText===month1)
                         {
                             let ganttWidth = daysCount * 2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.first1').style.display="block";
                                 if(mobileWidth<700)
@@ -1014,8 +988,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         if(dateText===month1)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.first1').style.display="block";
                                 if(mobileWidth < 700)
@@ -1026,8 +1000,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         else if(dateText===month2)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
                         }
                         else
@@ -1041,8 +1015,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         if(dateText===month1 || dateText===month2)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                                 anttTimeline[i].closest('.first1').style.display="block"; 
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
@@ -1053,8 +1027,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         else if(dateText===month3)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -1068,8 +1042,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         if(dateText===month1 || dateText===month2 || dateText===month3)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
@@ -1080,8 +1054,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         else if(dateText===month4)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -1096,8 +1070,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                             || dateText===month4)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
@@ -1108,8 +1082,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         else if(dateText===month5)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -1124,8 +1098,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                             || dateText===month4 || dateText===month5)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
@@ -1136,8 +1110,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         else if(dateText===month6)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -1152,8 +1126,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                             || dateText===month4 || dateText===month5 || dateText===month6)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
@@ -1164,8 +1138,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         else if(dateText===month7)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -1181,8 +1155,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                             || dateText===month7)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
@@ -1193,8 +1167,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         else if(dateText===month8)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -1210,8 +1184,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                             || dateText===month7 || dateText===month8)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
@@ -1222,8 +1196,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         else if(dateText===month9)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -1239,8 +1213,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                             || dateText===month7 || dateText===month8 || dateText===month9)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
@@ -1251,8 +1225,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         else if(dateText===month10)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -1269,8 +1243,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                             || dateText===month10)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
@@ -1281,8 +1255,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         else if(dateText===month11)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -1299,8 +1273,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                             || dateText===month10 || dateText===month11)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
@@ -1311,8 +1285,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         else if(dateText===month12)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -1335,8 +1309,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         if(monthText1===month1)
                         {
                             let ganttWidth = getCommonWidth(i,projEndYear,Mname);
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
@@ -1369,8 +1343,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         if(quarterText1===month1)
                         {
                             let ganttWidth = getCommonWidth(i,projEndYear,Qname);
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
@@ -1403,8 +1377,8 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
                         if(quarterText1===month1)
                         {
                             let ganttWidth = getCommonWidth(i,projEndYear,Yname);
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
@@ -1431,10 +1405,10 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
     let endMonthIndex = projectData[i].penddate.substr(5,2);
     let dateText = `${monthText.innerText} ${yearText.innerText}`;
     let textAlign = ganttTimeline[i].previousElementSibling;
-    let ganttSpan = ganttTimeline[i].closest('.collapsed').querySelector('.timeline');
+    let ganttSpan = ganttTimeline[i];
     let startMonName = projectData[i].planned.substr(0,3);
     let endMonName = projectData[i].planned.substr(9,3);
-    let dur = projectData[i].duration;
+    let startDate = projectData[i].pstartdate.substr(8,2);
     let per = projectData[i].percentage;
     switch(selectInput)
     {
@@ -1449,8 +1423,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = (startTime*2.517)+10.125;
                         let ganttWidth = daysCount*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             if(mobileWidth<700)
@@ -1471,8 +1445,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         let localdaysCount=totWidth - startTime;
                         let marLeft = (startTime*2.517)+10.125;
                         let ganttWidth = localdaysCount*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                         
@@ -1485,8 +1459,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = endTimeline*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);                         
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);                         
                         ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
@@ -1503,8 +1477,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         let localdaysCount=totWidth - startTime;
                         let marLeft = (startTime*2.517)+10.125;
                         let ganttWidth = localdaysCount*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                         
@@ -1517,8 +1491,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = totWidth *2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                         
@@ -1531,8 +1505,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = endTimeline*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1548,8 +1522,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         let localdaysCount=totWidth - startTime;
                         let marLeft = (startTime*2.517)+10.125;
                         let ganttWidth = localdaysCount*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                         
@@ -1562,8 +1536,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = totWidth *2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                         
@@ -1576,8 +1550,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = endTimeline*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1593,8 +1567,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         let localdaysCount=totWidth - startTime;
                         let marLeft = (startTime*2.517)+10.125;
                         let ganttWidth = localdaysCount*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                         
@@ -1607,8 +1581,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = totWidth *2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                         
@@ -1621,8 +1595,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = endTimeline*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1638,8 +1612,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         let localdaysCount=totWidth - startTime;
                         let marLeft = (startTime*2.517)+10.125;
                         let ganttWidth = localdaysCount*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                         
@@ -1653,8 +1627,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = totWidth *2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                         
@@ -1667,8 +1641,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = endTimeline*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1684,8 +1658,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         let localdaysCount=totWidth - startTime;
                         let marLeft = (startTime*2.517)+10.125;
                         let ganttWidth = localdaysCount*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                         
@@ -1699,8 +1673,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = totWidth *2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                         
@@ -1713,8 +1687,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = endTimeline*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1730,8 +1704,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         let localdaysCount=totWidth - startTime;
                         let marLeft = (startTime*2.517)+10.125;
                         let ganttWidth = localdaysCount*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                         
@@ -1745,8 +1719,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = totWidth *2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                         
@@ -1759,8 +1733,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = endTimeline*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1776,8 +1750,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         let localdaysCount=totWidth - startTime;
                         let marLeft = (startTime*2.517)+10.125;
                         let ganttWidth = localdaysCount*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                         
@@ -1792,8 +1766,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = totWidth *2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                         
@@ -1806,8 +1780,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = endTimeline*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1823,8 +1797,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         let localdaysCount=totWidth - startTime;
                         let marLeft = (startTime*2.517)+10.125;
                         let ganttWidth = localdaysCount*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                         
@@ -1839,8 +1813,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = totWidth *2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                         
@@ -1853,8 +1827,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = endTimeline*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1870,8 +1844,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         let localdaysCount=totWidth - startTime;
                         let marLeft = (startTime*2.517)+10.125;
                         let ganttWidth = localdaysCount*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                         
@@ -1886,8 +1860,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = totWidth *2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                         
@@ -1900,8 +1874,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = endTimeline*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1917,8 +1891,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         let localdaysCount=totWidth - startTime;
                         let marLeft = (startTime*2.517)+10.125;
                         let ganttWidth = localdaysCount*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                         
@@ -1934,8 +1908,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = totWidth *2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                         
@@ -1948,8 +1922,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     {
                         let marLeft = 10.125;
                         let ganttWidth = endTimeline*2.517;
-                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1987,8 +1961,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         let mulNum = +projectData[i].pstartdate.substr(8,2);
                         ganttTimeline[i].closest('.first1').style.display="block";
                         getPCoorrds(i, mulNum, ganttTimeline, projEndYear, Mname);
-                        alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startTime,
-                            startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                            startMonName, endTimeline, endMonName, daysCount, per);
                             if(mobileWidth<700)
                             {
                                 showinMobile1(i,daysCount,ganttTimeline);
@@ -2036,8 +2010,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                             ganttTimeline[i].closest('.first1').style.display="block";
                             let mulNum = +projectData[i].pstartdate.substr(8,2);
                             getPCoorrds(i, mulNum, ganttTimeline, projEndYear, qArrName);
-                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -2085,8 +2059,8 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                             ganttTimeline[i].closest('.first1').style.display="block";
                             let mulNum = +projectData[i].pstartdate.substr(8,2);
                             getPCoorrds(i, mulNum, ganttTimeline, projEndYear, yArrName);
-                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -2114,7 +2088,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
     let ganttSpan = ganttTimeline[i].closest('.milestonediv1').querySelector('.milestonediv11 span');
     let startMonName = milestoneData[projInd].project[i].planned.substr(0,3);
     let endMonName = milestoneData[projInd].project[i].planned.substr(9,3);
-    let dur = milestoneData[projInd].project[i].duration;
+    let startDate = milestoneData[projInd].project[i].mstartdate.substr(8,2);
     let per = milestoneData[projInd].project[i].percentage;
     switch(selectInput)
     {
@@ -2127,8 +2101,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         if(dateText===month1)
                         {
                             let ganttWidth = daysCount * 2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2147,8 +2121,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         if(dateText===month1)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth < 700)
@@ -2159,8 +2133,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         else if(dateText===month2)
                         { 
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
                         }
                         else
@@ -2174,8 +2148,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         if(dateText===month1 || dateText===month2)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block"; 
                                 if(mobileWidth < 700)
@@ -2186,8 +2160,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         else if(dateText===month3)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2201,8 +2175,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         if(dateText===month1 || dateText===month2 || dateText===month3)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth < 700)
@@ -2213,8 +2187,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         else if(dateText===month4)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -2229,8 +2203,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month4)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth < 700)
@@ -2241,8 +2215,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         else if(dateText===month5)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -2257,8 +2231,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month4 || dateText===month5)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth < 700)
@@ -2269,8 +2243,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         else if(dateText===month6)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -2285,8 +2259,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month4 || dateText===month5 || dateText===month6)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth < 700)
@@ -2297,8 +2271,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         else if(dateText===month7)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -2314,8 +2288,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month7)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth < 700)
@@ -2326,8 +2300,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         else if(dateText===month8)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -2343,8 +2317,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month7 || dateText===month8)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth < 700)
@@ -2355,8 +2329,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         else if(dateText===month9)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -2372,8 +2346,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month7 || dateText===month8 || dateText===month9)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth < 700)
@@ -2384,8 +2358,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         else if(dateText===month10)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -2402,8 +2376,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month10)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth < 700)
@@ -2414,8 +2388,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         else if(dateText===month11)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -2432,8 +2406,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month10 || dateText===month11)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth < 700)
@@ -2444,8 +2418,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         else if(dateText===month12)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -2472,8 +2446,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         if(monthText1===month1)
                         {
                             let ganttWidth = getCommonWidth(i,projEndYear,Mname);
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
@@ -2506,8 +2480,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         if(quarterText1===month1)
                         {
                             let ganttWidth = getCommonWidth(i,projEndYear,Qname);
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
@@ -2540,8 +2514,8 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         if(quarterText1===month1)
                         {
                             let ganttWidth = getCommonWidth(i,projEndYear,Yname);
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
@@ -2572,7 +2546,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
     let ganttSpan = ganttTimeline[i].closest('.milestonediv1').querySelector('.milestonediv11 span');
     let startMonName = milestoneData[projInd].project[i].planned.substr(0,3);
     let endMonName = milestoneData[projInd].project[i].planned.substr(9,3);
-    let dur = milestoneData[projInd].project[i].duration;
+    let startDate = milestoneData[projInd].project[i].mstartdate.substr(8,2);
     let per = milestoneData[projInd].project[i].percentage;
     switch(selectInput)
     {
@@ -2586,8 +2560,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = daysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2608,8 +2582,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2621,8 +2595,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2638,8 +2612,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2651,8 +2625,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2664,8 +2638,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2681,8 +2655,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2694,8 +2668,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2707,8 +2681,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2724,8 +2698,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2737,8 +2711,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2750,8 +2724,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2767,8 +2741,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2781,8 +2755,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2794,8 +2768,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2811,8 +2785,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2825,8 +2799,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2838,8 +2812,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2855,8 +2829,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2869,8 +2843,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2882,8 +2856,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2899,8 +2873,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2914,8 +2888,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2927,8 +2901,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2944,8 +2918,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                             ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
@@ -2960,8 +2934,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -2973,8 +2947,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2990,8 +2964,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -3005,8 +2979,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -3018,8 +2992,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3035,8 +3009,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -3051,8 +3025,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${marLeft}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                                 if(mobileWidth<700)
@@ -3064,8 +3038,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);                         
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         break;  
@@ -3100,8 +3074,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         ganttTimeline[i].closest('.Milestone').style.display="block";
                         let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
                         getMCoorrds(i, mulNum, projInd, ganttTimeline, projEndYear, Mname);
-                        alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
                             if(mobileWidth<700)
                             {
                                 showinMobile1(i,daysCount,ganttTimeline);
@@ -3149,8 +3123,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                             let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
                             getMCoorrds(i, mulNum, projInd, ganttTimeline, projEndYear, qArrName);
-                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -3198,8 +3172,8 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         ganttTimeline[i].closest('.Milestone').style.display="block";
                         let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
                         getMCoorrds(i, mulNum, projInd, ganttTimeline, projEndYear, yArrName);
-                        alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                        alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
                             if(mobileWidth<700)
                             {
                                 showinMobile1(i,daysCount,ganttTimeline);
@@ -3227,7 +3201,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
     let ganttSpan = ganttTimeline[i].closest('.milestonediv2').querySelector('.milestonediv22 span');
     let startMonName = taskData[projInd].milestone[mileInd].task[i].planned.substr(0,3);
     let endMonName = taskData[projInd].milestone[mileInd].task[i].planned.substr(9,3);
-    let dur = taskData[projInd].milestone[mileInd].task[i].duration;
+    let startDate = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
     let per = taskData[projInd].milestone[mileInd].task[i].percentage;
     switch(selectInput)
     {
@@ -3240,8 +3214,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         {
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = daysCount*2.517;
-                            alignCommonData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMone, i, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3260,8 +3234,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         if(dateText===month1)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
@@ -3272,8 +3246,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         else if(dateText===month2)
                         { 
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
                         }
                         else
@@ -3287,8 +3261,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         if(dateText===month1 || dateText===month2)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block"; 
                                 if(mobileWidth < 700)
@@ -3299,8 +3273,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         else if(dateText===month3)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3314,8 +3288,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         if(dateText===month1 || dateText===month2 || dateText===month3)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
@@ -3326,8 +3300,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         else if(dateText===month4)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -3342,8 +3316,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month4)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
@@ -3354,8 +3328,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         else if(dateText===month5)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -3370,8 +3344,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month4 || dateText===month5)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
@@ -3382,8 +3356,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         else if(dateText===month6)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -3398,8 +3372,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month4 || dateText===month5 || dateText===month6)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
@@ -3410,8 +3384,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         else if(dateText===month7)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -3427,8 +3401,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month7)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
@@ -3439,8 +3413,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         else if(dateText===month8)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -3456,8 +3430,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month7 || dateText===month8)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
@@ -3468,8 +3442,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         else if(dateText===month9)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -3485,8 +3459,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month7 || dateText===month8 || dateText===month9)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
@@ -3497,8 +3471,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         else if(dateText===month10)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -3515,8 +3489,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month10)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
@@ -3527,8 +3501,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         else if(dateText===month11)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -3545,8 +3519,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month10 || dateText===month11)
                         {
                             let ganttWidth = totWidth *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
@@ -3557,8 +3531,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         else if(dateText===month12)
                         {
                             let ganttWidth = endTimeline *2.517;
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         break;  
@@ -3580,8 +3554,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         if(monthText1===month1)
                         {
                             let ganttWidth = getCommonWidth(i,projEndYear,Mname);
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.task').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
@@ -3614,8 +3588,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         if(quarterText1===month1)
                         {
                             let ganttWidth = getCommonWidth(i,projEndYear,Qname);
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.task').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
@@ -3648,8 +3622,8 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         if(quarterText1===month1)
                         {
                             let ganttWidth = getCommonWidth(i,projEndYear,Yname);
-                            alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-                                endTimeline, endMonName, dur, per);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.task').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
@@ -3680,7 +3654,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
     let ganttSpan = ganttTimeline[i].closest('.milestonediv2').querySelector('.milestonediv22 span');
     let startMonName = taskData[projInd].milestone[mileInd].task[i].planned.substr(0,3);
     let endMonName = taskData[projInd].milestone[mileInd].task[i].planned.substr(9,3);
-    let dur = taskData[projInd].milestone[mileInd].task[i].duration;
+    let startDate = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
     let per = taskData[projInd].milestone[mileInd].task[i].percentage;
     switch(selectInput)
     {
@@ -3694,8 +3668,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = daysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3716,8 +3690,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);       
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);       
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3729,8 +3703,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per); 
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per); 
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3746,8 +3720,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);   
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);   
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3759,8 +3733,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);    
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);    
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3772,8 +3746,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per); 
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per); 
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3789,8 +3763,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per); 
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per); 
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3802,8 +3776,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3815,8 +3789,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3832,8 +3806,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3845,8 +3819,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3858,8 +3832,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3875,8 +3849,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3889,8 +3863,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3902,8 +3876,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3919,8 +3893,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3933,8 +3907,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3946,8 +3920,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3963,8 +3937,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3977,8 +3951,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -3990,8 +3964,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -4007,8 +3981,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -4022,8 +3996,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -4035,8 +4009,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -4052,8 +4026,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -4067,8 +4041,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -4080,8 +4054,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -4097,8 +4071,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -4112,8 +4086,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -4125,8 +4099,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -4142,8 +4116,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             let localdaysCount=totWidth - startTime;
                             let marLeft = (startTime*2.517)+10.125;
                             let ganttWidth = localdaysCount*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -4158,8 +4132,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = totWidth*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
@@ -4171,8 +4145,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         {
                             let marLeft = 10.125;
                             let ganttWidth = endTimeline*2.517;
-                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -4211,8 +4185,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             ganttTimeline[i].closest('.task').style.display="block";
                             let mulNum = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
                             getTCoorrds(i, mulNum, projInd, mileInd, ganttTimeline, projEndYear, Mname);
-                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -4260,8 +4234,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             ganttTimeline[i].closest('.task').style.display="block";
                             let mulNum = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
                             getTCoorrds(i, mulNum, projInd, mileInd, ganttTimeline, projEndYear, qArrName);
-                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -4309,8 +4283,8 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             ganttTimeline[i].closest('.task').style.display="block";
                             let mulNum = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
                             getTCoorrds(i, mulNum, projInd, mileInd, ganttTimeline, projEndYear, yArrName);
-                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startTime,
-                                startMonName, endTimeline, endMonName, dur, per);
+                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -4795,25 +4769,25 @@ function getCommonWidth(i, projEndYear, VDname)
     }
 }
 function alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
-    endTimeline, endMonName, dur, per)
+    endTimeline, endMonName, daysCount, per)
 {
-    if(ganttWidth < 20.15 && ganttWidth > 3)
+    if(ganttWidth < 16.5 && ganttWidth > 3)
     {
         textAlign.style.cssText=`margin-left: ${(ganttWidth +11.125)}vw; display: block;`;
-        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${dur}</span></p>`;
+        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount + 1} Days</span></p>`;
         ganttSpan.innerHTML = `<p>${per}</p>`;
     }
     else if(ganttWidth < 3)
     {
         textAlign.style.cssText=`margin-left: ${(ganttWidth +11.125)}vw; display: block;`;
-        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${dur}</span>
+        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount + 1} Days</span>
         <span class="mr-1 ml-1">|</span></p> ${per}`;
         ganttSpan.innerHTML = ``;
     }
-    else(ganttWidth > 20.15)
+    else(ganttWidth > 16.5)
     {
         textAlign.style.cssText=`display: none;`;
-        ganttSpan.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${dur}</span>
+        ganttSpan.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount + 1} Days</span>
         <span class="mr-1 ml-1">|</span> ${per}</p>`;
     }
 }
@@ -5527,44 +5501,43 @@ function setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, gantt
     ganttTimeline[i].style.cssText=`margin-left:${UniMarLeft}vw; width:${(UniRemWidth).toFixed(5)}vw`;
 }
 function alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startTime,
-    startMonName, endTimeline, endMonName, dur, per)
+    startMonName, endTimeline, endMonName, daysCount, per)
 {
-    if(UniMarLeft<62.725 && (UniRemWidth < 20.15 && UniRemWidth > 3))
+    if(UniMarLeft<69.3 && (UniRemWidth < 16.5 && UniRemWidth > 3))
     {
         textAlign.style.cssText=`margin-left: ${(UniMarLeft) + (UniRemWidth +1)}vw; display: block;`;
-        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${dur}</span></p>`;
+        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount +1} Days</span></p>`;
         ganttSpan.innerHTML = `<p>${per}</p>`;
     }
-    else if(UniMarLeft<62.725 && UniRemWidth < 3)
+    else if(UniMarLeft<69.3 && UniRemWidth < 3)
     {
         textAlign.style.cssText=`margin-left: ${(UniMarLeft) + (UniRemWidth +1)}vw; display: block;`;
-        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${dur}</span>
+        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount +1} Days</span>
         <span class="mr-1 ml-1">|</span> ${per}</p>`;
         ganttSpan.innerHTML = ``;
     }
-    else if(UniMarLeft>62.725 && (UniRemWidth < 20.15 && UniRemWidth > 3))
+    else if(UniMarLeft>69.3 && (UniRemWidth < 16.5 && UniRemWidth > 3))
     {
         textAlign.style.cssText=`margin-left: ${UniMarLeft - 11.125}vw; display: block;`;
-        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${dur}</span></p>`;
+        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount +1} Days</span></p>`;
         ganttSpan.innerHTML = `${per}`;
     }
-    else if(UniMarLeft>62.725 && UniRemWidth < 3)
+    else if(UniMarLeft>69.3 && UniRemWidth < 3)
     {
-        textAlign.style.cssText=`margin-left: ${UniMarLeft - 14.73}vw; display: block;`;
-        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${dur}</span>
+        textAlign.style.cssText=`margin-left: ${UniMarLeft - 14.8}vw; display: block;`;
+        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount +1} Days</span>
         <span class="mr-1 ml-1">|</span> ${per}</p>`;
         ganttSpan.innerHTML = ``;
     }
-    else if(UniRemWidth > 20.15)
+    else if(UniRemWidth > 16.5)
     {
         textAlign.style.cssText=`display: none;`;
-        ganttSpan.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${dur}</span>
+        ganttSpan.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount +1} Days</span>
         <span class="mr-1 ml-1">|</span> ${per}</p>`;
     }
 }
 
-
-function remainDaysCount( endTimeline,ganttTimeline,mobileWidth,i,endMonthIndex, appearYear, projEndYear)
+function remainDaysCount(endTimeline,ganttTimeline,mobileWidth,i,endMonthIndex, appearYear, projEndYear)
 {
     switch(selectInput)
     {
@@ -5693,11 +5666,21 @@ function showinMobile4(i,multiplyTerm,ganttTimeline)
 function givebackground(i,daysCount,ganttTimeline)
 {
     ganttTimeline[i].style.backgroundColor=`${projectData[i].statusclass}`;
+    if(daysCount>365)
+    {
+        ganttTimeline[i].innerHTML = `<p>${projectData[i].planned} <span class="ml-1">${daysCount +1}</span>
+        <span class="mr-1 ml-1">|</span> ${projectData[i].percentage}</p>`;
+    }
     i++;
 }
 function giveMilestonebG(i,j,daysCount,ganttTimeline)
 {
     ganttTimeline[i].style.backgroundColor=`${milestoneData[j].project[i].statusclass}`;
+    if(daysCount>365)
+    {
+        ganttTimeline[i].innerHTML = `<p>${milestoneData[j].project[i].planned} <span class="ml-1">${daysCount +1}</span>
+        <span class="mr-1 ml-1">|</span> ${milestoneData[j].project[i].percentage}</p>`;
+    }
     i++;
 }
 
@@ -5829,7 +5812,7 @@ milesPDiv.forEach((parent,ind)=>
             }
             else if(e.type==="click")
             {
-                let tip = e.target.closest('.Milestone').querySelectorAll('.task');
+                let tip = e.target.closest('.Milestone').querySelectorAll('.task .milestonediv22');
                 for(let j=0; j<tip.length; j++)
                 {
                     ['mouseover','mouseout'].forEach((e)=>

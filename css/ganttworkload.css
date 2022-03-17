@@ -835,6 +835,11 @@ table .thspace {
   position: absolute;
   z-index: -1;
   transform: translateY(6px);
+  transition: all 0.2s ease;
+}
+.milestonediv2 .firstDesc.translate0
+{
+  transform: translateY(0px);
 }
 .milestonediv1 .firstDesc p span:nth-child(2),
 .milestonediv2 .firstDesc p span:nth-child(2)

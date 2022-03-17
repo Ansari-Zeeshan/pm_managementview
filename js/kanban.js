@@ -1,4 +1,3 @@
-let log = console.log
 
 /* 
     GLOBAL VARIABLES
@@ -13,16 +12,11 @@ const dropzones = document.querySelectorAll('.dropzone')
 
 //function to move our cards
 function dragstart(){
-    // log("drag start");
     dropzones.forEach( dropzone => dropzone.classList.add('highlight') )
     this.classList.add('is-dragging')
     
 }
 
-function drag(){
-    log("drag ");
-    
-}
 
 function dragend(){
     // log("drag end");
@@ -33,9 +27,8 @@ function dragend(){
 
 //adding event to our cards
 cards.forEach(card1 => {
-    card1.addEventListener('dragstart', dragstart)
-    card1.addEventListener('drag', drag)
-    card1.addEventListener('dragend', dragend)
+    card1.addEventListener('dragstart', dragstart);
+    card1.addEventListener('dragend', dragend);
 })
 
 
