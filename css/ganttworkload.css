@@ -507,6 +507,7 @@ table .thspace {
   font-size: 13px;
   color: #1E2022;
   font-weight: 600;
+  margin-top: 0.9rem;
   overflow: hidden;
   width: 9%;
   height: 20px;
@@ -539,9 +540,10 @@ table .thspace {
 }
 
 .gantpr {
-  padding: 6px 0px;
+  padding: 8px 0px;
   border-radius: 5px;
   color: #FFFFFF;
+  height: 38px;
   font-size: 14px;
   margin-left: 16%;
   margin-top: -24px;
@@ -732,7 +734,8 @@ table .thspace {
 
 
 .gantpr22 {
-  margin-top: 2.5rem;
+  margin-top: 1.2rem;
+  height: 38px;
 }
 
 .vl {
@@ -831,6 +834,7 @@ table .thspace {
 {
   position: absolute;
   z-index: -1;
+  transform: translateY(6px);
 }
 .milestonediv1 .firstDesc p span:nth-child(2),
 .milestonediv2 .firstDesc p span:nth-child(2)

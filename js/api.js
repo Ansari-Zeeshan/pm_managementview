@@ -309,7 +309,7 @@ const projectData=
     'duration': '100 Days',
     'percentage': '40%',
     'pstartdate': "2023/02/12T20:00:00.000Z",
-    'penddate': "2026/12/12T20:00:00.000Z",
+    'penddate': "2027/12/12T20:00:00.000Z",
     'actual': "Feb 12 - May 15",
     'astartdate': "2021-12-27T20:00:00.000Z",
     'aenddate': "2021-12-30T20:00:00.000Z",
@@ -833,5 +833,23 @@ const taskData =
         ]
       }
     ]
+  },
+  {
+    "milestone":
+    [ 
+      {
+        'task':
+        []
+      }
+    ]
+  },
+  {
+    "milestone":
+    [
+      {
+        'task':
+        []
+      }
+     ]
   },
 ];
