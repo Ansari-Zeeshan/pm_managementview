@@ -731,10 +731,8 @@ table .thspace {
   }
 }
 
-
-
 .gantpr22 {
-  margin-top: 1.2rem;
+  margin-top: 0.5rem;
   height: 38px;
 }
 
@@ -829,20 +827,25 @@ table .thspace {
 .milestonediv1 {
   width: 100%;
 }
-.milestonediv1 .firstDesc,
-.milestonediv2 .firstDesc
+.gantt .milestonediv1 .firstDesc,
+.gantt .milestonediv2 .firstDesc,
+.gantt .collapsed .firstDesc
 {
   position: absolute;
   z-index: -1;
   transform: translateY(6px);
   transition: all 0.2s ease;
 }
-.milestonediv2 .firstDesc.translate0
+.gantt .collapsed .firstDesc
+{
+  transform: translateY(7px);
+}
+.gantt .milestonediv2 .firstDesc.translate0
 {
   transform: translateY(0px);
 }
-.milestonediv1 .firstDesc p span:nth-child(2),
-.milestonediv2 .firstDesc p span:nth-child(2)
+.gantt .milestonediv1 .firstDesc p span:nth-child(2),
+.gantt .milestonediv2 .firstDesc p span:nth-child(2)
 {
   font-size: 19px;
   color: #a0a0a0;
