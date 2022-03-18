@@ -294,6 +294,7 @@ function showProjdetail(e) {
         chgColorcon1.classList.add('active');
         proj_edit.classList.add('active');
         proj_overlay.classList.add('active');
+        body.style.overflow="hidden";
     }
 }
 tabproj_btn.forEach((tabBtn) => {
@@ -682,6 +683,7 @@ personFilter.addEventListener('click', () => {
 showprojAdd.forEach((projAdd) => {
     projAdd.addEventListener('click', (e) => {
         if (!projadd_div.classList.contains('active')) {
+            body.style.overflow="hidden";
             projadd_div.classList.add('active');
             proj_overlay.classList.add('active');
             chgbgColor = e.target.closest('.border-bottom');
@@ -702,6 +704,7 @@ saveProjadd.addEventListener('click', () => {
     adjacentNode.insertAdjacentElement('afterend', Clone);
     projadd_div.classList.remove('active');
     proj_overlay.classList.remove('active');
+    body.style.overflow="auto";
     clickEdit = document.querySelectorAll('.proj_filter .divfilter2 .project1 .projectcon1 .expand .divcon10 div');
     showEdit = document.querySelectorAll('.proj_filter .divfilter2 .project1 .projectcon1 .expand .addedit');
     chooseEdit = document.querySelectorAll('.proj_filter .divfilter2 .project1 .projectcon1 .expand .addedit p');
@@ -754,6 +757,7 @@ function hideProjdetail() {
         favDiv.classList.remove('active');
         file_overlay.classList.remove('active');
         activelog_overlay.classList.remove('active');
+        body.style.overflow="auto";
         optContain.forEach((option)=>
         {
             if(option.classList.contains('active'))
