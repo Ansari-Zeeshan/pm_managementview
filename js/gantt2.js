@@ -4,7 +4,7 @@ const nextGantt = document.querySelector('.gantt .slide_bottom .img2');
 const ganttAppend = document.querySelector('.gantt .workloadrow1 > .col-md-12');
 const tableprogAppend = document.querySelector('.gantt .workloadrow1 .tableprogian');
 const selectData = document.querySelector('.gantt .thspace select');
-let gantIndex=0, monthNumber = 1, monthNumber2 = 0,year = 2021, projNameIndex=0, monthCount = 0, 
+let gantIndex=0, monthNumber = 1, monthNumber2 = 0, year = 2021, projNameIndex=0, monthCount = 0, 
 selectInput = 'Days', nextMonInd = 0, monthYear = 2021, nextQuaInd = 0, quarterYear = 2021, yearlyYear = 2021;
 const month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const quarter = ['Q1','Q2','Q3','Q4'];
@@ -948,7 +948,7 @@ calTaskBar();
 
 function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,appearYear,projEndYear)
 {
-    let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let endMonthIndex = projectData[i].penddate.substr(5,2);
     let dateText = `${monthText.innerText} ${yearText.innerText}`;
@@ -1400,7 +1400,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
 function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,startMText,minusVal,mobileWidth,appearYear,projEndYear)        
 {
     startTime = +startTime -1;
-    let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let endMonthIndex = projectData[i].penddate.substr(5,2);
     let dateText = `${monthText.innerText} ${yearText.innerText}`;
@@ -2080,7 +2080,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
 
 function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,appearYear,projEndYear)
 {
-    let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let endMonthIndex = milestoneData[projInd].project[i].menddate.substr(5,2);
     let dateText = `${monthText.innerText} ${yearText.innerText}`;
@@ -2537,7 +2537,7 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
 function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,startMText,minusVal,mobileWidth,projInd,appearYear,projEndYear)
 {
     startTime = +startTime -1;
-    let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     updateValue(startMText,minusVal);
     let endMonthIndex = milestoneData[projInd].project[i].menddate.substr(5,2);
@@ -3193,7 +3193,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
 
 function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mileInd,appearYear,projEndYear)
 {
-    let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let endMonthIndex = taskData[projInd].milestone[mileInd].task[i].tenddate.substr(5,2);
     let dateText = `${monthText.innerText} ${yearText.innerText}`;
@@ -3645,7 +3645,7 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
 function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,projEndYear)
 {
     startTime = +startTime -1;
-    let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     updateValue(startMText,minusVal);
     let endMonthIndex = taskData[projInd].milestone[mileInd].task[i].tenddate.substr(5,2);

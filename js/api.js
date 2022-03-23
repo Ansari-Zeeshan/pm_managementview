@@ -853,3 +853,275 @@ const taskData =
      ]
   },
 ];
+
+// Workload API
+
+WorkProject = 
+[
+  {
+    "employee":
+    [
+      {
+        'planned': 'Jan 5 - Feb 25',
+        "statustext": "In Progress",
+        "statusclass": "#97DBAE",
+        'startExactDay': '05 Jan 2021',
+        "pstartdate": "2021-01-05T20:00:00.000Z",
+        "penddate": "2050-02-25T20:00:00.000Z",
+        "percentage": "50%",
+        "employeename": "John",
+
+        'task':
+        [
+          {
+            "taskid": "127",
+            "projectid": "216",
+            "taskname": "Task1",
+            "taskdesc": "DEMO",
+            "ownerid": "93",
+            "ownername": "Sachin Gharge",
+            "ownerimage": "",
+            'startExactDay': '10 Jan 2021',
+            "statusid": 23,
+            "statustext": "Done",
+            "statusclass": "#1FC875",
+            "planned": "Jan 10 - Jan 14",
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-01-10T20:00:00.000Z",
+            "penddate": "2021-01-14T20:00:00.000Z",
+            "priority": "Low",
+            "taskpercentage": 20,
+            "milestonename": "Solution Design"
+          },
+          {
+            "taskid": "130",
+            "projectid": "216",
+            "taskname": "Task2",
+            "taskdesc": "new task desc",
+            "ownerid": "93",
+            "ownername": "Sachin Gharge",
+            "ownerimage": "",
+            'startExactDay': '16 Jan 2021',
+            "statusid": 600,
+            "statustext": "Backlog",
+            "statusclass": "#6F8693",
+            "planned": "Jan 16 - Jan 20",
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-01-16T12:11:06.208Z",
+            "penddate": "2021-01-25T04:00:00.000Z",
+            "priority": "Medium",
+            "taskpercentage": 10,
+            "milestonename": "Initiated"
+          },
+          {
+            "taskid": "131",
+            "projectid": "216",
+            "taskname": "Task3",
+           "taskdesc": "demo ",
+            "ownerid": "93",
+            "ownername": "Sachin Gharge",
+            "ownerimage": "",
+            "statusid": 22,
+            "statustext": "In Progress",
+            'startExactDay': '22 Jan 2021',
+            "statusclass": "#eeab53",
+            "planned": "Jan 22 - Jan 27",
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-01-19T05:49:26.221Z",
+            "penddate": "2021-01-26T20:00:00.000Z",
+            "priority": "High",
+            "taskpercentage": 10,
+            "milestonename": "Initiated"
+          }
+        ]
+      },
+      {
+        'planned': 'Jan 5 - Feb 25',
+        "statustext": "In Progress",
+        "statusclass": "#97DBAE",
+        'startExactDay': '05 Jan 2021',
+        "pstartdate": "2021-01-05T20:00:00.000Z",
+        "penddate": "2050-02-25T20:00:00.000Z",
+        "percentage": "50%",
+        "employeename": "Kurt Russell",
+
+        'task':
+        [
+          {
+            "taskid": "127",
+            "projectid": "216",
+            "taskname": "Task1",
+            "taskdesc": "DEMO",
+            "ownerid": "93",
+            "ownername": "Sachin Gharge",
+            "ownerimage": "",
+            "statusid": 23,
+            "statustext": "Done",
+            "statusclass": "#1FC875",
+            "planned": "Jan 12 - Jan 16",
+            'startExactDay': '12 Jan 2021',
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-01-12T20:00:00.000Z",
+            "penddate": "2021-01-16T20:00:00.000Z",
+            "priority": "Low",
+            "taskpercentage": 20,
+            "milestonename": "Solution Design"
+          },
+          {
+            "taskid": "130",
+            "projectid": "216",
+            "taskname": "Task2",
+            "taskdesc": "new task desc",
+            "ownerid": "93",
+            "ownername": "Sachin Gharge",
+            "ownerimage": "",
+            "statusid": 600,
+            "statustext": "Backlog",
+            "statusclass": "#6F8693",
+            "planned": "Jan 18 - Jan 23",
+            'startExactDay': '18 Jan 2021',
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-01-18T12:11:06.208Z",
+            "penddate": "2021-01-23T04:00:00.000Z",
+            "priority": "Medium",
+            "taskpercentage": 10,
+            "milestonename": "Initiated"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "employee":
+    [
+      {
+        'planned': 'Feb 12 - Oct 25',
+        "statustext": "On Hold",
+        "statusclass": "#38182F",
+        'startExactDay': '12 Feb 2021',
+        "pstartdate": "2021-02-12T20:00:00.000Z",
+        "penddate": "2021-10-25T20:00:00.000Z",
+        "percentage": "25%",
+        "employeename": "Tymal",
+
+        'task':
+        [
+          {
+            "taskid": "124",
+            "projectid": "102",
+            "taskname": "Task1",
+            "taskdesc": "DEMO",
+            "ownerid": "55",
+            "ownername": "Abul Qais",
+            "ownerimage": "",
+            'startExactDay': '15 Feb 2021',
+            "statusid": 23,
+            "statustext": "Approved",
+            "statusclass": "#38182F",
+            "planned": "Feb 15 - Mar 14",
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-02-15T20:00:00.000Z",
+            "penddate": "2021-03-14T20:00:00.000Z",
+            "priority": "High",
+            "taskpercentage": 20,
+            "milestonename": "Planning deadline"
+          },
+          {
+            "taskid": "134",
+            "projectid": "102",
+            "taskname": "Task2",
+            "taskdesc": "new task desc",
+            "ownerid": "55",
+            "ownername": "Abul Qais",
+            "ownerimage": "",
+            'startExactDay': '17 Mar 2021',
+            "statusid": 600,
+            "statustext": "In Progress",
+            "statusclass": "#61A4BC",
+            "planned": "Mar 17 - Apr 20",
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-03-17T12:11:06.208Z",
+            "penddate": "2021-04-20T04:00:00.000Z",
+            "priority": "Low",
+            "taskpercentage": 10,
+            "milestonename": "Initiated"
+          },
+          {
+            "taskid": "134",
+            "projectid": "102",
+            "taskname": "Task3",
+           "taskdesc": "demo ",
+            "ownerid": "55",
+            "ownername": "Abul Qais",
+            "ownerimage": "",
+            "statusid": 22,
+            "statustext": "Backlog",
+            'startExactDay': '20 May 2021',
+            "statusclass": "#1A132F",
+            "planned": "May 20 - Aug 27",
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-05-20T05:49:26.221Z",
+            "penddate": "2021-08-27T20:00:00.000Z",
+            "priority": "Medium",
+            "taskpercentage": 40,
+            "milestonename": "Communication"
+          }
+        ]
+      },
+      {
+        'planned': 'Feb 12 - Oct 25',
+        "statustext": "On Hold",
+        "statusclass": "#38182F",
+        'startExactDay': '12 Feb 2021',
+        "pstartdate": "2021-02-12T20:00:00.000Z",
+        "penddate": "2021-10-25T20:00:00.000Z",
+        "percentage": "25%",
+        "employeename": "Tymal Russell",
+
+        'task':
+        [
+          {
+            "taskid": "127",
+            "projectid": "216",
+            "taskname": "Task1",
+            "taskdesc": "DEMO",
+            "ownerid": "93",
+            "ownername": "Abul Qais",
+            "ownerimage": "",
+            "statusid": 23,
+            "statustext": "Done",
+            "statusclass": "#716F81",
+            "planned": "Feb 12 - May 12",
+            'startExactDay': '12 Feb 2021',
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-02-12T20:00:00.000Z",
+            "penddate": "2021-05-12T20:00:00.000Z",
+            "priority": "Low",
+            "taskpercentage": 10,
+            "milestonename": "Solution Design"
+          },
+          {
+            "taskid": "110",
+            "projectid": "216",
+            "taskname": "Task2",
+            "taskdesc": "new task desc",
+            "ownerid": "93",
+            "ownername": "Abul Qais",
+            "ownerimage": "",
+            "statusid": 600,
+            "statustext": "Backlog",
+            "statusclass": "#B97A95",
+            "planned": "May 18 - Oct 11",
+            'startExactDay': '18 May 2021',
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-05-18T12:11:06.208Z",
+            "penddate": "2021-10-11T04:00:00.000Z",
+            "priority": "High",
+            "taskpercentage": 51,
+            "milestonename": "Initiated"
+          }
+        ]
+      }
+    ]
+  },
+];
