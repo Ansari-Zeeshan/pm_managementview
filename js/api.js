@@ -859,12 +859,13 @@ const taskData =
 WorkProject = 
 [
   {
+    "pstartdate": "2021-01-05T20:00:00.000Z",
     "employee":
     [
       {
         'planned': 'Jan 5 - Feb 25',
         "statustext": "In Progress",
-        "statusclass": "#97DBAE",
+        "statusclass": "#2D62ED",
         'startExactDay': '05 Jan 2021',
         "pstartdate": "2021-01-05T20:00:00.000Z",
         "penddate": "2050-02-25T20:00:00.000Z",
@@ -938,7 +939,7 @@ WorkProject =
       {
         'planned': 'Jan 5 - Feb 25',
         "statustext": "In Progress",
-        "statusclass": "#97DBAE",
+        "statusclass": "#2D62ED",
         'startExactDay': '05 Jan 2021',
         "pstartdate": "2021-01-05T20:00:00.000Z",
         "penddate": "2050-02-25T20:00:00.000Z",
@@ -992,12 +993,13 @@ WorkProject =
     ]
   },
   {
+    "pstartdate": "2021-02-12T20:00:00.000Z",
     "employee":
     [
       {
         'planned': 'Feb 12 - Oct 25',
         "statustext": "On Hold",
-        "statusclass": "#38182F",
+        "statusclass": "#2D62ED",
         'startExactDay': '12 Feb 2021',
         "pstartdate": "2021-02-12T20:00:00.000Z",
         "penddate": "2021-10-25T20:00:00.000Z",
@@ -1071,7 +1073,7 @@ WorkProject =
       {
         'planned': 'Feb 12 - Oct 25',
         "statustext": "On Hold",
-        "statusclass": "#38182F",
+        "statusclass": "#2D62ED",
         'startExactDay': '12 Feb 2021',
         "pstartdate": "2021-02-12T20:00:00.000Z",
         "penddate": "2021-10-25T20:00:00.000Z",

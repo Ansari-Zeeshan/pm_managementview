@@ -8,15 +8,16 @@ const workTab3tr = workload.querySelector('#benefitsdrop table tbody');
 const workProjOpt = workload.querySelectorAll('.select-box .options-container .option');
 const prevWork = document.querySelector('.workload .slide_bottom .img1');
 const nextWork = document.querySelector('.workload .slide_bottom .img2');
-let workYear = 2021, workMonNum = 1, workMonNum2 = 0, workMonCount = 0, fixedHeight = 30;
+let workYear = 2021, workMonNum = 1, workMonNum2 = 0, workMonCount = 0, fixedHeight = 30, combinedVal = [], dateVal = [],
+monthVal = [], yearVal = [];
 
-function getMonthLength()
+function getWorkMonLength()
 {
     workMonLen = new Date(workYear, workMonNum, 0).getDate();
 }
-getMonthLength();
+getWorkMonLength();
 
-function assignDate()
+function assignWorkDate()
 {
     for(let j=0; j<workShowTable.length; j++)
     {
@@ -39,7 +40,7 @@ function assignDate()
     workMonText = document.querySelectorAll('.workload table .thspace span');
     workYearText = document.querySelectorAll('.workload table .thspace p');
 }
-assignDate();
+assignWorkDate();
 
 nextWork.addEventListener('click',()=>
 {
@@ -53,8 +54,8 @@ nextWork.addEventListener('click',()=>
         workMonNum=1;
         workMonNum2=0;
     }
-    getMonthLength(projInd);
-    assignDate();
+    getWorkMonLength();
+    assignWorkDate();
     calWorkProjBar(projInd)
     calWorkTaskjProjBar(projInd);
 })
@@ -77,7 +78,7 @@ prevWork.addEventListener('click',()=>
         workMonNum2=0;
         return false;
     }
-    getMonthLength(projInd);
+    getMonthLength();
     assignDate();
     calWorkProjBar(projInd);
     calWorkTaskjProjBar(projInd);
@@ -87,6 +88,13 @@ workProjOpt.forEach((proj, ind) => {
     proj.addEventListener('click',(e)=>
     {
        projInd = ind;
+       let projMonth = +WorkProject[ind].pstartdate.substr(5,2);
+       let projYear = +WorkProject[ind].pstartdate.substr(0,4);
+       workMonNum = projMonth;
+       workYear = projYear
+       workMonCount = projMonth - 1;
+       getMonthLength();
+       assignDate();
        let tbody = e.target.closest('.workload').querySelector('#benefitsdrop table tbody');
        if(tbody.children.length>2)
        {
@@ -120,6 +128,8 @@ function createWorkProj(i)
                 <div class="tablepro tableproben">
                     <div class="progress projTimeline">
                         <div class="progress-bar"></div>
+                        <div class="whiteprog-bar"></div>
+                        <div class="redprog-bar"></div>
                     </div>
                     <div class="taskProj"></div>
                 </div>
@@ -440,7 +450,8 @@ function calWorkTaskjProjBar(k)
             adjustHeight(employee,j,i);
             giveWorkTaskbG(i,j,k,projTask);
         }
-    }  
+    }
+    checkCollidePart()
 }
 
 function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
@@ -1228,4 +1239,89 @@ function giveWorkTaskbG(i,j,k,workTimeline)
 {
     workTimeline[i].style.backgroundColor=`${WorkProject[k].employee[j].task[i].statusclass}`;
     i++;
+}
+
+function checkCollidePart()
+{
+   let emp = projName.querySelectorAll('.employee');
+   for(let i=0; i<emp.length; i++)
+   {
+       let redTimeline = emp[i].querySelector('.projTimeline .redprog-bar');
+       let task = emp[i].querySelectorAll('.taskProj .progress-bar');
+       for(let j=0; j<task.length; j++)
+       {
+            // let date1 = new Date(WorkProject[projInd].employee[i].task[j].pstartdate.substr(0,10));
+            // let date2 = new Date(WorkProject[projInd].employee[i].task[j].penddate.substr(0,10));
+            // date1 = Math.floor(date1.getTime()/(3600*24*1000));
+            // date2 = Math.floor(date2.getTime()/(3600*24*1000));
+            // let daysCount = date2 - date1;
+            let start = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(8,2);  
+            let end = +WorkProject[projInd].employee[i].task[j].penddate.substr(8,2);
+            let startMon = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(5,2);  
+            let endMon = +WorkProject[projInd].employee[i].task[j].penddate.substr(5,2);  
+            let startYear = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(0,4);  
+            for(let k=start; k<=end; k++)
+            {
+                combinedVal.push(k);
+            }
+            dateVal.push(start,end);
+            monthVal.push(startMon, endMon);
+            yearVal.push(startMon, startYear);
+        }
+        let dupElement = [];
+        dupElement = toFindDupElement(combinedVal);
+        if(dupElement.length>0)
+        {
+            let collInd = findCollInd(dateVal);
+            let monthInd = monthVal[collInd];
+            let monname = month[monthInd -1];
+            let startTime = dupElement[0];
+            let endTimeline = dupElement[dupElement.length - 1];
+            let daysCount = dupElement.length;
+            monthAppear = getWorkAppearYear();
+            let appearYear = +monthAppear;
+            let collStartYear = yearVal[collInd];
+            let collEndYear = yearVal[collInd+2];
+            endTimeline = getTimeline(endTimeline, appearYear, collEndYear);
+            endTimeline = +endTimeline;
+            getMonthName(monthInd, appearYear, collStartYear);
+            prevYear = checkWorkPrevYear(appearYear, collEndYear, collStartYear, i, redTimeline);
+        }
+        combinedVal = [];
+        dateVal = [];
+   }
+}
+
+function toFindDupElement(array)
+{
+    const unique = new Set(array);
+    const filteredElements = array.filter(item => {
+        if (unique.has(item)) {
+            unique.delete(item);
+        } else {
+            return item;
+        }
+    });
+    return filteredElements;
+}
+
+function findCollInd(dateVal)
+{
+    // const filterValue = arr.filter((date,ind)=>
+    //     {
+    //         let arr1 = arr[ind + 1];
+    //         let arr2 = arr[ind + 2];
+    //         if(arr1>=arr2)
+    //         {
+    //             return ind+1;
+    //         }
+    //     })
+    // return filterValue;    
+    for(let i=0; i<dateVal.length; i++)
+    {
+        if(dateVal[i+1]>=dateVal[i+2])
+        {
+            return i+1;
+        }
+    }
 }

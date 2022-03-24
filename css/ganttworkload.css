@@ -345,12 +345,31 @@ table .thspace {
   font-weight: bold;
 }
 
-.tablepro .progress-bar {
+.tablepro .progress-bar, 
+.tablepro .whiteprog-bar, 
+.tablepro .redprog-bar
+{
   border-radius: 8px;
   width: 100%;
   margin-top: 1rem;
 }
-
+.tablepro .whiteprog-bar, 
+.tablepro .redprog-bar
+{
+  margin-top: 0rem;
+  width: 5vw;
+  background: red;
+  position: absolute;
+  top: 10px;
+  display: block;
+  z-index: 44;
+  margin-left: 30rem;
+  height: 10px;
+}
+.tablepro .whiteprog-bar
+{
+  background-color: #fff;
+}
 .progress-bar1 {
   background: #1FC875;
 }
@@ -377,7 +396,7 @@ table .thspace {
   margin-top: 100px;
 }
 .tablepro {
-  width: 57%;
+  width: 100%;
   position: absolute;
   top: 13px;
 }

@@ -257,7 +257,7 @@ selectData.addEventListener('change',()=>
 function getMonthLength()
 {
     MonthLength = new Date(year, monthNumber, 0).getDate();
-};
+}
 getMonthLength();
 function assignDate()
 {
