@@ -365,6 +365,7 @@ table .thspace {
   z-index: 44;
   margin-left: 30rem;
   height: 10px;
+  display: none;
 }
 .tablepro .whiteprog-bar
 {
@@ -656,33 +657,42 @@ table .thspace {
 
 .gantt .timelinetooltip, 
 .gantt .milestonetooltip, 
-.gantt .tasktooltip 
+.gantt .tasktooltip,
+.workload .timelinetooltip, 
+.workload .milestonetooltip, 
+.workload .tasktooltip 
 {
   position: absolute;
   background-color: #fff;
   padding: 15px;
   border-radius: 3px;
-  z-index: 4;
+  z-index: 500;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   display: none;
 }
 
 .gantt .timelinetooltip h4, 
 .gantt .milestonetooltip h4, 
-.gantt .tasktooltip h4 
+.gantt .tasktooltip h4,
+.workload .timelinetooltip h4, 
+.workload .milestonetooltip h4, 
+.workload .tasktooltip h4 
 {
   font-size: 14px;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
   font-weight: 600;
   color: #3d3d3d;
 }
 
 .gantt .timelinetooltip p, 
 .gantt .milestonetooltip p, 
-.gantt .tasktooltip p 
+.gantt .tasktooltip p,
+.workload .timelinetooltip p, 
+.workload .milestonetooltip p, 
+.workload .tasktooltip p 
 {
   font-size: 13px;
-  margin-top: 0.9rem;
+  margin-top: 0.5rem;
   color: #535353;
 }
 

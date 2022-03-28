@@ -1,3 +1,4 @@
+"use strict"
 const selectGantt = document.querySelector('.gantt');
 const prevGantt = document.querySelector('.gantt .slide_bottom .img1');
 const nextGantt = document.querySelector('.gantt .slide_bottom .img2');
@@ -5,7 +6,10 @@ const ganttAppend = document.querySelector('.gantt .workloadrow1 > .col-md-12');
 const tableprogAppend = document.querySelector('.gantt .workloadrow1 .tableprogian');
 const selectData = document.querySelector('.gantt .thspace select');
 let gantIndex=0, monthNumber = 1, monthNumber2 = 0, year = 2021, projNameIndex=0, monthCount = 0, 
-selectInput = 'Days', nextMonInd = 0, monthYear = 2021, nextQuaInd = 0, quarterYear = 2021, yearlyYear = 2021;
+selectInput = 'Days', nextMonInd = 0, monthYear = 2021, nextQuaInd = 0, quarterYear = 2021, yearlyYear = 2021, card,
+milesPDiv,showDate,monthText,yearText,projNameText,ganttTimeline,hoverProject2,hoverProject3,hoverProject4,firstDesc,
+MonthLength, month1,month2,month3,month4,month5,month6,month7,month8,month9,month10,month11,month12,val1,val2,val3,
+val4,val5,val6,val7,val8,val9,val10,val11,val12,UniMarLeft,UniRemWidth,miledataInd;
 const month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const quarter = ['Q1','Q2','Q3','Q4'];
 
@@ -13,7 +17,7 @@ const quarter = ['Q1','Q2','Q3','Q4'];
 {   
     let j=1;
     let pInd=1;
-    for(i=1; i<projectData.length+1; i++)
+    for(let i=1; i<projectData.length+1; i++)
     {
        let div1 = document.createElement('div1');
        div1.setAttribute('class','first1');
@@ -71,7 +75,7 @@ const quarter = ['Q1','Q2','Q3','Q4'];
     milesPDiv = document.querySelectorAll('.gantt #benefits2 .first1');
     for(let p=0; p<projectData.length; p++)
     {
-        mileAppend = milesPDiv[p].querySelectorAll('.card .Milestone');
+        let mileAppend = milesPDiv[p].querySelectorAll('.card .Milestone');
         for(let i=0;i<mileAppend.length;i++)
         {
             let len = taskData[p].milestone[i].task.length;
@@ -106,7 +110,6 @@ const quarter = ['Q1','Q2','Q3','Q4'];
 selectData.addEventListener('change',()=>
 {
     selectInput = selectData.options[selectData.selectedIndex].value;
-    let thfirst = selectGantt.querySelectorAll('#benefits2 .fixedvw');
     switch(selectInput)
     {
         case 'Days':
@@ -403,12 +406,12 @@ function assignTaskName()
 {
     for(let i=0; i<projectData.length; i++)
     {
-        milestone = milesPDiv[i].querySelectorAll('.card .Milestone');
+        let milestone = milesPDiv[i].querySelectorAll('.card .Milestone');
         for(let j=0;j<milestone.length;j++)
         {
             let Task = milestone[j].querySelectorAll('.task span.taskbar_name');
             let taskName = milestone[j].querySelectorAll('.collapse .milestonediv2 .firstext');
-            for(k=0; k<Task.length; k++)
+            for(let k=0; k<Task.length; k++)
             {
                 Task[k].innerText= taskData[i].milestone[j].task[k].planned;
                 taskName[k].innerText= taskData[i].milestone[j].task[k].taskname;
@@ -476,14 +479,14 @@ prevGantt.addEventListener('click',()=>
                 monthCount--;
                 monthNumber--;
                 monthNumber2--;
-                if(monthCount<0 && year>2021)
+                if(monthCount<0 && year>2010)
                 {
                     monthCount=11;
                     year--;
                     monthNumber=12;
                     monthNumber2=11;
                 }
-                else if(monthCount<0 && year == 2021)
+                else if(monthCount<0 && year == 2010)
                 {
                     monthCount=0;
                     monthNumber=1;
@@ -497,11 +500,11 @@ prevGantt.addEventListener('click',()=>
         case 'Month':
             {
                 nextMonInd = 0;
-                if(monthYear>2021)
+                if(monthYear>2010)
                 {
                     monthYear--;
                 }
-                else if(monthYear==2021)
+                else if(monthYear==2010)
                 {
                     return false;
                 }
@@ -512,11 +515,11 @@ prevGantt.addEventListener('click',()=>
         case 'Quarter':
             {
                 nextQuaInd = 0;
-                if(quarterYear>2021)
+                if(quarterYear>2010)
                 {
                     quarterYear--;
                 }
-                else if(quarterYear==2021)
+                else if(quarterYear==2010)
                 {
                     return false;
                 }
@@ -527,11 +530,11 @@ prevGantt.addEventListener('click',()=>
         case 'Year':
             {
                 let nextYearInd = 0;
-                if(yearlyYear>2021)
+                if(yearlyYear>2010)
                 {
                     yearlyYear--;
                 }
-                else if(yearlyYear==2021)
+                else if(yearlyYear==2010)
                 {
                     return false;
                 }
@@ -555,11 +558,11 @@ function calTimelineBar()
             let projStartMonth = projectData[i].startExactDay.substr(3,3).toString();
             let getMonthIndex = getNumericMonth(projStartMonth);
             let startYear = projectData[i].startMonth.substr(0,4);
-            compareYear = +startYear;
+            let compareYear = +startYear;
             let startDate = Math.floor(date1.getTime()/(3600*24*1000));
             let endDate = Math.floor(date2.getTime()/(3600*24*1000));
             let daysCount = endDate-startDate;
-            monthAppear = getMonthAppear();
+            let monthAppear = getMonthAppear();
             let appearYear = +monthAppear;
             let compareDate = new Date(`${appearYear}/01/01`);
             let endTimeline = projectData[i].penddate.substr(8,2);
@@ -568,7 +571,7 @@ function calTimelineBar()
             endTimeline = +endTimeline;
             let projStartYear = projectData[i].pstartdate.substr(0,4);
             getMonthName(getMonthIndex, appearYear, projStartYear);
-            prevYear = checkPrevYear(appearYear, projEndYear, projStartYear, i, projTimeline);
+            let prevYear = checkPrevYear(appearYear, projEndYear, projStartYear, i, projTimeline);
             let projStartDate = projectData[i].pstartdate.substr(8,2);
             let startMText = projectData[i].startExactDay.substr(3,4);
             let minusVal = projectData[i].startExactDay.substr(0,2);
@@ -647,6 +650,7 @@ function calTimelineBar()
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
+                        console.log(daysCount);
                     }
                     else if(month1===`November ${appearYear}`)
                     {           
@@ -686,11 +690,11 @@ function calMilestoneBar()
             let projStartDate = milestoneData[projInd].project[i].startExactDay.substr(3,3).toString();
             let getMonthIndex = getNumericMonth(projStartDate);
             let startYear = milestoneData[projInd].project[i].startMonth.substr(0,4);
-            compareYear = +startYear;
+            let compareYear = +startYear;
             let startDate = Math.floor(date1.getTime()/(3600*24*1000));
             let endDate = Math.floor(date2.getTime()/(3600*24*1000));
             let daysCount = endDate - startDate;
-            monthAppear = getMonthAppear();
+            let monthAppear = getMonthAppear();
             let appearYear = +monthAppear;
             let compareDate = new Date(`${appearYear}/01/01`);
             let endTimeline = milestoneData[projInd].project[i].menddate.substr(8,2);
@@ -699,7 +703,7 @@ function calMilestoneBar()
             endTimeline = +endTimeline;
             let mileStartYear = milestoneData[projInd].project[i].mstartdate.substr(0,4);
             getMonthName(getMonthIndex, appearYear, mileStartYear);
-            prevYear = checkPrevYear(appearYear, mileEndYear, mileStartYear, i, milestone);
+            let prevYear = checkPrevYear(appearYear, mileEndYear, mileStartYear, i, milestone);
             let mileStartDate = milestoneData[projInd].project[i].mstartdate.substr(8,2);
             let startMText = milestoneData[projInd].project[i].startExactDay.substr(3,4);
             let minusVal = milestoneData[projInd].project[i].startExactDay.substr(0,2);
@@ -804,7 +808,7 @@ function calTaskBar()
 {
     let mobileWidth = body.clientWidth;
     let projInd = 0;       
-    for(k=0;k<projectData.length;k++)
+    for(let k=0;k<projectData.length;k++)
     {
         let milestone = milesPDiv[k].querySelectorAll('.card .Milestone');
         if(milestone===null)
@@ -830,11 +834,11 @@ function calTaskBar()
                 let projStartDate = taskData[projInd].milestone[mileInd].task[i].startExactDay.substr(3,3).toString();
                 let getMonthIndex = getNumericMonth(projStartDate);
                 let startYear = taskData[projInd].milestone[mileInd].task[i].startMonth.substr(0,4);
-                compareYear = +startYear;
+                let compareYear = +startYear;
                 let startDate = Math.floor(date1.getTime()/(3600*24*1000));
                 let endDate = Math.floor(date2.getTime()/(3600*24*1000));
                 let daysCount = endDate - startDate;
-                monthAppear = getMonthAppear();
+                let monthAppear = getMonthAppear();
                 let appearYear = +monthAppear;
                 let compareDate = new Date(`${appearYear}/01/01`);
                 let endTimeline = taskData[projInd].milestone[mileInd].task[i].tenddate.substr(8,2);
@@ -843,7 +847,7 @@ function calTaskBar()
                 endTimeline = +endTimeline;
                 let taskStartYear = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(0,4);
                 getMonthName(getMonthIndex, appearYear, taskStartYear);
-                prevYear = checkPrevYear(appearYear, taskEndYear, taskStartYear, i, Task);
+                let prevYear = checkPrevYear(appearYear, taskEndYear, taskStartYear, i, Task);
                 let taskStartDate = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
                 let startMText = taskData[projInd].milestone[mileInd].task[i].startExactDay.substr(3,4);
                 let minusVal = taskData[projInd].milestone[mileInd].task[i].startExactDay.substr(0,2);
@@ -1300,7 +1304,7 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,a
             }
             case 'Month':
             {
-                let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
+                let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate p');
                 let monthText1 = `${Mname[0].innerText} ${monthYear}`.toLowerCase();
                 month1 = month1.toLowerCase();
                 switch(true){
@@ -1984,7 +1988,7 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 month1 = month1.toLowerCase();
                 let quarterText1,quarterText2,quarterText3,quarterText4,quarterText5,quarterText6,
                 quarterText7,quarterText8,quarterText9,quarterText10,quarterText11,quarterText12;
-                let qArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
+                const qArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
                 if(quarter1==='Q1')
                 {
                     quarterText1 = `january ${quarterYear}`;
@@ -3097,7 +3101,7 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 month1 = month1.toLowerCase();
                 let quarterText1,quarterText2,quarterText3,quarterText4,quarterText5,quarterText6,
                 quarterText7,quarterText8,quarterText9,quarterText10,quarterText11,quarterText12;
-                qArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
+                const qArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
                 if(quarter1==='Q1')
                 {
                     quarterText1 = `january ${quarterYear}`;
@@ -4208,7 +4212,7 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                 month1 = month1.toLowerCase();
                 let quarterText1,quarterText2,quarterText3,quarterText4,quarterText5,quarterText6,
                 quarterText7,quarterText8,quarterText9,quarterText10,quarterText11,quarterText12;
-                qArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
+                const qArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
                 if(quarter1==='Q1')
                 {
                     quarterText1 = `january ${quarterYear}`;
@@ -4687,9 +4691,7 @@ function updateValue(text,minusVal)
 }
 function getCommonWidth(i, projEndYear, VDname)
 {
-    let startMonthIndex = projectData[i].pstartdate.substr(5,2);
     let endMonthIndex = projectData[i].penddate.substr(5,2);
-    let startMonthName = month[+startMonthIndex - 1].toUpperCase();
     let endMonthName = month[+endMonthIndex - 1].toUpperCase();
     endMonthName = `${endMonthName} ${projEndYear}`
     let endNum = +projectData[i].penddate.substr(8,2);
@@ -4701,7 +4703,7 @@ function getCommonWidth(i, projEndYear, VDname)
             {
                 switch(true)
                 {
-                    case VDname[0].innerText === startMonthName:
+                    case (VDname[0].innerText === "JANUARY"):
                     case (VDname[0].innerText === 'Q1'):
                     case (VDname[0].innerText === 'JAN-JUN'):
                     {
@@ -4757,7 +4759,6 @@ function getCommonWidth(i, projEndYear, VDname)
                         {
                             return 78.9;       
                         }
-                        break;
                     }
                     default:
                     {
@@ -5750,10 +5751,10 @@ function showTimelineTip(e)
        let p6 = tip.querySelector('p:nth-child(7)');
        let startDate = projectData[projdataInd].pstartdate.substr(8,2);
        let startMonName = projectData[projdataInd].planned.substr(0,3);
-       let startYear = projectData[projdataInd].pstartdate.substr(2,2);
+       let startYear = projectData[projdataInd].pstartdate.substr(0,4);
        let endDate = projectData[projdataInd].penddate.substr(8,2);
        let endMonName = projectData[projdataInd].planned.substr(9,3);
-       let endYear = projectData[projdataInd].penddate.substr(2,2);
+       let endYear = projectData[projdataInd].penddate.substr(0,4);
        h4.innerText=`Wireframe: ${startDate} ${startMonName} ${startYear} to ${endDate} ${endMonName} ${endYear}`;
        p1.innerText=`Duration: ${projectData[projdataInd].duration}`;
        p2.innerText=`Percentage Done: ${projectData[projdataInd].percentage}`;
@@ -5774,7 +5775,7 @@ milesPDiv.forEach((parent,ind)=>
 {
     parent.addEventListener('click',(e)=>
     {
-        mileAppear = e.target.closest('.first1').querySelectorAll('.card .milestonediv11');
+        let mileAppear = e.target.closest('.first1').querySelectorAll('.card .milestonediv11');
         for(let i=0;i<mileAppear.length;i++)
         {
             ['mouseover','mouseout','click'].forEach((e)=>
