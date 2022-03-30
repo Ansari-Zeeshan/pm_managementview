@@ -1,11 +1,15 @@
+"use strict"
 const selectGantt = document.querySelector('.gantt');
 const prevGantt = document.querySelector('.gantt .slide_bottom .img1');
 const nextGantt = document.querySelector('.gantt .slide_bottom .img2');
 const ganttAppend = document.querySelector('.gantt .workloadrow1 > .col-md-12');
 const tableprogAppend = document.querySelector('.gantt .workloadrow1 .tableprogian');
 const selectData = document.querySelector('.gantt .thspace select');
-let gantIndex=0, monthNumber = 1, monthNumber2 = 0,year = 2021, projNameIndex=0, monthCount = 0, 
-selectInput = 'Days', nextMonInd = 0, monthYear = 2021, nextQuaInd = 0, quarterYear = 2021;
+let gantIndex=0, monthNumber = 1, monthNumber2 = 0, year = 2021, projNameIndex=0, monthCount = 0, 
+selectInput = 'Days', nextMonInd = 0, monthYear = 2021, nextQuaInd = 0, quarterYear = 2021, yearlyYear = 2021, card,
+milesPDiv,showDate,monthText,yearText,projNameText,ganttTimeline,hoverProject2,hoverProject3,hoverProject4,firstDesc,
+MonthLength, month1,month2,month3,month4,month5,month6,month7,month8,month9,month10,month11,month12,val1,val2,val3,
+val4,val5,val6,val7,val8,val9,val10,val11,val12,UniMarLeft,UniRemWidth,miledataInd;
 const month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const quarter = ['Q1','Q2','Q3','Q4'];
 
@@ -13,7 +17,7 @@ const quarter = ['Q1','Q2','Q3','Q4'];
 {   
     let j=1;
     let pInd=1;
-    for(i=1; i<projectData.length+1; i++)
+    for(let i=1; i<projectData.length+1; i++)
     {
        let div1 = document.createElement('div1');
        div1.setAttribute('class','first1');
@@ -22,7 +26,10 @@ const quarter = ['Q1','Q2','Q3','Q4'];
        <div class="collapsed" data-bs-toggle="collapse"
            href="#collapseExample${i}" role="button" aria-expanded="false"
            aria-controls="collapseExample">
-           <div class="gantpr gantpr1 timeline" startDay="${projectData[i - pInd].startExactDay}"></div>
+            <div class="firstDesc fw-bold fs-5 mt-1 float-start"><p>Oct 25 - Oct 30 <span class="ml-1">5 Days</span><span class="mr-1 ml-1">|</span> 34%</p></div>
+            <div class="gantpr gantpr1 timeline" startDay="${projectData[i - pInd].startExactDay}">
+              
+            </div>
        </div>
        <!-- hover popup -->
        <!-- // -->
@@ -53,14 +60,12 @@ const quarter = ['Q1','Q2','Q3','Q4'];
             let div = document.createElement('div');
             div.setAttribute('class','Milestone');
             div.innerHTML=`
-            <div class="position-relative">
-                   <div class="vl"></div>
-            </div>
             <div class="milestonediv1">
-            <div
-                class="gantpr22 progress-bar rounded-1 milestonediv11  gantpr fs-4 onhover" startDay="${milestoneData[projInd].project[m].startExactDay}" data-bs-toggle="collapse" href="#milestoneExample${m+j}" role="button" aria-expanded="false" aria-controls="collapseExample3">
-                <span>Milestone-2</span>
-            </div>
+            <div class="firstext float-start"><p>Milestone text</p></div>
+            <div class="firstDesc fw-bold fs-5 mt-1 float-start"><p>Oct 25 - Oct 30 <span class="ml-1">5 Days</span><span class="mr-1 ml-1">|</span> 34%</p></div>
+                <div class="gantpr22 progress-bar rounded-1 milestonediv11 gantpr fs-4 onhover" startDay="${milestoneData[projInd].project[m].startExactDay}" data-bs-toggle="collapse" href="#milestoneExample${m+j}" role="button" aria-expanded="false" aria-controls="collapseExample3">
+                    <span class="milebar_name">Milestone-2</span>
+                </div>
             </div>`
             card[projInd].appendChild(div);
         }
@@ -70,7 +75,7 @@ const quarter = ['Q1','Q2','Q3','Q4'];
     milesPDiv = document.querySelectorAll('.gantt #benefits2 .first1');
     for(let p=0; p<projectData.length; p++)
     {
-        mileAppend = milesPDiv[p].querySelectorAll('.card .Milestone');
+        let mileAppend = milesPDiv[p].querySelectorAll('.card .Milestone');
         for(let i=0;i<mileAppend.length;i++)
         {
             let len = taskData[p].milestone[i].task.length;
@@ -80,8 +85,10 @@ const quarter = ['Q1','Q2','Q3','Q4'];
                 div.setAttribute('class','task');
                 div.innerHTML=`
                 <div class="milestonediv2 position-relative collapse" id="milestoneExample${i+j}">
+                <div class="firstext float-start"><p>Task text</p></div>
+                <div class="firstDesc fw-bold fs-5 mt-1 float-start"><p>Oct 25 - Oct 30 <span class="ml-1">5 Days</span><span class="mr-1 ml-1 pie">|</span> 34%</p></div>
                     <div class="gantpr22 rounded-1 milestonediv22 gantpr bg-secondary fs-4 progress-bar" startDay="${taskData[p].milestone[i].task[t].startExactDay}">
-                        <span>Task-1</span>
+                        <span class="taskbar_name">Task-1</span>
                     </div>
                 </div>`
                 mileAppend[i].appendChild(div);
@@ -95,12 +102,14 @@ const quarter = ['Q1','Q2','Q3','Q4'];
     projNameText = document.querySelectorAll('#benefits2 .first1 .firstext');
     ganttTimeline = document.querySelectorAll('.gantt #benefits2 .tableprogian .timeline');
     hoverProject2 = document.querySelectorAll('.gantt #benefits2 .tableprogian .firstext');
+    hoverProject3 = document.querySelectorAll('.gantt #benefits2 .collapse .milestonediv1 .firstext');
+    hoverProject4 = document.querySelectorAll('.gantt #benefits2 .collapse .milestonediv2 .firstext');
+    firstDesc = document.querySelectorAll('.gantt .milestonediv2 .firstDesc');
 }());
 
 selectData.addEventListener('change',()=>
 {
     selectInput = selectData.options[selectData.selectedIndex].value;
-    let thfirst = selectGantt.querySelectorAll('#benefits2 .fixedvw');
     switch(selectInput)
     {
         case 'Days':
@@ -112,10 +121,11 @@ selectData.addEventListener('change',()=>
                     let alltd = alltr[i].children;
                     for(let j = 1; j<alltd.length; j++)
                     {
-                        if(j > 0 && j<5)
+                        if(j > 0 && j<13)
                         {
                             alltd[j].classList.remove('VDate');
                             alltd[j].classList.remove('VQuarter');
+                            alltd[j].classList.remove('VYear');
                             alltd[j].style.width="2.517vw";
                             if(alltd[j].classList.contains('deactive'))
                             {
@@ -126,9 +136,9 @@ selectData.addEventListener('change',()=>
                         alltd[j].classList.remove('deactive');
                     }
                 }
-                thfirst.forEach((thfirst)=>
+                firstDesc.forEach((first)=>
                 {
-                    thfirst.style.width="10.125vw";
+                    first.classList.remove('translate0');
                 })
                 assignDate();
                 calTimelineBar();
@@ -144,26 +154,27 @@ selectData.addEventListener('change',()=>
                     let alltd = alltr[i].children;
                     for(let j = 1; j<alltd.length; j++)
                     {
-                        if(alltd[j].classList.contains('VQuarter'))
+                        if(alltd[j].classList.contains('VQuarter') || alltd[j].classList.contains('VYear'))
                         {
                             alltd[j].classList.remove('VQuarter');
+                            alltd[j].classList.remove('VYear');
                         }
-                        if(j>0 && j<5)
+                        if(j>0 && j<13)
                         {
                             if(i==1)
                             {
                                 alltd[j].classList.add('VDate');
                             }
                             alltd[j].classList.remove('deactive');
-                            alltd[j].style.width="9.9vw";
+                            alltd[j].style.width="6.575vw";
                             continue;
                         }
                         alltd[j].classList.add('deactive');
                     }
                 }
-                thfirst.forEach((thfirst)=>
+                firstDesc.forEach((first)=>
                 {
-                    thfirst.style.width="5vw";
+                    first.classList.add('translate0');
                 })
                 assignMonth();
                 calTimelineBar();
@@ -179,39 +190,77 @@ selectData.addEventListener('change',()=>
                     let alltd = alltr[i].children;
                     for(let j = 1; j<alltd.length; j++)
                     {
-                        if(alltd[j].classList.contains('VDate'))
+                        if(alltd[j].classList.contains('VDate') || alltd[j].classList.contains('VYear'))
                         {
                             alltd[j].classList.remove('VDate');
+                            alltd[j].classList.remove('VYear');
                         }
-                        if(j>0 && j<3)
+                        if(j>0 && j<5)
                         {
                             if(i==1)
                             {
                                 alltd[j].classList.add('VQuarter');
                             }
+                            alltd[j].classList.remove('deactive');
                             alltd[j].style.width="19.725vw";
                             continue;
                         }
                         alltd[j].classList.add('deactive');
                     }
                 }
-                thfirst.forEach((thfirst)=>
+                firstDesc.forEach((first)=>
                 {
-                    thfirst.style.width="5vw";
+                    first.classList.add('translate0');
                 })
                 assignQuarter();
                 calTimelineBar();
                 calMilestoneBar();
                 calTaskBar();
                 break;
-            }     
+            }
+        case 'Year':
+            {
+                let alltr = selectGantt.querySelectorAll('.tablegantt tr');
+                for(let i=1; i<alltr.length; i++)
+                {
+                    let alltd = alltr[i].children;
+                    for(let j = 1; j<alltd.length; j++)
+                    {
+                        if(alltd[j].classList.contains('VDate') || alltd[j].classList.contains('VQuarter'))
+                        {
+                            alltd[j].classList.remove('VDate');
+                            alltd[j].classList.remove('VQuarter');
+                        }
+                        if(j>0 && j<3)
+                        {
+                            if(i==1)
+                            {
+                                alltd[j].classList.add('VYear');
+                            }
+                            alltd[j].classList.remove('deactive');
+                            alltd[j].style.width="39.45vw";
+                            continue;
+                        }
+                        alltd[j].classList.add('deactive');
+                    }
+                }
+                firstDesc.forEach((first)=>
+                {
+                    first.classList.add('translate0');
+                })
+                assignYear();
+                calTimelineBar();
+                calMilestoneBar();
+                calTaskBar();
+                break;
+            }         
     }
 })
 
 function getMonthLength()
 {
     MonthLength = new Date(year, monthNumber, 0).getDate();
-};
+}
 getMonthLength();
 function assignDate()
 {
@@ -232,121 +281,17 @@ assignDate();
 function assignMonth()
 {
     let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
-    let appearMon = monthText.innerText;
     let appearYear = yearText.innerText;
     monthYear = appearYear;
-    switch(appearMon)
-    {
-        case 'January':
-            {
-                nextMonInd = 0;
-                loopMonthName(Mname, nextMonInd);
-                break;
-            }
-        case 'February':
-            {
-                nextMonInd = 4;
-                loopMonthName(Mname, nextMonInd);
-                break;
-            }
-        case 'March':
-            {
-                nextMonInd = 8;
-                loopMonthName(Mname, nextMonInd);
-                break;
-            }
-        case 'April':
-            {
-                monthYear = +appearYear + 1;
-                nextMonInd = 0;
-                loopMonthName(Mname, nextMonInd);
-                break;
-            }
-        case 'May':
-            {
-                monthYear = +appearYear + 1;
-                nextMonInd = 4;
-                loopMonthName(Mname, nextMonInd);
-                break;
-            }
-        case 'June':
-            {
-                monthYear = +appearYear + 1;
-                nextMonInd = 8;
-                loopMonthName(Mname, nextMonInd);
-                break;
-            }
-        case 'July':
-            {
-                monthYear = +appearYear + 2;
-                nextMonInd = 0;
-                loopMonthName(Mname, nextMonInd);
-                break;
-            }
-        case 'August':
-            {
-                monthYear = +appearYear + 2;
-                nextMonInd = 4;
-                loopMonthName(Mname, nextMonInd);
-                break;
-            }
-        case 'September':
-            {
-                monthYear = +appearYear + 2;
-                nextMonInd = 8;
-                loopMonthName(Mname, nextMonInd);
-                break;
-            }
-        case 'October':
-            {
-                monthYear = +appearYear + 3;
-                nextMonInd = 0;
-                loopMonthName(Mname, nextMonInd);
-                break;
-            }
-        case 'November':
-            {
-                monthYear = +appearYear + 3;
-                nextMonInd = 4;
-                loopMonthName(Mname, nextMonInd);
-                break;
-            }
-        case 'December':
-            {
-                monthYear = +appearYear + 3;
-                nextMonInd = 8;
-                loopMonthName(Mname, nextMonInd);
-                break;
-            }                    
-    }
-}
-function assignMonth2(Mname, Mnametext, monthIndex)
-{
-    switch(Mnametext)
-    {
-        case 'JANUARY':
-            {
-                loopMonthName(Mname, monthIndex);
-                break;
-            }
-        case 'MAY':
-            {
-                loopMonthName(Mname, monthIndex);
-                break;
-            }
-        case 'SEPTEMBER':
-            {
-                loopMonthName(Mname, monthIndex);
-                break;
-            }      
-    }
+    nextMonInd=0;
+    loopMonthName(Mname, nextMonInd);
 }
 function loopMonthName(Mname, monthIndex)
 {
     let localMonInd = monthIndex;
     monthText.classList.add('white');
     yearText.innerText=`${monthYear}`;
-    for(let i=0;i<Mname.length; i++)
+    for(let i=0; i<Mname.length; i++)
     {
         Mname[i].innerHTML = `<p>${month[localMonInd]}</p>`;
         localMonInd++;
@@ -355,120 +300,10 @@ function loopMonthName(Mname, monthIndex)
 function assignQuarter()
 {
     let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
-    let appearMon = monthText.innerText;
     let appearYear = yearText.innerText; 
     quarterYear = appearYear;
-    switch(appearMon)
-    {
-        case 'January':
-            {
-                nextQuaInd = 0;
-                loopQuarterName(Qname, nextQuaInd);
-                break;
-            }
-        case 'February':
-            {
-                nextQuaInd = 2;
-                loopQuarterName(Qname, nextQuaInd);
-                break;
-            }
-        case 'March':
-            {
-                appearYear = +appearYear + 1;
-                nextQuaInd = 0;
-                loopQuarterName(Qname, nextQuaInd);
-                break;
-            }
-        case 'April':
-            {
-                appearYear = +appearYear + 1;
-                nextQuaInd = 2;
-                loopQuarterName(Qname, nextQuaInd);
-                break;
-            }
-        case 'May':
-            {
-                appearYear = +appearYear + 2;
-                nextQuaInd = 0;
-                loopQuarterName(Qname, nextQuaInd);
-                break;
-            }
-        case 'June':
-            {
-                appearYear = +appearYear + 2;
-                nextQuaInd = 2;
-                loopQuarterName(Qname, nextQuaInd);
-                break;
-            }
-        case 'July':
-            {
-                appearYear = +appearYear + 3;
-                nextQuaInd = 0;
-                loopQuarterName(Qname, nextQuaInd);
-                break;
-            }
-        case 'August':
-            {
-                appearYear = +appearYear + 3;
-                nextQuaInd = 2;
-                loopQuarterName(Qname, nextQuaInd);
-                break;
-            }
-        case 'September':
-            {
-                appearYear = +appearYear + 4;
-                nextQuaInd = 0;
-                loopQuarterName(Qname, nextQuaInd);
-                break;
-            }
-        case 'October':
-            {
-                appearYear = +appearYear + 4;
-                nextQuaInd = 2;
-                loopQuarterName(Qname, nextQuaInd);
-                break;
-            }
-        case 'November':
-            {
-                appearYear = +appearYear + 5;
-                nextQuaInd = 0;
-                loopQuarterName(Qname, nextQuaInd);
-                break;
-            }
-        case 'December':
-            {
-                appearYear = +appearYear + 5;
-                nextQuaInd = 2;
-                loopQuarterName(Qname, nextQuaInd);
-                break;
-            }                    
-    }
-}
-function assignQuarter2(Qname, Qnametext, quarterIndex)
-{
-    switch(Qnametext)
-    {
-        case 'Q1':
-            {
-                loopQuarterName(Qname, quarterIndex);
-                break;
-            }
-        case 'Q2':
-            {
-                loopQuarterName(Qname, quarterIndex);
-                break;
-            }
-        case 'Q3':
-            {
-                loopQuarterName(Qname, quarterIndex);
-                break;
-            }
-        case 'Q4':
-            {
-                loopQuarterName(Qname, quarterIndex);
-                break;
-            }          
-    }
+    nextQuaInd = 0;
+    loopQuarterName(Qname, nextQuaInd);
 }
 function loopQuarterName(Qname, nextQuaInd)
 {
@@ -477,8 +312,65 @@ function loopQuarterName(Qname, nextQuaInd)
     yearText.innerText=`${quarterYear}`;
     for(let i=0; i<Qname.length; i++)
     {
-        Qname[i].innerHTML=`<p>${quarter[localQuaInd]}</p>`;
-        localQuaInd++;
+        switch(i)
+        {
+            case 0:
+            {
+                Qname[i].innerHTML=`<p class="d-inline mr-1">${quarter[localQuaInd]}</p> <span>Jan-Mar</span>`;
+                localQuaInd++;
+                break;
+            }
+            case 1:
+            {
+                Qname[i].innerHTML=`<p class="d-inline mr-1">${quarter[localQuaInd]}</p> <span>Apr-Jun</span>`;
+                localQuaInd++;
+                break;
+            }
+            case 2:
+            {
+                Qname[i].innerHTML=`<p class="d-inline mr-1">${quarter[localQuaInd]}</p> <span>Jul-Sep</span>`;
+                localQuaInd++;
+                break;
+            }
+            case 3:
+            {
+                Qname[i].innerHTML=`<p class="d-inline mr-1">${quarter[localQuaInd]}</p> <span>Oct-Dec</span>`;
+                localQuaInd++;
+                break;
+            }
+        }
+    }
+}
+function assignYear()
+{
+    let Yname = selectGantt.querySelectorAll('.tablegantt tr th.VYear');
+    let appearYear = yearText.innerText; 
+    yearlyYear = appearYear;
+    let nextYearInd = 0;
+    loopYearName(Yname, nextYearInd);
+}
+function loopYearName(Yname, nextYearInd)
+{
+    let localYearInd = nextYearInd;
+    monthText.classList.add('white');
+    yearText.innerText=`${yearlyYear}`;
+    for(let i=0; i<Yname.length; i++)
+    {
+        switch(i)
+        {
+            case 0:
+            {
+                Yname[i].innerHTML=`<p>Jan-Jun</p>`;
+                localYearInd++;
+                break;
+            }
+            case 1:
+            {
+                Yname[i].innerHTML=`<p>Jul-Dec</p>`;
+                localYearInd++;
+                break;
+            }
+        }
     }
 }
 function assignProjectName()
@@ -496,10 +388,15 @@ function assignMilestoneName()
     for(let i=0; i<projectData.length; i++)
     {
         let timeline = selectGantt.querySelectorAll('#benefits2 .tableprogian .timeline');
-        let milestone = timeline[i].closest('.first1').querySelectorAll('.collapse .milestonediv1 span');
+        let milestone = timeline[i].closest('.first1').querySelectorAll('.collapse .milestonediv1 span.milebar_name');
+        let mileName = timeline[i].closest('.first1').querySelectorAll('.collapse .milestonediv1 .firstext');
         for(let j=0;j<milestone.length;j++)
         {
             milestone[j].innerText = milestoneData[i].project[j].planned;
+        }
+        for(let k=0; k<mileName.length; k++)
+        {
+            mileName[k].innerText = milestoneData[i].project[k].milestonename;
         }
     }
 }
@@ -509,13 +406,15 @@ function assignTaskName()
 {
     for(let i=0; i<projectData.length; i++)
     {
-        milestone = milesPDiv[i].querySelectorAll('.card .Milestone');
+        let milestone = milesPDiv[i].querySelectorAll('.card .Milestone');
         for(let j=0;j<milestone.length;j++)
         {
-            let Task = milestone[j].querySelectorAll('.task span');
-            for(k=0; k<Task.length; k++)
+            let Task = milestone[j].querySelectorAll('.task span.taskbar_name');
+            let taskName = milestone[j].querySelectorAll('.collapse .milestonediv2 .firstext');
+            for(let k=0; k<Task.length; k++)
             {
                 Task[k].innerText= taskData[i].milestone[j].task[k].planned;
+                taskName[k].innerText= taskData[i].milestone[j].task[k].taskname;
             }
         }
     }
@@ -544,28 +443,26 @@ nextGantt.addEventListener('click',()=>
             }
         case 'Month':
             {
-                nextMonInd = nextMonInd + 4;
-                if(nextMonInd >=12)
-                {
-                    monthYear++;
-                    nextMonInd=0;
-                }
+                nextMonInd = 0;
+                monthYear++;
                 let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
-                let Mnametext = Mname[0].innerText;
-                assignMonth2(Mname, Mnametext, nextMonInd);
+                loopMonthName(Mname, nextMonInd);
                 break;
             }
         case 'Quarter':
             {
-                nextQuaInd = nextQuaInd + 2;
-                if(nextQuaInd >=4)
-                {
-                    quarterYear++;
-                    nextQuaInd=0;
-                }
-                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
-                let Qnametext = Qname[0].innerText;
-                assignQuarter2(Qname, Qnametext, nextQuaInd);
+                nextQuaInd = 0;
+                quarterYear++;
+                let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
+                loopQuarterName(Mname, nextQuaInd);
+                break;
+            }
+        case 'Year':
+            {
+                let nextYearInd = 0;
+                yearlyYear++;
+                let Yname = selectGantt.querySelectorAll('.tablegantt tr th.VYear');
+                loopYearName(Yname, nextYearInd);
                 break;
             }        
     }
@@ -582,14 +479,14 @@ prevGantt.addEventListener('click',()=>
                 monthCount--;
                 monthNumber--;
                 monthNumber2--;
-                if(monthCount<0 && year>2021)
+                if(monthCount<0 && year>2010)
                 {
                     monthCount=11;
                     year--;
                     monthNumber=12;
                     monthNumber2=11;
                 }
-                else if(monthCount<0 && year == 2021)
+                else if(monthCount<0 && year == 2010)
                 {
                     monthCount=0;
                     monthNumber=1;
@@ -602,41 +499,49 @@ prevGantt.addEventListener('click',()=>
             }
         case 'Month':
             {
-                nextMonInd = nextMonInd - 4;
-                if(nextMonInd<0 && monthYear>2021)
+                nextMonInd = 0;
+                if(monthYear>2010)
                 {
-
                     monthYear--;
-                    nextMonInd=8;
                 }
-                else if(nextMonInd<0 && year==2021)
+                else if(monthYear==2010)
                 {
-                    nextMonInd=0;
                     return false;
                 }
                 let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
-                let Mnametext = Mname[0].innerText;
-                assignMonth2(Mname, Mnametext, nextMonInd);
+                loopMonthName(Mname, nextMonInd);
                 break;
             }  
         case 'Quarter':
             {
-                nextQuaInd = nextQuaInd - 2;
-                if(nextQuaInd <0 && quarterYear>2021)
+                nextQuaInd = 0;
+                if(quarterYear>2010)
                 {
                     quarterYear--;
-                    nextQuaInd=2;
                 }
-                else if(nextQuaInd<0 && year==2021)
+                else if(quarterYear==2010)
                 {
-                    nextQuaInd=0;
                     return false;
                 }
                 let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
-                let Qnametext = Qname[0].innerText;
-                assignQuarter2(Qname, Qnametext, nextQuaInd);
+                loopQuarterName(Qname, nextQuaInd);
                 break;
-            }      
+            }
+        case 'Year':
+            {
+                let nextYearInd = 0;
+                if(yearlyYear>2010)
+                {
+                    yearlyYear--;
+                }
+                else if(yearlyYear==2010)
+                {
+                    return false;
+                }
+                let Yname = selectGantt.querySelectorAll('.tablegantt tr th.VYear');
+                loopYearName(Yname, nextYearInd);
+                break;
+            }          
     }
     calTimelineBar();
     calMilestoneBar();
@@ -653,11 +558,11 @@ function calTimelineBar()
             let projStartMonth = projectData[i].startExactDay.substr(3,3).toString();
             let getMonthIndex = getNumericMonth(projStartMonth);
             let startYear = projectData[i].startMonth.substr(0,4);
-            compareYear = +startYear;
+            let compareYear = +startYear;
             let startDate = Math.floor(date1.getTime()/(3600*24*1000));
             let endDate = Math.floor(date2.getTime()/(3600*24*1000));
             let daysCount = endDate-startDate;
-            monthAppear = getMonthAppear();
+            let monthAppear = getMonthAppear();
             let appearYear = +monthAppear;
             let compareDate = new Date(`${appearYear}/01/01`);
             let endTimeline = projectData[i].penddate.substr(8,2);
@@ -666,7 +571,7 @@ function calTimelineBar()
             endTimeline = +endTimeline;
             let projStartYear = projectData[i].pstartdate.substr(0,4);
             getMonthName(getMonthIndex, appearYear, projStartYear);
-            prevYear = checkPrevYear(appearYear, projEndYear, i);
+            let prevYear = checkPrevYear(appearYear, projEndYear, projStartYear, i, projTimeline);
             let projStartDate = projectData[i].pstartdate.substr(8,2);
             let startMText = projectData[i].startExactDay.substr(3,4);
             let minusVal = projectData[i].startExactDay.substr(0,2);
@@ -674,11 +579,10 @@ function calTimelineBar()
             {
                 if(appearYear>=compareYear && prevYear)
                 {
-                    if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
-                    || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
+                    if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkTargetDate2(date2,i,daysCount,appearYear);
-                        showGantt(daysCount,endTimeline,i,projTimeline,mobileWidth,appearYear,projEndYear);
+                        showGantt(daysCount,endTimeline,i,projTimeline,projStartDate,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
                 }
@@ -687,85 +591,74 @@ function calTimelineBar()
             {
                 if(appearYear>=compareYear && prevYear)
                 {
-                    if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
-                    || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
+                    if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='February 2021' || month1==='February 2022' || month1==='February 2023'
-                    || month1==='February 2024' || month1==='February 2025' || month1==='February 2026')
+                    else if(month1===`February ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='March 2021' || month1==='March 2022' || month1==='March 2023'
-                    || month1==='March 2024' || month1==='March 2025' || month1==='March 2026')
+                    else if(month1===`March ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='April 2021' || month1==='April 2022' || month1==='April 2023'
-                    || month1==='April 2024' || month1==='April 2025' || month1==='April 2026')
+                    else if(month1===`April ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='May 2021' || month1==='May 2022' || month1==='May 2023'
-                    || month1==='May 2024' || month1==='May 2025' || month1==='May 2026')
+                    else if(month1===`May ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='June 2021' || month1==='June 2022' || month1==='June 2023'
-                    || month1==='June 2024' || month1==='June 2025' || month1==='June 2026')
+                    else if(month1===`June ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='July 2021' || month1==='July 2022' || month1==='July 2023'
-                    || month1==='July 2024' || month1==='July 2025' || month1==='July 2026')
+                    else if(month1===`July ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='August 2021' || month1==='August 2022' || month1==='August 2023'
-                    || month1==='August 2024' || month1==='August 2025' || month1==='August 2026')
+                    else if(month1===`August ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='September 2021' || month1==='September 2022' || month1==='September 2023'
-                    || month1==='September 2024' || month1==='September 2025' || month1==='September 2026')
+                    else if(month1===`September ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='October 2021' || month1==='October 2022' || month1==='October 2023'
-                    || month1==='October 2024' || month1==='October 2025' || month1==='October 2026')
+                    else if(month1===`October ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
+                        console.log(daysCount);
                     }
-                    else if(month1==='November 2021' || month1==='November 2022' || month1==='November 2023'
-                    || month1==='November 2024' || month1==='November 2025' || month1==='November 2026')
+                    else if(month1===`November ${appearYear}`)
                     {           
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='December 2021' || month1==='December 2022' || month1==='December 2023'
-                    || month1==='December 2024' || month1==='December 2025' || month1==='December 2026')
+                    else if(month1===`December ${appearYear}`)
                     {                    
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,appearYear,projEndYear);
@@ -797,11 +690,11 @@ function calMilestoneBar()
             let projStartDate = milestoneData[projInd].project[i].startExactDay.substr(3,3).toString();
             let getMonthIndex = getNumericMonth(projStartDate);
             let startYear = milestoneData[projInd].project[i].startMonth.substr(0,4);
-            compareYear = +startYear;
+            let compareYear = +startYear;
             let startDate = Math.floor(date1.getTime()/(3600*24*1000));
             let endDate = Math.floor(date2.getTime()/(3600*24*1000));
             let daysCount = endDate - startDate;
-            monthAppear = getMonthAppear();
+            let monthAppear = getMonthAppear();
             let appearYear = +monthAppear;
             let compareDate = new Date(`${appearYear}/01/01`);
             let endTimeline = milestoneData[projInd].project[i].menddate.substr(8,2);
@@ -810,7 +703,7 @@ function calMilestoneBar()
             endTimeline = +endTimeline;
             let mileStartYear = milestoneData[projInd].project[i].mstartdate.substr(0,4);
             getMonthName(getMonthIndex, appearYear, mileStartYear);
-            prevYear = checkMilePrevYear(appearYear, mileEndYear, i, milestone);
+            let prevYear = checkPrevYear(appearYear, mileEndYear, mileStartYear, i, milestone);
             let mileStartDate = milestoneData[projInd].project[i].mstartdate.substr(8,2);
             let startMText = milestoneData[projInd].project[i].startExactDay.substr(3,4);
             let minusVal = milestoneData[projInd].project[i].startExactDay.substr(0,2);
@@ -818,8 +711,7 @@ function calMilestoneBar()
             {
                 if(appearYear>=compareYear && prevYear)
                 {
-                    if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
-                    || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
+                    if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkTargetDate2(date2,i,daysCount,appearYear);
                         showGantt2(daysCount,endTimeline,i,milestone,mobileWidth,projInd,appearYear,mileEndYear);
@@ -831,85 +723,73 @@ function calMilestoneBar()
             {
                 if(appearYear>=compareYear && prevYear)
                 {
-                    if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
-                    || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
+                    if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='February 2021' || month1==='February 2022' || month1==='February 2023'
-                    || month1==='February 2024' || month1==='February 2025' || month1==='February 2026')
+                    else if(month1===`February ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='March 2021' || month1==='March 2022' || month1==='March 2023'
-                    || month1==='March 2024' || month1==='March 2025' || month1==='March 2026')
+                    else if(month1===`March ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='April 2021' || month1==='April 2022' || month1==='April 2023'
-                    || month1==='April 2024' || month1==='April 2025' || month1==='April 2026')
+                    else if(month1===`April ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='May 2021' || month1==='May 2022' || month1==='May 2023'
-                    || month1==='May 2024' || month1==='May 2025' || month1==='May 2026')
+                    else if(month1===`May ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='June 2021' || month1==='June 2022' || month1==='June 2023'
-                    || month1==='June 2024' || month1==='June 2025' || month1==='June 2026')
+                    else if(month1===`June ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='July 2021' || month1==='July 2022' || month1==='July 2023'
-                    || month1==='July 2024' || month1==='July 2025' || month1==='July 2026')
+                    else if(month1===`July ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='August 2021' || month1==='August 2022' || month1==='August 2023'
-                    || month1==='August 2024' || month1==='August 2025' || month1==='August 2026')
+                    else if(month1===`August ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='September 2021' || month1==='September 2022' || month1==='September 2023'
-                    || month1==='September 2024' || month1==='September 2025' || month1==='September 2026')
+                    else if(month1===`September ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='October 2021' || month1==='October 2022' || month1==='October 2023'
-                    || month1==='October 2024' || month1==='October 2025' || month1==='October 2026')
+                    else if(month1===`October ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='November 2021' || month1==='November 2022' || month1==='November 2023'
-                    || month1==='November 2024' || month1==='November 2025' || month1==='November 2026')
+                    else if(month1===`November ${appearYear}`)
                     {           
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
                         daysCount = endDate-startDate;
                     }
-                    else if(month1==='December 2021' || month1==='December 2022' || month1==='December 2023'
-                    || month1==='December 2024' || month1==='December 2025' || month1==='December 2026')
+                    else if(month1===`December ${appearYear}`)
                     {                    
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                         showAlternateGantt2(daysCount,endTimeline,i,milestone,mileStartDate,startMText,minusVal,mobileWidth,projInd,appearYear,mileEndYear);
@@ -928,7 +808,7 @@ function calTaskBar()
 {
     let mobileWidth = body.clientWidth;
     let projInd = 0;       
-    for(k=0;k<projectData.length;k++)
+    for(let k=0;k<projectData.length;k++)
     {
         let milestone = milesPDiv[k].querySelectorAll('.card .Milestone');
         if(milestone===null)
@@ -954,11 +834,11 @@ function calTaskBar()
                 let projStartDate = taskData[projInd].milestone[mileInd].task[i].startExactDay.substr(3,3).toString();
                 let getMonthIndex = getNumericMonth(projStartDate);
                 let startYear = taskData[projInd].milestone[mileInd].task[i].startMonth.substr(0,4);
-                compareYear = +startYear;
+                let compareYear = +startYear;
                 let startDate = Math.floor(date1.getTime()/(3600*24*1000));
                 let endDate = Math.floor(date2.getTime()/(3600*24*1000));
                 let daysCount = endDate - startDate;
-                monthAppear = getMonthAppear();
+                let monthAppear = getMonthAppear();
                 let appearYear = +monthAppear;
                 let compareDate = new Date(`${appearYear}/01/01`);
                 let endTimeline = taskData[projInd].milestone[mileInd].task[i].tenddate.substr(8,2);
@@ -967,7 +847,7 @@ function calTaskBar()
                 endTimeline = +endTimeline;
                 let taskStartYear = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(0,4);
                 getMonthName(getMonthIndex, appearYear, taskStartYear);
-                prevYear = checkTaskPrevYear(appearYear,taskEndYear, i, Task);
+                let prevYear = checkPrevYear(appearYear, taskEndYear, taskStartYear, i, Task);
                 let taskStartDate = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
                 let startMText = taskData[projInd].milestone[mileInd].task[i].startExactDay.substr(3,4);
                 let minusVal = taskData[projInd].milestone[mileInd].task[i].startExactDay.substr(0,2);
@@ -975,8 +855,7 @@ function calTaskBar()
                 {
                     if(appearYear>=compareYear && prevYear)
                     {
-                        if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
-                        || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
+                        if(month1===`January ${appearYear}`)
                         {
                             daysCount = checkTargetDate2(date2,i,daysCount,appearYear);
                             showGantt3(daysCount,endTimeline,i,Task,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
@@ -988,85 +867,73 @@ function calTaskBar()
                 {
                     if(appearYear>=compareYear && prevYear)
                     {
-                        if(month1==='January 2021' || month1==='January 2022' || month1==='January 2023'
-                        || month1==='January 2024' || month1==='January 2025' || month1==='January 2026')
+                        if(month1===`January ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='February 2021' || month1==='February 2022' || month1==='February 2023'
-                        || month1==='February 2024' || month1==='February 2025' || month1==='February 2026')
+                        else if(month1===`February ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='March 2021' || month1==='March 2022' || month1==='March 2023'
-                        || month1==='March 2024' || month1==='March 2025' || month1==='March 2026')
+                        else if(month1===`March ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='April 2021' || month1==='April 2022' || month1==='April 2023'
-                        || month1==='April 2024' || month1==='April 2025' || month1==='April 2026')
+                        else if(month1===`April ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='May 2021' || month1==='May 2022' || month1==='May 2023'
-                        || month1==='May 2024' || month1==='May 2025' || month1==='May 2026')
+                        else if(month1===`May ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='June 2021' || month1==='June 2022' || month1==='June 2023'
-                        || month1==='June 2024' || month1==='June 2025' || month1==='June 2026')
+                        else if(month1===`June ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='July 2021' || month1==='July 2022' || month1==='July 2023'
-                        || month1==='July 2024' || month1==='July 2025' || month1==='July 2026')
+                        else if(month1===`July ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='August 2021' || month1==='August 2022' || month1==='August 2023'
-                        || month1==='August 2024' || month1==='August 2025' || month1==='August 2026')
+                        else if(month1===`August ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='September 2021' || month1==='September 2022' || month1==='September 2023'
-                        || month1==='September 2024' || month1==='September 2025' || month1==='September 2026')
+                        else if(month1===`September ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='October 2021' || month1==='October 2022' || month1==='October 2023'
-                        || month1==='October 2024' || month1==='October 2025' || month1==='October 2026')
+                        else if(month1===`October ${appearYear}`)
                         {
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='November 2021' || month1==='November 2022' || month1==='November 2023'
-                        || month1==='November 2024' || month1==='November 2025' || month1==='November 2026')
+                        else if(month1===`November ${appearYear}`)
                         {           
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
                             daysCount = endDate-startDate;
                         }
-                        else if(month1==='December 2021' || month1==='December 2022' || month1==='December 2023'
-                        || month1==='December 2024' || month1==='December 2025' || month1==='December 2026')
+                        else if(month1===`December ${appearYear}`)
                         {                    
                             daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
                             showAlternateGantt3(daysCount,endTimeline,i,Task,taskStartDate,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,taskEndYear);
@@ -1083,12 +950,18 @@ function calTaskBar()
 }
 calTaskBar();
 
-function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,projEndYear)
+function showGantt(daysCount,endTimeline,i,ganttTimeline,startTime,mobileWidth,appearYear,projEndYear)
 {
-    let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let endMonthIndex = projectData[i].penddate.substr(5,2);
     let dateText = `${monthText.innerText} ${yearText.innerText}`;
+    let textAlign = ganttTimeline[i].previousElementSibling;
+    let ganttSpan = ganttTimeline[i];
+    let startMonName = projectData[i].planned.substr(0,3);
+    let endMonName = projectData[i].planned.substr(9,3);
+    let startDate = projectData[i].pstartdate.substr(8,2);
+    let per = projectData[i].percentage;
     switch(selectInput)
     {
         case 'Days':
@@ -1098,7 +971,10 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                     {
                         if(dateText===month1)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${daysCount * 2.517}vw`;
+                            let ganttWidth = (daysCount +1) * 2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.first1').style.display="block";
                                 if(mobileWidth<700)
                                 {
@@ -1115,7 +991,10 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                     {
                         if(dateText===month1)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.first1').style.display="block";
                                 if(mobileWidth < 700)
                                 {
@@ -1124,6 +1003,9 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         else if(dateText===month2)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
                         }
                         else
@@ -1136,8 +1018,11 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                     {
                         if(dateText===month1 || dateText===month2)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
-                            ganttTimeline[i].closest('.first1').style.display="block"; 
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                                anttTimeline[i].closest('.first1').style.display="block"; 
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -1145,6 +1030,9 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         else if(dateText===month3)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -1157,8 +1045,11 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                     {
                         if(dateText===month1 || dateText===month2 || dateText===month3)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -1166,6 +1057,9 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         else if(dateText===month4)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -1179,8 +1073,11 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         if(dateText===month1 || dateText===month2 || dateText===month3
                             || dateText===month4)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -1188,6 +1085,9 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         else if(dateText===month5)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -1201,8 +1101,11 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         if(dateText===month1 || dateText===month2 || dateText===month3
                             || dateText===month4 || dateText===month5)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -1210,6 +1113,9 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         else if(dateText===month6)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -1223,8 +1129,11 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         if(dateText===month1 || dateText===month2 || dateText===month3
                             || dateText===month4 || dateText===month5 || dateText===month6)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -1232,6 +1141,9 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         else if(dateText===month7)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -1246,8 +1158,11 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                             || dateText===month4 || dateText===month5 || dateText===month6
                             || dateText===month7)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -1255,6 +1170,9 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         else if(dateText===month8)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -1269,8 +1187,11 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                             || dateText===month4 || dateText===month5 || dateText===month6
                             || dateText===month7 || dateText===month8)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -1278,6 +1199,9 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         else if(dateText===month9)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -1292,8 +1216,11 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                             || dateText===month4 || dateText===month5 || dateText===month6
                             || dateText===month7 || dateText===month8 || dateText===month9)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -1301,6 +1228,9 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         else if(dateText===month10)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -1316,8 +1246,11 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                             || dateText===month7 || dateText===month8 || dateText===month9
                             || dateText===month10)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -1325,6 +1258,9 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         else if(dateText===month11)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -1340,8 +1276,11 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                             || dateText===month7 || dateText===month8 || dateText===month9
                             || dateText===month10 || dateText===month11)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -1349,7 +1288,14 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         else if(dateText===month12)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
+                        }
+                        else 
+                        {
+                            ganttTimeline[i].closest('.first1').style.display="none";
                         }
                         break;  
                     }    
@@ -1358,18 +1304,17 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
             }
             case 'Month':
             {
-                let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
+                let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate p');
                 let monthText1 = `${Mname[0].innerText} ${monthYear}`.toLowerCase();
-                month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
-                month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
-                month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
-                month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
+                month1 = month1.toLowerCase();
                 switch(true){
-                    case (daysCount<=119):
+                    case (daysCount<=365):
                     {
                         if(monthText1===month1)
                         {
-                            let ganttWidth = getCommonWidth(i,Mname);
+                            let ganttWidth = getCommonWidth(i,projEndYear,Mname);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
@@ -1383,78 +1328,28 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         break;
                     }      
-                    case (daysCount>119 && daysCount<=242):
-                    {
-                        if(monthText1===month1)
-                        {
-                            ganttTimeline[i].closest('.first1').style.display="block";
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
-                                if(mobileWidth < 700)
-                                {
-                                    showinMobile1(i,totWidth,ganttTimeline);
-                                }
-                        }
-                        else if(monthText1===month5)
-                        {
-                            ganttTimeline[i].closest('.first1').style.display="block";
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
-                        }
-                        else
-                        {
-                            ganttTimeline[i].closest('.first1').style.display="none";
-                        }
-                        break;  
-                    }
-                    case (daysCount>242 && daysCount<=365):
-                    {
-                        if(monthText1===month1 || monthText1===month5)
-                        {
-                            ganttTimeline[i].closest('.first1').style.display="block"; 
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
-                                if(mobileWidth < 700)
-                                {
-                                    showinMobile1(i,totWidth,ganttTimeline);
-                                }
-                        }
-                        else if(monthText1===month9)
-                        {
-                            ganttTimeline[i].closest('.first1').style.display="block";
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
-                        }
-                        else
-                        {
-                            ganttTimeline[i].closest('.first1').style.display="none";
-                        }
-                        break;  
-                    }
                 }
                 break;
             }
             case 'Quarter':
             {
-                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
+                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter p');
                 let quarter1 = `${Qname[0].innerText}`;
-                month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
-                month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
-                month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
-                month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
+                month1 = month1.toLowerCase();
                 let quarterText1;
                 if(quarter1==='Q1')
                 {
                     quarterText1 = `january ${quarterYear}`;
                 }
-                else if(quarter1==='Q3')
-                {
-                    quarterText1 = `july ${quarterYear}`;
-                }
                 switch(true){
-                    case (daysCount<=181):
+                    case (daysCount<=365):
                     {
                         if(quarterText1===month1)
                         {
-                            let ganttWidth = getCommonWidth(i, Qname);
+                            let ganttWidth = getCommonWidth(i,projEndYear,Qname);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
-                            console.log(ganttWidth);
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
                                 {
@@ -1467,40 +1362,58 @@ function showGantt(daysCount,endTimeline,i,ganttTimeline,mobileWidth,appearYear,
                         }
                         break;
                     }      
-                    case (daysCount>181 && daysCount<=365):
+                }
+                break;
+            }
+            case 'Year':
+            {
+                let Yname = selectGantt.querySelectorAll('.tablegantt tr th.VYear p');
+                let quarter1 = `${Yname[0].innerText}`;
+                month1 = month1.toLowerCase();
+                let quarterText1;
+                if(quarter1.includes('JAN'))
+                {
+                    quarterText1 = `january ${yearlyYear}`;
+                }
+                switch(true){
+                    case (daysCount<=365):
                     {
                         if(quarterText1===month1)
                         {
+                            let ganttWidth = getCommonWidth(i,projEndYear,Yname);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.first1').style.display="block";
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
-                                if(mobileWidth < 700)
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
+                                if(mobileWidth<700)
                                 {
-                                    showinMobile1(i,totWidth,ganttTimeline);
+                                    showinMobile1(i,daysCount,ganttTimeline);
                                 }
-                        }
-                        else if(quarterText1===month7)
-                        {
-                            ganttTimeline[i].closest('.first1').style.display="block";
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
                         }
                         else
                         {
                             ganttTimeline[i].closest('.first1').style.display="none";
                         }
-                        break;  
-                    }
+                        break;
+                    }      
                 }
                 break;
             }
     }
 }
-function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,startMText,minusVal,mobileWidth,appearYear,projEndYear)
+function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,startMText,minusVal,mobileWidth,appearYear,projEndYear)        
 {
     startTime = +startTime -1;
-    let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let endMonthIndex = projectData[i].penddate.substr(5,2);
     let dateText = `${monthText.innerText} ${yearText.innerText}`;
+    let textAlign = ganttTimeline[i].previousElementSibling;
+    let ganttSpan = ganttTimeline[i];
+    let startMonName = projectData[i].planned.substr(0,3);
+    let endMonName = projectData[i].planned.substr(9,3);
+    let startDate = projectData[i].pstartdate.substr(8,2);
+    let per = projectData[i].percentage;
     switch(selectInput)
     {
         case 'Days':
@@ -1512,8 +1425,12 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                 {
                     if(dateText===month1)
                     {
-                        ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(daysCount*2.517)}vw`;
+                        let marLeft = (startTime*2.517)+10.125;
+                        let ganttWidth = (daysCount +1) *2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             if(mobileWidth<700)
                             {
                                 showinMobile2(i,startTime,daysCount,ganttTimeline);               
@@ -1530,8 +1447,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     if(dateText===month1)
                     {
                         let localdaysCount=totWidth - startTime;
-                        ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                        let marLeft = (startTime*2.517)+10.125;
+                        let ganttWidth = localdaysCount*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -1539,6 +1461,11 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month2)
                     {
+                        let marLeft = 10.125;
+                        let ganttWidth = endTimeline*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);                         
+                        ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1552,8 +1479,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     if(dateText===month1)
                     {
                         let localdaysCount=totWidth - startTime;
-                        ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                        let marLeft = (startTime*2.517)+10.125;
+                        let ganttWidth = localdaysCount*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -1561,8 +1493,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month2)
                     {
-                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                        let marLeft = 10.125;
+                        let ganttWidth = totWidth *2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile4(i,totWidth);
@@ -1570,6 +1507,10 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month3)
                     {
+                        let marLeft = 10.125;
+                        let ganttWidth = endTimeline*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1583,8 +1524,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     if(dateText===month1)
                     {
                         let localdaysCount=totWidth - startTime;
-                        ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                        let marLeft = (startTime*2.517)+10.125;
+                        let ganttWidth = localdaysCount*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -1592,8 +1538,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month2 || dateText===month3)
                     {
-                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                        let marLeft = 10.125;
+                        let ganttWidth = totWidth *2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile4(i,totWidth);
@@ -1601,6 +1552,10 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month4)
                     {
+                        let marLeft = 10.125;
+                        let ganttWidth = endTimeline*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1614,8 +1569,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     if(dateText===month1)
                     {
                         let localdaysCount=totWidth - startTime;
-                        ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                        let marLeft = (startTime*2.517)+10.125;
+                        let ganttWidth = localdaysCount*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -1623,8 +1583,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month2 || dateText===month3 || dateText===month4)
                     {
-                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                        let marLeft = 10.125;
+                        let ganttWidth = totWidth *2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile4(i,totWidth);
@@ -1632,6 +1597,10 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month5)
                     {
+                        let marLeft = 10.125;
+                        let ganttWidth = endTimeline*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1645,8 +1614,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     if(dateText===month1)
                     {
                         let localdaysCount=totWidth - startTime;
-                        ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                        let marLeft = (startTime*2.517)+10.125;
+                        let ganttWidth = localdaysCount*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -1655,8 +1629,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     else if(dateText===month2 || dateText===month3 || dateText===month4
                         || dateText===month5)
                     {
-                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                        let marLeft = 10.125;
+                        let ganttWidth = totWidth *2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile4(i,totWidth,ganttTimeline);
@@ -1664,6 +1643,10 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month6)
                     {
+                        let marLeft = 10.125;
+                        let ganttWidth = endTimeline*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1677,8 +1660,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     if(dateText===month1)
                     {
                         let localdaysCount=totWidth - startTime;
-                        ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                        let marLeft = (startTime*2.517)+10.125;
+                        let ganttWidth = localdaysCount*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -1687,8 +1675,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     else if(dateText===month2 || dateText===month3 || dateText===month4
                         || dateText===month5 || dateText===month6)
                     {
-                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                        let marLeft = 10.125;
+                        let ganttWidth = totWidth *2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile4(i,totWidth,ganttTimeline);
@@ -1696,6 +1689,10 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month7)
                     {
+                        let marLeft = 10.125;
+                        let ganttWidth = endTimeline*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1709,8 +1706,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     if(dateText===month1)
                     {
                         let localdaysCount=totWidth - startTime;
-                        ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                        let marLeft = (startTime*2.517)+10.125;
+                        let ganttWidth = localdaysCount*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -1719,8 +1721,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     else if(dateText===month2 || dateText===month3 || dateText===month4
                         || dateText===month5 || dateText===month6 || dateText===month7)
                     {
-                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                        let marLeft = 10.125;
+                        let ganttWidth = totWidth *2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile4(i,totWidth,ganttTimeline);
@@ -1728,6 +1735,10 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month8)
                     {
+                        let marLeft = 10.125;
+                        let ganttWidth = endTimeline*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1741,8 +1752,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     if(dateText===month1)
                     {
                         let localdaysCount=totWidth - startTime;
-                        ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                        let marLeft = (startTime*2.517)+10.125;
+                        let ganttWidth = localdaysCount*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -1752,8 +1768,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         || dateText===month5 || dateText===month6 || dateText===month7
                         || dateText===month8)
                     {
-                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                        let marLeft = 10.125;
+                        let ganttWidth = totWidth *2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile4(i,totWidth,ganttTimeline);
@@ -1761,6 +1782,10 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month9)
                     {
+                        let marLeft = 10.125;
+                        let ganttWidth = endTimeline*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1774,8 +1799,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     if(dateText===month1)
                     {
                         let localdaysCount=totWidth - startTime;
-                        ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                        let marLeft = (startTime*2.517)+10.125;
+                        let ganttWidth = localdaysCount*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -1785,8 +1815,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         || dateText===month5 || dateText===month6 || dateText===month7
                         || dateText===month8 || dateText===month9)
                     {
-                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                        let marLeft = 10.125;
+                        let ganttWidth = totWidth *2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile4(i,totWidth,ganttTimeline);
@@ -1794,6 +1829,10 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month10)
                     {
+                        let marLeft = 10.125;
+                        let ganttWidth = endTimeline*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1807,8 +1846,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     if(dateText===month1)
                     {
                         let localdaysCount=totWidth - startTime;
-                        ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                        let marLeft = (startTime*2.517)+10.125;
+                        let ganttWidth = localdaysCount*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -1818,8 +1862,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         || dateText===month5 || dateText===month6 || dateText===month7
                         || dateText===month8 || dateText===month9 || dateText===month10)
                     {
-                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                        let marLeft = 10.125;
+                        let ganttWidth = totWidth *2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile4(i,totWidth,ganttTimeline);
@@ -1827,6 +1876,10 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month11)
                     {
+                        let marLeft = 10.125;
+                        let ganttWidth = endTimeline*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                     }
                     else
@@ -1840,8 +1893,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     if(dateText===month1)
                     {
                         let localdaysCount=totWidth - startTime;
-                        ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                        let marLeft = (startTime*2.517)+10.125;
+                        let ganttWidth = localdaysCount*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -1852,8 +1910,13 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         || dateText===month8 || dateText===month9 || dateText===month10
                         || dateText===month11)
                     {
-                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                        let marLeft = 10.125;
+                        let ganttWidth = totWidth *2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display="block";
+                        ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
+                        
                             if(mobileWidth<700)
                             {
                                 showinMobile4(i,totWidth,ganttTimeline);
@@ -1861,7 +1924,15 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     else if(dateText===month12)
                     {
+                        let marLeft = 10.125;
+                        let ganttWidth = endTimeline*2.517;
+                        alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                          startMonName, endTimeline, endMonName, daysCount, per);
                         remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
+                    }
+                    else
+                    {
+                        ganttTimeline[i].closest('.first1').style.display="none";
                     }
                     break;  
                 }
@@ -1870,25 +1941,32 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
         }      
         case 'Month':
         {
-            updateValue2(startMText,minusVal);
-            val3 = val3 + 1;
             let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
             let monthText1 = `${Mname[0].innerText} ${monthYear}`.toLowerCase();
             let monthText2 = `${Mname[1].innerText} ${monthYear}`.toLowerCase();
             let monthText3 = `${Mname[2].innerText} ${monthYear}`.toLowerCase();
             let monthText4 = `${Mname[3].innerText} ${monthYear}`.toLowerCase();
-            month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
-            month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
-            month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
-            month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
+            let monthText5 = `${Mname[4].innerText} ${monthYear}`.toLowerCase();
+            let monthText6 = `${Mname[5].innerText} ${monthYear}`.toLowerCase();
+            let monthText7 = `${Mname[6].innerText} ${monthYear}`.toLowerCase();
+            let monthText8 = `${Mname[7].innerText} ${monthYear}`.toLowerCase();
+            let monthText9 = `${Mname[8].innerText} ${monthYear}`.toLowerCase();
+            let monthText10 = `${Mname[9].innerText} ${monthYear}`.toLowerCase();
+            let monthText11 = `${Mname[10].innerText} ${monthYear}`.toLowerCase();
+            let monthText12 = `${Mname[11].innerText} ${monthYear}`.toLowerCase();
+            month1 = month1.toLowerCase();
             switch(true){
-                case (daysCount<=val1):
+                case (daysCount<=365):
                 {
-                    if(monthText1===month1 || monthText2===month1 || monthText3===month1 || monthText4===month1)
+                    if(monthText1===month1 || monthText2===month1 || monthText3===month1 || monthText4===month1 ||
+                        monthText5===month1 || monthText6===month1 || monthText7===month1 || monthText8===month1 ||
+                        monthText9===month1 || monthText10===month1 || monthText11===month1 || monthText12===month1)
                     {
                         let mulNum = +projectData[i].pstartdate.substr(8,2);
                         ganttTimeline[i].closest('.first1').style.display="block";
-                        getPCoorrds(i, mulNum, ganttTimeline, Mname);
+                        getPCoorrds(i, mulNum, ganttTimeline, projEndYear, Mname);
+                        alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                            startMonName, endTimeline, endMonName, daysCount, per);
                             if(mobileWidth<700)
                             {
                                 showinMobile1(i,daysCount,ganttTimeline);
@@ -1900,68 +1978,17 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     }
                     break;
                 }      
-                case (daysCount>val1 && daysCount<=val2):
-                {
-                    if(monthText1===month1 || monthText2===month1 || monthText3===month1 || monthText4===month1)
-                    {
-                        ganttTimeline[i].closest('.first1').style.display="block";
-                        let startMonthIndex = projectData[i].pstartdate.substr(5,2);
-                        let mulNum = +projectData[i].pstartdate.substr(8,2);
-                        getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Mname);
-                            if(mobileWidth < 700)
-                            {
-                                showinMobile1(i,totWidth,ganttTimeline);
-                            }
-                    }
-                    else if(monthText1===month5 || monthText2===month4 || monthText3===month3 || monthText4===month2)
-                    {
-                        ganttTimeline[i].closest('.first1').style.display="block";
-                        remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
-                    }
-                    else
-                    {
-                        ganttTimeline[i].closest('.first1').style.display="none";
-                    }
-                    break;  
-                }
-                case (daysCount>val2 && daysCount<=val3):
-                {
-                    if((monthText1===month1 || monthText2===month1 || monthText3===month1 || monthText4===month1) 
-                    || (monthText1===month5 || monthText2===month4 || monthText3===month3 || monthText4===month2))
-                    {
-                        ganttTimeline[i].closest('.first1').style.display="block";
-                        let startMonthIndex = projectData[i].pstartdate.substr(5,2);
-                        let mulNum = +projectData[i].pstartdate.substr(8,2);
-                        getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Mname);
-                            if(mobileWidth < 700)
-                            {
-                                showinMobile1(i,totWidth,ganttTimeline);
-                            }
-                    }
-                    else if(monthText1===month9 || monthText2===month8 || monthText3===month7 || monthText4===month6)
-                    {
-                        ganttTimeline[i].closest('.first1').style.display="block";
-                        remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
-                    }
-                    else
-                    {
-                        ganttTimeline[i].closest('.first1').style.display="none";
-                    }
-                    break;  
-                }
             }
             break;
         }  
         case 'Quarter':
         {
-                updateValue3(startMText,minusVal);
-                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
+                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter p');
                 let quarter1 = `${Qname[0].innerText}`;
-                month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
-                month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
-                month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
-                month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
-                let quarterText1,quarterText2,quarterText3,quarterText4,quarterText5,quarterText6;
+                month1 = month1.toLowerCase();
+                let quarterText1,quarterText2,quarterText3,quarterText4,quarterText5,quarterText6,
+                quarterText7,quarterText8,quarterText9,quarterText10,quarterText11,quarterText12;
+                const qArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
                 if(quarter1==='Q1')
                 {
                     quarterText1 = `january ${quarterYear}`;
@@ -1970,25 +1997,25 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                     quarterText4 = `april ${quarterYear}`;
                     quarterText5 = `may ${quarterYear}`;
                     quarterText6 = `june ${quarterYear}`;
-                }
-                else if(quarter1==='Q3')
-                {
-                    quarterText1 = `july ${quarterYear}`;
-                    quarterText2 = `august ${quarterYear}`;
-                    quarterText3 = `september ${quarterYear}`;
-                    quarterText4 = `october ${quarterYear}`;
-                    quarterText5 = `november ${quarterYear}`;
-                    quarterText6 = `december ${quarterYear}`;
+                    quarterText7 = `july ${quarterYear}`;
+                    quarterText8 = `august ${quarterYear}`;
+                    quarterText9 = `september ${quarterYear}`;
+                    quarterText10 = `october ${quarterYear}`;
+                    quarterText11 = `november ${quarterYear}`;
+                    quarterText12 = `december ${quarterYear}`;
                 }
                 switch(true){
-                    case (daysCount<=val1):
+                    case (daysCount<=365):
                     {
                         if(quarterText1===month1 || quarterText2===month1 || quarterText3===month1 || quarterText4===month1
-                            || quarterText5===month1 || quarterText6===month1)
+                            || quarterText5===month1 || quarterText6===month1 || quarterText7===month1 || quarterText8===month1 
+                            || quarterText9===month1 || quarterText10===month1 || quarterText11===month1 || quarterText12===month1)
                         {
                             ganttTimeline[i].closest('.first1').style.display="block";
                             let mulNum = +projectData[i].pstartdate.substr(8,2);
-                            getPCoorrds(i, mulNum, ganttTimeline, Qname);
+                            getPCoorrds(i, mulNum, ganttTimeline, projEndYear, qArrName);
+                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -2000,32 +2027,55 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
                         }
                         break;
                     }      
-                    case (daysCount>val1 && daysCount<=val2):
+                }
+            break;
+        }
+        case 'Year':
+        {
+                let Yname = selectGantt.querySelectorAll('.tablegantt tr th.VYear p');
+                let year1 = `${Yname[0].innerText}`;
+                month1 = month1.toLowerCase();
+                let yearText1,yearText2,yearText3,yearText4,yearText5,yearText6,
+                yearText7,yearText8,yearText9,yearText10,yearText11,yearText12;
+                let yArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
+                if(year1==='JAN-JUN')
+                {
+                    yearText1 = `january ${yearlyYear}`;
+                    yearText2 = `february ${yearlyYear}`;
+                    yearText3 = `march ${yearlyYear}`;
+                    yearText4 = `april ${yearlyYear}`;
+                    yearText5 = `may ${yearlyYear}`;
+                    yearText6 = `june ${yearlyYear}`;
+                    yearText7 = `july ${yearlyYear}`;
+                    yearText8 = `august ${yearlyYear}`;
+                    yearText9 = `september ${yearlyYear}`;
+                    yearText10 = `october ${yearlyYear}`;
+                    yearText11 = `november ${yearlyYear}`;
+                    yearText12 = `december ${yearlyYear}`;
+                }
+                switch(true){
+                    case (daysCount<=365):
                     {
-                        if(quarterText1===month1 || quarterText2===month1 || quarterText3===month1 || quarterText4===month1
-                            || quarterText5===month1 || quarterText6===month1)
+                        if(yearText1===month1 || yearText2===month1 || yearText3===month1 || yearText4===month1
+                            || yearText5===month1 || yearText6===month1 || yearText7===month1 || yearText8===month1 
+                            || yearText9===month1 || yearText10===month1 || yearText11===month1 || yearText12===month1)
                         {
                             ganttTimeline[i].closest('.first1').style.display="block";
-                            let startMonthIndex = projectData[i].pstartdate.substr(5,2);
                             let mulNum = +projectData[i].pstartdate.substr(8,2);
-                            getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Qname);
-                                if(mobileWidth < 700)
+                            getPCoorrds(i, mulNum, ganttTimeline, projEndYear, yArrName);
+                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
+                                if(mobileWidth<700)
                                 {
-                                    showinMobile1(i,totWidth,ganttTimeline);
+                                    showinMobile1(i,daysCount,ganttTimeline);
                                 }
-                        }
-                        else if(quarterText1===month7 || quarterText2===month6 || quarterText3===month5 || quarterText4===month4
-                            || quarterText5===month3 || quarterText6===month2)
-                        {
-                            ganttTimeline[i].closest('.first1').style.display="block";
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
                         }
                         else
                         {
                             ganttTimeline[i].closest('.first1').style.display="none";
                         }
-                        break;  
-                    }
+                        break;
+                    }      
                 }
             break;
         }    
@@ -2034,10 +2084,16 @@ function showAlternateGantt(daysCount,endTimeline,i,ganttTimeline,startTime,star
 
 function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,appearYear,projEndYear)
 {
-    let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let endMonthIndex = milestoneData[projInd].project[i].menddate.substr(5,2);
     let dateText = `${monthText.innerText} ${yearText.innerText}`;
+    let textAlign = ganttTimeline[i].previousElementSibling;
+    let ganttSpan = ganttTimeline[i].closest('.milestonediv1').querySelector('.milestonediv11 span');
+    let startMonName = milestoneData[projInd].project[i].planned.substr(0,3);
+    let endMonName = milestoneData[projInd].project[i].planned.substr(9,3);
+    let startDate = milestoneData[projInd].project[i].mstartdate.substr(8,2);
+    let per = milestoneData[projInd].project[i].percentage;
     switch(selectInput)
     {
         case 'Days':
@@ -2048,9 +2104,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                     {
                         if(dateText===month1)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${daysCount * 2.517}vw`;
+                            let ganttWidth = (daysCount +1) * 2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -2066,9 +2124,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                     {
                         if(dateText===month1)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -2076,6 +2136,9 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         else if(dateText===month2)
                         { 
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
                         }
                         else
@@ -2088,9 +2151,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                     {
                         if(dateText===month1 || dateText===month2)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block"; 
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -2098,6 +2163,9 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         else if(dateText===month3)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2110,9 +2178,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                     {
                         if(dateText===month1 || dateText===month2 || dateText===month3)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -2120,6 +2190,9 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         else if(dateText===month4)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -2133,9 +2206,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         if(dateText===month1 || dateText===month2 || dateText===month3
                             || dateText===month4)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -2143,6 +2218,9 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         else if(dateText===month5)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -2156,9 +2234,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         if(dateText===month1 || dateText===month2 || dateText===month3
                             || dateText===month4 || dateText===month5)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -2166,6 +2246,9 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         else if(dateText===month6)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -2179,9 +2262,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         if(dateText===month1 || dateText===month2 || dateText===month3
                             || dateText===month4 || dateText===month5 || dateText===month6)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -2189,6 +2274,9 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         else if(dateText===month7)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -2203,9 +2291,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month4 || dateText===month5 || dateText===month6
                             || dateText===month7)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -2213,6 +2303,9 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         else if(dateText===month8)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -2227,9 +2320,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month4 || dateText===month5 || dateText===month6
                             || dateText===month7 || dateText===month8)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -2237,6 +2332,9 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         else if(dateText===month9)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -2251,9 +2349,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month4 || dateText===month5 || dateText===month6
                             || dateText===month7 || dateText===month8 || dateText===month9)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -2261,6 +2361,9 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         else if(dateText===month10)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -2276,9 +2379,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month7 || dateText===month8 || dateText===month9
                             || dateText===month10)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -2286,6 +2391,9 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         else if(dateText===month11)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -2301,9 +2409,11 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                             || dateText===month7 || dateText===month8 || dateText===month9
                             || dateText===month10 || dateText===month11)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth < 700)
                                 {
                                     showinMobile1(i,totWidth,ganttTimeline);
@@ -2311,7 +2421,14 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         else if(dateText===month12)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
+                        }
+                        else 
+                        {
+                            ganttTimeline[i].closest('.Milestone').style.display="none";
                         }
                         break;  
                     }    
@@ -2328,14 +2445,15 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                 month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
                 let endMonthIndex = projectData[i].penddate.substr(5,2);
                 switch(true){
-                    case (daysCount<=119):
+                    case (daysCount<=365):
                     {
                         if(monthText1===month1)
                         {
-                            let ganttWidth = getCommonWidth(i, Mname);
+                            let ganttWidth = getCommonWidth(i,projEndYear,Mname);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -2347,81 +2465,29 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         break;
                     }      
-                    case (daysCount>119 && daysCount<=242):
-                    {
-                        if(monthText1===month1)
-                        {
-                            ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
-                                if(mobileWidth < 700)
-                                {
-                                    showinMobile1(i,totWidth,ganttTimeline);
-                                }
-                        }
-                        else if(monthText1===month5)
-                        {
-                            ganttTimeline[i].closest('.Milestone').style.display="block";
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
-                        }
-                        else
-                        {
-                            ganttTimeline[i].closest('.Milestone').style.display="none";
-                        }
-                        break;  
-                    }
-                    case (daysCount>242 && daysCount<=365):
-                    {
-                        if(monthText1===month1 || monthText1===month5)
-                        {
-                            ganttTimeline[i].closest('.Milestone').style.display="block"; 
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
-                                if(mobileWidth < 700)
-                                {
-                                    showinMobile1(i,totWidth,ganttTimeline);
-                                }
-                        }
-                        else if(monthText1===month9)
-                        {
-                            ganttTimeline[i].closest('.Milestone').style.display="block";
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
-                        }
-                        else
-                        {
-                            ganttTimeline[i].closest('.Milestone').style.display="none";
-                        }
-                        break;  
-                    }
                 }
                 break;
             }
             case 'Quarter':
             {
-                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
+                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter p');
                 let quarter1 = `${Qname[0].innerText}`;
-                month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
-                month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
-                month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
-                month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
+                month1 = month1.toLowerCase();
                 let quarterText1;
                 if(quarter1==='Q1')
                 {
                     quarterText1 = `january ${quarterYear}`;
                 }
-                else if(quarter1==='Q3')
-                {
-                    quarterText1 = `july ${quarterYear}`;
-                }
                 switch(true){
-                    case (daysCount<=181):
+                    case (daysCount<=365):
                     {
                         if(quarterText1===month1)
                         {
-                            let ganttWidth = getCommonWidth(i, Qname);
+                            let ganttWidth = getCommonWidth(i,projEndYear,Qname);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -2433,29 +2499,40 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
                         }
                         break;
                     }      
-                    case (daysCount>181 && daysCount<=365):
+                }
+                break;
+            }
+            case 'Year':
+            {
+                let Yname = selectGantt.querySelectorAll('.tablegantt tr th.VYear p');
+                let quarter1 = `${Yname[0].innerText}`;
+                month1 = month1.toLowerCase();
+                let quarterText1;
+                if(quarter1.includes('JAN'))
+                {
+                    quarterText1 = `january ${yearlyYear}`;
+                }
+                switch(true){
+                    case (daysCount<=365):
                     {
                         if(quarterText1===month1)
                         {
+                            let ganttWidth = getCommonWidth(i,projEndYear,Yname);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw;`;
-                                if(mobileWidth < 700)
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
+                                if(mobileWidth<700)
                                 {
-                                    showinMobile1(i,totWidth,ganttTimeline);
+                                    showinMobile1(i,daysCount,ganttTimeline);
                                 }
-                        }
-                        else if(quarterText1===month7)
-                        {
-                            ganttTimeline[i].closest('.Milestone').style.display="block";
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
                         }
                         else
                         {
                             ganttTimeline[i].closest('.Milestone').style.display="none";
                         }
-                        break;  
-                    }
+                        break;
+                    }      
                 }
                 break;
             }
@@ -2464,11 +2541,17 @@ function showGantt2(daysCount,endTimeline,i,ganttTimeline,mobileWidth, projInd,a
 function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,startMText,minusVal,mobileWidth,projInd,appearYear,projEndYear)
 {
     startTime = +startTime -1;
-    let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     updateValue(startMText,minusVal);
     let endMonthIndex = milestoneData[projInd].project[i].menddate.substr(5,2);
     let dateText = `${monthText.innerText} ${yearText.innerText}`;
+    let textAlign = ganttTimeline[i].previousElementSibling;
+    let ganttSpan = ganttTimeline[i].closest('.milestonediv1').querySelector('.milestonediv11 span');
+    let startMonName = milestoneData[projInd].project[i].planned.substr(0,3);
+    let endMonName = milestoneData[projInd].project[i].planned.substr(9,3);
+    let startDate = milestoneData[projInd].project[i].mstartdate.substr(8,2);
+    let per = milestoneData[projInd].project[i].percentage;
     switch(selectInput)
     {
         case 'Days':
@@ -2479,9 +2562,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                     {
                         if(dateText===month1)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(daysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = (daysCount +1) *2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,daysCount,ganttTimeline);               
@@ -2498,9 +2584,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -2508,7 +2597,10 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month2)
                         {
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2522,9 +2614,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -2532,9 +2627,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month2)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth);
@@ -2542,7 +2640,10 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month3)
                         {
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2556,9 +2657,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -2566,9 +2670,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month2 || dateText===month3)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth);
@@ -2576,7 +2683,10 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month4)
                         {
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2590,9 +2700,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -2600,9 +2713,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month2 || dateText===month3 || dateText===month4)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth);
@@ -2610,7 +2726,10 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month5)
                         {
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2624,9 +2743,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -2635,9 +2757,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         else if(dateText===month2 || dateText===month3 || dateText===month4
                             || dateText===month5)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -2645,7 +2770,10 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month6)
                         {
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2659,9 +2787,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -2670,9 +2801,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         else if(dateText===month2 || dateText===month3 || dateText===month4
                             || dateText===month5 || dateText===month6)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -2680,7 +2814,10 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month7)
                         {
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2694,9 +2831,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -2705,9 +2845,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         else if(dateText===month2 || dateText===month3 || dateText===month4
                             || dateText===month5 || dateText===month6 || dateText===month7)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -2715,7 +2858,10 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month8)
                         {
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2729,9 +2875,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -2741,9 +2890,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             || dateText===month5 || dateText===month6 || dateText===month7
                             || dateText===month8)
                         {
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -2751,7 +2903,10 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month9)
                         {
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2765,6 +2920,10 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                             ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
@@ -2777,9 +2936,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             || dateText===month5 || dateText===month6 || dateText===month7
                             || dateText===month8 || dateText===month9)
                         {
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -2787,7 +2949,10 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month10)
                         {
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2801,9 +2966,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -2813,9 +2981,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             || dateText===month5 || dateText===month6 || dateText===month7
                             || dateText===month8 || dateText===month9 || dateText===month10)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -2823,7 +2994,10 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month11)
                         {
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -2837,9 +3011,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -2850,9 +3027,12 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             || dateText===month8 || dateText===month9 || dateText===month10
                             || dateText===month11)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${marLeft}vw`;
                             ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -2860,7 +3040,10 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month12)
                         {
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);                         
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         break;  
@@ -2870,26 +3053,33 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
             }
         case 'Month':
         {
-            updateValue2(startMText,minusVal);
             let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
             let monthText1 = `${Mname[0].innerText} ${monthYear}`.toLowerCase();
             let monthText2 = `${Mname[1].innerText} ${monthYear}`.toLowerCase();
             let monthText3 = `${Mname[2].innerText} ${monthYear}`.toLowerCase();
             let monthText4 = `${Mname[3].innerText} ${monthYear}`.toLowerCase();
-            month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
-            month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
-            month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
-            month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
+            let monthText5 = `${Mname[4].innerText} ${monthYear}`.toLowerCase();
+            let monthText6 = `${Mname[5].innerText} ${monthYear}`.toLowerCase();
+            let monthText7 = `${Mname[6].innerText} ${monthYear}`.toLowerCase();
+            let monthText8 = `${Mname[7].innerText} ${monthYear}`.toLowerCase();
+            let monthText9 = `${Mname[8].innerText} ${monthYear}`.toLowerCase();
+            let monthText10 = `${Mname[9].innerText} ${monthYear}`.toLowerCase();
+            let monthText11 = `${Mname[10].innerText} ${monthYear}`.toLowerCase();
+            let monthText12 = `${Mname[11].innerText} ${monthYear}`.toLowerCase();
+            month1 = month1.toLowerCase();
             switch(true)
             {
-                case (daysCount<=val1):
+                case (daysCount<=365):
                 {
-                    if(monthText1===month1 || monthText2===month1 || monthText3===month1 || monthText4===month1)
+                    if(monthText1===month1 || monthText2===month1 || monthText3===month1 || monthText4===month1 ||
+                        monthText5===month1 || monthText6===month1 || monthText7===month1 || monthText8===month1 ||
+                        monthText9===month1 || monthText10===month1 || monthText11===month1 || monthText12===month1)
                     {
                         ganttTimeline[i].closest('.Milestone').style.display="block";
                         let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
-                        getMCoorrds(i, mulNum, projInd, ganttTimeline, Mname);
-                        getWireCoords(i, projInd, ganttTimeline, Mname);
+                        getMCoorrds(i, mulNum, projInd, ganttTimeline, projEndYear, Mname);
+                        alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
                             if(mobileWidth<700)
                             {
                                 showinMobile1(i,daysCount,ganttTimeline);
@@ -2901,72 +3091,17 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                     }
                     break;
                 }      
-                case (daysCount>val1 && daysCount<=val2):
-                {
-                    if(monthText1===month1 || monthText2===month1 || monthText3===month1 || monthText4===month1)
-                    {
-                        ganttTimeline[i].closest('.Milestone').style.display="block";
-                        let startMonthIndex = milestoneData[projInd].project[i].mstartdate.substr(5,2);
-                        let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
-                        getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Mname);
-                        getWireCoords(i, projInd, ganttTimeline, Mname);
-                            if(mobileWidth < 700)
-                            {
-                                showinMobile1(i,totWidth,ganttTimeline);
-                            }
-                    }
-                    else if(monthText1===month5 || monthText1===month4 || monthText1===month3 || monthText1===month2)
-                    {
-                        ganttTimeline[i].closest('.Milestone').style.display="block";
-                        ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
-                        remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
-                    }
-                    else
-                    {
-                        ganttTimeline[i].closest('.Milestone').style.display="none";
-                    }
-                    break;  
-                }
-                case (daysCount>val2 && daysCount<=val3):
-                {
-                    if((monthText1===month1 && monthText2===month1 && monthText3===month1 && monthText4===month1) 
-                    || (monthText1===month5 && monthText2===month4 && monthText3===month3 && monthText4===month2))
-                    {
-                        ganttTimeline[i].closest('.Milestone').style.display="block";
-                        let startMonthIndex = milestoneData[projInd].project[i].mstartdate.substr(5,2);
-                        let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
-                        getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Mname);
-                        getWireCoords(i, projInd, ganttTimeline, Mname);
-                            if(mobileWidth < 700)
-                            {
-                                showinMobile1(i,totWidth,ganttTimeline);
-                            }
-                    }
-                    else if(monthText1===month9 && monthText2===month8 && monthText3===month7 && monthText4===month6)
-                    {
-                        ganttTimeline[i].closest('.Milestone').style.display="block";
-                        ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
-                        remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
-                    }
-                    else
-                    {
-                        ganttTimeline[i].closest('.Milestone').style.display="none";
-                    }
-                    break;  
-                }
             }
             break;
         }
         case 'Quarter':
             {
-                updateValue3(startMText,minusVal);
-                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
+                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter p');
                 let quarter1 = `${Qname[0].innerText}`;
-                month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
-                month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
-                month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
-                month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
-                let quarterText1,quarterText2,quarterText3,quarterText4,quarterText5,quarterText6;
+                month1 = month1.toLowerCase();
+                let quarterText1,quarterText2,quarterText3,quarterText4,quarterText5,quarterText6,
+                quarterText7,quarterText8,quarterText9,quarterText10,quarterText11,quarterText12;
+                const qArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
                 if(quarter1==='Q1')
                 {
                     quarterText1 = `january ${quarterYear}`;
@@ -2975,26 +3110,25 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                     quarterText4 = `april ${quarterYear}`;
                     quarterText5 = `may ${quarterYear}`;
                     quarterText6 = `june ${quarterYear}`;
-                }
-                else if(quarter1==='Q3')
-                {
-                    quarterText1 = `july ${quarterYear}`;
-                    quarterText2 = `august ${quarterYear}`;
-                    quarterText3 = `september ${quarterYear}`;
-                    quarterText4 = `october ${quarterYear}`;
-                    quarterText5 = `november ${quarterYear}`;
-                    quarterText6 = `december ${quarterYear}`;
+                    quarterText7 = `july ${quarterYear}`;
+                    quarterText8 = `august ${quarterYear}`;
+                    quarterText9 = `september ${quarterYear}`;
+                    quarterText10 = `october ${quarterYear}`;
+                    quarterText11 = `november ${quarterYear}`;
+                    quarterText12 = `december ${quarterYear}`;
                 }
                 switch(true){
-                    case (daysCount<=val1):
+                    case (daysCount<=365):
                     {
                         if(quarterText1===month1 || quarterText2===month1 || quarterText3===month1 || quarterText4===month1
-                            || quarterText5===month1 || quarterText6===month1)
+                            || quarterText5===month1 || quarterText6===month1 || quarterText7===month1 || quarterText8===month1 
+                            || quarterText9===month1 || quarterText10===month1 || quarterText11===month1 || quarterText12===month1)
                         {
                             ganttTimeline[i].closest('.Milestone').style.display="block";
                             let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
-                            getMCoorrds(i,mulNum, projInd, ganttTimeline, Qname);
-                            getWireCoords(i, projInd, ganttTimeline, Qname);
+                            getMCoorrds(i, mulNum, projInd, ganttTimeline, projEndYear, qArrName);
+                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -3006,35 +3140,56 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         break;
                     }      
-                    case (daysCount>val1 && daysCount<=val2):
-                    {
-                        if(quarterText1===month1 || quarterText2===month1 || quarterText3===month1 || quarterText4===month1
-                            || quarterText5===month1 || quarterText6===month1)
-                        {
-                            ganttTimeline[i].closest('.Milestone').style.display="block";
-                            let startMonthIndex = +milestoneData[projInd].project[i].mstartdate.substr(5,2);
-                            let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
-                            getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Qname);
-                            getWireCoords(i, projInd, ganttTimeline, Qname);
-                                if(mobileWidth < 700)
-                                {
-                                    showinMobile1(i,totWidth,ganttTimeline);
-                                }
-                        }
-                        else if(quarterText1===month7 || quarterText1===month6 || quarterText1===month5 || quarterText1===month4
-                            || quarterText1===month3 || quarterText1===month2)
-                        {
-                            ganttTimeline[i].closest('.Milestone').style.display="block";
-                            ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
-                        }
-                        else
-                        {
-                            ganttTimeline[i].closest('.Milestone').style.display="none";
-                        }
-                        break;  
-                    }
                 }
+            break;
+        }
+        case 'Year':
+        {
+            let Yname = selectGantt.querySelectorAll('.tablegantt tr th.VYear p');
+            let year1 = `${Yname[0].innerText}`;
+            month1 = month1.toLowerCase();
+            let yearText1,yearText2,yearText3,yearText4,yearText5,yearText6,
+            yearText7,yearText8,yearText9,yearText10,yearText11,yearText12;
+            let yArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
+            if(year1==='JAN-JUN')
+            {
+                yearText1 = `january ${yearlyYear}`;
+                yearText2 = `february ${yearlyYear}`;
+                yearText3 = `march ${yearlyYear}`;
+                yearText4 = `april ${yearlyYear}`;
+                yearText5 = `may ${yearlyYear}`;
+                yearText6 = `june ${yearlyYear}`;
+                yearText7 = `july ${yearlyYear}`;
+                yearText8 = `august ${yearlyYear}`;
+                yearText9 = `september ${yearlyYear}`;
+                yearText10 = `october ${yearlyYear}`;
+                yearText11 = `november ${yearlyYear}`;
+                yearText12 = `december ${yearlyYear}`;
+            }
+            switch(true){
+                case (daysCount<=365):
+                {
+                    if(yearText1===month1 || yearText2===month1 || yearText3===month1 || yearText4===month1
+                        || yearText5===month1 || yearText6===month1 || yearText7===month1 || yearText8===month1 
+                        || yearText9===month1 || yearText10===month1 || yearText11===month1 || yearText12===month1)
+                    {
+                        ganttTimeline[i].closest('.Milestone').style.display="block";
+                        let mulNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
+                        getMCoorrds(i, mulNum, projInd, ganttTimeline, projEndYear, yArrName);
+                        alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
+                            if(mobileWidth<700)
+                            {
+                                showinMobile1(i,daysCount,ganttTimeline);
+                            }
+                    }
+                    else
+                    {
+                        ganttTimeline[i].closest('.Milestone').style.display="none";
+                    }
+                    break;
+                }      
+            }
             break;
         }      
     }
@@ -3042,10 +3197,16 @@ function showAlternateGantt2(daysCount,endTimeline,i,ganttTimeline,startTime,sta
 
 function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mileInd,appearYear,projEndYear)
 {
-    let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let endMonthIndex = taskData[projInd].milestone[mileInd].task[i].tenddate.substr(5,2);
     let dateText = `${monthText.innerText} ${yearText.innerText}`;
+    let textAlign = ganttTimeline[i].previousElementSibling;
+    let ganttSpan = ganttTimeline[i].closest('.milestonediv2').querySelector('.milestonediv22 span');
+    let startMonName = taskData[projInd].milestone[mileInd].task[i].planned.substr(0,3);
+    let endMonName = taskData[projInd].milestone[mileInd].task[i].planned.substr(9,3);
+    let startDate = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
+    let per = taskData[projInd].milestone[mileInd].task[i].percentage;
     switch(selectInput)
     {
         case 'Days':
@@ -3055,7 +3216,11 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                     {
                         if(dateText===month1)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${daysCount * 2.517}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = (daysCount +1)*2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth<700)
                                 {
@@ -3072,7 +3237,10 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                     {
                         if(dateText===month1)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
                                 {
@@ -3081,6 +3249,9 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         else if(dateText===month2)
                         { 
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
                         }
                         else
@@ -3093,7 +3264,10 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                     {
                         if(dateText===month1 || dateText===month2)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block"; 
                                 if(mobileWidth < 700)
                                 {
@@ -3102,6 +3276,9 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         else if(dateText===month3)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3114,7 +3291,10 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                     {
                         if(dateText===month1 || dateText===month2 || dateText===month3)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
                                 {
@@ -3123,6 +3303,9 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         else if(dateText===month4)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -3136,7 +3319,10 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         if(dateText===month1 || dateText===month2 || dateText===month3
                             || dateText===month4)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
                                 {
@@ -3145,6 +3331,9 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         else if(dateText===month5)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -3158,7 +3347,10 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         if(dateText===month1 || dateText===month2 || dateText===month3
                             || dateText===month4 || dateText===month5)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
                                 {
@@ -3167,6 +3359,9 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         else if(dateText===month6)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else
@@ -3180,7 +3375,10 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         if(dateText===month1 || dateText===month2 || dateText===month3
                             || dateText===month4 || dateText===month5 || dateText===month6)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
                                 {
@@ -3189,6 +3387,9 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         else if(dateText===month7)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -3203,7 +3404,10 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month4 || dateText===month5 || dateText===month6
                             || dateText===month7)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
                                 {
@@ -3212,6 +3416,9 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         else if(dateText===month8)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -3226,7 +3433,10 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month4 || dateText===month5 || dateText===month6
                             || dateText===month7 || dateText===month8)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
                                 {
@@ -3235,6 +3445,9 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         else if(dateText===month9)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -3249,7 +3462,10 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month4 || dateText===month5 || dateText===month6
                             || dateText===month7 || dateText===month8 || dateText===month9)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
                                 {
@@ -3258,6 +3474,9 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         else if(dateText===month10)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -3273,7 +3492,10 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month7 || dateText===month8 || dateText===month9
                             || dateText===month10)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
                                 {
@@ -3282,6 +3504,9 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         else if(dateText===month11)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         else 
@@ -3297,7 +3522,10 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                             || dateText===month7 || dateText===month8 || dateText===month9
                             || dateText===month10 || dateText===month11)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let ganttWidth = totWidth *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
                                 if(mobileWidth < 700)
                                 {
@@ -3306,6 +3534,9 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         else if(dateText===month12)
                         {
+                            let ganttWidth = endTimeline *2.517;
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);      
                         }
                         break;  
@@ -3322,11 +3553,13 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                 month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
                 month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
                 switch(true){
-                    case (daysCount<=119):
+                    case (daysCount<=365):
                     {
                         if(monthText1===month1)
                         {
-                            let ganttWidth = getCommonWidth(i, Mname);
+                            let ganttWidth = getCommonWidth(i,projEndYear,Mname);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.task').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
@@ -3340,76 +3573,27 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         break;
                     }      
-                    case (daysCount>119 && daysCount<=242):
-                    {
-                        if(monthText1===month1)
-                        {
-                            ganttTimeline[i].closest('.task').style.display="block";
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
-                                if(mobileWidth < 700)
-                                {
-                                    showinMobile1(i,totWidth,ganttTimeline);
-                                }
-                        }
-                        else if(monthText1===month5)
-                        {
-                            ganttTimeline[i].closest('.task').style.display="block";
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
-                        }
-                        else
-                        {
-                            ganttTimeline[i].closest('.task').style.display="none";
-                        }
-                        break;  
-                    }
-                    case (daysCount>242 && daysCount<=365):
-                    {
-                        if(monthText1===month1 || monthText1===month5)
-                        {
-                            ganttTimeline[i].closest('.task').style.display="block"; 
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
-                                if(mobileWidth < 700)
-                                {
-                                    showinMobile1(i,totWidth,ganttTimeline);
-                                }
-                        }
-                        else if(monthText1===month9)
-                        {
-                            ganttTimeline[i].closest('.task').style.display="block";
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
-                        }
-                        else
-                        {
-                            ganttTimeline[i].closest('.task').style.display="none";
-                        }
-                        break;  
-                    }
                 }
                 break;
             }
         case 'Quarter':
             {
-                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
+                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter p');
                 let quarter1 = `${Qname[0].innerText}`;
-                month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
-                month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
-                month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
-                month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
+                month1 = month1.toLowerCase();
                 let quarterText1;
                 if(quarter1==='Q1')
                 {
                     quarterText1 = `january ${quarterYear}`;
                 }
-                else if(quarter1==='Q3')
-                {
-                    quarterText1 = `july ${quarterYear}`;
-                }
                 switch(true){
-                    case (daysCount<=181):
+                    case (daysCount<=365):
                     {
                         if(quarterText1===month1)
                         {
-                            let ganttWidth = getCommonWidth(i, Qname);
+                            let ganttWidth = getCommonWidth(i,projEndYear,Qname);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.task').style.display="block";
                             ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
                                 if(mobileWidth<700)
@@ -3423,28 +3607,40 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
                         }
                         break;
                     }      
-                    case (daysCount>181 && daysCount<=365):
+                }
+                break;
+            }
+        case 'Year':
+            {
+                let Yname = selectGantt.querySelectorAll('.tablegantt tr th.VYear p');
+                let quarter1 = `${Yname[0].innerText}`;
+                month1 = month1.toLowerCase();
+                let quarterText1;
+                if(quarter1.includes('JAN'))
+                {
+                    quarterText1 = `january ${yearlyYear}`;
+                }
+                switch(true){
+                    case (daysCount<=365):
                     {
                         if(quarterText1===month1)
                         {
+                            let ganttWidth = getCommonWidth(i,projEndYear,Yname);
+                            alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
+                                endTimeline, endMonName, daysCount, per);
                             ganttTimeline[i].closest('.task').style.display="block";
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
-                                if(mobileWidth < 700)
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth.toFixed(5)}vw`;
+                                if(mobileWidth<700)
                                 {
-                                    showinMobile1(i,totWidth,ganttTimeline);
+                                    showinMobile1(i,daysCount,ganttTimeline);
                                 }
-                        }
-                        else if(quarterText1===month7)
-                        {
-                            ganttTimeline[i].closest('.task').style.display="block";
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
                         }
                         else
                         {
                             ganttTimeline[i].closest('.task').style.display="none";
                         }
-                        break;  
-                    }
+                        break;
+                    }      
                 }
                 break;
             }    
@@ -3453,11 +3649,17 @@ function showGantt3(daysCount,endTimeline,i,ganttTimeline,mobileWidth,projInd,mi
 function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,startMText,minusVal,mobileWidth,projInd,mileInd,appearYear,projEndYear)
 {
     startTime = +startTime -1;
-    let totWidth = document.querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     updateValue(startMText,minusVal);
     let endMonthIndex = taskData[projInd].milestone[mileInd].task[i].tenddate.substr(5,2);
     let dateText = `${monthText.innerText} ${yearText.innerText}`;
+    let textAlign = ganttTimeline[i].previousElementSibling;
+    let ganttSpan = ganttTimeline[i].closest('.milestonediv2').querySelector('.milestonediv22 span');
+    let startMonName = taskData[projInd].milestone[mileInd].task[i].planned.substr(0,3);
+    let endMonName = taskData[projInd].milestone[mileInd].task[i].planned.substr(9,3);
+    let startDate = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
+    let per = taskData[projInd].milestone[mileInd].task[i].percentage;
     switch(selectInput)
     {
         case 'Days':
@@ -3468,9 +3670,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                     {
                         if(dateText===month1)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(daysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = (daysCount +1)*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,daysCount,ganttTimeline);               
@@ -3487,9 +3692,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);       
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -3497,7 +3705,10 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month2)
                         {
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per); 
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3511,9 +3722,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);   
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -3521,9 +3735,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month2)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);    
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth);
@@ -3531,7 +3748,10 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month3)
                         {
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per); 
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3545,9 +3765,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per); 
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -3555,9 +3778,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month2 || dateText===month3)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth);
@@ -3565,7 +3791,10 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month4)
                         {
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3579,9 +3808,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -3589,9 +3821,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month2 || dateText===month3 || dateText===month4)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth);
@@ -3599,7 +3834,10 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month5)
                         {
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3613,9 +3851,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -3624,9 +3865,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         else if(dateText===month2 || dateText===month3 || dateText===month4
                             || dateText===month5)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -3634,7 +3878,10 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month6)
                         {
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3648,9 +3895,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -3659,9 +3909,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         else if(dateText===month2 || dateText===month3 || dateText===month4
                             || dateText===month5 || dateText===month6)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -3669,7 +3922,10 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month7)
                         {
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3683,9 +3939,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -3694,9 +3953,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         else if(dateText===month2 || dateText===month3 || dateText===month4
                             || dateText===month5 || dateText===month6 || dateText===month7)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -3704,7 +3966,10 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month8)
                         {
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3718,9 +3983,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -3730,9 +3998,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             || dateText===month5 || dateText===month6 || dateText===month7
                             || dateText===month8)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -3740,7 +4011,10 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month9)
                         {
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3754,9 +4028,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -3766,9 +4043,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             || dateText===month5 || dateText===month6 || dateText===month7
                             || dateText===month8 || dateText===month9)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -3776,7 +4056,10 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month10)
                         {
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3790,9 +4073,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -3802,9 +4088,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             || dateText===month5 || dateText===month6 || dateText===month7
                             || dateText===month8 || dateText===month9 || dateText===month10)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -3812,7 +4101,10 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month11)
                         {
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
                         }
                         else
@@ -3826,9 +4118,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         if(dateText===month1)
                         {
                             let localdaysCount=totWidth - startTime;
-                            ganttTimeline[i].style.cssText=`margin-left:${(startTime*2.517)+10.125}vw; width:${(localdaysCount*2.517)}vw`;
+                            let marLeft = (startTime*2.517)+10.125;
+                            let ganttWidth = localdaysCount*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:${(startTime*2.517)+10.125}vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile2(i,startTime,localdaysCount,ganttTimeline);
@@ -3839,9 +4134,12 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                             || dateText===month8 || dateText===month9 || dateText===month10
                             || dateText===month11)
                         {
-                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${totWidth *2.517}vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = totWidth*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
+                            ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:${ganttWidth}vw`;
                             ganttTimeline[i].closest('.task').style.display="block";
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:10.125vw`;
                                 if(mobileWidth<700)
                                 {
                                     showinMobile4(i,totWidth,ganttTimeline);
@@ -3849,8 +4147,15 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         else if(dateText===month12)
                         {
-                            // ganttTimeline[i].closest('.task').querySelector('.vl').style.cssText=`margin-left:11.3vw`;
+                            let marLeft = 10.125;
+                            let ganttWidth = endTimeline*2.517;
+                            alignAlterData(marLeft, ganttWidth, textAlign, ganttSpan, startDate,
+                              startMonName, endTimeline, endMonName, daysCount, per);
                             remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
+                        }
+                        else
+                        {
+                            ganttTimeline[i].closest('.task').style.display="none";
                         }
                         break;  
                     }
@@ -3859,25 +4164,33 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
             }
         case 'Month':
             {
-                updateValue2(startMText,minusVal);
                 let Mname = selectGantt.querySelectorAll('.tablegantt tr th.VDate');
                 let monthText1 = `${Mname[0].innerText} ${monthYear}`.toLowerCase();
                 let monthText2 = `${Mname[1].innerText} ${monthYear}`.toLowerCase();
                 let monthText3 = `${Mname[2].innerText} ${monthYear}`.toLowerCase();
                 let monthText4 = `${Mname[3].innerText} ${monthYear}`.toLowerCase();
-                month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
-                month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
-                month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
-                month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
+                let monthText5 = `${Mname[4].innerText} ${monthYear}`.toLowerCase();
+                let monthText6 = `${Mname[5].innerText} ${monthYear}`.toLowerCase();
+                let monthText7 = `${Mname[6].innerText} ${monthYear}`.toLowerCase();
+                let monthText8 = `${Mname[7].innerText} ${monthYear}`.toLowerCase();
+                let monthText9 = `${Mname[8].innerText} ${monthYear}`.toLowerCase();
+                let monthText10 = `${Mname[9].innerText} ${monthYear}`.toLowerCase();
+                let monthText11 = `${Mname[10].innerText} ${monthYear}`.toLowerCase();
+                let monthText12 = `${Mname[11].innerText} ${monthYear}`.toLowerCase();
+                month1 = month1.toLowerCase();
                 switch(true)
                 {
-                    case (daysCount<=val1):
+                    case (daysCount<=365):
                     {
-                        if(monthText1===month1 || monthText2===month1 || monthText3===month1 || monthText4===month1)
+                        if(monthText1===month1 || monthText2===month1 || monthText3===month1 || monthText4===month1 ||
+                            monthText5===month1 || monthText6===month1 || monthText7===month1 || monthText8===month1 ||
+                            monthText9===month1 || monthText10===month1 || monthText11===month1 || monthText12===month1)
                         {
                             ganttTimeline[i].closest('.task').style.display="block";
                             let mulNum = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
-                            getTCoorrds(i, mulNum, projInd, mileInd, ganttTimeline, Mname);
+                            getTCoorrds(i, mulNum, projInd, mileInd, ganttTimeline, projEndYear, Mname);
+                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
                                 if(mobileWidth<700)
                                 {
                                     showinMobile1(i,daysCount,ganttTimeline);
@@ -3889,133 +4202,105 @@ function showAlternateGantt3(daysCount,endTimeline,i,ganttTimeline,startTime,sta
                         }
                         break;
                     }      
-                    case (daysCount>val1 && daysCount<=val2):
-                    {
-                        if(monthText1===month1 || monthText2===month1 || monthText3===month1 || monthText4===month1)
-                        {
-                            ganttTimeline[i].closest('.task').style.display="block";
-                            let startMonthIndex = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(5,2);
-                            let mulNum = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
-                            getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Mname);
-                                if(mobileWidth < 700)
-                                {
-                                    showinMobile1(i,totWidth,ganttTimeline);
-                                }
-                        }
-                        else if(monthText1===month5 || monthText1===month4 || monthText1===month3 || monthText1===month2)
-                        {
-                            ganttTimeline[i].closest('.task').style.display="block";
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
-                        }
-                        else
-                        {
-                            ganttTimeline[i].closest('.task').style.display="none";
-                        }
-                        break;  
-                    }
-                    case (daysCount>val2 && daysCount<=val3):
-                    {
-                        if((monthText1===month1 && monthText2===month2 && monthText3===month3 && monthText4===month4) 
-                        || (monthText1===month5 && monthText2===month6 && monthText3===month7 && monthText4===month8))
-                        {
-                            ganttTimeline[i].closest('.task').style.display="block";
-                            let startMonthIndex = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(5,2);
-                            let mulNum = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
-                            getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Mname);
-                                if(mobileWidth < 700)
-                                {
-                                    showinMobile1(i,totWidth,ganttTimeline);
-                                }
-                        }
-                        else if(monthText1===month9 && monthText2===month10 && monthText3===month11 && monthText4===month12)
-                        {
-                            ganttTimeline[i].closest('.task').style.display="block";
-                            remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear);
-                        }
-                        else
-                        {
-                            ganttTimeline[i].closest('.task').style.display="none";
-                        }
-                        break;  
-                    }
                 }
                 break;
             }
         case 'Quarter':
             {
-                    updateValue3(startMText,minusVal);
-                    let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter');
-                    let quarter1 = `${Qname[0].innerText}`;
-                    month1 = month1.toLowerCase(), month2 = month2.toLowerCase(), month3 = month3.toLowerCase(),
-                    month4 = month4.toLowerCase(), month5 = month5.toLowerCase(), month6 = month6.toLowerCase(),
-                    month7 = month7.toLowerCase(), month8 = month8.toLowerCase(), month9 = month9.toLowerCase(),
-                    month10 = month10.toLowerCase(), month11 = month11.toLowerCase(), month12 = month12.toLowerCase();
-                    let quarterText1,quarterText2,quarterText3,quarterText4,quarterText5,quarterText6;
-                    if(quarter1==='Q1')
+                let Qname = selectGantt.querySelectorAll('.tablegantt tr th.VQuarter p');
+                let quarter1 = `${Qname[0].innerText}`;
+                month1 = month1.toLowerCase();
+                let quarterText1,quarterText2,quarterText3,quarterText4,quarterText5,quarterText6,
+                quarterText7,quarterText8,quarterText9,quarterText10,quarterText11,quarterText12;
+                const qArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
+                if(quarter1==='Q1')
+                {
+                    quarterText1 = `january ${quarterYear}`;
+                    quarterText2 = `february ${quarterYear}`;
+                    quarterText3 = `march ${quarterYear}`;
+                    quarterText4 = `april ${quarterYear}`;
+                    quarterText5 = `may ${quarterYear}`;
+                    quarterText6 = `june ${quarterYear}`;
+                    quarterText7 = `july ${quarterYear}`;
+                    quarterText8 = `august ${quarterYear}`;
+                    quarterText9 = `september ${quarterYear}`;
+                    quarterText10 = `october ${quarterYear}`;
+                    quarterText11 = `november ${quarterYear}`;
+                    quarterText12 = `december ${quarterYear}`;
+                }
+                switch(true){
+                    case (daysCount<=365):
                     {
-                        quarterText1 = `january ${quarterYear}`;
-                        quarterText2 = `february ${quarterYear}`;
-                        quarterText3 = `march ${quarterYear}`;
-                        quarterText4 = `april ${quarterYear}`;
-                        quarterText5 = `may ${quarterYear}`;
-                        quarterText6 = `june ${quarterYear}`;
-                    }
-                    else if(quarter1==='Q3')
-                    {
-                        quarterText1 = `july ${quarterYear}`;
-                        quarterText2 = `august ${quarterYear}`;
-                        quarterText3 = `september ${quarterYear}`;
-                        quarterText4 = `october ${quarterYear}`;
-                        quarterText5 = `november ${quarterYear}`;
-                        quarterText6 = `december ${quarterYear}`;
-                    }
-                    switch(true){
-                        case (daysCount<=val1):
+                        if(quarterText1===month1 || quarterText2===month1 || quarterText3===month1 || quarterText4===month1
+                            || quarterText5===month1 || quarterText6===month1 || quarterText7===month1 || quarterText8===month1 
+                            || quarterText9===month1 || quarterText10===month1 || quarterText11===month1 || quarterText12===month1)
                         {
-                            if(quarterText1===month1 || quarterText2===month1 || quarterText3===month1 || quarterText4===month1
-                                || quarterText5===month1 || quarterText6===month1)
-                            {
-                                ganttTimeline[i].closest('.task').style.display="block";
-                                let mulNum = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
-                                getTCoorrds(i, mulNum, projInd, mileInd, ganttTimeline, Qname);
-                                    if(mobileWidth<700)
-                                    {
-                                        showinMobile1(i,daysCount,ganttTimeline);
-                                    }
-                            }
-                            else
-                            {
-                                ganttTimeline[i].closest('.task').style.display="none";
-                            }
-                            break;
-                        }      
-                        case (daysCount>val1 && daysCount<=val2):
-                        {
-                            if(quarterText1===month1 || quarterText2===month1 || quarterText3===month1 || quarterText4===month1
-                                || quarterText5===month1 || quarterText6===month1)
-                            {
-                                ganttTimeline[i].closest('.task').style.display="block";
-                                let startMonthIndex = projectData[i].pstartdate.substr(5,2);
-                                let mulNum = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
-                                getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, Qname);
-                                    if(mobileWidth < 700)
-                                    {
-                                        showinMobile1(i,totWidth,ganttTimeline);
-                                    }
-                            }
-                            else if(quarterText1===month7 || quarterText2===month6 || quarterText3===month5 || quarterText4===month4
-                                || quarterText5===month3 || quarterText6===month2)
-                            {
-                                ganttTimeline[i].closest('.task').style.display="block";
-                                remainDaysCount(endTimeline, ganttTimeline, mobileWidth, i, endMonthIndex, appearYear, projEndYear); 
-                            }
-                            else
-                            {
-                                ganttTimeline[i].closest('.task').style.display="none";
-                            }
-                            break;  
+                            ganttTimeline[i].closest('.task').style.display="block";
+                            let mulNum = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
+                            getTCoorrds(i, mulNum, projInd, mileInd, ganttTimeline, projEndYear, qArrName);
+                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
+                                if(mobileWidth<700)
+                                {
+                                    showinMobile1(i,daysCount,ganttTimeline);
+                                }
                         }
-                    }
+                        else
+                        {
+                            ganttTimeline[i].closest('.task').style.display="none";
+                        }
+                        break;
+                    }      
+                }
+                break;
+            }
+        case 'Year':
+            {
+                let Yname = selectGantt.querySelectorAll('.tablegantt tr th.VYear p');
+                let year1 = `${Yname[0].innerText}`;
+                month1 = month1.toLowerCase();
+                let yearText1,yearText2,yearText3,yearText4,yearText5,yearText6,
+                yearText7,yearText8,yearText9,yearText10,yearText11,yearText12;
+                let yArrName = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12'];
+                if(year1==='JAN-JUN')
+                {
+                    yearText1 = `january ${yearlyYear}`;
+                    yearText2 = `february ${yearlyYear}`;
+                    yearText3 = `march ${yearlyYear}`;
+                    yearText4 = `april ${yearlyYear}`;
+                    yearText5 = `may ${yearlyYear}`;
+                    yearText6 = `june ${yearlyYear}`;
+                    yearText7 = `july ${yearlyYear}`;
+                    yearText8 = `august ${yearlyYear}`;
+                    yearText9 = `september ${yearlyYear}`;
+                    yearText10 = `october ${yearlyYear}`;
+                    yearText11 = `november ${yearlyYear}`;
+                    yearText12 = `december ${yearlyYear}`;
+                }
+                switch(true){
+                    case (daysCount<=365):
+                    {
+                        if(yearText1===month1 || yearText2===month1 || yearText3===month1 || yearText4===month1
+                            || yearText5===month1 || yearText6===month1 || yearText7===month1 || yearText8===month1 
+                            || yearText9===month1 || yearText10===month1 || yearText11===month1 || yearText12===month1)
+                        {
+                            ganttTimeline[i].closest('.task').style.display="block";
+                            let mulNum = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
+                            getTCoorrds(i, mulNum, projInd, mileInd, ganttTimeline, projEndYear, yArrName);
+                            alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startDate,
+                                startMonName, endTimeline, endMonName, daysCount, per);
+                                if(mobileWidth<700)
+                                {
+                                    showinMobile1(i,daysCount,ganttTimeline);
+                                }
+                        }
+                        else
+                        {
+                            ganttTimeline[i].closest('.task').style.display="none";
+                        }
+                        break;
+                    }      
+                }
                 break;
             }          
     }   
@@ -4038,25 +4323,8 @@ function getNumericMonth(startDate)
 }
 function getMonthAppear()
 {
-    switch(selectInput)
-    {
-        case 'Days' :
-        {
-            let monthAppear = yearText.innerText;
-            return monthAppear;
-        }
-        case 'Month' :
-        {
-            let monthAppear = yearText.innerText;
-            return monthAppear;
-        }
-        case 'Quarter' :
-        {
-            let monthAppear = yearText.innerText;
-            return monthAppear;
-        }
-    }
-    
+    let monthAppear = yearText.innerText;
+    return monthAppear;
 }
 function getTimeline(endTimeline,year2, endDate)
 {
@@ -4071,30 +4339,30 @@ function getTimeline(endTimeline,year2, endDate)
         }
     }   
 }
-function checkPrevYear(year2,prevYear2,i)
+function checkPrevYear(appearYear,projEndYear,projStartYear,i,ganttTimeline)
 {
     let booleanYear = true;
-    if(year2>prevYear2)
+    if(appearYear > projEndYear || appearYear < projStartYear)
     {
         ganttTimeline[i].closest('.first1').style.display="none";
         booleanYear=false;            
     }
     return booleanYear;
 }
-function checkMilePrevYear(year2,prevYear2,i,ganttTimeline)
+function checkMilePrevYear(appearYear,projEndYear,projStartYear,i,ganttTimeline)
 {
     let booleanYear = true;
-    if(year2>prevYear2)
+    if(appearYear > projEndYear || appearYear < projStartYear)
     {
         ganttTimeline[i].closest('.Milestone').style.display="none";
         booleanYear=false;            
     }
     return booleanYear;
 }
-function checkTaskPrevYear(year2,prevYear2,i,ganttTimeline)
+function checkTaskPrevYear(appearYear,projEndYear,projStartYear,i,ganttTimeline)
 {
     let booleanYear = true;
-    if(year2>prevYear2)
+    if(appearYear > projEndYear || appearYear < projStartYear)
     {
         ganttTimeline[i].closest('.task').style.display="none";
         booleanYear=false;            
@@ -4421,381 +4689,197 @@ function updateValue(text,minusVal)
             }                                            
     }
 }
-function updateValue2(text,minusVal)
+function getCommonWidth(i, projEndYear, VDname)
 {
-    minusVal=+minusVal;
-    switch(true)
-    {
-        case (text.includes('Jan')):
-            {
-                val1 = 119 - minusVal;
-                val2 = val1 + 123;
-                val3 = val2 + 122;
-                break;
-            }
-        case (text.includes('Feb')):
-            {
-                val1 = 119 - (minusVal + 31);
-                val2 = val1 + 123;
-                val3 = val2 + 122;
-                break;
-            }
-        case (text.includes('Mar')):
-            {
-                val1 = 119 - (minusVal + 59);
-                val2 = val1 + 123;
-                val3 = val2 + 122;
-                break;
-            }
-        case (text.includes('Apr')):
-            {
-                val1 = 119 - (minusVal + 90);
-                val2 = val1 + 123;
-                val3 = val2 + 122;
-                break;
-            }
-        case (text.includes('May')):
-            {
-                val1 = 123 - minusVal;
-                val2 = val1 + 122;
-                break;
-            }
-        case (text.includes('Jun')):
-            {
-                val1 = 123 - ( minusVal + 31);
-                val2 = val1 + 122;
-                break;
-            }
-        case (text.includes('Jul')):
-            {
-                val1 = 123 - (minusVal + 61);
-                val2 = val1 + 122;
-                break;
-            }
-        case (text.includes('Aug')):
-            {
-                val1 = 123 - (minusVal + 92);
-                val2 = val1 + 122;
-                break;
-            }
-        case (text.includes('Sep')):
-            {
-                val1 = 122 - minusVal;
-                break;
-            }
-        case (text.includes('Oct')):
-            {
-                val1 = 122 - (minusVal + 30);
-                break;
-            }
-        case (text.includes('Nov')):
-            {
-                val1 = 122 - (minusVal + 61);
-                break;
-            }
-        case (text.includes('Dec')):
-            {
-                val1 = 122 - (minusVal + 91);
-                break;
-            }                                            
-    }
-}
-function updateValue3(text,minusVal)
-{
-    minusVal=+minusVal;
-    switch(true)
-    {
-        case (text.includes('Jan')):
-            {
-                val1 = 181 - minusVal;
-                val2 = val1 + 184;
-                break;
-            }
-        case (text.includes('Feb')):
-            {
-                val1 = 181 - (minusVal + 31);
-                val2 = val1 + 184;
-                break;
-            }
-        case (text.includes('Mar')):
-            {
-                val1 = 181 - (minusVal + 59);
-                val2 = val1 + 184;
-                break;
-            }
-        case (text.includes('Apr')):
-            {
-                val1 = 181 - (minusVal + 90);
-                val2 = val1 + 184;
-                break;
-            }
-        case (text.includes('May')):
-            {
-                val1 = 181 - (minusVal + 120);
-                val2 = val1 + 184;
-                break;
-            }
-        case (text.includes('Jun')):
-            {
-                val1 = 181 - ( minusVal + 151);
-                val2 = val1 + 184;
-                break;
-            }
-        case (text.includes('Jul')):
-            {
-                val1 = 184 - minusVal;
-                break;
-            }
-        case (text.includes('Aug')):
-            {
-                val1 = 184 - (minusVal + 31);
-                break;
-            }
-        case (text.includes('Sep')):
-            {
-                val1 = 184 - (minusVal + 62);
-                break;
-            }
-        case (text.includes('Oct')):
-            {
-                val1 = 184 - (minusVal + 92);
-                break;
-            }
-        case (text.includes('Nov')):
-            {
-                val1 = 184 - (minusVal + 123);
-                break;
-            }
-        case (text.includes('Dec')):
-            {
-                val1 = 184 - (minusVal + 153);
-                break;
-            }                                            
-    }
-}
-function getCommonWidth(i,VDname)
-{
-    let startMonthIndex = projectData[i].pstartdate.substr(5,2);
     let endMonthIndex = projectData[i].penddate.substr(5,2);
-    let startMonthName = month[+startMonthIndex - 1].toUpperCase();
     let endMonthName = month[+endMonthIndex - 1].toUpperCase();
+    endMonthName = `${endMonthName} ${projEndYear}`
     let endNum = +projectData[i].penddate.substr(8,2);
-
     switch(selectInput)
-    {
+    { 
         case 'Month':
-            {
-                switch(true)
-                {
-                    case (VDname[0].innerText === startMonthName):
-                    {
-                        if(endMonthName === VDname[0].innerText)
-                        {
-                            return endNum * 0.63629032258;    
-                        }
-                        else if(endMonthName === VDname[1].innerText)
-                        {
-                            return 19.725 + (endNum * (19.725/28));      
-                        }
-                        else if(endMonthName === VDname[2].innerText)
-                        {
-                            return 39.45 + (endNum * (19.725/31));     
-                        }
-                        else if(endMonthName === VDname[3].innerText)
-                        {
-                            return 59.175 + (endNum * (19.725/30));       
-                        }
-                        break;
-                    }
-                    default:
-                        {
-                            break;
-                        }
-                }
-                break;
-            }    
         case 'Quarter':
+        case 'Year':
             {
                 switch(true)
                 {
-                    case ((VDname[0].innerText === 'Q1') || (VDname[0].innerText === 'Q3')):
+                    case (VDname[0].innerText === "JANUARY"):
+                    case (VDname[0].innerText === 'Q1'):
+                    case (VDname[0].innerText === 'JAN-JUN'):
                     {
-                        if(endMonthName === 'JANUARY')
+                        if(endMonthName === `JANUARY ${yearText.innerText}`)
                         {
-                            return endNum * 0.424193548;    
+                            return endNum * (6.575/31);       
                         }
-                        else if(endMonthName === 'FEBRUARY')
+                        else if(endMonthName === `FEBRUARY ${yearText.innerText}`)
                         {
-                            return 13.15 + (endNum * (13.15/28));      
+                            return 6.575 + (endNum * (13.15/28));      
                         }
-                        else if(endMonthName === 'MARCH')
+                        else if(endMonthName === `MARCH ${yearText.innerText}`)
                         {
-                            return 26.3 + (endNum * (13.15/31));     
+                            return 13.15 + (endNum * (13.15/31));     
                         }
-                        else if(endMonthName === 'APRIL')
+                        else if(endMonthName === `APRIL ${yearText.innerText}`)
                         {
-                            return 39.45 + (endNum * (13.15/30));       
+                            return 19.725 + (endNum * (13.15/30));       
                         }
-                        else if(endMonthName === 'MAY')
+                        else if(endMonthName === `MAY ${yearText.innerText}`)
                         {
-                            return 52.6 + (endNum * (13.15/31));       
+                            return 26.3 + (endNum * (13.15/31));       
                         }
-                        else if(endMonthName === 'JUNE')
+                        else if(endMonthName === `JUNE ${yearText.innerText}`)
                         {
-                            return 65.75 + (endNum * (13.15/30));       
+                            return 32.875 + (endNum * (13.15/30));       
                         }
-                        break;
+                        else if(endMonthName === `JULY ${yearText.innerText}`)
+                        {
+                            return 39.45 + (endNum * (13.15/31));       
+                        }
+                        else if(endMonthName === `AUGUST ${yearText.innerText}`)
+                        {
+                            return 46.025 + (endNum * (13.15/31));       
+                        }
+                        else if(endMonthName === `SEPTEMBER ${yearText.innerText}`)
+                        {
+                            return 52.6 + (endNum * (13.15/30));       
+                        }
+                        else if(endMonthName === `OCTOBER ${yearText.innerText}`)
+                        {
+                            return 59.175 + (endNum * (13.15/31));       
+                        }
+                        else if(endMonthName === `NOVEMBER ${yearText.innerText}`)
+                        {
+                            return 65.575 + (endNum * (13.15/30));       
+                        }
+                        else if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                        {
+                            return 72.325 + (endNum * (13.15/31));       
+                        }
+                        else
+                        {
+                            return 78.9;       
+                        }
                     }
                     default:
-                        {
-                            break;
-                        }
+                    {
+                        break;
+                    }
                 }
                 break;
             }
     }
 }
-function getPCoorrds(i, startTime, ganttTimeline, VDname)
+function alignCommonData(textAlign, ganttSpan, ganttWidth, startTime, startMonName,
+    endTimeline, endMonName, daysCount, per)
+{
+    if(ganttWidth < 16.5 && ganttWidth > 3)
+    {
+        textAlign.style.cssText=`margin-left: ${(ganttWidth +11.125)}vw; display: block;`;
+        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount + 1} Days</span></p>`;
+        ganttSpan.innerHTML = `<p>${per}</p>`;
+    }
+    else if(ganttWidth < 3)
+    {
+        textAlign.style.cssText=`margin-left: ${(ganttWidth +11.125)}vw; display: block;`;
+        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount + 1} Days</span>
+        <span class="mr-1 ml-1">|</span></p> ${per}`;
+        ganttSpan.innerHTML = ``;
+    }
+    else(ganttWidth > 16.5)
+    {
+        textAlign.style.cssText=`display: none;`;
+        ganttSpan.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount + 1} Days</span>
+        <span class="mr-1 ml-1">|</span> ${per}</p>`;
+    }
+}
+function getPCoorrds(i, startTime, ganttTimeline, projEndYear, VDname)
 {
     let startMonthIndex = projectData[i].pstartdate.substr(5,2);
     let endMonthIndex = projectData[i].penddate.substr(5,2);
     let startMonthName = month[+startMonthIndex - 1].toUpperCase();
     let endMonthName = month[+endMonthIndex - 1].toUpperCase();
+    let endMonthYear = `${endMonthName} ${projEndYear}`;
     let endNum = +projectData[i].penddate.substr(8,2);
     let minusNum = +projectData[i].pstartdate.substr(8,2);
     let factor1 = getFactor1(endMonthName);
-    getCommonCoords(VDname, startMonthName, endMonthName, endNum, minusNum, startTime, i, factor1, ganttTimeline)
+    getCommonCoords(VDname, startMonthName, endMonthYear, endNum, minusNum, startTime, i, factor1, ganttTimeline);
 }
-function getMCoorrds(i, startTime, projInd, ganttTimeline, VDname)
+function getMCoorrds(i, startTime, projInd, ganttTimeline, projEndYear, VDname)
 {
     let startMonthIndex = milestoneData[projInd].project[i].mstartdate.substr(5,2);
     let endMonthIndex = milestoneData[projInd].project[i].menddate.substr(5,2);
     let startMonthName = month[+startMonthIndex - 1].toUpperCase();
     let endMonthName = month[+endMonthIndex - 1].toUpperCase();
+    let endMonthYear = `${endMonthName} ${projEndYear}`;
     let endNum = +milestoneData[projInd].project[i].menddate.substr(8,2);
     let minusNum = +milestoneData[projInd].project[i].mstartdate.substr(8,2);
     let factor1 = getFactor1(endMonthName);
-    getCommonCoords(VDname, startMonthName, endMonthName, endNum, minusNum, startTime, i, factor1, ganttTimeline)
+    getCommonCoords(VDname, startMonthName, endMonthYear, endNum, minusNum, startTime, i, factor1, ganttTimeline);
 }
-function getTCoorrds(i, startTime, projInd, mileInd, ganttTimeline, VDname)
+function getTCoorrds(i, startTime, projInd, mileInd, ganttTimeline, projEndYear, VDname)
 {
     let startMonthIndex = taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(5,2);
     let endMonthIndex = taskData[projInd].milestone[mileInd].task[i].tenddate.substr(5,2);
     let startMonthName = month[+startMonthIndex - 1].toUpperCase();
     let endMonthName = month[+endMonthIndex - 1].toUpperCase();
+    let endMonthYear = `${endMonthName} ${projEndYear}`;
     let endNum = +taskData[projInd].milestone[mileInd].task[i].tenddate.substr(8,2);
     let minusNum = +taskData[projInd].milestone[mileInd].task[i].tstartdate.substr(8,2);
     let factor1 = getFactor1(endMonthName);
-    getCommonCoords(VDname, startMonthName, endMonthName, endNum, minusNum, startTime, i, factor1, ganttTimeline)
+    getCommonCoords(VDname, startMonthName, endMonthYear, endNum, minusNum, startTime, i, factor1, ganttTimeline);
 }
 function getFactor1(endMonthName)
 {
-    switch(selectInput)
+    if(selectInput === 'Month' || selectInput === 'Quarter' || selectInput === 'Year')
     {
-        case 'Month':
-            {
-                if(endMonthName==='JANUARY')
-                {
-                    return 19.725/31; 
-                }
-                else if(endMonthName==='FEBRUARY')
-                {
-                    return 19.725/28; 
-                }
-                else if(endMonthName==='MARCH')
-                {
-                    return 19.725/31; 
-                }
-                else if(endMonthName==='APRIL')
-                {
-                    return 19.725/30; 
-                }
-                else if(endMonthName==='MAY')
-                {
-                    return 19.725/31; 
-                }
-                else if(endMonthName==='JUNE')
-                {
-                    return 19.725/30; 
-                }
-                else if(endMonthName==='JULY')
-                {
-                    return 19.725/31; 
-                }
-                else if(endMonthName==='AUSGUST')
-                {
-                    return 19.725/31; 
-                }
-                else if(endMonthName==='SEPTEMBER')
-                {
-                    return 19.725/30; 
-                }
-                else if(endMonthName==='OCTOBER')
-                {
-                    return 19.725/31; 
-                }
-                else if(endMonthName==='NOVEMBER')
-                {
-                    return 19.725/30; 
-                }
-                else if(endMonthName==='DECEMBER')
-                {
-                    return 19.725/31; 
-                }
-                break;
-            }
-        case 'Quarter':
-            {
-                if(endMonthName==='JANUARY')
-                {
-                    return 13.15/31; 
-                }
-                else if(endMonthName==='FEBRUARY')
-                {
-                    return 13.15/28; 
-                }
-                else if(endMonthName==='MARCH')
-                {
-                    return 13.15/31; 
-                }
-                else if(endMonthName==='APRIL')
-                {
-                    return 13.15/30; 
-                }
-                else if(endMonthName==='MAY')
-                {
-                    return 13.15/31; 
-                }
-                else if(endMonthName==='JUNE')
-                {
-                    return 13.15/30; 
-                }
-                else if(endMonthName==='JULY')
-                {
-                    return 13.15/31; 
-                }
-                else if(endMonthName==='AUSGUST')
-                {
-                    return 13.15/31; 
-                }
-                else if(endMonthName==='SEPTEMBER')
-                {
-                    return 13.15/30; 
-                }
-                else if(endMonthName==='OCTOBER')
-                {
-                    return 13.15/31; 
-                }
-                else if(endMonthName==='NOVEMBER')
-                {
-                    return 13.15/30; 
-                }
-                else if(endMonthName==='DECEMBER')
-                {
-                    return 13.15/31; 
-                }
-                break;
-            }    
+        if(endMonthName==='JANUARY')
+        {
+            return 6.575/31; 
+        }
+        else if(endMonthName==='FEBRUARY')
+        {
+            return 6.575/28; 
+        }
+        else if(endMonthName==='MARCH')
+        {
+            return 6.575/31; 
+        }
+        else if(endMonthName==='APRIL')
+        {
+            return 6.575/30; 
+        }
+        else if(endMonthName==='MAY')
+        {
+            return 6.575/31; 
+        }
+        else if(endMonthName==='JUNE')
+        {
+            return 6.575/30; 
+        }
+        else if(endMonthName==='JULY')
+        {
+            return 6.575/31; 
+        }
+        else if(endMonthName==='AUGUST')
+        {
+            return 6.575/31; 
+        }
+        else if(endMonthName==='SEPTEMBER')
+        {
+            return 6.575/30; 
+        }
+        else if(endMonthName==='OCTOBER')
+        {
+            return 6.575/31; 
+        }
+        else if(endMonthName==='NOVEMBER')
+        {
+            return 6.575/30; 
+        }
+        else if(endMonthName==='DECEMBER')
+        {
+            return 6.575/31; 
+        }
     }
 }
 function getCommonCoords(VDname, startMonthName, endMonthName, endNum, minusNum, startTime, i, factor1, ganttTimeline)
@@ -4803,560 +4887,654 @@ function getCommonCoords(VDname, startMonthName, endMonthName, endNum, minusNum,
     switch(selectInput)
     {
         case 'Month':
+        case 'Quarter':
+        case 'Year':
+        {
+            if ((VDname[0] === 'Q1' && startMonthName === 'JANUARY') || VDname[0].innerText === startMonthName) 
             {
-                switch(true)
+                if(endMonthName === `JANUARY ${yearText.innerText}`)
                 {
-                    case (VDname[0].innerText === startMonthName):
-                    {
-                        if(endMonthName === VDname[0].innerText)
-                        {
-                            let fval = 0;
-                            let fval2 = 0;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
-                        }
-                        else if(endMonthName === VDname[1].innerText)
-                        {
-                            let fval = 19.725;
-                            let fval2 = 0;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        else if(endMonthName === VDname[2].innerText)
-                        {
-                            let fval = 39.45;
-                            let fval2 = 0;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        else if(endMonthName === VDname[3].innerText)
-                        {
-                            let fval = 59.175;
-                            let fval2 = 0;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
-                        }
-                        break;
-                    }
-                    case (VDname[1].innerText === startMonthName):
-                    {
-                        if(endMonthName === VDname[1].innerText)
-                        {
-                            let fval = 0;
-                            let fval2 = 19.725;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
-                        }
-                        else if(endMonthName === VDname[2].innerText)
-                        {
-                            let fval = 19.725;
-                            let fval2 = 19.725;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        else if(endMonthName === VDname[3].innerText)
-                        {
-                            let fval = 39.45;
-                            let fval2 = 19.725;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        break;
-                    }
-                    case (VDname[2].innerText === startMonthName):
-                    {
-                        if(endMonthName === VDname[2].innerText)
-                        {
-                            let fval = 0;
-                            let fval2 = 39.45;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
-                        }
-                        else if(endMonthName === VDname[3].innerText)
-                        {
-                            let fval = 19.725;
-                            let fval2 = 39.45;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        break;
-                    }
-                    case (VDname[3].innerText === startMonthName):
-                    {
-                        if(endMonthName === VDname[3].innerText)
-                        {
-                            let fval = 0;
-                            let fval2 = 59.175;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
-                        }
-                        break;
-                    }
+                    let fval = 0;
+                    let fval2 = 0;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `FEBRUARY ${yearText.innerText}`)
+                {
+                    let fval = 6.575;
+                    let fval2 = 0;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `MARCH ${yearText.innerText}`)
+                {
+                    let fval = 13.15;
+                    let fval2 = 0;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `APRIL ${yearText.innerText}`)
+                {
+                    let fval = 19.725;
+                    let fval2 = 0;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
+                }
+                else if(endMonthName === `MAY ${yearText.innerText}`)
+                {
+                    let fval = 26.3;
+                    let fval2 = 0;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
+                }
+                else if(endMonthName === `JUNE ${yearText.innerText}`)
+                {
+                    let fval = 32.878;
+                    let fval2 = 0;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
+                }
+                else if(endMonthName === `JULY ${yearText.innerText}`)
+                {
+                    let fval = 39.45;
+                    let fval2 = 0;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
+                }
+                else if(endMonthName === `AUGUST ${yearText.innerText}`)
+                {
+                    let fval = 46.025;
+                    let fval2 = 0;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
+                }
+                else if(endMonthName === `SEPTEMBER ${yearText.innerText}`)
+                {
+                    let fval = 52.6;
+                    let fval2 = 0;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
+                }
+                else if(endMonthName === `OCTOBER ${yearText.innerText}`)
+                {
+                    let fval = 59.175;
+                    let fval2 = 0;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
+                }
+                else if(endMonthName === `NOVEMBER ${yearText.innerText}`)
+                {
+                    let fval = 65.575;
+                    let fval2 = 0;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
+                }
+                else if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                {
+                    let fval = 72.325;
+                    let fval2 = 0;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
+                }
+                else
+                {
+                    let fval = 72.325;
+                    let fval2 = 0;
+                    endNum = 31;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);
                 }
                 break;
             }
-        case 'Quarter':
+            else if ((VDname[0] === 'Q1' && startMonthName === 'FEBRUARY') || VDname[1].innerText === startMonthName) 
             {
-                switch(true)
+                if(endMonthName === `FEBRUARY ${yearText.innerText}`)
                 {
-                    case ((VDname[0].innerText === 'Q1' && startMonthName === 'JANUARY')
-                    || (VDname[0].innerText === 'Q3' && startMonthName === 'JULY')):
-                    {
-                        if(endMonthName === 'JANUARY' || endMonthName === 'JULY')
-                        {
-                            let fval = 0;
-                            let fval2 = 0;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
-                        }
-                        else if(endMonthName === 'FEBRUARY' || endMonthName === 'AUGUST')
-                        {
-                            let fval = 13.15;
-                            let fval2 = 0;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        else if(endMonthName === 'MARCH' || endMonthName === 'SEPTEMBER')
-                        {
-                            let fval = 26.3;
-                            let fval2 = 0;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        else if(endMonthName === 'APRIL' || endMonthName === 'OCTOBER')
-                        {
-                            let fval = 39.45;
-                            let fval2 = 0;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
-                        }
-                        else if(endMonthName === 'MAY' || endMonthName === 'NOVEMBER')
-                        {
-                            let fval = 52.6;
-                            let fval2 = 0;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
-                        }
-                        else if(endMonthName === 'JUNE' || endMonthName === 'DECEMBER')
-                        {
-                            let fval = 65.75;
-                            let fval2 = 0;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);       
-                        }
-                        break;
-                    }
-                    case ((VDname[0].innerText === 'Q1' && startMonthName==='FEBRUARY') ||
-                    (VDname[0].innerText === 'Q3' && startMonthName==='AUGUST')):
-                    {
-                        if(endMonthName === 'FEBRUARY' || endMonthName === 'AUGUST')
-                        {
-                            let fval = 0;
-                            let fval2 = 13.15;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
-                        }
-                        else if(endMonthName === 'MARCH' || endMonthName === 'SEPTEMBER')
-                        {
-                            let fval = 13.15;
-                            let fval2 = 13.15;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        else if(endMonthName === 'APRIL' || endMonthName === 'OCTOBER')
-                        {
-                            let fval = 26.3;
-                            let fval2 = 13.15;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        else if(endMonthName === 'MAY' || endMonthName === 'NOVEMBER')
-                        {
-                            let fval = 39.45;
-                            let fval2 = 13.15;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        else if(endMonthName === 'JUNE' || endMonthName === 'DECEMBER')
-                        {
-                            let fval = 52.6;
-                            let fval2 = 13.15;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        break;
-                    }
-                    case ((VDname[0].innerText === 'Q1' && startMonthName==='MARCH') ||
-                    (VDname[0].innerText === 'Q3' && startMonthName==='SEPTEMBER')):
-                    {
-                        if(endMonthName === 'MARCH' || endMonthName === 'SEPTEMBER')
-                        {
-                            let fval = 0;
-                            let fval2 = 26.3;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
-                        }
-                        else if(endMonthName === 'APRIL' || endMonthName === 'OCTOBER')
-                        {
-                            let fval = 13.15;
-                            let fval2 = 26.3;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        else if(endMonthName === 'MAY' || endMonthName === 'NOEMBER')
-                        {
-                            let fval = 26.3;
-                            let fval2 = 26.3;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        else if(endMonthName === 'JUNE' || endMonthName === 'DECEMBER')
-                        {
-                            let fval = 39.45;
-                            let fval2 = 26.3;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        break;
-                    }
-                    case ((VDname[1].innerText === 'Q2' && startMonthName==='APRIL') ||
-                    (VDname[1].innerText === 'Q4' && startMonthName==='OCTOBER')):
-                    {
-                        if(endMonthName === 'APRIL' || endMonthName === 'OCTOBER')
-                        {
-                            let fval = 0;
-                            let fval2 = 39.45;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
-                        }
-                        else if(endMonthName === 'MAY' || endMonthName === 'NOVEMBER')
-                        {
-                            let fval = 13.15;
-                            let fval2 = 39.45;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        else if(endMonthName === 'JUNE' || endMonthName === 'DECEMBER')
-                        {
-                            let fval = 26.3;
-                            let fval2 = 39.45;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        break;
-                    }
-                    case ((VDname[1].innerText === 'Q2' && startMonthName==='MAY') ||
-                    (VDname[1].innerText === 'Q4' && startMonthName==='NOVEMBER')):
-                    {
-                        if(endMonthName === 'MAY' || endMonthName === 'NOVEMBER')
-                        {
-                            let fval = 0;
-                            let fval2 = 52.6;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
-                        }
-                        else if(endMonthName === 'JUNE' || endMonthName === 'DECEMBER')
-                        {
-                            let fval = 13.15;
-                            let fval2 = 52.6;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
-                        }
-                        break;
-                    }
-                    case ((VDname[1].innerText === 'Q2' && startMonthName==='JUNE') ||
-                    (VDname[1].innerText === 'Q4' && startMonthName==='DECEMBER')):
-                    {
-                        if(endMonthName === 'JUNE' || endMonthName === 'DECEMBER')
-                        {
-                            let fval = 0;
-                            let fval2 = 65.75;
-                            setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
-                        }
-                        break;
-                    }
-                }     
+                    let fval = 0;
+                    let fval2 = 6.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `MARCH ${yearText.innerText}`)
+                {
+                    let fval = 6.575;
+                    let fval2 = 6.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `APRIL ${yearText.innerText}`)
+                {
+                    let fval = 13.15;
+                    let fval2 = 6.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `MAY ${yearText.innerText}`)
+                {
+                    let fval = 19.725;
+                    let fval2 = 6.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `JUNE ${yearText.innerText}`)
+                {
+                    let fval = 26.3;
+                    let fval2 = 6.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `JULY ${yearText.innerText}`)
+                {
+                    let fval = 32.878;
+                    let fval2 = 6.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `AUGUST ${yearText.innerText}`)
+                {
+                    let fval = 39.45;
+                    let fval2 = 6.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `SEPTEMBER ${yearText.innerText}`)
+                {
+                    let fval = 46.025;
+                    let fval2 = 6.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `OCTOBER ${yearText.innerText}`)
+                {
+                    let fval = 52.6;
+                    let fval2 = 6.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `NOVEMBER ${yearText.innerText}`)
+                {
+                    let fval = 59.175;
+                    let fval2 = 6.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                {
+                    let fval = 65.75;
+                    let fval2 = 6.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else
+                {
+                    let fval = 65.75;
+                    let fval2 = 6.575;
+                    endNum = 31;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
                 break;
-            }    
+            }
+            else if ((VDname[0] === 'Q1' && startMonthName === 'MARCH') || VDname[2].innerText === startMonthName)
+            {
+                if(endMonthName === `MARCH ${yearText.innerText}`)
+                {
+                    let fval = 0;
+                    let fval2 = 13.15;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `APRIL ${yearText.innerText}`)
+                {
+                    let fval = 6.575;
+                    let fval2 = 13.15;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `MAY ${yearText.innerText}`)
+                {
+                    let fval = 13.15;
+                    let fval2 = 13.15;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `JUNE ${yearText.innerText}`)
+                {
+                    let fval = 19.725;
+                    let fval2 = 13.15;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `JULY ${yearText.innerText}`)
+                {
+                    let fval = 26.3;
+                    let fval2 = 13.15;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `AUGUST ${yearText.innerText}`)
+                {
+                    let fval = 32.875;
+                    let fval2 = 13.15;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `SEPTEMBER ${yearText.innerText}`)
+                {
+                    let fval = 39.45;
+                    let fval2 = 13.15;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `OCTOBER ${yearText.innerText}`)
+                {
+                    let fval = 46.025;
+                    let fval2 = 13.15;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `NOVEMBER ${yearText.innerText}`)
+                {
+                    let fval = 52.6;
+                    let fval2 = 13.15;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                {
+                    let fval = 59.175;
+                    let fval2 = 13.15;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                else
+                {
+                    let fval = 59.175;
+                    let fval2 = 13.15;
+                    endNum = 31;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);      
+                }
+                break;
+            }
+            else if ((VDname[0] === 'Q1' && startMonthName === 'APRIL') || VDname[3].innerText === startMonthName)
+            {
+                if(endMonthName === `APRIL ${yearText.innerText}`)
+                {
+                    let fval = 0;
+                    let fval2 = 19.725;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `MAY ${yearText.innerText}`)
+                {
+                    let fval = 6.575;
+                    let fval2 = 19.725;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `JUNE ${yearText.innerText}`)
+                {
+                    let fval = 13.15;
+                    let fval2 = 19.725;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `JULY ${yearText.innerText}`)
+                {
+                    let fval = 19.725;
+                    let fval2 = 19.725;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `AUGUST ${yearText.innerText}`)
+                {
+                    let fval = 26.3;
+                    let fval2 = 19.725;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `SEPTEMBER ${yearText.innerText}`)
+                {
+                    let fval = 32.878;
+                    let fval2 = 19.725;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `OCTOBER ${yearText.innerText}`)
+                {
+                    let fval = 39.45;
+                    let fval2 = 19.725;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `NOVEMBER ${yearText.innerText}`)
+                {
+                    let fval = 46.025;
+                    let fval2 = 19.725;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                {
+                    let fval = 52.6;
+                    let fval2 = 19.725;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else
+                {
+                    let fval = 52.6;
+                    let fval2 = 19.725;
+                    endNum = 31;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                break;
+            }
+            else if ((VDname[0] === 'Q1' && startMonthName === 'MAY') || VDname[4].innerText === startMonthName)
+            {
+                if(endMonthName === `MAY ${yearText.innerText}`)
+                {
+                    let fval = 0;
+                    let fval2 = 26.3;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `JUNE ${yearText.innerText}`)
+                {
+                    let fval = 6.575;
+                    let fval2 = 26.3;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `JULY ${yearText.innerText}`)
+                {
+                    let fval = 13.15;
+                    let fval2 = 26.3;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `AUGUST ${yearText.innerText}`)
+                {
+                    let fval = 19.725;
+                    let fval2 = 26.3;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `SEPTEMBER ${yearText.innerText}`)
+                {
+                    let fval = 26.3;
+                    let fval2 = 26.3;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `OCTOBER ${yearText.innerText}`)
+                {
+                    let fval = 32.878;
+                    let fval2 = 26.3;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `NOVEMBER ${yearText.innerText}`)
+                {
+                    let fval = 39.45;
+                    let fval2 = 26.3;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                {
+                    let fval = 46.025;
+                    let fval2 = 26.3;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else
+                {
+                    let fval = 46.025;
+                    let fval2 = 26.3;
+                    endNum = 31;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                break;
+            }
+            else if ((VDname[0] === 'Q1' && startMonthName === 'JUNE') || VDname[5].innerText === startMonthName)
+            {
+                if(endMonthName === `JUNE ${yearText.innerText}`)
+                {
+                    let fval = 0;
+                    let fval2 = 32.878;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `JULY ${yearText.innerText}`)
+                {
+                    let fval = 6.575;
+                    let fval2 = 32.878;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `AUGUST ${yearText.innerText}`)
+                {
+                    let fval = 13.15;
+                    let fval2 = 32.878;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `SEPTEMBER ${yearText.innerText}`)
+                {
+                    let fval = 19.725;
+                    let fval2 = 32.878;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `OCTOBER ${yearText.innerText}`)
+                {
+                    let fval = 26.3;
+                    let fval2 = 32.878;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `NOVEMBER ${yearText.innerText}`)
+                {
+                    let fval = 32.878;
+                    let fval2 = 32.878;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                {
+                    let fval = 39.45;
+                    let fval2 = 32.878;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else
+                {
+                    let fval = 39.45;
+                    let fval2 = 32.878;
+                    endNum = 31;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                break;
+            }
+            else if ((VDname[0] === 'Q1' && startMonthName === 'JULY') || VDname[6].innerText === startMonthName)
+            {
+                if(endMonthName === `JULY ${yearText.innerText}`)
+                {
+                    let fval = 0;
+                    let fval2 = 39.45;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `AUGUST ${yearText.innerText}`)
+                {
+                    let fval = 6.575;
+                    let fval2 = 39.45;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `SEPTEMBER ${yearText.innerText}`)
+                {
+                    let fval = 13.15;
+                    let fval2 = 39.45;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `OCTOBER ${yearText.innerText}`)
+                {
+                    let fval = 19.725;
+                    let fval2 = 39.45;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `NOVEMBER ${yearText.innerText}`)
+                {
+                    let fval = 26.3;
+                    let fval2 = 39.45;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                {
+                    let fval = 32.878;
+                    let fval2 = 39.45;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else
+                {
+                    let fval = 32.878;
+                    let fval2 = 39.45;
+                    endNum = 31;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                break;
+            }
+            else if ((VDname[0] === 'Q1' && startMonthName === 'AUGUST') || VDname[7].innerText === startMonthName)
+            {
+                if(endMonthName === `AUGUST ${yearText.innerText}`)
+                {
+                    let fval = 0;
+                    let fval2 = 46.025;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `SEPTEMBER ${yearText.innerText}`)
+                {
+                    let fval = 6.575;
+                    let fval2 = 46.025;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `OCTOBER ${yearText.innerText}`)
+                {
+                    let fval = 13.15;
+                    let fval2 = 46.025;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `NOVEMBER ${yearText.innerText}`)
+                {
+                    let fval = 19.725;
+                    let fval2 = 46.025;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                {
+                    let fval = 26.3;
+                    let fval2 = 46.025;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else
+                {
+                    let fval = 26.3;
+                    let fval2 = 46.025;
+                    endNum = 31;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                break;
+            }
+            else if ((VDname[0] === 'Q1' && startMonthName === 'SEPTEMBER') || VDname[8].innerText === startMonthName)
+            {
+                if(endMonthName === `SEPTEMBER ${yearText.innerText}`)
+                {
+                    let fval = 0;
+                    let fval2 = 52.6;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `OCTOBER ${yearText.innerText}`)
+                {
+                    let fval = 6.575;
+                    let fval2 = 52.6;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `NOVEMBER ${yearText.innerText}`)
+                {
+                    let fval = 13.15;
+                    let fval2 = 52.6;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                {
+                    let fval = 19.725;
+                    let fval2 = 52.6;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else
+                {
+                    let fval = 19.725;
+                    let fval2 = 52.6;
+                    endNum = 31;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                break;
+            }
+            else if ((VDname[0] === 'Q1' && startMonthName === 'OCTOBER') || VDname[9].innerText === startMonthName)
+            {
+                if(endMonthName === `OCTOBER ${yearText.innerText}`)
+                {
+                    let fval = 0;
+                    let fval2 = 59.175;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `NOVEMBER ${yearText.innerText}`)
+                {
+                    let fval = 6.575;
+                    let fval2 = 59.175;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                {
+                    let fval = 13.15;
+                    let fval2 = 59.175;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else
+                {
+                    let fval = 13.15;
+                    let fval2 = 59.175;
+                    endNum = 31;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                break;
+            }
+            else if ((VDname[0] === 'Q1' && startMonthName === 'NOVEMBER') || VDname[10].innerText === startMonthName)
+            {
+                if(endMonthName === `NOVEMBER ${yearText.innerText}`)
+                {
+                    let fval = 0;
+                    let fval2 = 65.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                {
+                    let fval = 6.575;
+                    let fval2 = 65.575;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else
+                {
+                    let fval = 6.575;
+                    let fval2 = 65.575;
+                    endNum = 31;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                break;
+            }
+            else if ((VDname[0] === 'Q1' && startMonthName === 'DECEMBER') || VDname[11].innerText === startMonthName)
+            {
+                if(endMonthName === `DECEMBER ${yearText.innerText}`)
+                {
+                    let fval = 0;
+                    let fval2 = 72.325;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                else 
+                {
+                    let fval = 0;
+                    let fval2 = 72.325;
+                    endNum = 31;
+                    setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline);     
+                }
+                break;
+            }
+            break;
+        }
     }
 }
 function setRemWidth(minusNum, endNum, i, startTime, fval, fval2, factor1, ganttTimeline)
 {
-    let remWidth = `${Math.abs((fval - (minusNum * factor1)) + (endNum * factor1))}`;
-    remWidth = +remWidth;
-    ganttTimeline[i].style.cssText=`margin-left:${(minusNum* factor1)+(10.125 + fval2)}vw; width:${(remWidth).toFixed(5)}vw`;
+    UniMarLeft = (minusNum* factor1)+(10.125 + fval2);
+    UniRemWidth = `${Math.abs((fval - (minusNum * factor1)) + (endNum * factor1))}`;
+    UniRemWidth = +UniRemWidth;
+    ganttTimeline[i].style.cssText=`margin-left:${UniMarLeft}vw; width:${(UniRemWidth).toFixed(5)}vw`;
 }
-function getAnotherCoorrds(i, startTime, startMonthIndex, ganttTimeline, mulNum, VDname)
+function alignAlterData(UniMarLeft, UniRemWidth, textAlign, ganttSpan, startTime,
+    startMonName, endTimeline, endMonName, daysCount, per)
 {
-    let startMonthName = month[+startMonthIndex - 1].toUpperCase();
-    let factor2 = getfactor2(startMonthName);
-    switch(selectInput)
+    if(UniMarLeft<69.3 && (UniRemWidth < 16.5 && UniRemWidth > 3))
     {
-        case 'Month':
-        {
-            // startMonthName = `${startMonthName} ${appearYear}`;
-            // let VDanme1 = `${VDanme[0].innerText} ${projEndYear}`;
-            // let VDanme2 = `${VDanme[1].innerText} ${projEndYear}`;
-            // let VDanme3 = `${VDanme[2].innerText} ${projEndYear}`;
-            // let VDanme4 = `${VDanme[3].innerText} ${projEndYear}`;
-        switch(true)
-            {
-                case (VDname[0].innerText === startMonthName):
-                {
-                    let fval = 19.725;
-                    let fval2 = 59.175;
-                    let fval3 = 10.125;
-                    setAnotherRemWidth(mulNum, ganttTimeline, i, fval, fval2, fval3, factor2);
-                    break;
-                }
-                case (VDname[1].innerText === startMonthName):
-                {
-                    let fval = 19.725;
-                    let fval2 = 39.45;
-                    let fval3 = 29.85;
-                    setAnotherRemWidth(mulNum, ganttTimeline, i, fval, fval2, fval3, factor2);
-                    break;
-                }
-                case (VDname[2].innerText === startMonthName):
-                {
-                    let fval = 19.725;
-                    let fval2 = 19.725;
-                    let fval3 = 49.575;
-                    setAnotherRemWidth(mulNum, ganttTimeline, i, fval, fval2, fval3, factor2);
-                    break;
-                }
-                case (VDname[3].innerText === startMonthName):
-                {
-                    let fval = 19.725;
-                    let fval2 = 0;
-                    let fval3 = 69.3;
-                    setAnotherRemWidth(mulNum, ganttTimeline, i, fval, fval2, fval3, factor2);
-                    break;
-                }
-                default:
-                {
-                    ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
-                }
-            }
-            break;
-        }
-        case 'Quarter':
-        {
-            switch(true)
-            {
-                case (startMonthName === 'JANUARY'):
-                {
-                    let fval = 13.15;
-                    let fval2 = 65.575;
-                    let fval3 = 10.125;
-                    setAnotherRemWidth(mulNum, ganttTimeline, i, fval, fval2, fval3, factor2);
-                    break;
-                }
-                case (startMonthName === 'FEBRUARY'):
-                {
-                    let fval = 13.15;
-                    let fval2 = 52.6;
-                    let fval3 = 23.275;
-                    setAnotherRemWidth(mulNum, ganttTimeline, i, fval, fval2, fval3, factor2);
-                    break;
-                }
-                case (startMonthName === 'MARCH'):
-                {
-                    let fval = 13.15;
-                    let fval2 = 39.45;
-                    let fval3 = 36.425;
-                    setAnotherRemWidth(mulNum, ganttTimeline, i, fval, fval2, fval3, factor2);
-                    break;
-                }
-                case (startMonthName === 'APRIL'):
-                {
-                    let fval = 13.15;
-                    let fval2 = 26.3;
-                    let fval3 = 49.575;
-                    setAnotherRemWidth(mulNum, ganttTimeline, i, fval, fval2, fval3, factor2);
-                    break;
-                }
-                case (startMonthName === 'MAY'):
-                {
-                    let fval = 13.15;
-                    let fval2 = 13.15;
-                    let fval3 = 62.725;
-                    setAnotherRemWidth(mulNum, ganttTimeline, i, fval, fval2, fval3, factor2);
-                    break;
-                }
-                case (startMonthName === 'JUNE'):
-                {
-                    let fval = 13.15;
-                    let fval2 = 0;
-                    let fval3 = 75.875;
-                    setAnotherRemWidth(mulNum, ganttTimeline, i, fval, fval2, fval3, factor2);
-                    break;
-                }
-                default:
-                {
-                    ganttTimeline[i].style.cssText=`margin-left:10.125vw; width:78.9vw`;
-                }
-            }
-            break;
-        }
+        textAlign.style.cssText=`margin-left: ${(UniMarLeft) + (UniRemWidth +1)}vw; display: block;`;
+        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount +1} Days</span></p>`;
+        ganttSpan.innerHTML = `<p>${per}</p>`;
     }
-}
-function getfactor2(startMonthName)
-{
-    switch(selectInput)
+    else if(UniMarLeft<69.3 && UniRemWidth < 3)
     {
-        case 'Month':
-            {
-                if(startMonthName==='JANUARY')
-                {
-                    return 19.725/31; 
-                }
-                else if(startMonthName==='FEBRUARY')
-                {
-                    return 19.725/28; 
-                }
-                else if(startMonthName==='MARCH')
-                {
-                    return 19.725/31; 
-                }
-                else if(startMonthName==='APRIL')
-                {
-                    return 19.725/30; 
-                }
-                else if(startMonthName==='MAY')
-                {
-                    return 19.725/31; 
-                }
-                else if(startMonthName==='JUNE')
-                {
-                    return 19.725/30; 
-                }
-                else if(startMonthName==='JULY')
-                {
-                    return 19.725/31; 
-                }
-                else if(startMonthName==='AUSGUST')
-                {
-                    return 19.725/31; 
-                }
-                else if(startMonthName==='SEPTEMBER')
-                {
-                    return 19.725/30; 
-                }
-                else if(startMonthName==='OCTOBER')
-                {
-                    return 19.725/31; 
-                }
-                else if(startMonthName==='NOVEMBER')
-                {
-                    return 19.725/30; 
-                }
-                else if(startMonthName==='DECEMBER')
-                {
-                    return 19.725/31; 
-                }
-                break;
-            }
-        case 'Quarter':
-            {
-                if(startMonthName==='JANUARY')
-                {
-                    return 13.15/31; 
-                }
-                else if(startMonthName==='FEBRUARY')
-                {
-                    return 13.15/28; 
-                }
-                else if(startMonthName==='MARCH')
-                {
-                    return 13.15/31; 
-                }
-                else if(startMonthName==='APRIL')
-                {
-                    return 13.15/30; 
-                }
-                else if(startMonthName==='MAY')
-                {
-                    return 13.15/31; 
-                }
-                else if(startMonthName==='JUNE')
-                {
-                    return 13.15/30; 
-                }
-                else if(startMonthName==='JULY')
-                {
-                    return 13.15/31; 
-                }
-                else if(startMonthName==='AUSGUST')
-                {
-                    return 13.15/31; 
-                }
-                else if(startMonthName==='SEPTEMBER')
-                {
-                    return 13.15/30; 
-                }
-                else if(startMonthName==='OCTOBER')
-                {
-                    return 13.15/31; 
-                }
-                else if(startMonthName==='NOVEMBER')
-                {
-                    return 13.15/30; 
-                }
-                else if(startMonthName==='DECEMBER')
-                {
-                    return 13.15/31; 
-                }
-                break;
-            }    
+        textAlign.style.cssText=`margin-left: ${(UniMarLeft) + (UniRemWidth +1)}vw; display: block;`;
+        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount +1} Days</span>
+        <span class="mr-1 ml-1">|</span> ${per}</p>`;
+        ganttSpan.innerHTML = ``;
     }
-}
-function setAnotherRemWidth(mulNum, ganttTimeline, i, fval, fval2, fval3, factor2)
-{
-    let remWidth = `${Math.abs((fval - (mulNum * factor2)) + fval2)}`;
-    remWidth = +remWidth;
-    ganttTimeline[i].style.cssText=`margin-left:${(mulNum* factor2)+fval3}vw; width:${(remWidth).toFixed(5)}vw`;
-}
-function getWireCoords(i, projInd, ganttTimeline, VDname)
-{
-    let startMonthIndex = +milestoneData[projInd].project[i].mstartdate.substr(5,2);
-    let startMonthName = month[+startMonthIndex - 1].toUpperCase();
-    let marLeft = ganttTimeline[i].closest('.Milestone').querySelector('.milestonediv11').style.marginLeft;
-    switch(selectInput)
+    else if(UniMarLeft>69.3 && (UniRemWidth < 16.5 && UniRemWidth > 3))
     {
-        case 'Month':
-        {
-            switch(true)
-            {
-                case (VDname[0].innerText === startMonthName):
-                {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
-                    break;
-                }
-                case (VDname[1].innerText === startMonthName):
-                {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
-                    break;
-                }
-                case (VDname[2].innerText === startMonthName):
-                {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
-                    break;
-                }
-                case (VDname[3].innerText === startMonthName):
-                {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
-                    break;
-                }
-            }
-            break;
-        }
-        case 'Quarter':
-        {
-            switch(true)
-            {
-                case (startMonthName === 'JANUARY' || startMonthName === 'JULY'):
-                {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
-                    break;
-                }
-                case (startMonthName === 'FEBRUARY' || startMonthName === 'AUGUST'):
-                {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
-                    break;
-                }
-                case (startMonthName === 'MARCH' || startMonthName === 'SEPTEMBER'):
-                {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
-                    break;
-                }
-                case (startMonthName === 'APRIL' || startMonthName === 'OCTOBER'):
-                {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
-                    break;
-                }
-                case (startMonthName === 'MAY' || startMonthName === 'NOVEMBER'):
-                {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
-                    break;
-                }
-                case (startMonthName === 'JUNE' || startMonthName === 'DECEMBER'):
-                {
-                    ganttTimeline[i].closest('.Milestone').querySelector('.vl').style.cssText=`margin-left:${marLeft};`;
-                    break;
-                }
-            }
-        }
+        textAlign.style.cssText=`margin-left: ${UniMarLeft - 11.125}vw; display: block;`;
+        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount +1} Days</span></p>`;
+        ganttSpan.innerHTML = `${per}`;
+    }
+    else if(UniMarLeft>69.3 && UniRemWidth < 3)
+    {
+        textAlign.style.cssText=`margin-left: ${UniMarLeft - 14.8}vw; display: block;`;
+        textAlign.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount +1} Days</span>
+        <span class="mr-1 ml-1">|</span> ${per}</p>`;
+        ganttSpan.innerHTML = ``;
+    }
+    else if(UniRemWidth > 16.5)
+    {
+        textAlign.style.cssText=`display: none;`;
+        ganttSpan.innerHTML = `<p>${startMonName} ${startTime} - ${endMonName} ${endTimeline} <span class="ml-1">${daysCount +1} Days</span>
+        <span class="mr-1 ml-1">|</span> ${per}</p>`;
     }
 }
 
@@ -5489,13 +5667,21 @@ function showinMobile4(i,multiplyTerm,ganttTimeline)
 function givebackground(i,daysCount,ganttTimeline)
 {
     ganttTimeline[i].style.backgroundColor=`${projectData[i].statusclass}`;
-    ganttTimeline[i].innerText=`${projectData[i].planned} ${daysCount +1} days`;
+    if(daysCount>365)
+    {
+        ganttTimeline[i].innerHTML = `<p>${projectData[i].planned} <span class="ml-1">${daysCount +1}</span>
+        <span class="mr-1 ml-1">|</span> ${projectData[i].percentage}</p>`;
+    }
     i++;
 }
 function giveMilestonebG(i,j,daysCount,ganttTimeline)
 {
     ganttTimeline[i].style.backgroundColor=`${milestoneData[j].project[i].statusclass}`;
-    ganttTimeline[i].innerText=`${milestoneData[j].project[i].planned} ${daysCount +1} days`;
+    if(daysCount>365)
+    {
+        ganttTimeline[i].innerHTML = `<p>${milestoneData[j].project[i].planned} <span class="ml-1">${daysCount +1}</span>
+        <span class="mr-1 ml-1">|</span> ${milestoneData[j].project[i].percentage}</p>`;
+    }
     i++;
 }
 
@@ -5505,18 +5691,39 @@ function giveMilestonebG(i,j,daysCount,ganttTimeline)
     hoverProject2.forEach((hover)=>
     {
         let p = hover.innerHTML;
-        if(p.length>25)
-        {
-            hover.setAttribute('data-bs-toggle','tooltip');
-            hover.setAttribute('data-bs-placement','bottom');
-            hover.setAttribute('title',`${p}`);
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-            })
-        }
+        getHoverProjName(p, hover);
     })
 }());
+(function makingTooltip()
+{
+    hoverProject3.forEach((hover)=>
+    {
+        let p = hover.innerHTML;
+        getHoverProjName(p,hover);
+    })
+}());
+(function makingTooltip()
+{
+    hoverProject4.forEach((hover)=>
+    {
+        let p = hover.innerHTML;
+        getHoverProjName(p, hover);
+    })
+}());
+
+function getHoverProjName(p, hover)
+{
+    if(p.length>17)
+    {
+        hover.setAttribute('data-bs-toggle','tooltip');
+        hover.setAttribute('data-bs-placement','bottom');
+        hover.setAttribute('title',`${p}`);
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    }
+}
 
 for(let i=0;i<ganttTimeline.length;i++)
 {
@@ -5542,7 +5749,13 @@ function showTimelineTip(e)
        let p4 = tip.querySelector('p:nth-child(5)');
        let p5 = tip.querySelector('p:nth-child(6)');
        let p6 = tip.querySelector('p:nth-child(7)');
-       h4.innerText=`Wireframe: ${projectData[projdataInd].startMonth}`;
+       let startDate = projectData[projdataInd].pstartdate.substr(8,2);
+       let startMonName = projectData[projdataInd].planned.substr(0,3);
+       let startYear = projectData[projdataInd].pstartdate.substr(0,4);
+       let endDate = projectData[projdataInd].penddate.substr(8,2);
+       let endMonName = projectData[projdataInd].planned.substr(9,3);
+       let endYear = projectData[projdataInd].penddate.substr(0,4);
+       h4.innerText=`Wireframe: ${startDate} ${startMonName} ${startYear} to ${endDate} ${endMonName} ${endYear}`;
        p1.innerText=`Duration: ${projectData[projdataInd].duration}`;
        p2.innerText=`Percentage Done: ${projectData[projdataInd].percentage}`;
        p3.innerText=`Status: ${projectData[projdataInd].statustext}`;
@@ -5562,7 +5775,7 @@ milesPDiv.forEach((parent,ind)=>
 {
     parent.addEventListener('click',(e)=>
     {
-        mileAppear = e.target.closest('.first1').querySelectorAll('.card .milestonediv11');
+        let mileAppear = e.target.closest('.first1').querySelectorAll('.card .milestonediv11');
         for(let i=0;i<mileAppear.length;i++)
         {
             ['mouseover','mouseout','click'].forEach((e)=>
@@ -5600,7 +5813,7 @@ milesPDiv.forEach((parent,ind)=>
             }
             else if(e.type==="click")
             {
-                let tip = e.target.closest('.Milestone').querySelectorAll('.task');
+                let tip = e.target.closest('.Milestone').querySelectorAll('.task .milestonediv22');
                 for(let j=0; j<tip.length; j++)
                 {
                     ['mouseover','mouseout'].forEach((e)=>

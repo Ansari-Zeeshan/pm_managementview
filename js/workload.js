@@ -10,7 +10,7 @@ const prevWork = document.querySelector('.workload .slide_bottom .img1');
 const nextWork = document.querySelector('.workload .slide_bottom .img2');
 let workYear = 2021, workMonNum = 1, workMonNum2 = 0, workMonCount = 0, fixedHeight = 30, combinedVal = [], dateVal = [],
 monthVal = [], yearVal = [];
-let workMonText, workYearText, projName, taskList, dropProjTip, dropTaskTip;
+let workMonText, workYearText, projName, taskList, dropProjTip, dropTaskTip, hoverEmpName;
 
 function getWorkMonLength()
 {
@@ -134,8 +134,8 @@ function createWorkProj(i)
                     </div>
                     <div class="taskProj"></div>
                 </div>
-                <div class="img_emp"><img src="img/client1.jpg" class="mr-2" alt="">${WorkProject[i].employee[j].employeename}</div>
-                <div class="border-bottom">
+                <div class="img_emp"><img src="img/client1.jpg" class="mr-2" alt=""><div class="text_div">${WorkProject[i].employee[j].employeename}</div></div>
+                <div class="border-bottom"> 
         `
         proj.appendChild(employee);
     }
@@ -184,6 +184,7 @@ function createWorkProj(i)
     }
    projName = workload.querySelector('#benefitsdrop .projectname');
    taskList = workload.querySelectorAll('#benefitsdrop .projectname taskProj');
+   hoverEmpName = workload.querySelectorAll('#benefitsdrop .projectname .employee div.text_div');
 }
 
 function createTaskProj(i)
@@ -452,7 +453,9 @@ function calWorkTaskjProjBar(k)
             giveWorkTaskbG(i,j,k,projTask);
         }
     }
-    checkCollidePart()
+    makingEmpTooltip();
+    checkCollidePart();
+    checkGapPart();
 }
 
 function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
@@ -1185,6 +1188,17 @@ function checkWorkPrevYear(appearYear,projEndYear,projStartYear,i,ganttTimeline)
     return booleanYear;
 }
 
+function checkWorkProjPrevYear(appearYear,projEndYear,projStartYear,i,ganttTimeline)
+{
+    let booleanYear = true;
+    if(appearYear > projEndYear || appearYear < projStartYear)
+    {
+        // ganttTimeline[i].style.display="none";
+        booleanYear=false;            
+    }
+    return booleanYear;
+}
+
 function checkWorkTargetDate2(date2,i,daysCount,year2,year1)
 {
     if(year2>year1)
@@ -1267,31 +1281,35 @@ function checkCollidePart()
    {
        let redTimeline = emp[i].querySelectorAll('.projTimeline .redprog-bar');
        let task = emp[i].querySelectorAll('.taskProj .progress-bar');
+       let listDate=[];
        for(let j=0; j<task.length; j++)
        {
             let start = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(8,2);  
             let end = +WorkProject[projInd].employee[i].task[j].penddate.substr(8,2);
+            let fulldate1 = WorkProject[projInd].employee[i].task[j].pstartdate.substr(0,10);
+            let fulldate2 = WorkProject[projInd].employee[i].task[j].penddate.substr(0,10);
             let startMon = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(5,2);  
             let endMon = +WorkProject[projInd].employee[i].task[j].penddate.substr(5,2);  
-            let startYear = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(0,4);  
-            for(let k=start; k<=end; k++)
-            {
-                combinedVal.push(k);
-            }
-            dateVal.push(start,end);
+            let startYear = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(0,4);
+            const listOfDate = rangeDate(`${fulldate1}`,`${fulldate2}`, listDate);
+            // for(let k=start; k<=end; k++)
+            // {
+            //     combinedVal.push(k);
+            // }
+            dateVal.push(fulldate1,fulldate2);
             monthVal.push(startMon, endMon);
             yearVal.push(startMon, startYear);
         }
         let dupElement = [];
-        dupElement = toFindDupElement(combinedVal);
+        dupElement = toFindDupElement(listOfDate);
         if(dupElement.length>0)
         {
             let collInd = findCollInd(dateVal);
             let monthInd = monthVal[collInd];
             monthInd = monthInd - 1;
             let monname = month[monthInd].substr(0,3);
-            let startTime = dupElement[0];
-            let endTimeline = dupElement[dupElement.length - 1];
+            let startTime = +dupElement[0].substr(8,2);
+            let endTimeline = +dupElement[dupElement.length - 1].substr(8,2);
             let daysCount = dupElement.length -1;
             let monthAppear = getWorkAppearYear();
             let appearYear = +monthAppear;
@@ -1305,7 +1323,7 @@ function checkCollidePart()
             endTimeline = getTimeline(endTimeline, appearYear, collEndYear);
             endTimeline = +endTimeline;
             getMonthName(monthInd, appearYear, collStartYear);
-            prevYear = checkWorkPrevYear(appearYear, collEndYear, collStartYear, i, redTimeline);
+            prevYear = checkWorkProjPrevYear(appearYear, collEndYear, collStartYear, i, redTimeline);
             let minusVal = startTime;
             if(date1.getTime()<=compareDate.getTime())
             {
@@ -1398,9 +1416,24 @@ function checkCollidePart()
                 }
             }
         }
-        combinedVal = [];
+        listDate = [];
         dateVal = [];
+        monthVal = [];
+        yearVal = [];
    }
+}
+
+function rangeDate(startDate, endDate, listDate)
+{
+    let currentDate = new Date(startDate);
+    let date = startDate;
+    while (currentDate <= new Date(endDate)) {
+        // Use UTC date to prevent problems with time zones and DST
+        date = currentDate.toISOString().slice(0,10);
+        listDate.push(date);
+        currentDate.setDate(currentDate.getDate()+1);
+    }
+    return listDate;
 }
 
 function toFindDupElement(array)
@@ -1421,6 +1454,172 @@ function findCollInd(dateVal)
     for(let i=0; i<dateVal.length; i++)
     {
         if(dateVal[i+1]>=dateVal[i+2])
+        {
+            return i+1;
+        }
+    }
+}
+
+function checkGapPart()
+{
+   let mobileWidth = body.clientWidth;
+   let emp = projName.querySelectorAll('.employee');
+   let dateVal2 = [], monthVal2 = [], yearVal2 = [];
+   for(let i=0; i<emp.length; i++)
+   {
+       let whiteTimeline = emp[i].querySelectorAll('.projTimeline .whiteprog-bar');
+       let task = emp[i].querySelectorAll('.taskProj .progress-bar');
+       for(let j=0; j<task.length; j++)
+       {
+            let start = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(8,2);  
+            let end = +WorkProject[projInd].employee[i].task[j].penddate.substr(8,2);
+            let startMon = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(5,2);  
+            let endMon = +WorkProject[projInd].employee[i].task[j].penddate.substr(5,2);  
+            let startYear = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(0,4);  
+            dateVal2.push(start,end);
+            monthVal2.push(startMon, endMon);
+            yearVal2.push(startMon, startYear);
+        }
+        let gapVal = [], gapInd;
+        for(let i=0; i<(dateVal2.length/2) - 1; i++)
+        {
+            if(dateVal2[i+1]<dateVal2[i+2])
+            {
+                let compVal1 = dateVal2[i+1];
+                let compVal2 = dateVal2[i+2];
+                let diff  = compVal2 - compVal1;
+                if(diff>1)
+                {
+                    gapInd = i+1;
+                    for(let k=compVal1; k<(compVal1 + diff); k++)
+                    {
+                        gapVal.push(k);
+                    }
+                    let monthInd = monthVal2[gapInd];
+                    monthInd = monthInd - 1;
+                    let monname = month[monthInd].substr(0,3);
+                    let startTime = gapVal[0] + 1;
+                    let endTimeline = gapVal[gapVal.length - 1];
+                    let daysCount = gapVal.length -2;
+                    let monthAppear = getWorkAppearYear();
+                    let appearYear = +monthAppear;
+                    let compareDate = new Date(`${appearYear}/01/01`);
+                    let gapStartYear = yearVal2[gapInd];
+                    let gapEndYear = yearVal2[gapInd+2];
+                    let date1 = new Date(`${gapStartYear}-${monthInd}-${startTime}`);
+                    let date2 = new Date(`${gapEndYear}-${monthInd}-${endTimeline}`);
+                    let startDate = Math.floor(date1.getTime()/(3600*24*1000));
+                    let endDate = Math.floor(date2.getTime()/(3600*24*1000));
+                    endTimeline = getTimeline(endTimeline, appearYear, gapEndYear);
+                    endTimeline = +endTimeline;
+                    getMonthName(monthInd, appearYear, gapStartYear);
+                    prevYear = checkWorkProjPrevYear(appearYear, gapEndYear, gapStartYear, i, whiteTimeline);
+                    let minusVal = startTime;
+                    if(date1.getTime()<=compareDate.getTime())
+                    {
+                        if(appearYear>=gapStartYear && prevYear)
+                        {
+                            if(month1===`January ${appearYear}`)
+                            {
+                                daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,gapStartYear);
+                                showWorkCollload(daysCount,endTimeline,i,whiteTimeline,mobileWidth);
+                                daysCount = endDate - startDate;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(appearYear>=gapStartYear && prevYear)
+                        {
+                            if(month1===`January ${appearYear}`)
+                            {
+                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                                daysCount = endDate-startDate;
+                            }
+                            else if(month1===`February ${appearYear}`)
+                            {
+                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                                daysCount = endDate-startDate;
+                            }
+                            else if(month1===`March ${appearYear}`)
+                            {
+                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                                daysCount = endDate-startDate;
+                            }
+                            else if(month1===`April ${appearYear}`)
+                            {
+                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                                daysCount = endDate-startDate;
+                            }
+                            else if(month1===`May ${appearYear}`)
+                            {
+                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                                daysCount = endDate-startDate;
+                            }
+                            else if(month1===`June ${appearYear}`)
+                            {
+                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                                daysCount = endDate-startDate;
+                            }
+                            else if(month1===`July ${appearYear}`)
+                            {
+                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                                daysCount = endDate-startDate;
+                            }
+                            else if(month1===`August ${appearYear}`)
+                            {
+                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                                daysCount = endDate-startDate;
+                            }
+                            else if(month1===`September ${appearYear}`)
+                            {
+                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                                daysCount = endDate-startDate;
+                            }
+                            else if(month1===`October ${appearYear}`)
+                            {
+                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                                daysCount = endDate-startDate;
+                            }
+                            else if(month1===`November ${appearYear}`)
+                            {           
+                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                                daysCount = endDate-startDate;
+                            }
+                            else if(month1===`December ${appearYear}`)
+                            {                    
+                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                                daysCount = endDate-startDate;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        combinedVal = [];
+        dateVal2 = [];
+        monthVal2 = [];
+        yearVal2 = [];
+   }
+}
+
+function findGapInd(dateVal2)
+{
+    for(let i=0; i<dateVal2.length; i++)
+    {
+        if(dateVal2[i+1]<dateVal2[i+2])
         {
             return i+1;
         }
@@ -1702,7 +1901,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
 function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,startMText,minusVal,mobileWidth)        
 {
     startTime = +startTime -1;
-    let totWidth = workTimeline[i].closest('.tablecal').querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = workTimeline[i].closest('.tablecal1').querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let dateText = `${workMonText[2].innerText} ${workYearText[2].innerText}`;
     updateValue(startMText,minusVal);
@@ -2106,8 +2305,31 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
     }
 }
 
-// Tooltip appear
+// making tooltip
+function makingEmpTooltip()
+{
+    hoverEmpName.forEach((hover)=>
+    {
+        let p = hover.innerHTML;
+        getHoverEmpName(p, hover);
+    })
+}
 
+function getHoverEmpName(p, hover)
+{
+    if(p.length>10)
+    {
+        hover.setAttribute('data-bs-toggle','tooltip');
+        hover.setAttribute('data-bs-placement','bottom');
+        hover.setAttribute('title',`${p}`);
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    }
+}
+
+// Tooltip appear
 function showDropProjTip(e)
 {
     if(e.type==="mouseover")

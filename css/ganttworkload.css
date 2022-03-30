@@ -452,7 +452,19 @@ table .thspace {
 #benefitsdrop .tableprogian .img_emp
 {
   padding: 0 0.8rem 1.5rem;
+  display:flex;
+  align-items:center; 
 }
+#benefitsdrop .tableprogian .img_emp .text_div
+{
+  width: 58px;
+  height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
 #benefitsdrop tbody td.fixedvw
 {
   border-right: none;
