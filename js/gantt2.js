@@ -20,7 +20,7 @@ let gantIndex = 0,
     card,
     milesPDiv, showDate, monthText, yearText, projNameText, ganttTimeline, hoverProject2, hoverProject3, hoverProject4, firstDesc,
     MonthLength, month1, month2, month3, month4, month5, month6, month7, month8, month9, month10, month11, month12, val1, val2, val3,
-    val4, val5, val6, val7, val8, val9, val10, val11, val12, UniMarLeft, UniRemWidth, miledataInd, mileTimeline, UniProjind, UniMileind;
+    val4, val5, val6, val7, val8, val9, val10, val11, val12, UniMarLeft, UniRemWidth, miledataInd, UniProjind, UniMileind;
 const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const quarter = ['Q1', 'Q2', 'Q3', 'Q4'];
 
@@ -62,7 +62,7 @@ const quarter = ['Q1', 'Q2', 'Q3', 'Q4'];
     hoverProject2 = selectGantt.querySelectorAll('.gantt #benefits2 .tableprogian .pname');
 
     ganttTimeline.forEach((proj, ind) => {
-        proj.addEventListener('click', () => {
+        proj.addEventListener('click', (e) => {
             UniProjind = ind;
             card = selectGantt.querySelectorAll('.tableprogian .card');
             card[ind].innerHTML = "";
@@ -87,19 +87,21 @@ const quarter = ['Q1', 'Q2', 'Q3', 'Q4'];
                 `
                 card[ind].appendChild(div);
             }
-            mileTimeline = selectGantt.querySelectorAll('.gantt #benefits2 .tableprogian .Milestone .milestonediv11');
-            hoverProject3 = selectGantt.querySelectorAll('.gantt #benefits2 .collapse .milestonediv1 .firstext');
+            let mileTimeline = e.target.closest('.first1').querySelectorAll('.Milestone .milestonediv11');
+            hoverProject3 = selectGantt.querySelectorAll('.gantt #benefits2 .milestonediv1 .firstext p');
             calMilestoneBar(UniProjind);
+            makingTooltip();
 
             mileTimeline.forEach((mile, mileind) => {
-                mile.addEventListener('click', () => {
+                mile.addEventListener('click', (e) => {            
                     UniMileind = mileind;
-                    let mileAppend = milesPDiv[UniProjind].querySelectorAll('.card .Milestone .alltask');
-                    let alrTask = mileAppend[mileind].querySelectorAll('.task');
-                    alrTask.forEach((task) => {
-                        task.remove();
-                    })
+                    let alrTask = e.target.closest('.Milestone').querySelector('.alltask');
+                    alrTask.innerHTML= "";
                     let len = taskData[UniProjind].milestone[mileind].task.length;
+                    console.log(len);
+                    if (len === null || len === 0) {
+                        return;
+                    }
                     for (let t = 0; t < len; t++) {
                         let div = document.createElement('div');
                         div.setAttribute('class', 'task');
@@ -111,11 +113,12 @@ const quarter = ['Q1', 'Q2', 'Q3', 'Q4'];
                                 <span class="taskbar_name">Task-1</span>
                             </div>
                         </div>`
-                        mileAppend[mileind].appendChild(div);
+                        alrTask.appendChild(div);
                     }
-                    hoverProject4 = selectGantt.querySelectorAll('.gantt #benefits2 .milestonediv2 .firstext');
+                    hoverProject4 = selectGantt.querySelectorAll('.gantt #benefits2 .milestonediv2 .firstext p');
                     firstDesc = selectGantt.querySelectorAll('.gantt .milestonediv2 .firstDesc');
                     calTaskBar(mileind, ind);
+                    makingTooltip();
                 })
             })
         })
@@ -506,7 +509,8 @@ function calTimelineBar() {
         let date2 = new Date(projectData[i].penddate.substr(0, 10).toString());
         let projStartInd = +projectData[i].pstartdate.substr(5, 2);
         let projStartMon = month[projStartInd].substr(0, 3);
-        let getMonthIndex = getNumericMonth(projStartMon);
+        let getMonthIndex = +getNumericMonth(projStartMon);
+        getMonthIndex = getMonthIndex - 1;
         let projStartYear = projectData[i].pstartdate.substr(0, 4);
         let compareYear = +projStartYear;
         let startDate = Math.floor(date1.getTime() / (3600 * 24 * 1000));
@@ -601,7 +605,8 @@ function calMilestoneBar(j) {
         let date2 = new Date(milestoneData[j].project[i].menddate.substr(0, 10).toString());
         let mileStartInd = +milestoneData[j].project[i].mstartdate.substr(5, 2);
         let mileStartMon = month[mileStartInd].substr(0, 3);
-        let getMonthIndex = getNumericMonth(mileStartMon);
+        let getMonthIndex = +getNumericMonth(mileStartMon);
+        getMonthIndex = getMonthIndex - 1;
         let mileStartYear = milestoneData[j].project[i].mstartdate.substr(0, 4);
         let compareYear = +mileStartYear;
         let startDate = Math.floor(date1.getTime() / (3600 * 24 * 1000));
@@ -702,7 +707,8 @@ function calTaskBar(j, k) {
         let date2 = new Date(taskData[k].milestone[j].task[i].tenddate.substr(0, 10).toString());
         let taskStartInd = +taskData[k].milestone[j].task[i].tstartdate.substr(5, 2);
         let taskStartMon = month[taskStartInd].substr(0, 3);
-        let getMonthIndex = getNumericMonth(taskStartMon);
+        let getMonthIndex = +getNumericMonth(taskStartMon);
+        getMonthIndex = getMonthIndex - 1;
         let taskStartYear = taskData[k].milestone[j].task[i].tstartdate.substr(0, 4);
         let compareYear = +taskStartYear;
         let startDate = Math.floor(date1.getTime() / (3600 * 24 * 1000));
@@ -4487,18 +4493,18 @@ function giveMilestonebG(i, j, daysCount, ganttTimeline) {
         getHoverProjName(p, hover);
     })
 }());
-(function makingTooltip() {
+function makingTooltip() {
     hoverProject3.forEach((hover) => {
         let p = hover.innerHTML;
         getHoverProjName(p, hover);
     })
-}());
-(function makingTooltip() {
+}
+function makingTooltip3() {
     hoverProject4.forEach((hover) => {
         let p = hover.innerHTML;
         getHoverProjName(p, hover);
     })
-}());
+}
 
 function getHoverProjName(p, hover) {
     if (p.length > 17) {
@@ -4576,7 +4582,13 @@ milesPDiv.forEach((parent, ind) => {
                 let p3 = tip.querySelector('p:nth-child(4)');
                 let p4 = tip.querySelector('p:nth-child(5)');
                 let p5 = tip.querySelector('p:nth-child(6)');
-                h4.innerText = `${milestoneData[ind].project[miledataInd].milestonename} ${milestoneData[ind].project[miledataInd].startExactDay}`;
+                let startDate = milestoneData[ind].project[miledataInd].mstartdate.substr(8, 2);
+                let startMonName = milestoneData[ind].project[miledataInd].planned.substr(0, 3);
+                let startYear = milestoneData[ind].project[miledataInd].mstartdate.substr(0, 4);
+                let endDate = milestoneData[ind].project[miledataInd].menddate.substr(8, 2);
+                let endMonName = milestoneData[ind].project[miledataInd].planned.substr(9, 3);
+                let endYear = milestoneData[ind].project[miledataInd].menddate.substr(0, 4);
+                h4.innerText = `Wireframe: ${startDate} ${startMonName} ${startYear} to ${endDate} ${endMonName} ${endYear}`;
                 p1.innerText = `Duration: ${milestoneData[ind].project[miledataInd].duration}`;
                 p2.innerText = `Percentage Done: ${milestoneData[ind].project[miledataInd].percentage}`;
                 p3.innerText = `Status: ${milestoneData[ind].project[miledataInd].statustext}`;
@@ -4605,7 +4617,13 @@ milesPDiv.forEach((parent, ind) => {
                         let p1 = tip.querySelector('p:nth-child(2)');
                         let p2 = tip.querySelector('p:nth-child(3)');
                         let p3 = tip.querySelector('p:nth-child(4)');
-                        h4.innerText = `${taskData[ind].milestone[miledataInd].task[taskDataInd].taskname} ${taskData[ind].milestone[miledataInd].task[taskDataInd].startExactDay}`;
+                        let startDate = taskData[ind].milestone[miledataInd].task[taskDataInd].tstartdate.substr(8, 2);
+                        let startMonName = taskData[ind].milestone[miledataInd].task[taskDataInd].planned.substr(0, 3);
+                        let startYear = taskData[ind].milestone[miledataInd].task[taskDataInd].tstartdate.substr(0, 4);
+                        let endDate = taskData[ind].milestone[miledataInd].task[taskDataInd].tenddate.substr(8, 2);
+                        let endMonName = taskData[ind].milestone[miledataInd].task[taskDataInd].planned.substr(9, 3);
+                        let endYear = taskData[ind].milestone[miledataInd].task[taskDataInd].tenddate.substr(0, 4);
+                        h4.innerText = `Wireframe: ${startDate} ${startMonName} ${startYear} to ${endDate} ${endMonName} ${endYear}`;
                         p1.innerText = `Duration: ${taskData[ind].milestone[miledataInd].task[taskDataInd].duration}`;
                         p2.innerText = `Percentage Done: ${taskData[ind].milestone[miledataInd].task[taskDataInd].percentage}`;
                         p3.innerText = `Status: ${taskData[ind].milestone[miledataInd].task[taskDataInd].statustext}`;
