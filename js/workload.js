@@ -1,3 +1,4 @@
+
 const workShowTable = document.querySelectorAll('.workload table tr:nth-child(2)');
 const workload = document.querySelector('.workload');
 const workTable1 = workload.querySelector('#tablehide');
@@ -212,8 +213,9 @@ function calWorkProjBar(j)
     {
         let date1 = new Date(WorkProject[j].employee[i].pstartdate.substr(0,10).toString());
         let date2 = new Date(WorkProject[j].employee[i].penddate.substr(0,10).toString());
-        let projStartMonth = WorkProject[j].employee[i].startExactDay.substr(3,3).toString();
-        let getMonthIndex = getNumericMonth(projStartMonth);
+        let projStartInd = +WorkProject[j].employee[i].pstartdate.substr(5, 2);
+        let projStartMon = month[--projStartInd].substr(0, 3);
+        let getMonthIndex = getNumericMonth(projStartMon);
         let startYear = WorkProject[j].employee[i].pstartdate.substr(0,4);
         compareYear = +startYear;
         let startDate = Math.floor(date1.getTime()/(3600*24*1000));
@@ -230,8 +232,8 @@ function calWorkProjBar(j)
         getMonthName(getMonthIndex, appearYear, projStartYear);
         prevYear = checkWorkPrevYear(appearYear, projEndYear, projStartYear, i, projTimeline);
         let projStartDate = WorkProject[j].employee[i].pstartdate.substr(8,2);
-        let startMText = WorkProject[j].employee[i].startExactDay.substr(3,4);
-        let minusVal = WorkProject[j].employee[i].startExactDay.substr(0,2);
+        let startMText = projStartMon;
+        let minusVal = +projStartDate;
         if(date1.getTime()<=compareDate.getTime())
         {
             if(appearYear>=compareYear && prevYear)
@@ -338,8 +340,9 @@ function calWorkTaskjProjBar(k)
         {
             let date1 = new Date(WorkProject[k].employee[j].task[i].pstartdate.substr(0,10).toString());
             let date2 = new Date(WorkProject[k].employee[j].task[i].penddate.substr(0,10).toString());
-            let projStartDate = WorkProject[k].employee[j].task[i].startExactDay.substr(3,3).toString();
-            let getMonthIndex = getNumericMonth(projStartDate);
+            let projStartInd = WorkProject[k].employee[j].task[i].pstartdate.substr(5, 2);
+            let projStartMon = month[--projStartInd].substr(0, 3);
+            let getMonthIndex = getNumericMonth(projStartMon);
             let startYear = WorkProject[k].employee[j].task[i].pstartdate.substr(0,4);
             compareYear = +startYear;
             let startDate = Math.floor(date1.getTime()/(3600*24*1000));
@@ -356,8 +359,8 @@ function calWorkTaskjProjBar(k)
             getMonthName(getMonthIndex, appearYear, mileStartYear);
             prevYear = checkWorkPrevYear(appearYear, mileEndYear, mileStartYear, i, projTask);
             let mileStartDate = WorkProject[k].employee[j].task[i].pstartdate.substr(8,2);
-            let startMText = WorkProject[k].employee[j].task[i].startExactDay.substr(3,4);
-            let minusVal = WorkProject[k].employee[j].task[i].startExactDay.substr(0,2);
+            let startMText = projStartMon;
+            let minusVal = +mileStartDate;
 
             if(date1.getTime()<=compareDate.getTime())
             {
@@ -1225,7 +1228,7 @@ function checkWorkTargetDate2(date2,i,daysCount,year2,year1)
 function remainWorkDaysCount(endTimeline,workTimeline,mobileWidth,i)
 {        
     workTimeline[i].closest('.progress').style.display="block";
-    workTimeline[i].style.cssText=`margin-left:10.21vw; width:${endTimeline * 2.5}vw; height:10px`;
+    workTimeline[i].style.cssText=`margin-left:10.21vw; width:${endTimeline * 2.5}vw; height:10px; display: block;`;
     if(mobileWidth<700)
     {
         showinMobile3(i,endTimeline,workTimeline);
@@ -1281,22 +1284,20 @@ function checkCollidePart()
    {
        let redTimeline = emp[i].querySelectorAll('.projTimeline .redprog-bar');
        let task = emp[i].querySelectorAll('.taskProj .progress-bar');
-       let listDate=[];
+       let listDate=[], listOfDate;
        for(let j=0; j<task.length; j++)
        {
-            let start = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(8,2);  
-            let end = +WorkProject[projInd].employee[i].task[j].penddate.substr(8,2);
             let fulldate1 = WorkProject[projInd].employee[i].task[j].pstartdate.substr(0,10);
             let fulldate2 = WorkProject[projInd].employee[i].task[j].penddate.substr(0,10);
             let startMon = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(5,2);  
             let endMon = +WorkProject[projInd].employee[i].task[j].penddate.substr(5,2);  
             let startYear = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(0,4);
-            const listOfDate = rangeDate(`${fulldate1}`,`${fulldate2}`, listDate);
+            listOfDate = rangeDate(`${fulldate1}`,`${fulldate2}`, listDate);
             // for(let k=start; k<=end; k++)
             // {
             //     combinedVal.push(k);
             // }
-            dateVal.push(fulldate1,fulldate2);
+            dateVal.push(new Date(fulldate1), new Date(fulldate2));
             monthVal.push(startMon, endMon);
             yearVal.push(startMon, startYear);
         }
@@ -1305,12 +1306,12 @@ function checkCollidePart()
         if(dupElement.length>0)
         {
             let collInd = findCollInd(dateVal);
-            let monthInd = monthVal[collInd];
+            let monthInd = monthVal[collInd - 1];
             monthInd = monthInd - 1;
             let monname = month[monthInd].substr(0,3);
             let startTime = +dupElement[0].substr(8,2);
             let endTimeline = +dupElement[dupElement.length - 1].substr(8,2);
-            let daysCount = dupElement.length -1;
+            let daysCount = +dupElement.length;
             let monthAppear = getWorkAppearYear();
             let appearYear = +monthAppear;
             let compareDate = new Date(`${appearYear}/01/01`);
@@ -1451,11 +1452,21 @@ function toFindDupElement(array)
 
 function findCollInd(dateVal)
 {
-    for(let i=0; i<dateVal.length; i++)
+    for(let i=0; i<Math.ceil((dateVal.length/2)+1); i++)
     {
-        if(dateVal[i+1]>=dateVal[i+2])
+        if(i == 0)
         {
-            return i+1;
+            if(dateVal[i+1].getTime()>=dateVal[i+2].getTime())
+            {
+                return i+1;
+            }
+        }
+        else
+        {
+            if(dateVal[i+2].getTime()>=dateVal[i+3].getTime())
+            {
+                return i+2;
+            }
         }
     }
 }
@@ -1471,17 +1482,18 @@ function checkGapPart()
        let task = emp[i].querySelectorAll('.taskProj .progress-bar');
        for(let j=0; j<task.length; j++)
        {
-            let start = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(8,2);  
-            let end = +WorkProject[projInd].employee[i].task[j].penddate.substr(8,2);
+            
+            let fulldate1 = WorkProject[projInd].employee[i].task[j].pstartdate.substr(0,10);
+            let fulldate2 = WorkProject[projInd].employee[i].task[j].penddate.substr(0,10);
             let startMon = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(5,2);  
             let endMon = +WorkProject[projInd].employee[i].task[j].penddate.substr(5,2);  
             let startYear = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(0,4);  
-            dateVal2.push(start,end);
+            dateVal2.push(new Date(fulldate1), new Date(fulldate2));
             monthVal2.push(startMon, endMon);
             yearVal2.push(startMon, startYear);
         }
         let gapVal = [], gapInd;
-        for(let i=0; i<(dateVal2.length/2) - 1; i++)
+        for(let i=0; i<Math.ceil(dateVal2.length/2); i++)
         {
             if(dateVal2[i+1]<dateVal2[i+2])
             {
@@ -1637,7 +1649,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
         {
             if(dateText===month1)
             {
-                let ganttWidth = (daysCount +1) * 2.5;
+                let ganttWidth = daysCount * 2.5;
                 workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth<700)
                     {
@@ -1912,7 +1924,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             if(dateText===month1)
             {
                 let marLeft = (startTime*2.5)+10.21;
-                let ganttWidth = (daysCount +1) *2.5;
+                let ganttWidth = daysCount *2.5;
                 workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px`;
                     if(mobileWidth<700)
                     {
@@ -1940,8 +1952,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                     }
             }
             else if(dateText===month2)
-            {                
-                workTimeline[i].style.cssText=`display:block; margin-left:10.21vw`;
+            {          
                 remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
             }
             else

@@ -16,6 +16,7 @@ optionsList.forEach(o => {
   o.addEventListener("click", (e) => {
     e.target.closest('.select-box').querySelector('.selected').innerText= o.querySelector("label").innerText;
     e.target.closest('.options-container').classList.remove('active');
+    downOverlay.classList.remove('active');
   });
 });
 searchBox.forEach((searchBox,ind)=>
