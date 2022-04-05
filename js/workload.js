@@ -5,13 +5,15 @@ const workTable1 = workload.querySelector('#tablehide');
 const workTable2 = workload.querySelector('#benefits');
 const workTable3 = workload.querySelector('#benefitsdrop');
 const workTab3Append = workload.querySelector('#benefitsdrop .tableprogian');
+const workTab2tr = workload.querySelector('#benefits table tbody');
 const workTab3tr = workload.querySelector('#benefitsdrop table tbody');
-const workProjOpt = workload.querySelectorAll('.select-box .options-container .option');
+const workProjOpt = workload.querySelectorAll('.project .select-box .options-container .option');
+const workResOpt = workload.querySelectorAll('.resource .popsearch .d-flex');
 const prevWork = document.querySelector('.workload .slide_bottom .img1');
 const nextWork = document.querySelector('.workload .slide_bottom .img2');
 let workYear = 2021, workMonNum = 1, workMonNum2 = 0, workMonCount = 0, fixedHeight = 30, combinedVal = [], dateVal = [],
 monthVal = [], yearVal = [];
-let workMonText, workYearText, projName, taskList, dropProjTip, dropTaskTip, hoverEmpName;
+let workMonText, workYearText, projName, taskList, dropProjTip, dropTaskTip, hoverEmpName, projInd, projInd2;
 
 function getWorkMonLength()
 {
@@ -117,10 +119,79 @@ workProjOpt.forEach((proj, ind) => {
     })
 });
 
+workResOpt.forEach((proj, ind) => {
+    proj.addEventListener('click',(e)=>
+    {
+       projInd2 = ind;
+       let tbody = e.target.closest('.workload').querySelector('#benefits table tbody');
+       if(tbody.children.length>2)
+       {
+          let vtr = tbody.querySelectorAll('.virtualtr');
+          vtr.forEach((vtr)=>
+          {
+              vtr.remove();
+          })
+       }
+       workTable1.style.display="none";
+       workTable2.style.display="block";
+       workTable3.style.display="none";
+       let text = e.target.closest('.d-flex').querySelector('.res-text').innerText;
+       createWorkRes(text,ind);
+    })
+});
+
+function createWorkRes(text,i)
+{
+    for(let j=0; j<WorkResource[i].name.length + 1; j++)
+    {
+        let tr = document.createElement('tr');
+        j === WorkResource[i].name.length ? tr.setAttribute('class',`borderdot virtualtr`) : tr.setAttribute('class',`virtualtr`);       
+        tr.innerHTML=`
+                    <td class="text-center dot">
+                    ${j === 0 ? `<div><img src="img/client1.jpg" alt=""> <p>${WorkResource[i].employeename}</p> </div>` : 
+                                `<div></div><span>${WorkResource[i].name[j].projectname}</span>`  }
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+        `;
+        workTab2tr.append(tr);
+    }
+}
+
 function createWorkProj(i)
 {
-    let proj = document.createElement('div');
-    proj.setAttribute('class',`projectname`);
+    let resource = document.createElement('div');
+    resource.setAttribute('class',`projectname`);
     for(let j=0; j<WorkProject[i].employee.length; j++)
     {
         let employee = document.createElement('div');
@@ -138,7 +209,7 @@ function createWorkProj(i)
                 <div class="img_emp"><img src="img/client1.jpg" class="mr-2" alt=""><div class="text_div">${WorkProject[i].employee[j].employeename}</div></div>
                 <div class="border-bottom"> 
         `
-        proj.appendChild(employee);
+        resource.appendChild(employee);
     }
     workTab3Append.insertBefore(proj, workTab3Append.children[i]);
     for(let j=0; j<WorkProject[i].employee.length + 1; j++)
@@ -1235,6 +1306,16 @@ function remainWorkDaysCount(endTimeline,workTimeline,mobileWidth,i)
     }  
 }
 
+function remainWorkDaysCount2(endTimeline,workTimeline,mobileWidth)
+{        
+    workTimeline.closest('.progress').style.display="block";
+    workTimeline.style.cssText=`margin-left:10.21vw; width:${endTimeline * 2.5}vw; height:10px; display: block;`;
+    if(mobileWidth<700)
+    {
+        showinMobile3(i,endTimeline,workTimeline);
+    }  
+}
+
 function adjustHeight(employee,j,i)
 {
     let imgdiv = employee[j].querySelector('.img_emp');
@@ -1282,7 +1363,7 @@ function checkCollidePart()
    let emp = projName.querySelectorAll('.employee');
    for(let i=0; i<emp.length; i++)
    {
-       let redTimeline = emp[i].querySelectorAll('.projTimeline .redprog-bar');
+       let redTimeline = emp[i].querySelector('.projTimeline .redprog-bar');
        let task = emp[i].querySelectorAll('.taskProj .progress-bar');
        let listDate=[], listOfDate;
        for(let j=0; j<task.length; j++)
@@ -1333,7 +1414,7 @@ function checkCollidePart()
                     if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,collStartYear);
-                        showWorkCollload(daysCount,endTimeline,i,redTimeline,mobileWidth);
+                        showWorkCollload(daysCount,endTimeline,redTimeline,mobileWidth);
                         daysCount = endDate - startDate;
                     }
                 }
@@ -1345,73 +1426,73 @@ function checkCollidePart()
                     if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkCollload(daysCount,endTimeline,i,redTimeline,startTime,monname,minusVal,mobileWidth);
+                        showAlterWorkCollload(daysCount,endTimeline,redTimeline,startTime,monname,minusVal,mobileWidth);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`February ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkCollload(daysCount,endTimeline,i,redTimeline,startTime,monname,minusVal,mobileWidth);
+                        showAlterWorkCollload(daysCount,endTimeline,redTimeline,startTime,monname,minusVal,mobileWidth);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`March ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkCollload(daysCount,endTimeline,i,redTimeline,startTime,monname,minusVal,mobileWidth);
+                        showAlterWorkCollload(daysCount,endTimeline,redTimeline,startTime,monname,minusVal,mobileWidth);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`April ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkCollload(daysCount,endTimeline,i,redTimeline,startTime,monname,minusVal,mobileWidth);
+                        showAlterWorkCollload(daysCount,endTimeline,redTimeline,startTime,monname,minusVal,mobileWidth);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`May ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkCollload(daysCount,endTimeline,i,redTimeline,startTime,monname,minusVal,mobileWidth);
+                        showAlterWorkCollload(daysCount,endTimeline,redTimeline,startTime,monname,minusVal,mobileWidth);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`June ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkCollload(daysCount,endTimeline,i,redTimeline,startTime,monname,minusVal,mobileWidth);
+                        showAlterWorkCollload(daysCount,endTimeline,redTimeline,startTime,monname,minusVal,mobileWidth);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`July ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkCollload(daysCount,endTimeline,i,redTimeline,startTime,monname,minusVal,mobileWidth);
+                        showAlterWorkCollload(daysCount,endTimeline,redTimeline,startTime,monname,minusVal,mobileWidth);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`August ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkCollload(daysCount,endTimeline,i,redTimeline,startTime,monname,minusVal,mobileWidth);
+                        showAlterWorkCollload(daysCount,endTimeline,redTimeline,startTime,monname,minusVal,mobileWidth);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`September ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkCollload(daysCount,endTimeline,i,redTimeline,startTime,monname,minusVal,mobileWidth);
+                        showAlterWorkCollload(daysCount,endTimeline,redTimeline,startTime,monname,minusVal,mobileWidth);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`October ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkCollload(daysCount,endTimeline,i,redTimeline,startTime,monname,minusVal,mobileWidth);
+                        showAlterWorkCollload(daysCount,endTimeline,redTimeline,startTime,monname,minusVal,mobileWidth);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`November ${appearYear}`)
                     {           
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkCollload(daysCount,endTimeline,i,redTimeline,startTime,monname,minusVal,mobileWidth);
+                        showAlterWorkCollload(daysCount,endTimeline,redTimeline,startTime,monname,minusVal,mobileWidth);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`December ${appearYear}`)
                     {                    
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkCollload(daysCount,endTimeline,i,redTimeline,startTime,monname,minusVal,mobileWidth);
+                        showAlterWorkCollload(daysCount,endTimeline,redTimeline,startTime,monname,minusVal,mobileWidth);
                         daysCount = endDate-startDate;
                     }
                 }
@@ -1452,7 +1533,7 @@ function toFindDupElement(array)
 
 function findCollInd(dateVal)
 {
-    for(let i=0; i<Math.ceil((dateVal.length/2)+1); i++)
+    for(let i=0; i<Math.ceil((dateVal.length/2)-1); i++)
     {
         if(i == 0)
         {
@@ -1475,14 +1556,13 @@ function checkGapPart()
 {
    let mobileWidth = body.clientWidth;
    let emp = projName.querySelectorAll('.employee');
-   let dateVal2 = [], monthVal2 = [], yearVal2 = [];
+   let dateVal2 = [], monthVal2 = [], yearVal2 = [], listDate = [], gapVal;
    for(let i=0; i<emp.length; i++)
    {
-       let whiteTimeline = emp[i].querySelectorAll('.projTimeline .whiteprog-bar');
+       let whiteTimeline = emp[i].querySelector('.projTimeline .whiteprog-bar');
        let task = emp[i].querySelectorAll('.taskProj .progress-bar');
        for(let j=0; j<task.length; j++)
        {
-            
             let fulldate1 = WorkProject[projInd].employee[i].task[j].pstartdate.substr(0,10);
             let fulldate2 = WorkProject[projInd].employee[i].task[j].penddate.substr(0,10);
             let startMon = +WorkProject[projInd].employee[i].task[j].pstartdate.substr(5,2);  
@@ -1492,135 +1572,125 @@ function checkGapPart()
             monthVal2.push(startMon, endMon);
             yearVal2.push(startMon, startYear);
         }
-        let gapVal = [], gapInd;
-        for(let i=0; i<Math.ceil(dateVal2.length/2); i++)
+        let ind =  findGapInd(dateVal2);
+        let compVal1 = dateVal2[ind];
+        let compVal2 = dateVal2[ind+1];
+        let diff  = Math.floor(compVal2.getTime()/(3600*24*1000)) - Math.floor(compVal1.getTime()/(3600*24*1000));
+        if(diff>1)
         {
-            if(dateVal2[i+1]<dateVal2[i+2])
+            gapVal = rangeDate(`${compVal1}`,`${compVal2}`, listDate);
+            let monthInd = monthVal2[ind];
+            monthInd = monthInd - 1;
+            let monname = month[monthInd].substr(0,3);
+            let startTime = +gapVal[0].substr(8,2) + 1;
+            let endTimeline = +gapVal[gapVal.length - 1].substr(8,2);
+            let daysCount = +gapVal.length -2;
+            let monthAppear = getWorkAppearYear();
+            let appearYear = +monthAppear;
+            let compareDate = new Date(`${appearYear}/01/01`);
+            let gapStartYear = yearVal2[ind];
+            let gapEndYear = yearVal2[ind+2];
+            let date1 = new Date(`${gapStartYear}-${monthInd}-${startTime}`);
+            let date2 = new Date(`${gapEndYear}-${monthInd}-${endTimeline}`);
+            let startDate = Math.floor(date1.getTime()/(3600*24*1000));
+            let endDate = Math.floor(date2.getTime()/(3600*24*1000));
+            endTimeline = getTimeline(endTimeline, appearYear, gapEndYear);
+            endTimeline = +endTimeline;
+            getMonthName(monthInd, appearYear, gapStartYear);
+            prevYear = checkWorkProjPrevYear(appearYear, gapEndYear, gapStartYear, i, whiteTimeline);
+            let minusVal = startTime;
+            if(date1.getTime()<=compareDate.getTime())
             {
-                let compVal1 = dateVal2[i+1];
-                let compVal2 = dateVal2[i+2];
-                let diff  = compVal2 - compVal1;
-                if(diff>1)
+                if(appearYear>=gapStartYear && prevYear)
                 {
-                    gapInd = i+1;
-                    for(let k=compVal1; k<(compVal1 + diff); k++)
+                    if(month1===`January ${appearYear}`)
                     {
-                        gapVal.push(k);
+                        daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,gapStartYear);
+                        showWorkCollload(daysCount,endTimeline,whiteTimeline,mobileWidth);
+                        daysCount = endDate - startDate;
                     }
-                    let monthInd = monthVal2[gapInd];
-                    monthInd = monthInd - 1;
-                    let monname = month[monthInd].substr(0,3);
-                    let startTime = gapVal[0] + 1;
-                    let endTimeline = gapVal[gapVal.length - 1];
-                    let daysCount = gapVal.length -2;
-                    let monthAppear = getWorkAppearYear();
-                    let appearYear = +monthAppear;
-                    let compareDate = new Date(`${appearYear}/01/01`);
-                    let gapStartYear = yearVal2[gapInd];
-                    let gapEndYear = yearVal2[gapInd+2];
-                    let date1 = new Date(`${gapStartYear}-${monthInd}-${startTime}`);
-                    let date2 = new Date(`${gapEndYear}-${monthInd}-${endTimeline}`);
-                    let startDate = Math.floor(date1.getTime()/(3600*24*1000));
-                    let endDate = Math.floor(date2.getTime()/(3600*24*1000));
-                    endTimeline = getTimeline(endTimeline, appearYear, gapEndYear);
-                    endTimeline = +endTimeline;
-                    getMonthName(monthInd, appearYear, gapStartYear);
-                    prevYear = checkWorkProjPrevYear(appearYear, gapEndYear, gapStartYear, i, whiteTimeline);
-                    let minusVal = startTime;
-                    if(date1.getTime()<=compareDate.getTime())
+                }
+            }
+            else
+            {
+                if(appearYear>=gapStartYear && prevYear)
+                {
+                    if(month1===`January ${appearYear}`)
                     {
-                        if(appearYear>=gapStartYear && prevYear)
-                        {
-                            if(month1===`January ${appearYear}`)
-                            {
-                                daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,gapStartYear);
-                                showWorkCollload(daysCount,endTimeline,i,whiteTimeline,mobileWidth);
-                                daysCount = endDate - startDate;
-                            }
-                        }
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkCollload(daysCount,endTimeline,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                        daysCount = endDate-startDate;
                     }
-                    else
+                    else if(month1===`February ${appearYear}`)
                     {
-                        if(appearYear>=gapStartYear && prevYear)
-                        {
-                            if(month1===`January ${appearYear}`)
-                            {
-                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
-                                daysCount = endDate-startDate;
-                            }
-                            else if(month1===`February ${appearYear}`)
-                            {
-                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
-                                daysCount = endDate-startDate;
-                            }
-                            else if(month1===`March ${appearYear}`)
-                            {
-                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
-                                daysCount = endDate-startDate;
-                            }
-                            else if(month1===`April ${appearYear}`)
-                            {
-                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
-                                daysCount = endDate-startDate;
-                            }
-                            else if(month1===`May ${appearYear}`)
-                            {
-                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
-                                daysCount = endDate-startDate;
-                            }
-                            else if(month1===`June ${appearYear}`)
-                            {
-                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
-                                daysCount = endDate-startDate;
-                            }
-                            else if(month1===`July ${appearYear}`)
-                            {
-                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
-                                daysCount = endDate-startDate;
-                            }
-                            else if(month1===`August ${appearYear}`)
-                            {
-                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
-                                daysCount = endDate-startDate;
-                            }
-                            else if(month1===`September ${appearYear}`)
-                            {
-                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
-                                daysCount = endDate-startDate;
-                            }
-                            else if(month1===`October ${appearYear}`)
-                            {
-                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
-                                daysCount = endDate-startDate;
-                            }
-                            else if(month1===`November ${appearYear}`)
-                            {           
-                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
-                                daysCount = endDate-startDate;
-                            }
-                            else if(month1===`December ${appearYear}`)
-                            {                    
-                                daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                                showAlterWorkCollload(daysCount,endTimeline,i,whiteTimeline,startTime,monname,minusVal,mobileWidth);
-                                daysCount = endDate-startDate;
-                            }
-                        }
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkCollload(daysCount,endTimeline,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`March ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkCollload(daysCount,endTimeline,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`April ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkCollload(daysCount,endTimeline,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`May ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkCollload(daysCount,endTimeline,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`June ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkCollload(daysCount,endTimeline,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`July ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkCollload(daysCount,endTimeline,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`August ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkCollload(daysCount,endTimeline,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`September ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkCollload(daysCount,endTimeline,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`October ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkCollload(daysCount,endTimeline,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`November ${appearYear}`)
+                    {           
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkCollload(daysCount,endTimeline,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`December ${appearYear}`)
+                    {                    
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkCollload(daysCount,endTimeline,whiteTimeline,startTime,monname,minusVal,mobileWidth);
+                        daysCount = endDate-startDate;
                     }
                 }
             }
         }
-        combinedVal = [];
+        listDate = [];
         dateVal2 = [];
         monthVal2 = [];
         yearVal2 = [];
@@ -1629,18 +1699,28 @@ function checkGapPart()
 
 function findGapInd(dateVal2)
 {
-    for(let i=0; i<dateVal2.length; i++)
+    for(let i=0; i<Math.ceil((dateVal2.length/2) -1); i++)
     {
-        if(dateVal2[i+1]<dateVal2[i+2])
+        if(i == 0)
         {
-            return i+1;
+            if(dateVal2[i+1].getTime()<dateVal2[i+2].getTime())
+            {
+                return i+1;
+            }
+        }
+        else
+        {
+            if(dateVal2[i+2].getTime()<dateVal2[i+3].getTime())
+            {
+                return i+2;
+            }
         }
     }
 }
 
-function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
+function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
 {
-    let totWidth = workTimeline[i].closest('table').querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = workTimeline.closest('table').querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let dateText = `${workMonText[2].innerText} ${workYearText[2].innerText}`;
     
@@ -1650,7 +1730,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             if(dateText===month1)
             {
                 let ganttWidth = daysCount * 2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth<700)
                     {
                         showinMobile1(i,daysCount,workTimeline);
@@ -1658,7 +1738,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;
         }      
@@ -1667,7 +1747,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             if(dateText===month1)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -1675,11 +1755,11 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month2)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i); 
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth); 
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -1688,7 +1768,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             if(dateText===month1 || dateText===month2)
             {
                 let ganttWidth = totWidth *2.5; 
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -1696,11 +1776,11 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month3)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -1709,7 +1789,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             if(dateText===month1 || dateText===month2 || dateText===month3)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -1717,11 +1797,11 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month4)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -1731,7 +1811,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
                 || dateText===month4)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -1739,11 +1819,11 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month5)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -1753,7 +1833,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
                 || dateText===month4 || dateText===month5)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -1761,11 +1841,11 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month6)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -1775,7 +1855,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
                 || dateText===month4 || dateText===month5 || dateText===month6)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -1783,11 +1863,11 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month7)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
             }
             else 
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -1798,7 +1878,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
                 || dateText===month7)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -1806,11 +1886,11 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month8)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
             }
             else 
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -1821,7 +1901,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
                 || dateText===month7 || dateText===month8)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -1829,11 +1909,11 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month9)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
             }
             else 
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -1844,7 +1924,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
                 || dateText===month7 || dateText===month8 || dateText===month9)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -1852,11 +1932,11 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month10)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
             }
             else 
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -1868,7 +1948,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
                 || dateText===month10)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -1876,11 +1956,11 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month11)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
             }
             else 
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -1892,7 +1972,7 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
                 || dateText===month10 || dateText===month11)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -1900,20 +1980,20 @@ function showWorkCollload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month12)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
             }
             else 
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }    
     }               
 }
-function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,startMText,minusVal,mobileWidth)        
+function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,startMText,minusVal,mobileWidth)        
 {
     startTime = +startTime -1;
-    let totWidth = workTimeline[i].closest('.tablecal1').querySelectorAll('tr:nth-child(2) th.dateVirtual');
+    let totWidth = workTimeline.closest('.tablecal1').querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let dateText = `${workMonText[2].innerText} ${workYearText[2].innerText}`;
     updateValue(startMText,minusVal);
@@ -1925,7 +2005,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             {
                 let marLeft = (startTime*2.5)+10.21;
                 let ganttWidth = daysCount *2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px`;
                     if(mobileWidth<700)
                     {
                         showinMobile2(i,startTime,daysCount,workTimeline);               
@@ -1933,7 +2013,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             }        
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;
         }
@@ -1944,7 +2024,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 let localdaysCount=totWidth - startTime;
                 let marLeft = (startTime*2.5)+10.21;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px`;
                 
                     if(mobileWidth<700)
                     {
@@ -1953,11 +2033,11 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             }
             else if(dateText===month2)
             {          
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -1968,7 +2048,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 let localdaysCount=totWidth - startTime;
                 let marLeft = (startTime*2.5)+10.21;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1978,7 +2058,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             else if(dateText===month2)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1987,11 +2067,11 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             }
             else if(dateText===month3)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -2002,7 +2082,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 let localdaysCount=totWidth - startTime;
                 let marLeft = (startTime*2.5)+10.21;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2012,7 +2092,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             else if(dateText===month2 || dateText===month3)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2021,11 +2101,11 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             }
             else if(dateText===month4)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -2036,7 +2116,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 let localdaysCount=totWidth - startTime;
                 let marLeft = (startTime*2.5)+10.21;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2046,7 +2126,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             else if(dateText===month2 || dateText===month3 || dateText===month4)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2055,11 +2135,11 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             }
             else if(dateText===month5)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -2070,7 +2150,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 let localdaysCount=totWidth - startTime;
                 let marLeft = (startTime*2.5)+10.21;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2081,7 +2161,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 || dateText===month5)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2090,11 +2170,11 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             }
             else if(dateText===month6)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -2105,7 +2185,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 let localdaysCount=totWidth - startTime;
                 let marLeft = (startTime*2.5)+10.21;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2116,7 +2196,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 || dateText===month5 || dateText===month6)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2125,11 +2205,11 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             }
             else if(dateText===month7)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -2140,7 +2220,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 let localdaysCount=totWidth - startTime;
                 let marLeft = (startTime*2.5)+10.21;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2151,7 +2231,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 || dateText===month5 || dateText===month6 || dateText===month7)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2160,11 +2240,11 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             }
             else if(dateText===month8)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -2175,7 +2255,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 let localdaysCount=totWidth - startTime;
                 let marLeft = (startTime*2.5)+10.21;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2187,7 +2267,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 || dateText===month8)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2196,11 +2276,11 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             }
             else if(dateText===month9)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -2211,7 +2291,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 let localdaysCount=totWidth - startTime;
                 let marLeft = (startTime*2.5)+10.21;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2223,7 +2303,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 || dateText===month8 || dateText===month9)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2232,11 +2312,11 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             }
             else if(dateText===month10)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -2247,7 +2327,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 let localdaysCount=totWidth - startTime;
                 let marLeft = (startTime*2.5)+10.21;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2259,7 +2339,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 || dateText===month8 || dateText===month9 || dateText===month10)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2268,11 +2348,11 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             }
             else if(dateText===month11)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }
@@ -2283,7 +2363,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 let localdaysCount=totWidth - startTime;
                 let marLeft = (startTime*2.5)+10.21;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2296,7 +2376,7 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
                 || dateText===month11)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2305,11 +2385,11 @@ function showAlterWorkCollload(daysCount,endTimeline,i,workTimeline,startTime,st
             }
             else if(dateText===month12)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
             }
             else
             {
-                workTimeline[i].style.display="none";
+                workTimeline.style.display="none";
             }
             break;  
         }    

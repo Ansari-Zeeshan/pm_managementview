@@ -211,14 +211,13 @@ table .thspace {
 
 .tablepro2 {
   position: absolute;
-  top: 250px;
-
+  top: 248px;
   left: 60%;
 }
 
 .tablepro1 {
   position: absolute;
-  top: 200px;
+  top: 169px;
   display: flex;
   left: 28%;
 }
@@ -361,8 +360,7 @@ table .thspace {
   background: red;
   position: absolute;
   top: 10px;
-  display: block;
-  z-index: 44;
+  z-index: 4;
   margin-left: 30rem;
   height: 10px;
   display: none;
@@ -414,10 +412,15 @@ table .thspace {
   height: 12px;
   float: left;
   margin-top: 3px;
-  display: inline-block;
+  display:flex;
+  align-items:center;
   margin-right: 10px;
 }
-
+.dot div img,
+.dot1 div img
+{
+   margin-right: 8px;
+}
 .borderbot {
   border-bottom: 1px solid #0000000D;
 }
@@ -430,6 +433,12 @@ table .thspace {
   color: #000000;
   border-right: 1px solid #0000000D;
 
+}
+.tablecal table tr td.dot {
+  border-right: none;
+  padding: 0.6rem 0.5rem;
+  display: flex;
+  padding-left: 13px;
 }
 #benefitsdrop .tableprogian
 {
