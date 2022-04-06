@@ -4,6 +4,7 @@ const workload = document.querySelector('.workload');
 const workTable1 = workload.querySelector('#tablehide');
 const workTable2 = workload.querySelector('#benefits');
 const workTable3 = workload.querySelector('#benefitsdrop');
+const workTab2Append = workload.querySelector('#benefits .tableprogian');
 const workTab3Append = workload.querySelector('#benefitsdrop .tableprogian');
 const workTab2tr = workload.querySelector('#benefits table tbody');
 const workTab3tr = workload.querySelector('#benefitsdrop table tbody');
@@ -13,7 +14,7 @@ const prevWork = document.querySelector('.workload .slide_bottom .img1');
 const nextWork = document.querySelector('.workload .slide_bottom .img2');
 let workYear = 2021, workMonNum = 1, workMonNum2 = 0, workMonCount = 0, fixedHeight = 30, combinedVal = [], dateVal = [],
 monthVal = [], yearVal = [];
-let workMonText, workYearText, projName, taskList, dropProjTip, dropTaskTip, hoverEmpName, projInd, projInd2;
+let workMonText, workYearText, projName, dropProjTip, dropTaskTip, hoverEmpName, projInd, projInd2, resName;
 
 function getWorkMonLength()
 {
@@ -124,6 +125,7 @@ workResOpt.forEach((proj, ind) => {
     {
        projInd2 = ind;
        let tbody = e.target.closest('.workload').querySelector('#benefits table tbody');
+       let empname = e.target.closest('.workload').querySelector('#benefits table tbody div>img + p');
        if(tbody.children.length>2)
        {
           let vtr = tbody.querySelectorAll('.virtualtr');
@@ -132,24 +134,27 @@ workResOpt.forEach((proj, ind) => {
               vtr.remove();
           })
        }
+       workTab2Append.innerHTML=``;
        workTable1.style.display="none";
        workTable2.style.display="block";
        workTable3.style.display="none";
-       let text = e.target.closest('.d-flex').querySelector('.res-text').innerText;
-       createWorkRes(text,ind);
+       createWorkRes(empname,ind);
+       createWorkTaskRes(ind);
     })
 });
 
-function createWorkRes(text,i)
+function createWorkRes(empname,i)
 {
-    for(let j=0; j<WorkResource[i].name.length + 1; j++)
+    empname.innerText = WorkResource[i].employeename;
+    for(let j=0; j<WorkResource[i].name.length; j++)
     {
+        let res = document.createElement('div');
+        res.setAttribute('class','resource'); 
         let tr = document.createElement('tr');
-        j === WorkResource[i].name.length ? tr.setAttribute('class',`borderdot virtualtr`) : tr.setAttribute('class',`virtualtr`);       
+        j === WorkResource[i].name.length - 1 ? tr.setAttribute('class',`borderdot virtualtr`) : tr.setAttribute('class',`virtualtr`);       
         tr.innerHTML=`
-                    <td class="text-center dot">
-                    ${j === 0 ? `<div><img src="img/client1.jpg" alt=""> <p>${WorkResource[i].employeename}</p> </div>` : 
-                                `<div></div><span>${WorkResource[i].name[j].projectname}</span>`  }
+                    <td class="text-center dot"> 
+                        <div></div><span>${WorkResource[i].name[j].projectname}</span>
                     </td>
                     <td></td>
                     <td></td>
@@ -184,14 +189,121 @@ function createWorkRes(text,i)
                     <td></td>
                     <td></td>
         `;
+        res.innerHTML=`
+        ${
+            (()=>
+            {
+                if(j ===0)
+                {
+                    return `<div class="tablepro" style="top: ${89*(j+1)}px">`;
+                }
+                else
+                {
+                    return `<div class="tablepro">`;
+                }
+            })()
+        }
+            <div class="progress resTimeline">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="taskList">
+            </div>
+        </div>  
+        `;
         workTab2tr.append(tr);
+        workTab2Append.insertBefore(res, workTab2Append.children[j]);
+    }
+    resName = workload.querySelectorAll('#benefits .resource');
+}
+
+function createWorkTaskRes(i)
+{
+    for(let j=0; j<WorkResource[i].name.length; j++)
+    {
+        let text = WorkResource[i].name[j].projectname;
+        let taskAppend = resName[j].querySelector('.taskList');
+        for(let k=0; k<WorkResource[i].name[j].project.length; k++)
+        {
+            let progress = document.createElement('div');
+            progress.setAttribute('class','progress');
+            let task_bar = document.createElement('div');
+            task_bar.innerText = "Task 01";
+            task_bar.setAttribute('class','task1');
+            progress.appendChild(task_bar);
+            taskAppend.appendChild(progress);
+            let insideTask = taskAppend.querySelectorAll('.progress');
+            if(insideTask.length>=2)
+            {
+                let firsttd = taskAppend.closest('#benefits').querySelectorAll('table tbody tr td span');
+                firsttd.forEach((td)=>
+                {
+                    if(td.innerText.includes(text))
+                    {
+                        let closesttr = td.closest('tr');
+                        let tbody = td.closest('tbody');
+                        let alltr = td.closest('tbody').querySelectorAll('tr');
+                        let index = Array.from(alltr).indexOf(closesttr);
+                        for(let trind=0; trind< insideTask.length - 1; trind++)
+                        {
+                            let tr = document.createElement('tr');
+                            tr.setAttribute('class','virtualtr');
+                            tr.innerHTML=`
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            `;
+                            tbody.insertBefore(tr, tbody.children[index + 1]);
+                        }
+                    }
+                })
+            }
+            if(j>=1)
+            {
+                let tableprog =  taskAppend.closest('.tableprogian');
+                let tablepro =  taskAppend.closest('.tablepro');
+                let allTask = tableprog.querySelectorAll('.resource .taskList .progress');
+                let currTask = taskAppend.querySelectorAll('.progress');
+                let mulnum = allTask.length - currTask.length;
+                tablepro.style.top = `${82*(mulnum)+89}px`;
+            }
+        }
     }
 }
 
 function createWorkProj(i)
 {
-    let resource = document.createElement('div');
-    resource.setAttribute('class',`projectname`);
+    let proj = document.createElement('div');
+    proj.setAttribute('class',`projectname`);
     for(let j=0; j<WorkProject[i].employee.length; j++)
     {
         let employee = document.createElement('div');
@@ -209,7 +321,7 @@ function createWorkProj(i)
                 <div class="img_emp"><img src="img/client1.jpg" class="mr-2" alt=""><div class="text_div">${WorkProject[i].employee[j].employeename}</div></div>
                 <div class="border-bottom"> 
         `
-        resource.appendChild(employee);
+        proj.appendChild(employee);
     }
     workTab3Append.insertBefore(proj, workTab3Append.children[i]);
     for(let j=0; j<WorkProject[i].employee.length + 1; j++)
@@ -255,7 +367,6 @@ function createWorkProj(i)
         workTab3tr.appendChild(tr);
     }
    projName = workload.querySelector('#benefitsdrop .projectname');
-   taskList = workload.querySelectorAll('#benefitsdrop .projectname taskProj');
    hoverEmpName = workload.querySelectorAll('#benefitsdrop .projectname .employee div.text_div');
 }
 

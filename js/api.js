@@ -724,7 +724,7 @@ WorkResource =
     [
       {
         "projectname": "Wireframe",
-        'Project':
+        'project':
         [
           {
             "taskid": "127",
@@ -787,7 +787,7 @@ WorkResource =
       },
       {
         "projectname": "Visual Design",
-        'Project':
+        'project':
         [
           {
             "taskid": "124",
@@ -856,7 +856,7 @@ WorkResource =
     [
       {
         "projectname": "Wireframe",
-        'Project':
+        'project':
         [
           {
             "taskid": "127",
@@ -900,7 +900,7 @@ WorkResource =
       },
       {
         "projectname": "Visual Design",
-        'Project':
+        'project':
         [
           {
             "taskid": "127",

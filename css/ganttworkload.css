@@ -243,10 +243,10 @@ table .thspace {
   padding: 8px 0px;
   text-align: center;
   width: 200px;
+  height: 40px;
   margin-right: 20px;
   color: #616264;
   font-size: 14px;
-
   font-weight: 500;
 }
 
@@ -399,7 +399,30 @@ table .thspace {
   position: absolute;
   top: 13px;
 }
-
+.resource .tablepro
+{
+  top: 67px;
+}
+.respro .resprogress
+{
+  font-size: 0.75rem;
+  background-color: transparent;
+  border-radius: 0.25rem;
+}
+.resource .progress .progress-bar{
+    width: 20.136vw;
+    margin-left: 10.978vw;
+    height: 10px;
+    background: #2762ed;
+}
+.resource .tablepro .resTimeline
+{
+  margin-bottom: 2.8rem;
+}
+.resource .tablepro .taskList .progress
+{
+  margin-bottom: 4.7rem;
+}
 .dot1 div {
   background: #8AB8B7 !important;
 }
