@@ -403,6 +403,11 @@ table .thspace {
 {
   top: 67px;
 }
+#benefits table tbody tr td span
+{
+  font-weight: 600;
+  font-size: 13px;
+}
 .respro .resprogress
 {
   font-size: 0.75rem;

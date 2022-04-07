@@ -14,7 +14,8 @@ const prevWork = document.querySelector('.workload .slide_bottom .img1');
 const nextWork = document.querySelector('.workload .slide_bottom .img2');
 let workYear = 2021, workMonNum = 1, workMonNum2 = 0, workMonCount = 0, fixedHeight = 30, combinedVal = [], dateVal = [],
 monthVal = [], yearVal = [];
-let workMonText, workYearText, projName, dropProjTip, dropTaskTip, hoverEmpName, projInd, projInd2, resName;
+let workMonText, workYearText, projName, dropProjTip, dropTaskTip, hoverEmpName, projInd, resInd, resName;
+let preventFun = {};
 
 function getWorkMonLength()
 {
@@ -61,8 +62,16 @@ nextWork.addEventListener('click',()=>
     }
     getWorkMonLength();
     assignWorkDate();
-    calWorkProjBar(projInd)
-    calWorkTaskjProjBar(projInd);
+    if(preventFun.data === 'project')
+    {
+        calWorkProjBar(projInd);
+        calWorkTaskjProjBar(projInd);
+    }
+    else if(preventFun.data === 'resource')
+    {
+        calWorkResBar(resInd);
+        calWorkTaskResBar(resInd);
+    }
 })
 prevWork.addEventListener('click',()=>
 {
@@ -85,13 +94,22 @@ prevWork.addEventListener('click',()=>
     }
     getWorkMonLength();
     assignWorkDate();
-    calWorkProjBar(projInd);
-    calWorkTaskjProjBar(projInd);
+    if(preventFun.data === 'project')
+    {
+        calWorkProjBar(projInd);
+        calWorkTaskjProjBar(projInd);
+    }
+    else if(preventFun.data === 'resource')
+    {
+        calWorkResBar(resInd);
+        calWorkTaskResBar(resInd);
+    }
 })
 
 workProjOpt.forEach((proj, ind) => {
     proj.addEventListener('click',(e)=>
     {
+       preventFun.data = 'project';
        projInd = ind;
        let projMonth = +WorkProject[ind].pstartdate.substr(5,2);
        let projYear = +WorkProject[ind].pstartdate.substr(0,4);
@@ -123,7 +141,8 @@ workProjOpt.forEach((proj, ind) => {
 workResOpt.forEach((proj, ind) => {
     proj.addEventListener('click',(e)=>
     {
-       projInd2 = ind;
+       preventFun.data = 'resource';
+       resInd = ind;
        let tbody = e.target.closest('.workload').querySelector('#benefits table tbody');
        let empname = e.target.closest('.workload').querySelector('#benefits table tbody div>img + p');
        if(tbody.children.length>2)
@@ -139,7 +158,9 @@ workResOpt.forEach((proj, ind) => {
        workTable2.style.display="block";
        workTable3.style.display="none";
        createWorkRes(empname,ind);
-       createWorkTaskRes(ind);
+       createWorkTaskResBar(ind);
+       calWorkResBar(ind);
+       calWorkTaskResBar(ind);
     })
 });
 
@@ -153,7 +174,7 @@ function createWorkRes(empname,i)
         let tr = document.createElement('tr');
         j === WorkResource[i].name.length - 1 ? tr.setAttribute('class',`borderdot virtualtr`) : tr.setAttribute('class',`virtualtr`);       
         tr.innerHTML=`
-                    <td class="text-center dot"> 
+                    <td class="text-center dot" style="width: 0"> 
                         <div></div><span>${WorkResource[i].name[j].projectname}</span>
                     </td>
                     <td></td>
@@ -216,7 +237,7 @@ function createWorkRes(empname,i)
     resName = workload.querySelectorAll('#benefits .resource');
 }
 
-function createWorkTaskRes(i)
+function createWorkTaskResBar(i)
 {
     for(let j=0; j<WorkResource[i].name.length; j++)
     {
@@ -232,60 +253,9 @@ function createWorkTaskRes(i)
             progress.appendChild(task_bar);
             taskAppend.appendChild(progress);
             let insideTask = taskAppend.querySelectorAll('.progress');
-            if(insideTask.length>=2)
+            if(insideTask.length>=2 && k == WorkResource[i].name[j].project.length - 1)
             {
-                let firsttd = taskAppend.closest('#benefits').querySelectorAll('table tbody tr td span');
-                firsttd.forEach((td)=>
-                {
-                    if(td.innerText.includes(text))
-                    {
-                        let closesttr = td.closest('tr');
-                        let tbody = td.closest('tbody');
-                        let alltr = td.closest('tbody').querySelectorAll('tr');
-                        let index = Array.from(alltr).indexOf(closesttr);
-                        for(let trind=0; trind< insideTask.length - 1; trind++)
-                        {
-                            let tr = document.createElement('tr');
-                            tr.setAttribute('class','virtualtr');
-                            tr.innerHTML=`
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            `;
-                            tbody.insertBefore(tr, tbody.children[index + 1]);
-                        }
-                    }
-                })
+                dynamCrtRestr(insideTask, text, taskAppend);
             }
             if(j>=1)
             {
@@ -294,10 +264,66 @@ function createWorkTaskRes(i)
                 let allTask = tableprog.querySelectorAll('.resource .taskList .progress');
                 let currTask = taskAppend.querySelectorAll('.progress');
                 let mulnum = allTask.length - currTask.length;
-                tablepro.style.top = `${82*(mulnum)+89}px`;
+                tablepro.style.top = `${(80*mulnum)+89}px`;
             }
         }
     }
+}
+
+function dynamCrtRestr(insideTask, text, taskAppend)
+{
+    let firsttd = taskAppend.closest('#benefits').querySelectorAll('table tbody tr td span');
+    firsttd.forEach((td)=>
+    {
+        if(td.innerText.includes(text))
+        {
+            let closesttr = td.closest('tr');
+            let tbody = td.closest('tbody');
+            let alltr = td.closest('tbody').querySelectorAll('tr');
+            let index = Array.from(alltr).indexOf(closesttr);
+            for(let trind=0; trind< insideTask.length - 1; trind++)
+            {
+                let tr = document.createElement('tr');
+                tr.setAttribute('class','virtualtr');
+                tr.innerHTML=`
+                <td style="border-right: none; width: 0"></td>
+                <td style="width: 10.3vw"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                `;
+                tbody.insertBefore(tr, tbody.children[index + 1]);
+            }
+        }
+    })
 }
 
 function createWorkProj(i)
@@ -330,6 +356,7 @@ function createWorkProj(i)
         tr.setAttribute('class',`virtualtr`);
         tr.innerHTML=`
                     <td class="fixedvw text-center"></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -416,6 +443,8 @@ function calWorkProjBar(j)
         let projStartDate = WorkProject[j].employee[i].pstartdate.substr(8,2);
         let startMText = projStartMon;
         let minusVal = +projStartDate;
+        hval = 10;
+        mlval = 10.21;
         if(date1.getTime()<=compareDate.getTime())
         {
             if(appearYear>=compareYear && prevYear)
@@ -423,7 +452,7 @@ function calWorkProjBar(j)
                 if(month1===`January ${appearYear}`)
                 {
                     daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,projStartYear);
-                    showWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,mobileWidth);
+                    showWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
             }
@@ -435,73 +464,73 @@ function calWorkProjBar(j)
                 if(month1===`January ${appearYear}`)
                 {
                     daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth);
+                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
                 else if(month1===`February ${appearYear}`)
                 {
                     daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth);
+                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
                 else if(month1===`March ${appearYear}`)
                 {
                     daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth);
+                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
                 else if(month1===`April ${appearYear}`)
                 {
                     daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth);
+                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
                 else if(month1===`May ${appearYear}`)
                 {
                     daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth);
+                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
                 else if(month1===`June ${appearYear}`)
                 {
                     daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth);
+                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
                 else if(month1===`July ${appearYear}`)
                 {
                     daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth);
+                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
                 else if(month1===`August ${appearYear}`)
                 {
                     daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth);
+                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
                 else if(month1===`September ${appearYear}`)
                 {
                     daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth);
+                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
                 else if(month1===`October ${appearYear}`)
                 {
                     daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth);
+                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
                 else if(month1===`November ${appearYear}`)
                 {           
                     daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth);
+                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
                 else if(month1===`December ${appearYear}`)
                 {                    
                     daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth);
+                    showAlterWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
             }
@@ -543,7 +572,8 @@ function calWorkTaskjProjBar(k)
             let mileStartDate = WorkProject[k].employee[j].task[i].pstartdate.substr(8,2);
             let startMText = projStartMon;
             let minusVal = +mileStartDate;
-
+            hval = 10;
+            mlval = 10.21;
             if(date1.getTime()<=compareDate.getTime())
             {
                 if(appearYear>=compareYear && prevYear)
@@ -551,7 +581,7 @@ function calWorkTaskjProjBar(k)
                     if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,mileStartDate);
-                        showWorkload(daysCount,endTimeline,i,projTask,mobileWidth,j,appearYear,mileEndYear);
+                        showWorkload(daysCount,endTimeline,i,projTask,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                 }
@@ -563,73 +593,73 @@ function calWorkTaskjProjBar(k)
                     if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,j,appearYear,mileEndYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`February ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,j,appearYear,mileEndYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`March ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,j,appearYear,mileEndYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`April ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,j,appearYear,mileEndYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`May ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,j,appearYear,mileEndYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`June ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,j,appearYear,mileEndYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`July ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,j,appearYear,mileEndYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`August ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,j,appearYear,mileEndYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`September ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,j,appearYear,mileEndYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`October ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,j,appearYear,mileEndYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`November ${appearYear}`)
                     {           
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,j,appearYear,mileEndYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`December ${appearYear}`)
                     {                    
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,j,appearYear,mileEndYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                 }
@@ -643,7 +673,259 @@ function calWorkTaskjProjBar(k)
     checkGapPart();
 }
 
-function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
+function calWorkResBar(j)
+{
+    let mobileWidth = body.clientWidth;
+    let resTimeline = workload.querySelectorAll('#benefits .resTimeline .progress-bar');
+        for(let i=0; i<WorkResource[j].name.length; i++)
+        {
+            let date1 = new Date(WorkResource[j].name[i].pstartdate.substr(0,10).toString());
+            let date2 = new Date(WorkResource[j].name[i].penddate.substr(0,10).toString());
+            let projStartInd = +WorkResource[j].name[i].pstartdate.substr(5, 2);
+            let projStartMon = month[--projStartInd].substr(0, 3);
+            let getMonthIndex = getNumericMonth(projStartMon);
+            let startYear = WorkResource[j].name[i].pstartdate.substr(0,4);
+            compareYear = +startYear;
+            let startDate = Math.floor(date1.getTime()/(3600*24*1000));
+            let endDate = Math.floor(date2.getTime()/(3600*24*1000));
+            let daysCount = endDate-startDate;
+            monthAppear = getWorkAppearYear();
+            let appearYear = +monthAppear;
+            let compareDate = new Date(`${appearYear}/01/01`);
+            let endTimeline = WorkResource[j].name[i].penddate.substr(8,2);
+            let projEndYear = WorkResource[j].name[i].penddate.substr(0,4);
+            endTimeline = getTimeline(endTimeline, appearYear, projEndYear);
+            endTimeline = +endTimeline;
+            let projStartYear = WorkResource[j].name[i].pstartdate.substr(0,4);
+            getMonthName(getMonthIndex, appearYear, projStartYear);
+            prevYear = checkWorkPrevYear(appearYear, projEndYear, projStartYear, i, resTimeline);
+            let projStartDate = WorkResource[j].name[i].pstartdate.substr(8,2);
+            let startMText = projStartMon;
+            let minusVal = +projStartDate;
+            hval = 10;
+            mlval = 10.978;
+            if(date1.getTime()<=compareDate.getTime())
+            {
+                if(appearYear>=compareYear && prevYear)
+                {
+                    if(month1===`January ${appearYear}`)
+                    {
+                        daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,projStartYear);
+                        showWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                }
+            }
+            else
+            {
+                if(appearYear>=compareYear && prevYear)
+                {
+                    if(month1===`January ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`February ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`March ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`April ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`May ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`June ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`July ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`August ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`September ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`October ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`November ${appearYear}`)
+                    {           
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`December ${appearYear}`)
+                    {                    
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                }
+            }
+        }
+}
+
+function calWorkTaskResBar(k)
+{
+    let mobileWidth = body.clientWidth;
+    let resource = workload.querySelectorAll('#benefits .resource');
+    for(let j=0;j<resource.length;j++)
+    {
+        let projTask = resource[j].querySelectorAll('.taskList .progress .task1');
+        for(let i=0; i<projTask.length; i++)
+        {
+            let date1 = new Date(WorkResource[k].name[j].project[i].pstartdate.substr(0,10).toString());
+            let date2 = new Date(WorkResource[k].name[j].project[i].penddate.substr(0,10).toString());
+            let projStartInd = WorkResource[k].name[j].project[i].pstartdate.substr(5, 2);
+            let projStartMon = month[--projStartInd].substr(0, 3);
+            let getMonthIndex = getNumericMonth(projStartMon);
+            let startYear = WorkResource[k].name[j].project[i].pstartdate.substr(0,4);
+            compareYear = +startYear;
+            let startDate = Math.floor(date1.getTime()/(3600*24*1000));
+            let endDate = Math.floor(date2.getTime()/(3600*24*1000));
+            let daysCount = endDate - startDate;
+            monthAppear = getWorkAppearYear();
+            let appearYear = +monthAppear;
+            let compareDate = new Date(`${appearYear}/01/01`);
+            let endTimeline = WorkResource[k].name[j].project[i].penddate.substr(8,2);
+            let mileEndYear = WorkResource[k].name[j].project[i].penddate.substr(0,4);
+            endTimeline = getTimeline(endTimeline, appearYear, mileEndYear);
+            endTimeline = +endTimeline;
+            let mileStartYear = WorkResource[k].name[j].project[i].pstartdate.substr(0,4);
+            getMonthName(getMonthIndex, appearYear, mileStartYear);
+            prevYear = checkWorkPrevYear(appearYear, mileEndYear, mileStartYear, i, projTask);
+            let mileStartDate = WorkResource[k].name[j].project[i].pstartdate.substr(8,2);
+            let startMText = projStartMon;
+            let minusVal = +mileStartDate;
+            hval = 38;
+            mlval = 10.978;
+            if(date1.getTime()<=compareDate.getTime())
+            {
+                if(appearYear>=compareYear && prevYear)
+                {
+                    if(month1===`January ${appearYear}`)
+                    {
+                        daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,mileStartDate);
+                        showWorkload(daysCount,endTimeline,i,projTask,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                }
+            }
+            else
+            {
+                if(appearYear>=compareYear && prevYear)
+                {
+                    if(month1===`January ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`February ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`March ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`April ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`May ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`June ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`July ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`August ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`September ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`October ${appearYear}`)
+                    {
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`November ${appearYear}`)
+                    {           
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                    else if(month1===`December ${appearYear}`)
+                    {                    
+                        daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
+                        daysCount = endDate-startDate;
+                    }
+                }
+            }
+        }
+    }
+}
+
+function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth,hval,mlval)
 {
     let totWidth = workTimeline[i].closest('.tablecal').querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
@@ -655,7 +937,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             if(dateText===month1)
             {
                 let ganttWidth = (daysCount +1) * 2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 workTimeline[i].closest('.progress').style.display="block";
                     if(mobileWidth<700)
                     {
@@ -673,7 +955,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             if(dateText===month1)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 workTimeline[i].closest('.progress').style.display="block";
                     if(mobileWidth < 700)
                     {
@@ -682,7 +964,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month2)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i); 
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval); 
             }
             else
             {
@@ -696,7 +978,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block"; 
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -704,7 +986,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month3)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);
             }
             else
             {
@@ -718,7 +1000,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -726,7 +1008,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month4)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);      
             }
             else
             {
@@ -741,7 +1023,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -749,7 +1031,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month5)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);      
             }
             else
             {
@@ -764,7 +1046,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -772,7 +1054,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month6)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);      
             }
             else
             {
@@ -787,7 +1069,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -795,7 +1077,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month7)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);      
             }
             else 
             {
@@ -811,7 +1093,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -819,7 +1101,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month8)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);      
             }
             else 
             {
@@ -835,7 +1117,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -843,7 +1125,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month9)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);      
             }
             else 
             {
@@ -859,7 +1141,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -867,7 +1149,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month10)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);      
             }
             else 
             {
@@ -884,7 +1166,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -892,7 +1174,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month11)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);      
             }
             else 
             {
@@ -909,7 +1191,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -917,7 +1199,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
             }
             else if(dateText===month12)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);      
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);      
             }
             else 
             {
@@ -927,7 +1209,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth)
         }    
     }               
 }
-function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startMText,minusVal,mobileWidth)        
+function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startMText,minusVal,mobileWidth,hval,mlval)        
 {
     startTime = +startTime -1;
     let totWidth = workTimeline[i].closest('.tablecal').querySelectorAll('tr:nth-child(2) th.dateVirtual');
@@ -940,10 +1222,10 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
         {
             if(dateText===month1)
             {
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = (daysCount +1) *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px`;
+                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px`;
                     if(mobileWidth<700)
                     {
                         showinMobile2(i,startTime,daysCount,workTimeline);               
@@ -960,10 +1242,10 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px`;
+                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px`;
                 
                     if(mobileWidth<700)
                     {
@@ -972,8 +1254,8 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             }
             else if(dateText===month2)
             {                
-                workTimeline[i].style.cssText=`margin-left:10.21vw`;
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw`;
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);
             }
             else
             {
@@ -986,10 +1268,10 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1000,7 +1282,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1009,7 +1291,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             }
             else if(dateText===month3)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);
             }
             else
             {
@@ -1022,10 +1304,10 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1036,7 +1318,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1045,7 +1327,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             }
             else if(dateText===month4)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);
             }
             else
             {
@@ -1058,10 +1340,10 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1072,7 +1354,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1081,7 +1363,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             }
             else if(dateText===month5)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);
             }
             else
             {
@@ -1094,10 +1376,10 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1109,7 +1391,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1118,7 +1400,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             }
             else if(dateText===month6)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);
             }
             else
             {
@@ -1131,10 +1413,10 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1146,7 +1428,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1155,7 +1437,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             }
             else if(dateText===month7)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);
             }
             else
             {
@@ -1168,10 +1450,10 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1183,7 +1465,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1192,7 +1474,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             }
             else if(dateText===month8)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);
             }
             else
             {
@@ -1205,10 +1487,10 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1221,7 +1503,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1230,7 +1512,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             }
             else if(dateText===month9)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);
             }
             else
             {
@@ -1243,10 +1525,10 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1259,7 +1541,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1268,7 +1550,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             }
             else if(dateText===month10)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);
             }
             else
             {
@@ -1281,10 +1563,10 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1297,7 +1579,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1306,7 +1588,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             }
             else if(dateText===month11)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);
             }
             else
             {
@@ -1319,10 +1601,10 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1336,7 +1618,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             {
                 let ganttWidth = totWidth *2.5;
                 workTimeline[i].closest('.progress').style.display="block";
-                workTimeline[i].style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -1345,7 +1627,7 @@ function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startM
             }
             else if(dateText===month12)
             {
-                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i);
+                remainWorkDaysCount(endTimeline, workTimeline, mobileWidth, i, hval, mlval);
             }
             else
             {
@@ -1407,10 +1689,10 @@ function checkWorkTargetDate2(date2,i,daysCount,year2,year1)
     }
 }
 
-function remainWorkDaysCount(endTimeline,workTimeline,mobileWidth,i)
+function remainWorkDaysCount(endTimeline,workTimeline,mobileWidth,i,hval,mlval)
 {        
     workTimeline[i].closest('.progress').style.display="block";
-    workTimeline[i].style.cssText=`margin-left:10.21vw; width:${endTimeline * 2.5}vw; height:10px; display: block;`;
+    workTimeline[i].style.cssText=`margin-left:${mlval}vw; width:${endTimeline * 2.5}vw; height:${hval}px; display: block;`;
     if(mobileWidth<700)
     {
         showinMobile3(i,endTimeline,workTimeline);
