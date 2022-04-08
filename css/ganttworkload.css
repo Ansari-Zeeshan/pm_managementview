@@ -407,6 +407,10 @@ table .thspace {
 {
   font-weight: 600;
   font-size: 13px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: text;
 }
 .respro .resprogress
 {
@@ -463,7 +467,6 @@ table .thspace {
 
 }
 .tablecal table tr td.dot {
-  border-right: none;
   padding: 0.6rem 0.5rem;
   display: flex;
   padding-left: 13px;
@@ -478,7 +481,7 @@ table .thspace {
 {
   padding: 2rem 0rem;
   position: relative;
-  width: 99.2%;
+  width: 100%;
 }
 #benefitsdrop .tableprogian .img_emp>img
 {
@@ -494,6 +497,7 @@ table .thspace {
 }
 #benefitsdrop .tableprogian .img_emp .text_div
 {
+  font-size: 12px;
   width: 58px;
   height: 16px;
   overflow: hidden;

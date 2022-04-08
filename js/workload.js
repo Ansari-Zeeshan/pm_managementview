@@ -14,7 +14,7 @@ const prevWork = document.querySelector('.workload .slide_bottom .img1');
 const nextWork = document.querySelector('.workload .slide_bottom .img2');
 let workYear = 2021, workMonNum = 1, workMonNum2 = 0, workMonCount = 0, fixedHeight = 30, combinedVal = [], dateVal = [],
 monthVal = [], yearVal = [];
-let workMonText, workYearText, projName, dropProjTip, dropTaskTip, hoverEmpName, projInd, resInd, resName;
+let workMonText, workYearText, projName, dropProjTip, dropTaskTip, hoverEmpName, projInd, resInd, resName, resTip;
 let preventFun = {};
 
 function getWorkMonLength()
@@ -36,11 +36,11 @@ function assignWorkDate()
         {
             show.classList.remove('dateVirtual');
         })
-        for(let i=2; i<workMonLen+2; i++)
+        for(let i=1; i<workMonLen+1; i++)
         {
-            let dayName = new Date(workYear, workMonNum2, i - 1).toString().substr(0,3);
+            let dayName = new Date(workYear, workMonNum2, i).toString().substr(0,3);
             workShowDate[i].classList.add('dateVirtual');
-            workShowDate[i].innerHTML=`${dayName} <p>${i - 1}</p>`;
+            workShowDate[i].innerHTML=`${dayName} <p>${i}</p>`;
         }
     }
     workMonText = document.querySelectorAll('.workload table .thspace span');
@@ -143,6 +143,13 @@ workResOpt.forEach((proj, ind) => {
     {
        preventFun.data = 'resource';
        resInd = ind;
+       let projMonth = +WorkResource[ind].project[0].pstartdate.substr(5,2);
+       let projYear = +WorkResource[ind].project[0].pstartdate.substr(0,4);
+       workMonNum = projMonth;
+       workYear = projYear
+       workMonCount = projMonth - 1;
+       getWorkMonLength();
+       assignWorkDate();
        let tbody = e.target.closest('.workload').querySelector('#benefits table tbody');
        let empname = e.target.closest('.workload').querySelector('#benefits table tbody div>img + p');
        if(tbody.children.length>2)
@@ -167,15 +174,15 @@ workResOpt.forEach((proj, ind) => {
 function createWorkRes(empname,i)
 {
     empname.innerText = WorkResource[i].employeename;
-    for(let j=0; j<WorkResource[i].name.length; j++)
+    for(let j=0; j<WorkResource[i].project.length; j++)
     {
         let res = document.createElement('div');
         res.setAttribute('class','resource'); 
         let tr = document.createElement('tr');
-        j === WorkResource[i].name.length - 1 ? tr.setAttribute('class',`borderdot virtualtr`) : tr.setAttribute('class',`virtualtr`);       
+        j === WorkResource[i].project.length - 1 ? tr.setAttribute('class',`borderdot virtualtr`) : tr.setAttribute('class',`virtualtr`);       
         tr.innerHTML=`
-                    <td class="text-center dot" style="width: 0"> 
-                        <div></div><span>${WorkResource[i].name[j].projectname}</span>
+                    <td class="text-center dot" style="width: 10.9vw"> 
+                        <div></div><span>${WorkResource[i].project[j].projectname}</span>
                     </td>
                     <td></td>
                     <td></td>
@@ -234,26 +241,37 @@ function createWorkRes(empname,i)
         workTab2tr.append(tr);
         workTab2Append.insertBefore(res, workTab2Append.children[j]);
     }
+    hoverEmpName2 = workload.querySelectorAll('#benefits table tbody tr td span');
     resName = workload.querySelectorAll('#benefits .resource');
+    resTip = workload.querySelectorAll('#benefits .resource .resTimeline .progress-bar');
+    makingEmpTooltip2();
+    for(let ind=0; ind<resTip.length; ind++)
+    {
+        ['mouseover','mouseout'].forEach((e)=>
+        {
+            resTip[ind].index = ind;
+            resTip[ind].addEventListener(e, showDropResTip);
+        })
+    }
 }
 
 function createWorkTaskResBar(i)
 {
-    for(let j=0; j<WorkResource[i].name.length; j++)
+    for(let j=0; j<WorkResource[i].project.length; j++)
     {
-        let text = WorkResource[i].name[j].projectname;
+        let text = WorkResource[i].project[j].projectname;
         let taskAppend = resName[j].querySelector('.taskList');
-        for(let k=0; k<WorkResource[i].name[j].project.length; k++)
+        for(let k=0; k<WorkResource[i].project[j].task.length; k++)
         {
             let progress = document.createElement('div');
             progress.setAttribute('class','progress');
             let task_bar = document.createElement('div');
-            task_bar.innerText = "Task 01";
+            task_bar.innerText = `${WorkResource[i].project[j].task[k].taskname}`;
             task_bar.setAttribute('class','task1');
             progress.appendChild(task_bar);
             taskAppend.appendChild(progress);
             let insideTask = taskAppend.querySelectorAll('.progress');
-            if(insideTask.length>=2 && k == WorkResource[i].name[j].project.length - 1)
+            if(insideTask.length>=2 && k == WorkResource[i].project[j].task.length - 1)
             {
                 dynamCrtRestr(insideTask, text, taskAppend);
             }
@@ -267,6 +285,15 @@ function createWorkTaskResBar(i)
                 tablepro.style.top = `${(80*mulnum)+89}px`;
             }
         }
+    }
+    let dropResTaskTip = workload.querySelectorAll('#benefits .taskList .progress .task1');
+    for(let ind=0; ind<dropResTaskTip.length; ind++)
+    {
+        ['mouseover','mouseout'].forEach((e)=>
+        {
+            dropResTaskTip[ind].tipind = ind;
+            dropResTaskTip[ind].addEventListener(e, showDropResTaskTip);
+        })
     }
 }
 
@@ -286,8 +313,7 @@ function dynamCrtRestr(insideTask, text, taskAppend)
                 let tr = document.createElement('tr');
                 tr.setAttribute('class','virtualtr');
                 tr.innerHTML=`
-                <td style="border-right: none; width: 0"></td>
-                <td style="width: 10.3vw"></td>
+                <td style="width: 10.9vw"></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -355,9 +381,7 @@ function createWorkProj(i)
         let tr = document.createElement('tr');
         tr.setAttribute('class',`virtualtr`);
         tr.innerHTML=`
-                    <td class="fixedvw text-center"></td>
-                    <td></td>
-                    <td></td>
+                    <td class="text-center" style="width: 10.9vw;"></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -444,7 +468,7 @@ function calWorkProjBar(j)
         let startMText = projStartMon;
         let minusVal = +projStartDate;
         hval = 10;
-        mlval = 10.21;
+        mlval = 10.15;
         if(date1.getTime()<=compareDate.getTime())
         {
             if(appearYear>=compareYear && prevYear)
@@ -573,7 +597,7 @@ function calWorkTaskjProjBar(k)
             let startMText = projStartMon;
             let minusVal = +mileStartDate;
             hval = 10;
-            mlval = 10.21;
+            mlval = 10.15;
             if(date1.getTime()<=compareDate.getTime())
             {
                 if(appearYear>=compareYear && prevYear)
@@ -677,14 +701,14 @@ function calWorkResBar(j)
 {
     let mobileWidth = body.clientWidth;
     let resTimeline = workload.querySelectorAll('#benefits .resTimeline .progress-bar');
-        for(let i=0; i<WorkResource[j].name.length; i++)
+        for(let i=0; i<WorkResource[j].project.length; i++)
         {
-            let date1 = new Date(WorkResource[j].name[i].pstartdate.substr(0,10).toString());
-            let date2 = new Date(WorkResource[j].name[i].penddate.substr(0,10).toString());
-            let projStartInd = +WorkResource[j].name[i].pstartdate.substr(5, 2);
+            let date1 = new Date(WorkResource[j].project[i].pstartdate.substr(0,10).toString());
+            let date2 = new Date(WorkResource[j].project[i].penddate.substr(0,10).toString());
+            let projStartInd = +WorkResource[j].project[i].pstartdate.substr(5, 2);
             let projStartMon = month[--projStartInd].substr(0, 3);
             let getMonthIndex = getNumericMonth(projStartMon);
-            let startYear = WorkResource[j].name[i].pstartdate.substr(0,4);
+            let startYear = WorkResource[j].project[i].pstartdate.substr(0,4);
             compareYear = +startYear;
             let startDate = Math.floor(date1.getTime()/(3600*24*1000));
             let endDate = Math.floor(date2.getTime()/(3600*24*1000));
@@ -692,18 +716,18 @@ function calWorkResBar(j)
             monthAppear = getWorkAppearYear();
             let appearYear = +monthAppear;
             let compareDate = new Date(`${appearYear}/01/01`);
-            let endTimeline = WorkResource[j].name[i].penddate.substr(8,2);
-            let projEndYear = WorkResource[j].name[i].penddate.substr(0,4);
+            let endTimeline = WorkResource[j].project[i].penddate.substr(8,2);
+            let projEndYear = WorkResource[j].project[i].penddate.substr(0,4);
             endTimeline = getTimeline(endTimeline, appearYear, projEndYear);
             endTimeline = +endTimeline;
-            let projStartYear = WorkResource[j].name[i].pstartdate.substr(0,4);
+            let projStartYear = WorkResource[j].project[i].pstartdate.substr(0,4);
             getMonthName(getMonthIndex, appearYear, projStartYear);
             prevYear = checkWorkPrevYear(appearYear, projEndYear, projStartYear, i, resTimeline);
-            let projStartDate = WorkResource[j].name[i].pstartdate.substr(8,2);
+            let projStartDate = WorkResource[j].project[i].pstartdate.substr(8,2);
             let startMText = projStartMon;
             let minusVal = +projStartDate;
             hval = 10;
-            mlval = 10.978;
+            mlval = 10.9;
             if(date1.getTime()<=compareDate.getTime())
             {
                 if(appearYear>=compareYear && prevYear)
@@ -806,12 +830,12 @@ function calWorkTaskResBar(k)
         let projTask = resource[j].querySelectorAll('.taskList .progress .task1');
         for(let i=0; i<projTask.length; i++)
         {
-            let date1 = new Date(WorkResource[k].name[j].project[i].pstartdate.substr(0,10).toString());
-            let date2 = new Date(WorkResource[k].name[j].project[i].penddate.substr(0,10).toString());
-            let projStartInd = WorkResource[k].name[j].project[i].pstartdate.substr(5, 2);
+            let date1 = new Date(WorkResource[k].project[j].task[i].pstartdate.substr(0,10).toString());
+            let date2 = new Date(WorkResource[k].project[j].task[i].penddate.substr(0,10).toString());
+            let projStartInd = WorkResource[k].project[j].task[i].pstartdate.substr(5, 2);
             let projStartMon = month[--projStartInd].substr(0, 3);
             let getMonthIndex = getNumericMonth(projStartMon);
-            let startYear = WorkResource[k].name[j].project[i].pstartdate.substr(0,4);
+            let startYear = WorkResource[k].project[j].task[i].pstartdate.substr(0,4);
             compareYear = +startYear;
             let startDate = Math.floor(date1.getTime()/(3600*24*1000));
             let endDate = Math.floor(date2.getTime()/(3600*24*1000));
@@ -819,18 +843,18 @@ function calWorkTaskResBar(k)
             monthAppear = getWorkAppearYear();
             let appearYear = +monthAppear;
             let compareDate = new Date(`${appearYear}/01/01`);
-            let endTimeline = WorkResource[k].name[j].project[i].penddate.substr(8,2);
-            let mileEndYear = WorkResource[k].name[j].project[i].penddate.substr(0,4);
+            let endTimeline = WorkResource[k].project[j].task[i].penddate.substr(8,2);
+            let mileEndYear = WorkResource[k].project[j].task[i].penddate.substr(0,4);
             endTimeline = getTimeline(endTimeline, appearYear, mileEndYear);
             endTimeline = +endTimeline;
-            let mileStartYear = WorkResource[k].name[j].project[i].pstartdate.substr(0,4);
+            let mileStartYear = WorkResource[k].project[j].task[i].pstartdate.substr(0,4);
             getMonthName(getMonthIndex, appearYear, mileStartYear);
             prevYear = checkWorkPrevYear(appearYear, mileEndYear, mileStartYear, i, projTask);
-            let mileStartDate = WorkResource[k].name[j].project[i].pstartdate.substr(8,2);
+            let mileStartDate = WorkResource[k].project[j].task[i].pstartdate.substr(8,2);
             let startMText = projStartMon;
             let minusVal = +mileStartDate;
             hval = 38;
-            mlval = 10.978;
+            mlval = 10.9;
             if(date1.getTime()<=compareDate.getTime())
             {
                 if(appearYear>=compareYear && prevYear)
@@ -1699,10 +1723,10 @@ function remainWorkDaysCount(endTimeline,workTimeline,mobileWidth,i,hval,mlval)
     }  
 }
 
-function remainWorkDaysCount2(endTimeline,workTimeline,mobileWidth)
+function remainWorkDaysCount2(endTimeline,workTimeline,mobileWidth,hval,mlval)
 {        
     workTimeline.closest('.progress').style.display="block";
-    workTimeline.style.cssText=`margin-left:10.21vw; width:${endTimeline * 2.5}vw; height:10px; display: block;`;
+    workTimeline.style.cssText=`margin-left:${mlval}vw; width:${endTimeline * 2.5}vw; height:${hval}px; display: block;`;
     if(mobileWidth<700)
     {
         showinMobile3(i,endTimeline,workTimeline);
@@ -2116,14 +2140,14 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
     let totWidth = workTimeline.closest('table').querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let dateText = `${workMonText[2].innerText} ${workYearText[2].innerText}`;
-    
+    let hval = 10, mlval = 10.15;
     switch(true){
         case (daysCount<=30):
         {
             if(dateText===month1)
             {
                 let ganttWidth = daysCount * 2.5;
-                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:9.7vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth<700)
                     {
                         showinMobile1(i,daysCount,workTimeline);
@@ -2140,7 +2164,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             if(dateText===month1)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:9.7vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -2148,7 +2172,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             }
             else if(dateText===month2)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth); 
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval); 
             }
             else
             {
@@ -2161,7 +2185,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             if(dateText===month1 || dateText===month2)
             {
                 let ganttWidth = totWidth *2.5; 
-                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:9.7vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -2169,7 +2193,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             }
             else if(dateText===month3)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);
             }
             else
             {
@@ -2182,7 +2206,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             if(dateText===month1 || dateText===month2 || dateText===month3)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:9.7vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -2190,7 +2214,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             }
             else if(dateText===month4)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);      
             }
             else
             {
@@ -2204,7 +2228,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
                 || dateText===month4)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:9.7vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -2212,7 +2236,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             }
             else if(dateText===month5)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);      
             }
             else
             {
@@ -2226,7 +2250,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
                 || dateText===month4 || dateText===month5)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:9.7vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -2234,7 +2258,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             }
             else if(dateText===month6)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);      
             }
             else
             {
@@ -2248,7 +2272,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
                 || dateText===month4 || dateText===month5 || dateText===month6)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:9.7vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -2256,7 +2280,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             }
             else if(dateText===month7)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);      
             }
             else 
             {
@@ -2271,7 +2295,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
                 || dateText===month7)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:9.7vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -2279,7 +2303,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             }
             else if(dateText===month8)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);      
             }
             else 
             {
@@ -2294,7 +2318,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
                 || dateText===month7 || dateText===month8)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:9.7vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -2302,7 +2326,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             }
             else if(dateText===month9)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);      
             }
             else 
             {
@@ -2317,7 +2341,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
                 || dateText===month7 || dateText===month8 || dateText===month9)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:9.7vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -2325,7 +2349,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             }
             else if(dateText===month10)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);      
             }
             else 
             {
@@ -2341,7 +2365,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
                 || dateText===month10)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:9.7vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -2349,7 +2373,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             }
             else if(dateText===month11)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);      
             }
             else 
             {
@@ -2365,7 +2389,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
                 || dateText===month10 || dateText===month11)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`margin-left:9.7vw; width:${ganttWidth}vw; height: ${hval}px;`;
                     if(mobileWidth < 700)
                     {
                         showinMobile1(i,totWidth,workTimeline);
@@ -2373,7 +2397,7 @@ function showWorkCollload(daysCount,endTimeline,workTimeline,mobileWidth)
             }
             else if(dateText===month12)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);      
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);      
             }
             else 
             {
@@ -2390,15 +2414,16 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
     totWidth = totWidth.length;
     let dateText = `${workMonText[2].innerText} ${workYearText[2].innerText}`;
     updateValue(startMText,minusVal);
+    let hval = 10, mlval = 10.15;
     switch(true)
     {
         case (daysCount<=val1):
         {
             if(dateText===month1)
             {
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = daysCount *2.5;
-                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px`;
                     if(mobileWidth<700)
                     {
                         showinMobile2(i,startTime,daysCount,workTimeline);               
@@ -2415,9 +2440,9 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px`;
                 
                     if(mobileWidth<700)
                     {
@@ -2426,7 +2451,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             }
             else if(dateText===month2)
             {          
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);
             }
             else
             {
@@ -2439,9 +2464,9 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2451,7 +2476,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             else if(dateText===month2)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2460,7 +2485,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             }
             else if(dateText===month3)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);
             }
             else
             {
@@ -2473,9 +2498,9 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2485,7 +2510,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             else if(dateText===month2 || dateText===month3)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2494,7 +2519,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             }
             else if(dateText===month4)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);
             }
             else
             {
@@ -2507,9 +2532,9 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2519,7 +2544,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             else if(dateText===month2 || dateText===month3 || dateText===month4)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2528,7 +2553,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             }
             else if(dateText===month5)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);
             }
             else
             {
@@ -2541,9 +2566,9 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2554,7 +2579,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
                 || dateText===month5)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2563,7 +2588,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             }
             else if(dateText===month6)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);
             }
             else
             {
@@ -2576,9 +2601,9 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2589,7 +2614,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
                 || dateText===month5 || dateText===month6)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2598,7 +2623,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             }
             else if(dateText===month7)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);
             }
             else
             {
@@ -2611,9 +2636,9 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2624,7 +2649,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
                 || dateText===month5 || dateText===month6 || dateText===month7)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2633,7 +2658,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             }
             else if(dateText===month8)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);
             }
             else
             {
@@ -2646,9 +2671,9 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2660,7 +2685,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
                 || dateText===month8)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2669,7 +2694,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             }
             else if(dateText===month9)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);
             }
             else
             {
@@ -2682,9 +2707,9 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2696,7 +2721,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
                 || dateText===month8 || dateText===month9)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2705,7 +2730,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             }
             else if(dateText===month10)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);
             }
             else
             {
@@ -2718,9 +2743,9 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2732,7 +2757,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
                 || dateText===month8 || dateText===month9 || dateText===month10)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2741,7 +2766,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             }
             else if(dateText===month11)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);
             }
             else
             {
@@ -2754,9 +2779,9 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             if(dateText===month1)
             {
                 let localdaysCount=totWidth - startTime;
-                let marLeft = (startTime*2.5)+10.21;
+                let marLeft = (startTime*2.5)+mlval;
                 let ganttWidth = localdaysCount*2.5;
-                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${marLeft}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2769,7 +2794,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
                 || dateText===month11)
             {
                 let ganttWidth = totWidth *2.5;
-                workTimeline.style.cssText=`display:block; margin-left:10.21vw; width:${ganttWidth}vw; height: 10px;`;
+                workTimeline.style.cssText=`display:block; margin-left:${mlval}vw; width:${ganttWidth}vw; height: ${hval}px;`;
                 
                     if(mobileWidth<700)
                     {
@@ -2778,7 +2803,7 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
             }
             else if(dateText===month12)
             {
-                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth);
+                remainWorkDaysCount2(endTimeline, workTimeline, mobileWidth, hval, mlval);
             }
             else
             {
@@ -2793,6 +2818,15 @@ function showAlterWorkCollload(daysCount,endTimeline,workTimeline,startTime,star
 function makingEmpTooltip()
 {
     hoverEmpName.forEach((hover)=>
+    {
+        let p = hover.innerHTML;
+        getHoverEmpName(p, hover);
+    })
+}
+
+function makingEmpTooltip2()
+{
+    hoverEmpName2.forEach((hover)=>
     {
         let p = hover.innerHTML;
         getHoverEmpName(p, hover);
@@ -2877,6 +2911,74 @@ function showDropTaskTip(e)
     else if(e.type==="mouseout")
     {
         let tip = e.target.closest('#benefitsdrop').querySelector('.tasktooltip');
+        tip.style.display="none";
+    }
+}
+
+function showDropResTip(e)
+{
+    if(e.type==="mouseover")
+    {
+       let pind = this.index;
+       let tip = e.target.closest('#benefits').querySelector('.timelinetooltip');
+       let top=e.clientY;
+       let left=e.clientX;
+       tip.style.cssText=`top:${top - 370}px; left:${left -250}px; display:block;`;
+       let h4 = tip.querySelector('h4');
+       let p1 = tip.querySelector('p:nth-child(2)');
+       let p2 = tip.querySelector('p:nth-child(3)');
+       let p3 = tip.querySelector('p:nth-child(4)');
+       let p4 = tip.querySelector('p:nth-child(5)');
+       let p5 = tip.querySelector('p:nth-child(6)');
+       let startDate = WorkResource[resInd].project[pind].pstartdate.substr(8,2);
+       let startMonName = WorkResource[resInd].project[pind].planned.substr(0,3);
+       let startYear = WorkResource[resInd].project[pind].pstartdate.substr(0,4);
+       let endDate = WorkResource[resInd].project[pind].penddate.substr(8,2);
+       let endMonName = WorkResource[resInd].project[pind].planned.substr(9,3);
+       let endYear = WorkResource[resInd].project[pind].penddate.substr(0,4);
+       let projName = WorkResource[resInd].project[pind].projectname;
+       h4.innerText=`${projName}: ${startDate} ${startMonName} ${startYear} to ${endDate} ${endMonName} ${endYear}`;
+       p1.innerText=`Duration: ${WorkResource[resInd].project[pind].duration}`;
+       p2.innerText=`Percentage Done: ${WorkResource[resInd].project[pind].percentage}`;
+       p3.innerText=`Status: ${WorkResource[resInd].project[pind].statustext}`;
+       p4.innerText=`Domain Lead: ${WorkResource[resInd].project[pind].domainlead}`;
+       p5.innerText=`Technical Lead: ${WorkResource[resInd].project[pind].technicallead}`;
+    }
+    else if(e.type==="mouseout")
+    {
+        let tip = e.target.closest('#benefits').querySelector('.timelinetooltip');
+        tip.style.display="none";
+    }
+}
+
+function showDropResTaskTip(e)
+{
+    if(e.type==="mouseover")
+    {
+       let taskDataInd = this.tipind;
+       let tip = e.target.closest('#benefits').querySelector('.tasktooltip');
+       let top=e.clientY;
+       let left=e.clientX;
+       tip.style.cssText=`top:${top - 330}px; left:${left - 250}px; display:block;`;
+       let h4 = tip.querySelector('h4');
+       let p1 = tip.querySelector('p:nth-child(2)');
+       let p2 = tip.querySelector('p:nth-child(3)');
+       let p3 = tip.querySelector('p:nth-child(4)');
+       let startDate = WorkResTip[resInd].task[taskDataInd].pstartdate.substr(8,2);
+       let startMonName = WorkResTip[resInd].task[taskDataInd].planned.substr(0,3);
+       let startYear = WorkResTip[resInd].task[taskDataInd].pstartdate.substr(0,4);
+       let endDate = WorkResTip[resInd].task[taskDataInd].penddate.substr(8,2);
+       let endMonName = WorkResTip[resInd].task[taskDataInd].planned.substr(9,3);
+       let endYear = WorkResTip[resInd].task[taskDataInd].penddate.substr(0,4);
+       let taskName = WorkResTip[resInd].task[taskDataInd].taskname;
+       h4.innerText=`${taskName}: ${startDate} ${startMonName} ${startYear} to ${endDate} ${endMonName} ${endYear}`;
+       p1.innerText=`Duration: ${WorkResTip[resInd].task[taskDataInd].duration}`;
+       p2.innerText=`Percentage Done: ${WorkResTip[resInd].task[taskDataInd].percentage}`;
+       p3.innerText=`Status: ${WorkResTip[resInd].task[taskDataInd].statustext}`;
+    }
+    else if(e.type==="mouseout")
+    {
+        let tip = e.target.closest('#benefits').querySelector('.tasktooltip');
         tip.style.display="none";
     }
 }
