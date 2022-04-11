@@ -62,12 +62,12 @@ nextWork.addEventListener('click',()=>
     }
     getWorkMonLength();
     assignWorkDate();
-    if(preventFun.data === 'project')
+    if(preventFun.data === 'workproject')
     {
         calWorkProjBar(projInd);
         calWorkTaskjProjBar(projInd);
     }
-    else if(preventFun.data === 'resource')
+    else if(preventFun.data === 'workresource')
     {
         calWorkResBar(resInd);
         calWorkTaskResBar(resInd);
@@ -78,14 +78,14 @@ prevWork.addEventListener('click',()=>
     workMonCount--;
     workMonNum--;
     workMonNum2--;
-    if(workMonCount<0 && workYear>2021)
+    if(workMonCount<0 && workYear>2010)
     {
         workMonCount=11;
         workYear--;
         workMonNum=12;
         workMonNum2=11;
     }
-    else if(workMonCount<0 && workYear == 2021)
+    else if(workMonCount<0 && workYear == 2010)
     {
         workMonCount=0;
         workMonNum=1;
@@ -94,12 +94,12 @@ prevWork.addEventListener('click',()=>
     }
     getWorkMonLength();
     assignWorkDate();
-    if(preventFun.data === 'project')
+    if(preventFun.data === 'workproject')
     {
         calWorkProjBar(projInd);
         calWorkTaskjProjBar(projInd);
     }
-    else if(preventFun.data === 'resource')
+    else if(preventFun.data === 'workresource')
     {
         calWorkResBar(resInd);
         calWorkTaskResBar(resInd);
@@ -109,7 +109,7 @@ prevWork.addEventListener('click',()=>
 workProjOpt.forEach((proj, ind) => {
     proj.addEventListener('click',(e)=>
     {
-       preventFun.data = 'project';
+       preventFun.data = 'workproject';
        projInd = ind;
        let projMonth = +WorkProject[ind].pstartdate.substr(5,2);
        let projYear = +WorkProject[ind].pstartdate.substr(0,4);
@@ -141,7 +141,7 @@ workProjOpt.forEach((proj, ind) => {
 workResOpt.forEach((proj, ind) => {
     proj.addEventListener('click',(e)=>
     {
-       preventFun.data = 'resource';
+       preventFun.data = 'workresource';
        resInd = ind;
        let projMonth = +WorkResource[ind].project[0].pstartdate.substr(5,2);
        let projYear = +WorkResource[ind].project[0].pstartdate.substr(0,4);
@@ -181,10 +181,10 @@ function createWorkRes(empname,i)
         let tr = document.createElement('tr');
         j === WorkResource[i].project.length - 1 ? tr.setAttribute('class',`borderdot virtualtr`) : tr.setAttribute('class',`virtualtr`);       
         tr.innerHTML=`
-                    <td class="text-center dot" style="width: 10.9vw"> 
+                    <td class="text-center dot" style="width: 10.3vw"> 
                         <div></div><span>${WorkResource[i].project[j].projectname}</span>
                     </td>
-                    <td></td>
+                    <td style="border-left: 1px solid #0000000D;"></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -313,8 +313,8 @@ function dynamCrtRestr(insideTask, text, taskAppend)
                 let tr = document.createElement('tr');
                 tr.setAttribute('class','virtualtr');
                 tr.innerHTML=`
-                <td style="width: 10.9vw"></td>
-                <td></td>
+                <td style="width: 10.3vw; border-right: none;"></td>
+                <td style="border-left: 1px solid #0000000D;"></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -444,27 +444,27 @@ function calWorkProjBar(j)
     let projTimeline = projName.querySelectorAll('.tableproben .projTimeline .progress-bar');
     for(let i=0; i<WorkProject[j].employee.length; i++)
     {
-        let date1 = new Date(WorkProject[j].employee[i].pstartdate.substr(0,10).toString());
-        let date2 = new Date(WorkProject[j].employee[i].penddate.substr(0,10).toString());
-        let projStartInd = +WorkProject[j].employee[i].pstartdate.substr(5, 2);
+        let date1 = new Date(WorkProject[j].pstartdate.substr(0,10).toString());
+        let date2 = new Date(WorkProject[j].penddate.substr(0,10).toString());
+        let projStartInd = +WorkProject[j].pstartdate.substr(5, 2);
         let projStartMon = month[--projStartInd].substr(0, 3);
         let getMonthIndex = getNumericMonth(projStartMon);
-        let startYear = WorkProject[j].employee[i].pstartdate.substr(0,4);
+        let startYear = WorkProject[j].pstartdate.substr(0,4);
         compareYear = +startYear;
         let startDate = Math.floor(date1.getTime()/(3600*24*1000));
         let endDate = Math.floor(date2.getTime()/(3600*24*1000));
         let daysCount = endDate-startDate;
-        monthAppear = getWorkAppearYear();
+        let monthAppear = getWorkAppearYear();
         let appearYear = +monthAppear;
         let compareDate = new Date(`${appearYear}/01/01`);
-        let endTimeline = WorkProject[j].employee[i].penddate.substr(8,2);
-        let projEndYear = WorkProject[j].employee[i].penddate.substr(0,4);
+        let endTimeline = WorkProject[j].penddate.substr(8,2);
+        let projEndYear = WorkProject[j].penddate.substr(0,4);
         endTimeline = getTimeline(endTimeline, appearYear, projEndYear);
         endTimeline = +endTimeline;
-        let projStartYear = WorkProject[j].employee[i].pstartdate.substr(0,4);
+        let projStartYear = WorkProject[j].pstartdate.substr(0,4);
         getMonthName(getMonthIndex, appearYear, projStartYear);
-        prevYear = checkWorkPrevYear(appearYear, projEndYear, projStartYear, i, projTimeline);
-        let projStartDate = WorkProject[j].employee[i].pstartdate.substr(8,2);
+        let prevYear = checkWorkPrevYear(appearYear, projEndYear, projStartYear, i, projTimeline);
+        let projStartDate = WorkProject[j].pstartdate.substr(8,2);
         let startMText = projStartMon;
         let minusVal = +projStartDate;
         hval = 10;
@@ -476,7 +476,7 @@ function calWorkProjBar(j)
                 if(month1===`January ${appearYear}`)
                 {
                     daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,projStartYear);
-                    showWorkload(daysCount,endTimeline,i,projTimeline,projStartDate,mobileWidth,hval,mlval);
+                    showWorkload(daysCount,endTimeline,i,projTimeline,mobileWidth,hval,mlval);
                     daysCount = endDate-startDate;
                 }
             }
@@ -583,7 +583,7 @@ function calWorkTaskjProjBar(k)
             let startDate = Math.floor(date1.getTime()/(3600*24*1000));
             let endDate = Math.floor(date2.getTime()/(3600*24*1000));
             let daysCount = endDate - startDate;
-            monthAppear = getWorkAppearYear();
+            let monthAppear = getWorkAppearYear();
             let appearYear = +monthAppear;
             let compareDate = new Date(`${appearYear}/01/01`);
             let endTimeline = WorkProject[k].employee[j].task[i].penddate.substr(8,2);
@@ -592,7 +592,7 @@ function calWorkTaskjProjBar(k)
             endTimeline = +endTimeline;
             let mileStartYear = WorkProject[k].employee[j].task[i].pstartdate.substr(0,4);
             getMonthName(getMonthIndex, appearYear, mileStartYear);
-            prevYear = checkWorkPrevYear(appearYear, mileEndYear, mileStartYear, i, projTask);
+            let prevYear = checkWorkPrevYear(appearYear, mileEndYear, mileStartYear, i, projTask);
             let mileStartDate = WorkProject[k].employee[j].task[i].pstartdate.substr(8,2);
             let startMText = projStartMon;
             let minusVal = +mileStartDate;
@@ -604,6 +604,7 @@ function calWorkTaskjProjBar(k)
                 {
                     if(month1===`January ${appearYear}`)
                     {
+                        console.log(projTask[i]);
                         daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,mileStartDate);
                         showWorkload(daysCount,endTimeline,i,projTask,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
@@ -727,7 +728,7 @@ function calWorkResBar(j)
             let startMText = projStartMon;
             let minusVal = +projStartDate;
             hval = 10;
-            mlval = 10.9;
+            mlval = 10.24;
             if(date1.getTime()<=compareDate.getTime())
             {
                 if(appearYear>=compareYear && prevYear)
@@ -735,7 +736,7 @@ function calWorkResBar(j)
                     if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,projStartYear);
-                        showWorkload(daysCount,endTimeline,i,resTimeline,projStartDate,mobileWidth,hval,mlval);
+                        showWorkload(daysCount,endTimeline,i,resTimeline,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                 }
@@ -854,7 +855,7 @@ function calWorkTaskResBar(k)
             let startMText = projStartMon;
             let minusVal = +mileStartDate;
             hval = 38;
-            mlval = 10.9;
+            mlval = 10.24;
             if(date1.getTime()<=compareDate.getTime())
             {
                 if(appearYear>=compareYear && prevYear)
@@ -954,7 +955,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth,hval,mlva
     let totWidth = workTimeline[i].closest('.tablecal').querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
     let dateText = `${workMonText[2].innerText} ${workYearText[2].innerText}`;
-    
+
     switch(true){
         case (daysCount<=30):
         {
@@ -1671,7 +1672,7 @@ function getWorkAppearYear()
 function checkWorkPrevYear(appearYear,projEndYear,projStartYear,i,ganttTimeline)
 {
     let booleanYear = true;
-    if(appearYear > projEndYear || appearYear < projStartYear)
+    if( appearYear > projEndYear || appearYear < projStartYear )
     {
         ganttTimeline[i].closest('.progress').style.display="none";
         booleanYear=false;            
@@ -2862,19 +2863,19 @@ function showDropProjTip(e)
        let p3 = tip.querySelector('p:nth-child(4)');
        let p4 = tip.querySelector('p:nth-child(5)');
        let p5 = tip.querySelector('p:nth-child(6)');
-       let startDate = WorkProjTip[projInd].pstartdate.substr(8,2);
-       let startMonName = WorkProjTip[projInd].planned.substr(0,3);
-       let startYear = WorkProjTip[projInd].pstartdate.substr(0,4);
-       let endDate = WorkProjTip[projInd].penddate.substr(8,2);
-       let endMonName = WorkProjTip[projInd].planned.substr(9,3);
-       let endYear = WorkProjTip[projInd].penddate.substr(0,4);
-       let projName = WorkProjTip[projInd].projectname;
+       let startDate = WorkProject[projInd].pstartdate.substr(8,2);
+       let startMonName = WorkProject[projInd].planned.substr(0,3);
+       let startYear = WorkProject[projInd].pstartdate.substr(0,4);
+       let endDate = WorkProject[projInd].penddate.substr(8,2);
+       let endMonName = WorkProject[projInd].planned.substr(9,3);
+       let endYear = WorkProject[projInd].penddate.substr(0,4);
+       let projName = WorkProject[projInd].projectname;
        h4.innerText=`${projName}: ${startDate} ${startMonName} ${startYear} to ${endDate} ${endMonName} ${endYear}`;
-       p1.innerText=`Duration: ${WorkProjTip[projInd].duration}`;
-       p2.innerText=`Percentage Done: ${WorkProjTip[projInd].percentage}`;
-       p3.innerText=`Status: ${WorkProjTip[projInd].statustext}`;
-       p4.innerText=`Domain Lead: ${WorkProjTip[projInd].domainlead}`;
-       p5.innerText=`Technical Lead: ${WorkProjTip[projInd].technicallead}`;
+       p1.innerText=`Duration: ${WorkProject[projInd].duration}`;
+       p2.innerText=`Percentage Done: ${WorkProject[projInd].percentage}`;
+       p3.innerText=`Status: ${WorkProject[projInd].statustext}`;
+       p4.innerText=`Domain Lead: ${WorkProject[projInd].domainlead}`;
+       p5.innerText=`Technical Lead: ${WorkProject[projInd].technicallead}`;
     }
     else if(e.type==="mouseout")
     {

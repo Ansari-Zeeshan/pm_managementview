@@ -4487,12 +4487,12 @@ function giveMilestonebG(i, j, daysCount, ganttTimeline) {
 }
 
 // showing project name on hover
-(function makingTooltip() {
+function makingTooltip() {
     hoverProject2.forEach((hover) => {
         let p = hover.innerHTML;
         getHoverProjName(p, hover);
     })
-}());
+}
 function makingTooltip() {
     hoverProject3.forEach((hover) => {
         let p = hover.innerHTML;

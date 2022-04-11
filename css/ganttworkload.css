@@ -368,6 +368,7 @@ table .thspace {
 .tablepro .whiteprog-bar
 {
   background-color: #fff;
+  border-radius: 0px;
 }
 .progress-bar1 {
   background: #1FC875;
@@ -402,6 +403,12 @@ table .thspace {
 .resource .tablepro
 {
   top: 67px;
+}
+#benefits
+{
+  max-height: 450px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 #benefits table tbody tr td span
 {
@@ -470,6 +477,7 @@ table .thspace {
   padding: 0.6rem 0.5rem;
   display: flex;
   padding-left: 13px;
+  border-right: none;
 }
 #benefitsdrop .tableprogian
 {
