@@ -175,7 +175,8 @@ select:focus {
 {
    color: #fff;
 }
-.gantt .tablecal1 .thspace select
+.gantt .tablecal1 .thspace select,
+.workload .tablecal1 .thspace select
 {
   margin-left: 1.5rem;
   border: 1px solid #cbcbcb;
@@ -239,13 +240,12 @@ table .thspace {
 
 .task1 {
   border-radius: 5px;
-  background: #FBD8D8;
   padding: 8px 0px;
   text-align: center;
   width: 200px;
   height: 40px;
   margin-right: 20px;
-  color: #616264;
+  color: #fff;
   font-size: 14px;
   font-weight: 500;
 }
@@ -540,6 +540,9 @@ table .thspace {
 #benefitsdrop,
 #benefits2 {
   position: relative;
+  max-height: 58vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #benefits td img,
@@ -874,7 +877,7 @@ table .thspace {
 }
 
 .gantpr22 {
-  margin-top: 0.5rem;
+  margin-top: 1.2rem;
   height: 38px;
 }
 

@@ -57,7 +57,7 @@ const quarter = ['Q1', 'Q2', 'Q3', 'Q4'];
     showDate = selectGantt.querySelectorAll('.gantt .tablegantt tr:nth-child(2) th');
     monthText = selectGantt.querySelector('.gantt .tablecal1 .thspace span');
     yearText = selectGantt.querySelector('.gantt .tablecal1 .thspace p');
-    projNameText = selectGantt.querySelectorAll('#benefits2 .first1 .firstext');
+    projNameText = selectGantt.querySelectorAll('#benefits2 .first1 .firstext p');
     ganttTimeline = selectGantt.querySelectorAll('.gantt #benefits2 .tableprogian .timeline');
     hoverProject2 = selectGantt.querySelectorAll('.gantt #benefits2 .tableprogian .pname');
 
