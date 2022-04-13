@@ -239,6 +239,16 @@ const taskData=
 WorkProject = 
 [
   {
+    'planned': 'Jan 5 - Feb 25',
+    "statustext": "In Progress",
+    "statusclass": "#2D62ED",
+    "pstartdate": "2021-01-05T20:00:00.000Z",
+    "penddate": "2050-02-25T20:00:00.000Z",
+    "percentage": "50%",
+    "domainlead": "Abul Jasim",
+    "technicallead": "Javed Hasan",
+    'projectname': "Wireframe",
+
     "employee":
     [
       {
@@ -351,6 +361,16 @@ WorkProject =
     ]
   },
   {
+    'planned': 'Feb 12 - Oct 25',
+    "statustext": "On Hold",
+    "statusclass": "#2D62ED",
+    "pstartdate": "2021-02-12T20:00:00.000Z",
+    "penddate": "2021-10-25T20:00:00.000Z",
+    "percentage": "25%",
+    'domainlead': "Atiq Ur Rehman",
+    'technicallead': null,
+    'projectname': "Visual Design",
+
     "employee":
     [
       {
