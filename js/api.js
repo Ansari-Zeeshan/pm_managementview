@@ -494,16 +494,7 @@ WorkResource =
     "project":
     [
       {
-        'planned': 'Jan 05 - Feb 25',
-        "statustext": "In Progress",
-        "statusclass": "#2D62ED",
-        "pstartdate": "2021-01-05T20:00:00.000Z",
-        "penddate": "2050-02-25T20:00:00.000Z",
-        "percentage": "50%",
-        "domainlead": "Abul Jasim",
-        "technicallead": "Javed Hasan",
         'projectname': "Wireframe Wireframe Wireframe",
-
         'task':
         [
           {
@@ -585,16 +576,7 @@ WorkResource =
         ]
       },
       {
-        'planned': 'Feb 12 - Oct 25',
-        "statustext": "On Hold",
-        "statusclass": "#2D62ED",
-        "pstartdate": "2021-02-12T20:00:00.000Z",
-        "penddate": "2021-10-25T20:00:00.000Z",
-        "percentage": "25%",
-        'domainlead': "Atiq Ur Rehman",
-        'technicallead': null,
         'projectname': "Visual Design",
-
         'task':
         [
           {
@@ -639,7 +621,7 @@ WorkResource =
             "taskid": "134",
             "projectid": "102",
             "taskname": "Task3",
-           "taskdesc": "demo ",
+            "taskdesc": "demo ",
             "ownerid": "55",
             "ownername": "Abul Qais",
             "ownerimage": "",
@@ -653,6 +635,107 @@ WorkResource =
             "priority": "Medium",
             "taskpercentage": 40,
             "milestonename": "Communication"
+          },
+          {
+            "taskid": "134",
+            "projectid": "102",
+            "taskname": "Task4",
+            "taskdesc": "demo ",
+            "ownerid": "55",
+            "ownername": "Abul Qais",
+            "ownerimage": "",
+            "statusid": 22,
+            "statustext": "Planned",
+            "statusclass": "#EA9E8D",
+            "planned": "May 18 - May 27",
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-05-18T05:49:26.221Z",
+            "penddate": "2022-05-27T20:00:00.000Z",
+            "priority": "Medium",
+            "taskpercentage": 40,
+            "milestonename": "Communication"
+          }
+        ]
+      },
+      {
+        'projectname': "Graphic Design",
+        'task':
+        [
+          {
+            "taskid": "124",
+            "projectid": "102",
+            "taskname": "Task1",
+            "taskdesc": "DEMO",
+            "ownerid": "55",
+            "ownername": "Abul Qais",
+            "ownerimage": "",
+            "statusid": 23,
+            "statustext": "Approved",
+            "statusclass": "#a55eea",
+            "planned": "Jan 15 - Mar 14",
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-01-15T20:00:00.000Z",
+            "penddate": "2021-03-14T20:00:00.000Z",
+            "priority": "High",
+            "taskpercentage": 20,
+            "milestonename": "Planning deadline"
+          },
+          {
+            "taskid": "134",
+            "projectid": "102",
+            "taskname": "Task2",
+            "taskdesc": "new task desc",
+            "ownerid": "55",
+            "ownername": "Abul Qais",
+            "ownerimage": "",
+            "statusid": 600,
+            "statustext": "In Progress",
+            "statusclass": "#4b7bec",
+            "planned": "Feb 17 - Apr 20",
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-02-17T12:11:06.208Z",
+            "penddate": "2021-04-20T04:00:00.000Z",
+            "priority": "Low",
+            "taskpercentage": 10,
+            "milestonename": "Initiated"
+          },
+          {
+            "taskid": "134",
+            "projectid": "102",
+            "taskname": "Task3",
+            "taskdesc": "demo ",
+            "ownerid": "55",
+            "ownername": "Abul Qais",
+            "ownerimage": "",
+            "statusid": 22,
+            "statustext": "Backlog",
+            "statusclass": "#fc5c65",
+            "planned": "Aug 20 - Aug 27",
+            "actual": "PMO PROJECT",
+            "pstartdate": "2021-08-20T05:49:26.221Z",
+            "penddate": "2021-08-27T20:00:00.000Z",
+            "priority": "Medium",
+            "taskpercentage": 40,
+            "milestonename": "Communication"
+          },
+          {
+            "taskid": "134",
+            "projectid": "102",
+            "taskname": "Task4",
+            "taskdesc": "demo ",
+            "ownerid": "55",
+            "ownername": "Abul Qais",
+            "ownerimage": "",
+            "statusid": 22,
+            "statustext": "Planned",
+            "statusclass": "#fa8231",
+            "planned": "Jan 18 - Jan 27",
+            "actual": "PMO PROJECT",
+            "pstartdate": "2022-01-18T05:49:26.221Z",
+            "penddate": "2022-01-27T20:00:00.000Z",
+            "priority": "Medium",
+            "taskpercentage": 40,
+            "milestonename": "Communication"
           }
         ]
       },
@@ -663,16 +746,7 @@ WorkResource =
     "project":
     [
       {
-        'planned': 'Jan 05 - Feb 25',
-        "statustext": "In Progress",
-        "statusclass": "#2D62ED",
-        "pstartdate": "2021-01-05T20:00:00.000Z",
-        "penddate": "2050-02-25T20:00:00.000Z",
-        "percentage": "50%",
-        "domainlead": "Abul Jasim",
-        "technicallead": "Javed Hasan",
         'projectname': "Wireframe",
-
         'task':
         [
           {
@@ -716,16 +790,7 @@ WorkResource =
         ]
       },
       {
-        'planned': 'Feb 12 - Oct 25',
-        "statustext": "On Hold",
-        "statusclass": "#2D62ED",
-        "pstartdate": "2021-02-12T20:00:00.000Z",
-        "penddate": "2021-10-25T20:00:00.000Z",
-        "percentage": "25%",
-        'domainlead': "Atiq Ur Rehman",
-        'technicallead': null,
         'projectname': "Visual Design",
-        
         'task':
         [
           {

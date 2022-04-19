@@ -400,17 +400,52 @@ table .thspace {
   position: absolute;
   top: 13px;
 }
-.resource .tablepro
-{
-  top: 67px;
-}
 #benefits
 {
   max-height: 450px;
   overflow-y: auto;
   overflow-x: hidden;
 }
-#benefits table tbody tr td span
+#benefits .resource
+{
+  margin-bottom: 6.5rem;
+}
+#benefits .tableprogian .resource .tablepro
+{
+  position: relative;
+  top: 85px;
+}
+#benefits table tbody tr:first-child,
+#benefitsdrop table tbody tr:first-child
+{
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background-color: #fff; 
+}
+#benefits .tableprogian .tablepro .textdiv
+{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  width: 10.1vw;
+}
+#benefits .tableprogian .tablepro .textdiv div
+{
+  background: #F3D2D2;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+#benefits table tbody tr td span,
+#benefits .tableprogian .tablepro .textdiv p
 {
   font-weight: 600;
   font-size: 13px;
@@ -418,6 +453,10 @@ table .thspace {
   text-overflow: ellipsis;
   overflow: hidden;
   cursor: text;
+}
+#benefits table tbody tr td span
+{
+  color: #fff;
 }
 .respro .resprogress
 {
@@ -445,7 +484,7 @@ table .thspace {
 
 .dot div,
 .dot1 div {
-  background: #F3D2D2;
+  background: #fff;
   border-radius: 50%;
   width: 12px;
   height: 12px;
@@ -512,6 +551,7 @@ table .thspace {
   text-overflow: ellipsis;
   white-space: nowrap;
   font-weight: 600;
+  z-index: 4;
 }
 
 #benefitsdrop tbody td.fixedvw
