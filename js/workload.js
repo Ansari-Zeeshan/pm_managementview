@@ -20,21 +20,28 @@ let workMonText, workYearText, projName, dropProjTip, dropTaskTip, hoverEmpName,
 let preventFun = {};
 // pushing task
 
-// for(let i=0; i<WorkProject.length; i++)
-// {
-//     let alltask = [];
-//     let task = {};
-//     for(let j=0; j<WorkProject[i].employee.length; j++)
-//     {
-//         for(let k=0; k<WorkProject[i].employee[j].task.length; k++)
-//         {
-//             alltask.push(WorkProject[i].employee[j].task[k]);
-//         }   
-//     }
-//     task.push(alltask);
-//     WorkProjTip.push(task);
-//     console.log(WorkProjTip);   
-// }
+// let a = [1,3,2], b=[4,5,6];
+// let c = [[...a],[...b]];
+// c =[...c]
+// console.log([...c],'task'); 
+
+for(let i=0; i<WorkProject.length; i++)
+{
+    let alltask = [];
+    let task = {};
+    for(let j=0; j<WorkProject[i].employee.length; j++)
+    {
+        for(let k=0; k<WorkProject[i].employee[j].task.length; k++)
+        {
+            alltask.push(WorkProject[i].employee[j].task[k]);
+        }   
+    }
+    task = [...alltask];
+    console.log(task);
+    let obj = {...task};
+    WorkProjTip.push(obj);
+    // console.log(WorkProjTip);
+}
 monthData.addEventListener('change', (e) => {
     let monthInput = monthData.options[monthData.selectedIndex].value;
     let num = +getNumericMonth(monthInput);
@@ -215,8 +222,7 @@ function createWorkRes(empname,i)
         let res = document.createElement('div');
         res.setAttribute('class','resource'); 
         let tr = document.createElement('tr');
-        let proname = WorkResource[i].project[j].projectname.replace(/\s+/g, "");
-        j === WorkResource[i].project.length - 1 ? tr.setAttribute('class',`borderdot virtualtr ${proname}`) : tr.setAttribute('class',`virtualtr ${proname}`);       
+        j === WorkResource[i].project.length - 1 ? tr.setAttribute('class',`borderdot virtualtr`) : tr.setAttribute('class',`virtualtr`);       
         tr.innerHTML=`
                     <td class="text-center dot" style="width: 10.3vw"> 
                         <div></div><span>${WorkResource[i].project[j].projectname}</span>
@@ -324,10 +330,10 @@ function dynamCrtRestr(insideTask, text, taskAppend)
             let tbody = td.closest('tbody');
             let alltr = td.closest('tbody').querySelectorAll('tr');
             let index = Array.from(alltr).indexOf(closesttr);
-            for(let trind=0; trind<insideTask.length - 1; trind++)
+            for(let trind=0; trind<insideTask.length - 2; trind++)
             {
                 let tr = document.createElement('tr');
-                tr.setAttribute('class',`virtualtr ${text.replace(/\s+/g, "")}`);
+                tr.setAttribute('class','virtualtr');
                 tr.innerHTML=`
                 <td style="width: 10.3vw; border-right: none;"></td>
                 <td style="border-left: 1px solid #0000000D;"></td>
@@ -589,8 +595,6 @@ function calWorkTaskResBar(k)
     for(let j=0;j<resource.length;j++)
     {
         let projTask = resource[j].querySelectorAll('.taskList .progress .task1');
-        let proname = WorkResource[k].project[j].projectname;
-        let extratr = workTable2.querySelectorAll(`.${proname.replace(/\s+/g, "")}`);
         for(let i=0; i<projTask.length; i++)
         {
             let date1 = new Date(WorkResource[k].project[j].task[i].pstartdate.substr(0,10).toString());
@@ -625,7 +629,7 @@ function calWorkTaskResBar(k)
                     if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,mileStartDate);
-                        showWorkload(daysCount,endTimeline,i,projTask,mobileWidth,hval,mlval,extratr,j);
+                        showWorkload(daysCount,endTimeline,i,projTask,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                 }
@@ -637,73 +641,73 @@ function calWorkTaskResBar(k)
                     if(month1===`January ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval,extratr,j);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`February ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval,extratr,j);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`March ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval,extratr,j);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`April ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval,extratr,j);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`May ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval,extratr,j);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`June ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval,extratr,j);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`July ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval,extratr,j);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`August ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval,extratr,j);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`September ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval,extratr,j);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`October ${appearYear}`)
                     {
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval,extratr,j);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`November ${appearYear}`)
                     {           
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval,extratr,j);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                     else if(month1===`December ${appearYear}`)
                     {                    
                         daysCount = checkTargetDate(date1,date2,daysCount,appearYear);
-                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval,extratr,j);
+                        showAlterWorkload(daysCount,endTimeline,i,projTask,mileStartDate,startMText,minusVal,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
                     }
                 }
@@ -714,7 +718,7 @@ function calWorkTaskResBar(k)
     makingEmpTooltip2();
 }
 
-function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth,hval,mlval,extratr,j)
+function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth,hval,mlval)
 {
     let totWidth = workTimeline[i].closest('.tablecal').querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
@@ -998,7 +1002,7 @@ function showWorkload(daysCount,endTimeline,i,workTimeline,mobileWidth,hval,mlva
         }    
     }               
 }
-function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startMText,minusVal,mobileWidth,hval,mlval,extratr,j)        
+function showAlterWorkload(daysCount,endTimeline,i,workTimeline,startTime,startMText,minusVal,mobileWidth,hval,mlval)        
 {
     startTime = +startTime -1;
     let totWidth = workTimeline[i].closest('.tablecal').querySelectorAll('tr:nth-child(2) th.dateVirtual');
@@ -1457,44 +1461,6 @@ function checkWorkTargetDate2(date2,i,daysCount,year2,year1)
     }
 }
 
-// function showExtratr(extratr,i,j)
-// {
-//     extratr[i].style.display="revert";
-//     if(j>=1)
-//     {
-//         if(workTimeline[i].classList.contains('vtadd'))
-//         {
-//             let tableprog =  workTimeline[i].closest('.tableprogian');
-//             let tablepro =  workTimeline[i].closest('.tablepro');
-//             let allTask = tableprog.querySelectorAll('.resource .taskList .progress');
-//             let currTask = tablepro.querySelectorAll('.progress');
-//             let mulnum = allTask.length - currTask.length;
-//             workTimeline[i].classList.remove('vtadd');
-//             let progress = workTimeline[i].closest('.taskList').querySelectorAll('.progress');
-//             let vt = Array.from(progress).filter((prog)=>
-//             {
-//                 if(!prog.classList.contains('vtadd'))
-//                 {
-//                     return prog;
-//                 }
-//             })
-//             let ogHt = (80*mulnum) + 84;
-//             let minHt = vt.length * 20;
-//             tablepro.style.top=`${ogHt + minHt}px`;
-//         }
-//     }
-// }
-// function hideExtratr(extratr,i,workTimeline,j)
-// {
-//     extratr[i].style.display="none";
-//     if(j>=1)
-//     {
-//         workTimeline[i].classList.add('class','vtadd');
-//         let vt = workTimeline[i].closest('.taskList').querySelectorAll('.vtadd');
-//         vtHeightAdd(vt,workTimeline,i);
-//     }
-// }
-
 function vtHeightAdd(vt,workTimeline,i)
 {
     let tableprog =  workTimeline[i].closest('.tableprogian');
@@ -1645,8 +1611,8 @@ function showDropResTaskTip(e)
     {
        let taskDataInd = this.tipind;
        let tip = e.target.closest('#benefits').querySelector('.tasktooltip');
-       let top=e.clientY;
-       let left=e.clientX;
+       let top = e.clientY;
+       let left = e.clientX;
        tip.style.cssText=`top:${top - 200}px; left:${left - 250}px; display:block;`;
        let h4 = tip.querySelector('h4');
        let p1 = tip.querySelector('p:nth-child(2)');
