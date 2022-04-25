@@ -408,7 +408,7 @@ table .thspace {
 }
 #benefits .resource
 {
-  margin-bottom: 6.5rem;
+  margin-bottom: 3rem;
 }
 #benefits .tableprogian .resource .tablepro
 {
@@ -427,10 +427,11 @@ table .thspace {
 #benefits .tableprogian .tablepro .textdiv
 {
   position: absolute;
+  top: -6px;
   display: flex;
   align-items: center;
   padding-left: 12px;
-  width: 10.1vw;
+  width: 9.1vw;
 }
 #benefits .tableprogian .tablepro .textdiv div
 {
@@ -476,7 +477,7 @@ table .thspace {
 }
 .resource .tablepro .taskList .progress
 {
-  margin-bottom: 4.7rem;
+  margin-bottom: 0.9rem;
 }
 .dot1 div {
   background: #8AB8B7 !important;
@@ -545,7 +546,7 @@ table .thspace {
 #benefitsdrop .tableprogian .img_emp .text_div
 {
   font-size: 12px;
-  width: 58px;
+  width: 5vw;
   height: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -769,6 +770,7 @@ table .thspace {
   position: absolute;
   background-color: #fff;
   padding: 15px;
+  max-width: 244px;
   border-radius: 3px;
   z-index: 500;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);

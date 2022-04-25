@@ -20,28 +20,21 @@ let workMonText, workYearText, projName, dropProjTip, dropTaskTip, hoverEmpName,
 let preventFun = {};
 // pushing task
 
-// let a = [1,3,2], b=[4,5,6];
-// let c = [[...a],[...b]];
-// c =[...c]
-// console.log([...c],'task'); 
-
-for(let i=0; i<WorkProject.length; i++)
-{
-    let alltask = [];
-    let task = {};
-    for(let j=0; j<WorkProject[i].employee.length; j++)
-    {
-        for(let k=0; k<WorkProject[i].employee[j].task.length; k++)
-        {
-            alltask.push(WorkProject[i].employee[j].task[k]);
-        }   
-    }
-    task = [...alltask];
-    console.log(task);
-    let obj = {...task};
-    WorkProjTip.push(obj);
-    // console.log(WorkProjTip);
-}
+// for(let i=0; i<WorkProject.length; i++)
+// {
+//     let alltask = [];
+//     let task = {};
+//     for(let j=0; j<WorkProject[i].employee.length; j++)
+//     {
+//         for(let k=0; k<WorkProject[i].employee[j].task.length; k++)
+//         {
+//             alltask.push(WorkProject[i].employee[j].task[k]);
+//         }   
+//     }
+//     task = [...alltask];
+//     let obj = {...task};
+//     WorkProjTip.push(obj);
+// }
 monthData.addEventListener('change', (e) => {
     let monthInput = monthData.options[monthData.selectedIndex].value;
     let num = +getNumericMonth(monthInput);
@@ -288,8 +281,9 @@ function createWorkTaskResBar(i)
             let progress = document.createElement('div');
             progress.setAttribute('class','progress');
             let task_bar = document.createElement('div');
-            task_bar.innerText = `${WorkResource[i].project[j].task[k].taskname}`;
-            task_bar.setAttribute('class','task1');
+            task_bar.setAttribute('class','progress-bar');
+            task_bar.setAttribute('empInd',`${j}`);
+            task_bar.setAttribute('taskInd',`${k}`);
             progress.appendChild(task_bar);
             taskAppend.appendChild(progress);
             let insideTask = taskAppend.querySelectorAll('.progress');
@@ -308,7 +302,7 @@ function createWorkTaskResBar(i)
             // }
         }
     }
-    let dropResTaskTip = workload.querySelectorAll('#benefits .taskList .progress .task1');
+    let dropResTaskTip = workload.querySelectorAll('#benefits .taskList .progress .progress-bar');
     for(let ind=0; ind<dropResTaskTip.length; ind++)
     {
         ['mouseover','mouseout'].forEach((e)=>
@@ -330,7 +324,7 @@ function dynamCrtRestr(insideTask, text, taskAppend)
             let tbody = td.closest('tbody');
             let alltr = td.closest('tbody').querySelectorAll('tr');
             let index = Array.from(alltr).indexOf(closesttr);
-            for(let trind=0; trind<insideTask.length - 2; trind++)
+            for(let trind=0; trind<insideTask.length - 3; trind++)
             {
                 let tr = document.createElement('tr');
                 tr.setAttribute('class','virtualtr');
@@ -447,6 +441,8 @@ function createTaskProj(i)
         {
             let progress = document.createElement('div');
             let progress_bar = document.createElement('div');
+            progress_bar.setAttribute('empInd',`${j}`);
+            progress_bar.setAttribute('taskInd',`${k}`);
             progress.setAttribute('class','progress');
             progress_bar.setAttribute('class','progress-bar');
             progress.appendChild(progress_bar);
@@ -496,7 +492,6 @@ function calWorkTaskProjBar(k)
                 {
                     if(month1===`January ${appearYear}`)
                     {
-                        console.log(projTask[i]);
                         daysCount = checkWorkTargetDate2(date2,i,daysCount,appearYear,mileStartDate);
                         showWorkload(daysCount,endTimeline,i,projTask,mobileWidth,hval,mlval);
                         daysCount = endDate-startDate;
@@ -594,7 +589,7 @@ function calWorkTaskResBar(k)
     let resource = workload.querySelectorAll('#benefits .resource');
     for(let j=0;j<resource.length;j++)
     {
-        let projTask = resource[j].querySelectorAll('.taskList .progress .task1');
+        let projTask = resource[j].querySelectorAll('.taskList .progress .progress-bar');
         for(let i=0; i<projTask.length; i++)
         {
             let date1 = new Date(WorkResource[k].project[j].task[i].pstartdate.substr(0,10).toString());
@@ -620,7 +615,7 @@ function calWorkTaskResBar(k)
             let mileStartDate = WorkResource[k].project[j].task[i].pstartdate.substr(8,2);
             let startMText = projStartMon;
             let minusVal = +mileStartDate;
-            hval = 38;
+            hval = 10;
             mlval = 10.24;
             if(date1.getTime()<=compareDate.getTime())
             {
@@ -713,6 +708,7 @@ function calWorkTaskResBar(k)
                 }
             }
             giveResTaskbG(i,j,k,projTask);
+            checkAllTask(projTask,i);
         }
     }
     makingEmpTooltip2();
@@ -1538,6 +1534,27 @@ function giveResTaskbG(i,j,k,workTimeline)
     workTimeline[i].style.backgroundColor=`${WorkResource[k].project[j].task[i].statusclass}`;
 }
 
+function checkAllTask(projTask,i)
+{
+    let taskAll = projTask[i].closest('.taskList').querySelectorAll('.progress');
+    let text = projTask[i].closest('.taskList').querySelector('.textdiv');
+    Array.from(taskAll).every((task)=>
+    {
+        if(task.style.display=="none")
+        {
+            text.style.display="none";
+        }
+    })
+
+    Array.from(taskAll).some((task)=>
+    {
+        if(task.style.display=="block")
+        {
+            text.style.display="block";
+        }
+    })
+}
+
 // making tooltip
 function makingEmpTooltip()
 {
@@ -1559,7 +1576,7 @@ function makingEmpTooltip2()
 
 function getHoverEmpName(p, hover)
 {
-    if(p.length>16)
+    if(p.length>12)
     {
         hover.setAttribute('data-bs-toggle','tooltip');
         hover.setAttribute('data-bs-placement','bottom');
@@ -1577,7 +1594,8 @@ function showDropTaskTip(e)
 {
     if(e.type==="mouseover")
     {
-       let taskDataInd = this.tipind;
+       let empInd = e.target.getAttribute('empInd');
+       let taskInd = e.target.getAttribute('taskInd');
        let tip = e.target.closest('#benefitsdrop').querySelector('.tasktooltip');
        let top=e.clientY;
        let left=e.clientX;
@@ -1586,17 +1604,17 @@ function showDropTaskTip(e)
        let p1 = tip.querySelector('p:nth-child(2)');
        let p2 = tip.querySelector('p:nth-child(3)');
        let p3 = tip.querySelector('p:nth-child(4)');
-       let startDate = WorkProjTip[projInd].task[taskDataInd].pstartdate.substr(8,2);
-       let startMonName = WorkProjTip[projInd].task[taskDataInd].planned.substr(0,3);
-       let startYear = WorkProjTip[projInd].task[taskDataInd].pstartdate.substr(0,4);
-       let endDate = WorkProjTip[projInd].task[taskDataInd].penddate.substr(8,2);
-       let endMonName = WorkProjTip[projInd].task[taskDataInd].planned.substr(9,3);
-       let endYear = WorkProjTip[projInd].task[taskDataInd].penddate.substr(0,4);
-       let taskName = WorkProjTip[projInd].task[taskDataInd].taskname;
+       let startDate = WorkProject[projInd].employee[empInd].task[taskInd].pstartdate.substr(8,2);
+       let startMonName = WorkProject[projInd].employee[empInd].task[taskInd].planned.substr(0,3);
+       let startYear = WorkProject[projInd].employee[empInd].task[taskInd].pstartdate.substr(0,4);
+       let endDate = WorkProject[projInd].employee[empInd].task[taskInd].penddate.substr(8,2);
+       let endMonName = WorkProject[projInd].employee[empInd].task[taskInd].planned.substr(9,3);
+       let endYear = WorkProject[projInd].employee[empInd].task[taskInd].penddate.substr(0,4);
+       let taskName = WorkProject[projInd].employee[empInd].task[taskInd].taskname;
        h4.innerText=`${taskName}: ${startDate} ${startMonName} ${startYear} to ${endDate} ${endMonName} ${endYear}`;
-       p1.innerText=`Duration: ${WorkProjTip[projInd].task[taskDataInd].duration}`;
-       p2.innerText=`Percentage Done: ${WorkProjTip[projInd].task[taskDataInd].percentage}`;
-       p3.innerText=`Status: ${WorkProjTip[projInd].task[taskDataInd].statustext}`;
+       p1.innerText=`Status: ${WorkProject[projInd].employee[empInd].task[taskInd].priority}`;
+       p2.innerText=`Owner Name: ${WorkProject[projInd].employee[empInd].task[taskInd].ownername}`;
+       p3.innerText=`Percentage Done: ${WorkProject[projInd].employee[empInd].task[taskInd].taskpercentage}`;
     }
     else if(e.type==="mouseout")
     {
@@ -1609,7 +1627,8 @@ function showDropResTaskTip(e)
 {
     if(e.type==="mouseover")
     {
-       let taskDataInd = this.tipind;
+       let empInd = e.target.getAttribute('empInd');
+       let taskInd = e.target.getAttribute('taskInd');
        let tip = e.target.closest('#benefits').querySelector('.tasktooltip');
        let top = e.clientY;
        let left = e.clientX;
@@ -1618,17 +1637,17 @@ function showDropResTaskTip(e)
        let p1 = tip.querySelector('p:nth-child(2)');
        let p2 = tip.querySelector('p:nth-child(3)');
        let p3 = tip.querySelector('p:nth-child(4)');
-       let startDate = WorkResTip[resInd].task[taskDataInd].pstartdate.substr(8,2);
-       let startMonName = WorkResTip[resInd].task[taskDataInd].planned.substr(0,3);
-       let startYear = WorkResTip[resInd].task[taskDataInd].pstartdate.substr(0,4);
-       let endDate = WorkResTip[resInd].task[taskDataInd].penddate.substr(8,2);
-       let endMonName = WorkResTip[resInd].task[taskDataInd].planned.substr(9,3);
-       let endYear = WorkResTip[resInd].task[taskDataInd].penddate.substr(0,4);
-       let taskName = WorkResTip[resInd].task[taskDataInd].taskname;
+       let startDate = WorkResource[resInd].project[empInd].task[taskInd].pstartdate.substr(8,2);
+       let startMonName = WorkResource[resInd].project[empInd].task[taskInd].planned.substr(0,3);
+       let startYear = WorkResource[resInd].project[empInd].task[taskInd].pstartdate.substr(0,4);
+       let endDate = WorkResource[resInd].project[empInd].task[taskInd].penddate.substr(8,2);
+       let endMonName = WorkResource[resInd].project[empInd].task[taskInd].planned.substr(9,3);
+       let endYear = WorkResource[resInd].project[empInd].task[taskInd].penddate.substr(0,4);
+       let taskName = WorkResource[resInd].project[empInd].task[taskInd].taskname;
        h4.innerText=`${taskName}: ${startDate} ${startMonName} ${startYear} to ${endDate} ${endMonName} ${endYear}`;
-       p1.innerText=`Duration: ${WorkResTip[resInd].task[taskDataInd].duration}`;
-       p2.innerText=`Percentage Done: ${WorkResTip[resInd].task[taskDataInd].percentage}`;
-       p3.innerText=`Status: ${WorkResTip[resInd].task[taskDataInd].statustext}`;
+       p1.innerText=`Status: ${WorkProject[projInd].employee[empInd].task[taskInd].priority}`;
+       p2.innerText=`Owner Name: ${WorkProject[projInd].employee[empInd].task[taskInd].ownername}`;
+       p3.innerText=`Percentage Done: ${WorkProject[projInd].employee[empInd].task[taskInd].taskpercentage}`;
     }
     else if(e.type==="mouseout")
     {
