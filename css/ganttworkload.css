@@ -171,7 +171,9 @@ select:focus {
   display: inline;
   font-weight: 600;
 }
-.gantt .tablecal1 .thspace span.white
+.gantt .tablecal1 .thspace span.white,
+.workload #benefitsdrop .table .thspace span.white,
+.workload #benefits .table .thspace span.white
 {
    color: #fff;
 }
@@ -416,13 +418,21 @@ table .thspace {
   top: 85px;
 }
 #benefits table tbody tr:first-child,
-#benefitsdrop table tbody tr:first-child
+#benefitsdrop table tbody tr:first-child,
+#benefits table tbody tr:first-child + tr,
+#benefitsdrop table tbody tr:first-child + tr
 {
   position: sticky;
   top: 0;
   left: 0;
   z-index: 2;
   background-color: #fff; 
+}
+#benefits table tbody tr:first-child + tr,
+#benefitsdrop table tbody tr:first-child + tr
+{
+  z-index: 100;
+  top: 58px;
 }
 #benefits .tableprogian .tablepro .textdiv
 {
@@ -607,7 +617,9 @@ table .thspace {
   padding: 15px 0;
 }
 .gantt .tablegantt tr th.deactive,
-.gantt .tablegantt tr td.deactive
+.gantt .tablegantt tr td.deactive,
+.workload .table tr th.deactive,
+.workload .table tr td.deactive
 {
   display: none;
 }
