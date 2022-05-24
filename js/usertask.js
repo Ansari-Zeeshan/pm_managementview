@@ -31,7 +31,6 @@ const state=
     {state1 : 'At Risk', state2 : 'Medium'},{state1 : 'At Risk', state2 : 'Medium'},{state1 : 'At Risk', state2 : 'Medium'},
     {state1 : 'At Risk', state2 : 'Medium'},{state1 : 'At Risk', state2 : 'Medium'},{state1 : 'At Risk', state2 : 'Medium'},
     {state1 : 'At Risk', state2 : 'Medium'},{state1 : 'At Risk', state2 : 'Medium'},{state1 : 'At Risk', state2 : 'Medium'},
-
 ]    
 
 s1.addEventListener('change',()=>

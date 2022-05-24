@@ -64,6 +64,8 @@ const quarter = ['Q1', 'Q2', 'Q3', 'Q4'];
     ganttTimeline.forEach((proj, ind) => {
         proj.addEventListener('click', (e) => {
             UniProjind = ind;
+            let sDate = projectData[ind].pstartdate;
+            let eDate = projectData[ind].penddate;
             card = selectGantt.querySelectorAll('.tableprogian .card');
             card[ind].innerHTML = "";
             let milestone = milestoneData[ind].project.length;
@@ -89,7 +91,7 @@ const quarter = ['Q1', 'Q2', 'Q3', 'Q4'];
             }
             let mileTimeline = e.target.closest('.first1').querySelectorAll('.Milestone .milestonediv11');
             hoverProject3 = selectGantt.querySelectorAll('.gantt #benefits2 .milestonediv1 .firstext p');
-            calMilestoneBar(UniProjind);
+            calMilestoneBar(UniProjind,sDate,eDate);
             makingTooltip();
 
             mileTimeline.forEach((mile, mileind) => {
@@ -529,7 +531,7 @@ function calTimelineBar() {
         if (date1.getTime() <= compareDate.getTime()) {
             if (appearYear >= compareYear && prevYear) {
                 if (month1 === `January ${appearYear}`) {
-                    daysCount = checkTargetDate2(date2, i, daysCount, appearYear);
+                    daysCount = checkTargetDate2(date2, i, daysCount, appearYear, projStartYear);
                     showGantt(daysCount, endTimeline, i, projTimeline, mobileWidth, appearYear, projEndYear);
                     daysCount = endDate - startDate;
                 }
@@ -592,13 +594,17 @@ function calTimelineBar() {
 }
 calTimelineBar();
 
-function calMilestoneBar(j) {
+function calMilestoneBar(j,sDate,eDate) {
     if (j === undefined) {
         return;
     }
     let mobileWidth = body.clientWidth;
     let milestone = ganttTimeline[j].closest('.first1').querySelectorAll('.Milestone .milestonediv11');
     for (let i = 0; i < milestone.length; i++) {
+        if (milestoneData[j].project[i].pstartdate === null || milestoneData[j].project[i].penddate === null) {
+            milestoneData[j].project[i].pstartdate = sDate;
+            milestoneData[j].project[i].penddate = eDate;
+          }
         let date1 = new Date(milestoneData[j].project[i].pstartdate.substr(0, 10).toString());
         let date2 = new Date(milestoneData[j].project[i].penddate.substr(0, 10).toString());
         let mileStartInd = +milestoneData[j].project[i].pstartdate.substr(5, 2);
@@ -617,14 +623,14 @@ function calMilestoneBar(j) {
         endTimeline = getTimeline(endTimeline, appearYear, mileEndYear);
         endTimeline = +endTimeline;
         getMonthName(getMonthIndex, appearYear, mileStartYear);
-        let prevYear = checkPrevYear(appearYear, mileEndYear, mileStartYear, i, milestone);
+        let prevYear = checkMilePrevYear(appearYear, mileEndYear, mileStartYear, i, milestone);
         let mileStartDate = milestoneData[j].project[i].pstartdate.substr(8, 2);
         let startMText = mileStartMon;
         let minusVal = +mileStartDate;
         if (date1.getTime() <= compareDate.getTime()) {
             if (appearYear >= compareYear && prevYear) {
                 if (month1 === `January ${appearYear}`) {
-                    daysCount = checkTargetDate2(date2, i, daysCount, appearYear);
+                    daysCount = checkTargetDate2(date2, i, daysCount, appearYear, mileStartYear);
                     showGantt2(daysCount, endTimeline, i, milestone, mobileWidth, j, appearYear, mileEndYear);
                     daysCount = endDate - startDate;
                 }
@@ -713,19 +719,19 @@ function calTaskBar(j, k) {
         let monthAppear = getMonthAppear();
         let appearYear = +monthAppear;
         let compareDate = new Date(`${appearYear}/01/01`);
-        let endTimeline = taskData[k].milestone[j].task[i].penddate.substr(8, 2);
+        let endTimeline = +taskData[k].milestone[j].task[i].penddate.substr(8, 2);
         let taskEndYear = taskData[k].milestone[j].task[i].penddate.substr(0, 4);
         endTimeline = getTimeline(endTimeline, appearYear, taskEndYear);
         endTimeline = +endTimeline;
         getMonthName(getMonthIndex, appearYear, taskStartYear);
-        let prevYear = checkPrevYear(appearYear, taskEndYear, taskStartYear, i, milestone);
+        let prevYear = checkTaskPrevYear(appearYear, taskEndYear, taskStartYear, i, milestone);
         let taskStartDate = taskData[k].milestone[j].task[i].pstartdate.substr(8, 2);
         let startMText = taskStartMon;
         let minusVal = +taskStartDate;
         if (date1.getTime() <= compareDate.getTime()) {
             if (appearYear >= compareYear && prevYear) {
                 if (month1 === `January ${appearYear}`) {
-                    daysCount = checkTargetDate2(date2, i, daysCount, appearYear);
+                    daysCount = checkTargetDate2(date2, i, daysCount, appearYear, taskStartYear);
                     showGantt3(daysCount, endTimeline, i, Task, taskStartDate, mobileWidth, k, j, appearYear, taskEndYear);
                     daysCount = endDate - startDate;
                 }
@@ -790,7 +796,7 @@ function calTaskBar(j, k) {
 function showGantt(daysCount, endTimeline, i, ganttTimeline, mobileWidth, appearYear, projEndYear) {
     let totWidth = selectGantt.querySelectorAll('tr:nth-child(2) th.dateVirtual');
     totWidth = totWidth.length;
-    let endMonthIndex = projectData[i].penddate.substr(5, 2);
+    let endMonthIndex = +projectData[i].penddate.substr(5, 2);
     let dateText = `${monthText.innerText} ${yearText.innerText}`;
     let textAlign = ganttTimeline[i].previousElementSibling;
     let ganttSpan = ganttTimeline[i];
@@ -1062,7 +1068,7 @@ function showGantt(daysCount, endTimeline, i, ganttTimeline, mobileWidth, appear
             switch (true) {
                 case (daysCount <= 365): {
                     if (monthText1 === month1) {
-                        let ganttWidth = getCommonWidth(i, projEndYear, Mname);
+                        let ganttWidth = getCommonWidth(i, projEndYear, Mname, endMonthIndex, endTimeline);
                         alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
                             endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display = "block";
@@ -1089,7 +1095,7 @@ function showGantt(daysCount, endTimeline, i, ganttTimeline, mobileWidth, appear
             switch (true) {
                 case (daysCount <= 365): {
                     if (quarterText1 === month1) {
-                        let ganttWidth = getCommonWidth(i, projEndYear, Qname);
+                        let ganttWidth = getCommonWidth(i, projEndYear, Qname, endMonthIndex, endTimeline);
                         alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
                             endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display = "block";
@@ -1116,7 +1122,7 @@ function showGantt(daysCount, endTimeline, i, ganttTimeline, mobileWidth, appear
             switch (true) {
                 case (daysCount <= 365): {
                     if (quarterText1 === month1) {
-                        let ganttWidth = getCommonWidth(i, projEndYear, Yname);
+                        let ganttWidth = getCommonWidth(i, projEndYear, Yname, endMonthIndex, endTimeline);
                         alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
                             endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.first1').style.display = "block";
@@ -1959,7 +1965,7 @@ function showGantt2(daysCount, endTimeline, i, ganttTimeline, mobileWidth, projI
             switch (true) {
                 case (daysCount <= 365): {
                     if (monthText1 === month1) {
-                        let ganttWidth = getCommonWidth(i, projEndYear, Mname);
+                        let ganttWidth = getCommonWidth(i, projEndYear, Mname, endMonthIndex, endTimeline);
                         alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
                             endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.Milestone').style.display = "block";
@@ -1986,7 +1992,7 @@ function showGantt2(daysCount, endTimeline, i, ganttTimeline, mobileWidth, projI
             switch (true) {
                 case (daysCount <= 365): {
                     if (quarterText1 === month1) {
-                        let ganttWidth = getCommonWidth(i, projEndYear, Qname);
+                        let ganttWidth = getCommonWidth(i, projEndYear, Qname, endMonthIndex, endTimeline);
                         alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
                             endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.Milestone').style.display = "block";
@@ -2013,7 +2019,7 @@ function showGantt2(daysCount, endTimeline, i, ganttTimeline, mobileWidth, projI
             switch (true) {
                 case (daysCount <= 365): {
                     if (quarterText1 === month1) {
-                        let ganttWidth = getCommonWidth(i, projEndYear, Yname);
+                        let ganttWidth = getCommonWidth(i, projEndYear, Yname, endMonthIndex, endTimeline);
                         alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
                             endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.Milestone').style.display = "block";
@@ -2831,7 +2837,7 @@ function showGantt3(daysCount, endTimeline, i, ganttTimeline, startTime, mobileW
             switch (true) {
                 case (daysCount <= 365): {
                     if (monthText1 === month1) {
-                        let ganttWidth = getCommonWidth(i, projEndYear, Mname);
+                        let ganttWidth = getCommonWidth(i, projEndYear, Mname, endMonthIndex, endTimeline);
                         alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
                             endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.task').style.display = "block";
@@ -2858,7 +2864,7 @@ function showGantt3(daysCount, endTimeline, i, ganttTimeline, startTime, mobileW
             switch (true) {
                 case (daysCount <= 365): {
                     if (quarterText1 === month1) {
-                        let ganttWidth = getCommonWidth(i, projEndYear, Qname);
+                        let ganttWidth = getCommonWidth(i, projEndYear, Qname, endMonthIndex, endTimeline);
                         alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
                             endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.task').style.display = "block";
@@ -2885,7 +2891,7 @@ function showGantt3(daysCount, endTimeline, i, ganttTimeline, startTime, mobileW
             switch (true) {
                 case (daysCount <= 365): {
                     if (quarterText1 === month1) {
-                        let ganttWidth = getCommonWidth(i, projEndYear, Yname);
+                        let ganttWidth = getCommonWidth(i, projEndYear, Yname, endMonthIndex, endTimeline);
                         alignCommonData(textAlign, ganttSpan, ganttWidth, startDate, startMonName,
                             endTimeline, endMonName, daysCount, per);
                         ganttTimeline[i].closest('.task').style.display = "block";
@@ -3486,8 +3492,7 @@ function checkTaskPrevYear(appearYear, projEndYear, projStartYear, i, ganttTimel
     return booleanYear;
 }
 
-function checkTargetDate2(date2, i, daysCount, year2) {
-    let year1 = projectData[i].pstartdate.substr(0, 4);
+function checkTargetDate2(date2, i, daysCount, year2, year1) {
     if (year2 > year1) {
         let currentDate = new Date(`${year2}/01/01`);
         let a = Math.floor(date2.getTime() / (3600 * 24 * 1000));
@@ -3775,11 +3780,10 @@ function updateValue(text, minusVal) {
     }
 }
 
-function getCommonWidth(i, projEndYear, VDname) {
-    let endMonthIndex = projectData[i].penddate.substr(5, 2);
+function getCommonWidth(i, projEndYear, VDname, endMonthIndex, endTimeline) {
     let endMonthName = month[+endMonthIndex - 1].toUpperCase();
     endMonthName = `${endMonthName} ${projEndYear}`
-    let endNum = +projectData[i].penddate.substr(8, 2);
+    let endNum = endTimeline;
     switch (selectInput) {
         case 'Month':
         case 'Quarter':
@@ -3791,27 +3795,27 @@ function getCommonWidth(i, projEndYear, VDname) {
                     if (endMonthName === `JANUARY ${yearText.innerText}`) {
                         return endNum * (6.575 / 31);
                     } else if (endMonthName === `FEBRUARY ${yearText.innerText}`) {
-                        return 6.575 + (endNum * (13.15 / 28));
+                        return 6.575 + (endNum * (6.575 / 28));
                     } else if (endMonthName === `MARCH ${yearText.innerText}`) {
-                        return 13.15 + (endNum * (13.15 / 31));
+                        return 13.15 + (endNum * (6.575 / 31));
                     } else if (endMonthName === `APRIL ${yearText.innerText}`) {
-                        return 19.725 + (endNum * (13.15 / 30));
+                        return 19.725 + (endNum * (6.575 / 30));
                     } else if (endMonthName === `MAY ${yearText.innerText}`) {
-                        return 26.3 + (endNum * (13.15 / 31));
+                        return 26.3 + (endNum * (6.575 / 31));
                     } else if (endMonthName === `JUNE ${yearText.innerText}`) {
-                        return 32.875 + (endNum * (13.15 / 30));
+                        return 32.875 + (endNum * (6.575 / 30));
                     } else if (endMonthName === `JULY ${yearText.innerText}`) {
-                        return 39.45 + (endNum * (13.15 / 31));
+                        return 39.45 + (endNum * (6.575 / 31));
                     } else if (endMonthName === `AUGUST ${yearText.innerText}`) {
-                        return 46.025 + (endNum * (13.15 / 31));
+                        return 46.025 + (endNum * (6.575 / 31));
                     } else if (endMonthName === `SEPTEMBER ${yearText.innerText}`) {
-                        return 52.6 + (endNum * (13.15 / 30));
+                        return 52.6 + (endNum * (6.575 / 30));
                     } else if (endMonthName === `OCTOBER ${yearText.innerText}`) {
-                        return 59.175 + (endNum * (13.15 / 31));
+                        return 59.175 + (endNum * (6.575 / 31));
                     } else if (endMonthName === `NOVEMBER ${yearText.innerText}`) {
-                        return 65.575 + (endNum * (13.15 / 30));
+                        return 65.575 + (endNum * (6.575 / 30));
                     } else if (endMonthName === `DECEMBER ${yearText.innerText}`) {
-                        return 72.325 + (endNum * (13.15 / 31));
+                        return 72.325 + (endNum * (6.575 / 31));
                     } else {
                         return 78.9;
                     }

@@ -431,7 +431,7 @@ table .thspace {
 #benefits table tbody tr:first-child + tr,
 #benefitsdrop table tbody tr:first-child + tr
 {
-  z-index: 100;
+  z-index: 4;
   top: 58px;
 }
 #benefits .tableprogian .tablepro .textdiv
