@@ -5,7 +5,7 @@ const projectData = [
      "projectrefid":"PR-3568",
      "planned":"Apr 01 - Jun 30",
      "pstartdate":"2022-04-01T08:04:00.000Z",
-     "penddate":"2030-06-30T08:06:00.000Z",
+     "penddate":"2031-08-31T08:06:00.000Z",
      "actual":" - ",
      "astartdate":null,
      "aenddate":null,

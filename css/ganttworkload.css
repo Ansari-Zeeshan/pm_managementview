@@ -203,8 +203,9 @@ table .thspace {
   font-weight: 500;
   border-bottom: 1px solid #0000000D;
   color: #000000;
-  border-right: 1px solid #0000000D;
+  /* border-right: 1px solid #0000000D; */
   text-transform: uppercase;
+  position: relative;
 }
 
 .tablecal table tr td:last-child,
@@ -581,6 +582,17 @@ table .thspace {
 .tablecal1 table tr th.fixedWidth,
 .tablecal table tr th.fixedWidth {
   width: 2.517vw;
+}
+.tablecal1 table tr th::before,
+.tablecal table tr th::before
+{
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: -0.05rem;
+  width: 1px;
+  height: 118%;
+  background-color: #0000000D;
 }
 
 .tablecal1 table tr th.dateVirtual {
